@@ -35,59 +35,70 @@
 
 ### 1. Configuração Temporária de Rede para Internet
 ```bash
-# Adicionar rota padrão temporária
+# Configurar rota padrão temporária para acesso externo
 ip route add default via 192.168.1.1 dev eth1
 
-# Configurar DNS temporário
+# Configurar DNS para resolução de nomes
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
-
-# Verificar conectividade
-ping -c 3 min.io
 ```
 
-### 2. Instalação do MinIO
+### 2. Instalação do MinIO (Método Binário)
+
+**Porquê usar o binário?** O MinIO é distribuído como um único executável auto-contido, oferecendo:
+- Instalação simplificada sem dependências complexas
+- Fácil atualização (substituir apenas um ficheiro)
+- Controlo total sobre a versão instalada
+
 ```bash
-# Atualizar repositórios e instalar dependências
+# Preparar sistema e instalar ferramentas necessárias
 apt update && apt install -y wget
 
-# Descarregar binário oficial do MinIO
+# Descarregar o binário oficial mais recente do MinIO
 wget https://dl.min.io/server/minio/release/linux-amd64/minio
 
-# Instalar no sistema
+# Instalar no PATH do sistema para acesso global
 mv minio /usr/local/bin/
+
+# Tornar o ficheiro executável
 chmod +x /usr/local/bin/minio
 ```
 
-### 3. Configuração do Sistema
+### 3. Configuração de Segurança e Estrutura
+
+**Princípio de Segurança:** Executar serviços com privilégios mínimos necessários
+
 ```bash
-# Criar utilizador dedicado
+# Criar utilizador de sistema dedicado (sem capacidade de login)
 useradd -r minio-user -s /sbin/nologin
 
-# Criar estrutura de diretórios para dados
+# Criar diretório principal para armazenamento de objetos
 mkdir /data
-chown minio-user:minio-user /data
 
-# Criar diretório de configuração
-mkdir /etc/minio
+# Atribuir propriedade ao utilizador do serviço
+chown minio-user:minio-user /data
 ```
 
 ### 4. Configuração do Serviço
 
-**Ficheiro:** `/etc/default/minio`
+**Ficheiro de Configuração:** `/etc/default/minio`
 ```
-# Volume de armazenamento de dados
+# Volume de armazenamento principal
 MINIO_VOLUMES="/data"
 
-# Opções do servidor (porta da consola web)
+# Opções do servidor (ativa console web na porta 9001)
 MINIO_OPTS="--console-address :9001"
 
-# Credenciais de administrador
+# Credenciais de administração - SUBSTITUIR POR SENHA FORTE
 MINIO_ROOT_USER=admin
 MINIO_ROOT_PASSWORD=sua_senha_super_secreta_para_minio
 ```
 
-**Definir permissões:**
+**Aplicar Permissões de Segurança:**
 ```bash
+# Criar diretório de configuração
+mkdir /etc/minio
+
+# Garantir que o utilizador do serviço tem acesso às configurações
 chown -R minio-user:minio-user /etc/minio
 ```
 
@@ -110,110 +121,120 @@ ExecStart=/usr/local/bin/minio server $MINIO_OPTS $MINIO_VOLUMES
 WantedBy=multi-user.target
 ```
 
-### 6. Ativação do Serviço
+### 6. Ativação e Verificação do Serviço
 ```bash
-# Recarregar systemd e iniciar serviço
+# Recarregar definições de serviço do systemd
 systemctl daemon-reload
+
+# Ativar inicialização automática e iniciar serviço
 systemctl enable --now minio
 
-# Verificar status
+# Verificar status do serviço
 systemctl status minio
 ```
 
 ---
 
-## Estrutura de Dados e Zonas
+## Arquitetura de Dados do Datalake
 
-### Zonas Implementadas
-| Zona | Finalidade | Estado |
-|------|------------|---------|
-| `raw-zone` | Dados brutos da Fase 3 | ✅ Dados já carregados |
-| `curated-zone` | Dados processados e refinados | ✅ Pronta para uso |
+### Zonas de Dados Implementadas
+| Zona | Finalidade | Estado | Descrição |
+|------|------------|---------|-----------|
+| `raw-zone` | Dados brutos | ✅ **Dados carregados** | Dados na sua forma original, sem processamento |
+| `curated-zone` | Dados processados | ✅ **Pronta para uso** | Dados refinados, limpos e preparados para análise |
 
-### Características do Armazenamento
-- **Tipo:** Object Storage compatível com S3
-- **Estrutura:** Baseada em buckets (contentores de objetos)
-- **Acesso:** Via API S3 e Interface Web
+### Características do Object Storage
+- **Compatibilidade:** API S3 completa
+- **Persistência:** Dados armazenados em `/data`
+- **Estrutura:** Organização por buckets e objetos
+- **Acesso:** Dual (API + Interface Web)
 
 ---
 
-## Configuração de Acesso
+## Configuração de Acesso e Conectividade
 
-### Portas e Serviços
-| Serviço | Porta | Protocolo | Finalidade |
-|---------|-------|-----------|------------|
-| MinIO API | 9000 | HTTP/HTTPS | Acesso programático (S3 compatible) |
-| MinIO Console | 9001 | HTTP/HTTPS | Interface web de administração |
+### Endpoints de Serviço
+| Tipo | Endpoint | Porta | Finalidade |
+|------|----------|-------|------------|
+| **API S3** | `http://10.10.10.12:9000` | 9000 | Acesso programático e integração |
+| **Console Web** | `http://10.10.10.12:9001` | 9001 | Interface gráfica de administração |
 
 ### Credenciais de Acesso
-- **Utilizador Root:** `admin`
-- **Password:** `sua_senha_super_secreta_para_minio` (substituir por senha forte)
-- **Acesso:** Rede privada `10.10.10.0/24`
+- **Utilizador Administrador:** `admin`
+- **Password:** `sua_senha_super_secreta_para_minio` (*substituir por senha forte*)
+- **Âmbito de Acesso:** Rede privada `10.10.10.0/24`
 
 ---
 
-## Configuração de Segurança
+## Modelo de Segurança Implementado
 
-### Políticas Implementadas
-- ✅ Serviço executado com utilizador dedicado (`minio-user`)
-- ✅ Isolamento de rede após instalação
-- ✅ Acesso restrito à rede privada do datalake
-- ✅ Credenciais fortes para administração
+### Princípios Aplicados
+- ✅ **Privilégio Mínimo:** Serviço executado como utilizador dedicado
+- ✅ **Isolamento de Rede:** Acesso apenas na VLAN privada do datalake
+- ✅ **Segurança de Credenciais:** Configuração separada em ficheiro de ambiente
+- ✅ **Proteção de Dados:** Permissões adequadas nos diretórios
 
-### Medidas de Proteção
+### Medidas Específicas
+- Utilizador de sistema sem shell de login
 - Remoção de acesso à internet após instalação
-- Utilizador de sistema sem permissões de login
-- Estrutura de diretórios com permissões adequadas
+- Configuração isolada em `/etc/minio`
+- Dados armazenados com propriedade adequada
 
 ---
 
 ## Estado Final do Serviço
 
 ### Status Operacional
-- ✅ Serviço MinIO em execução
-- ✅ Estrutura de dados criada (`/data`)
-- ✅ Zonas `raw-zone` e `curated-zone` configuradas
-- ✅ Acesso de rede configurado para a VLAN privada
-- ✅ Interface web acessível na porta 9001
+- ✅ Serviço MinIO ativo e em execução
+- ✅ Estrutura de armazenamento (`/data`) configurada
+- ✅ Zonas de dados criadas e operacionais
+- ✅ Acesso de rede restrito à VLAN privada
+- ✅ Mecanismos de autenticação configurados
 
-### Conectividade
-- **API Endpoint:** `http://10.10.10.12:9000`
-- **Console Web:** `http://10.10.10.12:9001`
-- **Rede Permitida:** `10.10.10.0/24`
-
----
-
-## Fluxo de Dados
-
-### Processo de Ingestão
-1. **Dados Brutos:** Carregados para `raw-zone` via API S3
-2. **Processamento:** Aplicações acedem aos dados brutos para transformação
-3. **Dados Refinados:** Resultados do processamento armazenados na `curated-zone`
-4. **Consumo:** Ferramentas de análise consomem dados da `curated-zone`
+### Conectividade e Acesso
+- **Rede Autorizada:** `10.10.10.0/24`
+- **Protocolos:** HTTP (possibilidade futura de HTTPS)
+- **Autenticação:** Credenciais via MINIO_ROOT_USER/PASSWORD
 
 ---
 
-## Notas de Manutenção
+## Fluxo de Dados do Datalake
+
+### Pipeline de Processamento
+1. **Ingestão:** Dados brutos carregados para `raw-zone` via API S3
+2. **Processamento:** Aplicações processam dados da raw-zone
+3. **Refinamento:** Dados transformados armazenados na `curated-zone`
+4. **Consumo:** Ferramentas analíticas consomem dados da curated-zone
+
+### Integrações Previstas
+- Apache Airflow (orquestração de pipelines)
+- Apache Superset (visualização e análise)
+- MLflow (experimentos de machine learning)
+- Aplicações customizadas (via API S3)
+
+---
+
+## Operações e Manutenção
 
 ### Monitorização Recomendada
-- Espaço em disco em `/data`
-- Logs do serviço: `journalctl -u minio`
-- Métricas de performance via console web
-- Utilização de buckets e objetos
+- **Espaço em Disco:** Utilização de `/data`
+- **Logs do Serviço:** `journalctl -u minio`
+- **Performance:** Métricas via console web (9001)
+- **Utilização:** Estatísticas de buckets e objetos
 
-### Backup e Recuperação
-- Estratégia de backup dos dados em `/data`
-- Backup de configurações em `/etc/minio`
-- Política de versionamento de objetos
-- Considerar replicação para alta disponibilidade
+### Estratégias de Backup
+- Backup regular dos dados em `/data`
+- Backup das configurações em `/etc/minio`
+- Versionamento de objetos críticos
+- Políticas de retenção e lifecycle
 
 ### Expansão Futura
-- Aumento de capacidade de armazenamento conforme necessidade
-- Possibilidade de configuração distribuída (MinIO Cluster)
-- Implementação de TLS/SSL para comunicação segura
-- Configuração de políticas de lifecycle para objetos
+- **Capacidade:** Aumento de armazenamento conforme necessidade
+- **Disponibilidade:** Configuração em cluster distribuído
+- **Segurança:** Implementação de TLS/SSL
+- **Funcionalidades:** Políticas de lifecycle automático
 
 *Documentação atualizada em: [Data da última atualização]*
 
-**Nota:** Esta configuração serve como base para o datalake da plataforma, fornecendo armazenamento object storage compatível com S3 para todas as aplicações do ecossistema.
+**Nota Técnica:** Esta configuração estabelece a base do datalake corporativo, fornecendo storage object compatível com S3 para todo o ecossistema de dados da plataforma.
 ````
