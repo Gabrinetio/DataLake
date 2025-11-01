@@ -2,7 +2,7 @@
 
 **Hostname:** `mlflow`  
 **IP Privado:** `10.10.10.15`  
-**Finalidade:** Plataforma de MLOps para tracking de experimentos e registro de modelos.
+**Finalidade:** Plataforma de MLOps para tracking de experimentos e registro de modelos de Machine Learning.
 
 ---
 
@@ -11,12 +11,14 @@
 * **ID:** 105
 * **Hostname:** mlflow
 * **Recursos:** 2 Cores, 2GB RAM, 20GB Disco
-* **Rede Principal (`net0`):** Bridge `vmbr1`, IP Estático `10.10.10.15/24`
-* **Rede Temporária (`net1`):** Bridge `vmbr0`, DHCP (removida após a instalação)
+* **Rede:** `10.10.10.15/24` em `vmbr1`
+* **Template Base:** `debian-12-template`
 
 ---
 
 ## 2. Passos de Instalação e Configuração (Executados como `root`)
+
+Esta seção detalha o processo completo, incluindo as correções aplicadas durante a depuração.
 
 ### 2.1. Habilitação Temporária de Acesso à Internet
 
@@ -28,16 +30,12 @@ echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 ### 2.2. Pré-requisito: Criação do Bucket no MinIO
 
-Antes da instalação, foi necessário criar um bucket chamado `mlflow` no serviço MinIO (CT 102) para servir como *Artifact Store*.
-
-**Passos realizados:**
-1. Acessar a interface do MinIO em `http://minio.lan`
-2. Fazer login com credenciais de administrador
-3. Criar um novo bucket chamado `mlflow`
+Antes da instalação, foi necessário acessar à interface do MinIO (via `http://minio.lan`) e criar um bucket chamado **`mlflow`**. Este bucket servirá como *Artifact Store*, o local onde o MLflow armazenará os arquivos dos modelos, gráficos, e outros artefatos.
 
 ### 2.3. Instalação de Dependências de Sistema
 
 ```bash
+# Executado como root no CT 105
 apt update
 apt install -y build-essential libpq-dev python3-venv python3-pip
 ```
@@ -52,19 +50,19 @@ mkdir -p /opt/mlflow
 python3 -m venv /opt/mlflow/venv
 source /opt/mlflow/venv/bin/activate
 
-# Instalação dos pacotes
+# Instalação dos pacotes Python necessários
 pip install mlflow psycopg2-binary boto3
 ```
 
 ### 2.5. Serviço `systemd`
 
-Foi criado um serviço `systemd` em `/etc/systemd/system/mlflow.service` para gerenciar o MLflow Tracking Server.
+Foi criado um serviço `systemd` em `/etc/systemd/system/mlflow.service` para gerenciar o MLflow Tracking Server. A configuração final reflete a solução para o erro `Invalid Host header`.
 
 **Conteúdo do arquivo de serviço:**
 ```ini
 [Unit]
 Description=MLflow Tracking Server
-After=network.target postgresql.service minio.service
+After=network.target
 
 [Service]
 User=root
@@ -77,11 +75,16 @@ Environment="AWS_ACCESS_KEY_ID=admin"
 Environment="AWS_SECRET_ACCESS_KEY=sua_senha_super_secreta_para_minio"
 Environment="MLFLOW_S3_ENDPOINT_URL=http://10.10.10.12:9000"
 
+# A SOLUÇÃO FINAL: Adiciona o domínio de acesso à lista de hosts permitidos do MLflow
+Environment="MLFLOW_SERVER_ALLOWED_HOSTS=mlflow.lan, localhost, 127.0.0.1, 10.10.10.106"
+
 # Comando de execução do servidor MLflow
 ExecStart=/opt/mlflow/venv/bin/mlflow server \
     --backend-store-uri postgresql+psycopg2://mlflow:sua_senha_forte_para_mlflow@10.10.10.11/mlflow \
     --default-artifact-root s3://mlflow/ \
-    --host 0.0.0.0
+    --host 0.0.0.0 \
+    --port 5000 \
+    --workers 4
 
 Restart=on-failure
 RestartSec=10
@@ -89,6 +92,9 @@ RestartSec=10
 [Install]
 WantedBy=multi-user.target
 ```
+
+*Nota 1: A senha do PostgreSQL deve ser codificada para URL se contiver caracteres especiais.*
+*Nota 2: A variável de ambiente `MLFLOW_SERVER_ALLOWED_HOSTS` foi a solução definitiva para o erro `Invalid Host header`, instruindo diretamente a aplicação MLflow a confiar no nosso nome de domínio local. Tentativas de usar `--gunicorn-opts` ou de manipular os cabeçalhos no proxy não foram suficientes, pois a camada de segurança da própria aplicação MLflow precisava desta permissão explícita.*
 
 **Ativação do Serviço:**
 ```bash
@@ -102,20 +108,32 @@ A interface de rede temporária (`net1`) foi removida na UI do Proxmox após a c
 
 ---
 
-## 3. Configuração do Gateway
+## 3. Configuração do Reverse Proxy (Gateway)
 
-### Proxy Host no Nginx Proxy Manager
+Para que o acesso via `http://mlflow.lan` funcione, foi criada uma regra no Nginx Proxy Manager (CT 106).
 
-* **Domain Names:** `mlflow.lan`
-* **Forward Hostname / IP:** `10.10.10.15`
-* **Forward Port:** `5000`
+1.  **Acesso à UI de Admin:** A interface de gerenciamento do NPM está disponível em `http://192.168.4.106:81`.
 
-### Configuração de DNS Local
+2.  **Criação do Proxy Host:** Foi criado um `Proxy Host` com as seguintes especificações:
 
-Adicione a seguinte linha ao arquivo `hosts` da máquina cliente:
-```
-192.168.1.106   mlflow.lan
-```
+    * **Aba `Details`:**
+        * **Domain Names:** `mlflow.lan`
+        * **Scheme:** `http`
+        * **Forward Hostname / IP:** `10.10.10.15`
+        * **Forward Port:** `5000`
+    * **Aba `Advanced`:** Para garantir que todos os cabeçalhos necessários são passados corretamente para o serviço de backend, o seguinte snippet de configuração foi adicionado:
+      ```nginx
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      ```
+
+3.  **Configuração de DNS Local:** No computador cliente, o arquivo `hosts` foi editado para mapear o domínio ao IP do gateway:
+
+    ```
+    192.168.4.106   mlflow.lan
+    ```
 
 ---
 
@@ -183,7 +201,20 @@ A interface web do MLflow está disponível através de:
 
 ---
 
-## 7. Próximos Passos
+## 7. Problemas Resolvidos
+
+### Erro: `Invalid Host header`
+**Solução:** Adição da variável de ambiente `MLFLOW_SERVER_ALLOWED_HOSTS` no serviço systemd, incluindo o domínio `mlflow.lan`
+
+### Erro de Conexão com PostgreSQL
+**Solução:** Verificação da string de conexão e codificação adequada da senha
+
+### Erro de Conexão com MinIO
+**Solução:** Configuração correta das credenciais AWS e endpoint URL
+
+---
+
+## 8. Próximos Passos
 
 1. **Configurar Experimentos:** Criar e organizar experimentos de machine learning
 2. **Integração com Código:** Instrumentar scripts de treinamento com MLflow
@@ -207,37 +238,6 @@ with mlflow.start_run():
     
     # Registrar um modelo
     mlflow.sklearn.log_model(model, "model")
-```
-
----
-
-## 8. Solução de Problemas
-
-### Verificar Conexão com PostgreSQL
-```bash
-# Dentro do ambiente virtual
-python -c "
-import psycopg2
-conn = psycopg2.connect('postgresql://mlflow:sua_senha@10.10.10.11/mlflow')
-print('Conexão com PostgreSQL: OK')
-"
-```
-
-### Verificar Conexão com MinIO
-```bash
-# Dentro do ambiente virtual
-python -c "
-import boto3
-s3 = boto3.client(
-    's3',
-    endpoint_url='http://10.10.10.12:9000',
-    aws_access_key_id='admin',
-    aws_secret_access_key='sua_senha'
-)
-buckets = s3.list_buckets()
-print('Conexão com MinIO: OK')
-print('Buckets:', [b['Name'] for b in buckets['Buckets']])
-"
 ```
 
 **Status:** ✅ **CONFIGURADO E OPERACIONAL** - O MLflow está funcionando corretamente e acessível via `http://mlflow.lan`.
