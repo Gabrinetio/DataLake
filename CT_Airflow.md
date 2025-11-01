@@ -1,7 +1,7 @@
 # Documentação de Configuração: Container Apache Airflow (CT 103)
 
 **Hostname:** `airflow`  
-**IP:** `10.10.10.13`  
+**IP Privado:** `10.10.10.13`  
 **Finalidade:** Orquestrador de pipelines de dados (ETL/ELT).
 
 ---
@@ -18,26 +18,29 @@ Este container foi clonado a partir do template `debian-12-template`.
     * **Disco:** 20 GB
 * **Rede Principal (`net0`):**
     * **Bridge:** `vmbr1` (Rede Privada do Datalake)
-    * **Tipo:** Estático (Static)
+    * **Tipo:** Estático
     * **Endereço IP:** `10.10.10.13/24`
     * **Gateway:** `10.10.10.1`
 * **Rede Temporária (`net1` - *Removida após a instalação*):**
     * **Bridge:** `vmbr0` (Rede Principal/LAN)
     * **Tipo:** DHCP
+    * **Finalidade:** Permitir acesso à internet para a instalação inicial de pacotes.
 
 ---
 
 ## 2. Passos de Instalação e Configuração (Executados como `root`)
 
+Os seguintes comandos foram executados no console do CT 103 para instalar e configurar o serviço Apache Airflow.
+
 ### 2.1. Habilitação Temporária de Acesso à Internet
 
-Foi configurada uma rota padrão e DNS temporários para permitir o download de pacotes. Este passo é revertido ao remover a interface `net1`.
+Para permitir o download de pacotes, foi necessário configurar temporariamente uma rota de saída para a internet.
 
 ```bash
-# Adicionar rota padrão para o gateway da LAN
+# Adicionar rota padrão para o gateway da LAN (ex: 192.168.1.1)
 ip route add default via [IP_DO_GATEWAY_DA_LAN] dev eth1
 
-# Configurar DNS público
+# Configurar um servidor DNS público
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 ```
 
@@ -48,7 +51,7 @@ apt update
 apt install -y libpq-dev build-essential python3-venv python3-pip graphviz
 ```
 
-* `graphviz` foi incluído para corrigir um aviso do Airflow e permitir a renderização gráfica das DAGs na interface web.
+* `graphviz` foi incluído para permitir a renderização da visualização "Graph" na interface web do Airflow.
 
 ### 2.3. Criação de Ambiente Virtual e Instalação do Airflow
 
@@ -60,43 +63,36 @@ apt install -y libpq-dev build-essential python3-venv python3-pip graphviz
     source /opt/airflow/venv/bin/activate
     ```
 
-2.  **Instalação do Airflow e Dependências:**
+2.  **Instalação do Airflow e Dependências Corretivas:** A instalação foi feita em um único comando para ajudar o `pip` a resolver as dependências corretamente desde o início.
 
     ```bash
     export AIRFLOW_HOME=/opt/airflow
     echo "export AIRFLOW_HOME=/opt/airflow" >> ~/.bashrc
 
     AIRFLOW_VERSION=2.8.1
-    pip install "apache-airflow[postgres,s3]==${AIRFLOW_VERSION}"
+    pip install "apache-airflow[postgres,s3]==${AIRFLOW_VERSION}" "flask-session==0.5.0" "virtualenv"
     ```
 
-3.  **(CORREÇÃO) Corrigir Incompatibilidades de Dependência:** Após a instalação inicial, foram encontrados erros de importação nas DAGs de exemplo. As seguintes dependências foram instaladas para corrigir os problemas:
-
-    ```bash
-    # Corrige o erro "ModuleNotFoundError: No module named 'flask_session.sessions'"
-    pip install "flask-session==0.5.0"
-
-    # Corrige o erro "AirflowException: PythonVirtualenvOperator requires virtualenv"
-    pip install virtualenv
-    ```
+    * `flask-session==0.5.0`: Corrige uma incompatibilidade de versão que causa o erro `No module named 'flask_session.sessions'`.
+    * `virtualenv`: Corrige um erro nas DAGs de exemplo que utilizam o `PythonVirtualenvOperator`.
 
 ### 2.4. Configuração do Banco de Dados e DAGs de Exemplo
 
-1.  **Inicialização Inicial:** O comando `airflow db init` foi executado uma vez para gerar o arquivo de configuração `airflow.cfg`.
-
+1.  **Inicialização Inicial:** O comando `airflow db init` foi executado uma vez para gerar o arquivo de configuração.
 2.  **Edição do `airflow.cfg`:** O arquivo `$AIRFLOW_HOME/airflow.cfg` foi editado com as seguintes alterações:
-
-    * Alterar `executor = SequentialExecutor` para `executor = LocalExecutor`.
-    * Alterar `sql_alchemy_conn` para a string de conexão do PostgreSQL:
+    * Alterar o executor para permitir paralelismo:
+      ```ini
+      executor = LocalExecutor
+      ```
+    * Alterar a conexão do banco de dados para apontar para o PostgreSQL:
       ```ini
       sql_alchemy_conn = postgresql+psycopg2://airflow:sua_senha_forte_para_airflow@10.10.10.11/airflow
       ```
-    * Desativar as DAGs de exemplo para evitar futuros erros de importação e manter o ambiente limpo:
+    * Desativar as DAGs de exemplo para evitar erros de importação e manter o ambiente limpo:
       ```ini
       load_examples = False
       ```
-
-3.  **Inicialização Final:** O comando `airflow db init` foi executado novamente para popular o banco de dados no PostgreSQL com a configuração correta.
+3.  **Inicialização Final:** O comando `airflow db init` foi executado novamente para popular o banco de dados no PostgreSQL.
 
 ### 2.5. Criação de Usuário Admin
 
@@ -177,19 +173,67 @@ Para garantir que o Airflow execute como um serviço autônomo em segundo plano,
 
 ## 3. Estado Final
 
-O container `airflow` (CT 103) está totalmente operacional, com os serviços `webserver` e `scheduler` executando de forma autônoma e gerenciados pelo `systemd`. A instalação está limpa, sem DAGs de exemplo, e pronta para receber os pipelines de dados do projeto no diretório `/opt/airflow/dags`.
+O container `airflow` (CT 103) está totalmente operacional, com os serviços `webserver` e `scheduler` executando de forma autônoma e gerenciados pelo `systemd`. A instalação está limpa, sem DAGs de exemplo, e pronta para receber os pipelines de dados do projeto no diretório `/opt/airflow/dags`. O acesso à interface web é feito através do Reverse Proxy (Gateway) no endereço `http://airflow.lan`.
 
-**Acesso à Interface Web:**  
-O Airflow Webserver está acessível via navegador no endereço `http://10.10.10.13:8080`. Utilize as credenciais do usuário `admin` criado para fazer login.
+---
 
-**Verificação do Status dos Serviços:**
+## 4. Verificação e Monitoramento
+
+### Comandos Úteis
+
+**Verificar status dos serviços:**
 ```bash
 systemctl status airflow-webserver
 systemctl status airflow-scheduler
 ```
 
-**Logs dos Serviços:**
+**Ver logs em tempo real:**
 ```bash
 journalctl -u airflow-webserver -f
 journalctl -u airflow-scheduler -f
 ```
+
+**Verificar se os processos estão em execução:**
+```bash
+ps aux | grep airflow
+```
+
+### Acesso à Interface Web
+
+A interface web do Airflow está disponível através de:
+- **URL:** `http://airflow.lan`
+- **Usuário:** `admin`
+- **Senha:** [definida durante a criação do usuário]
+
+### Estrutura de Diretórios
+
+```
+/opt/airflow/
+├── venv/           # Ambiente virtual Python
+├── airflow.cfg     # Arquivo de configuração
+├── airflow.db      # (Não utilizado - banco em PostgreSQL)
+├── logs/           # Logs da aplicação
+└── dags/           # Local para colocar as DAGs do projeto
+```
+
+---
+
+## 5. Próximos Passos
+
+1. **Desenvolvimento de DAGs:** Começar a desenvolver e implantar DAGs no diretório `/opt/airflow/dags`
+2. **Configuração de Conexões:** Configurar conexões com outros serviços (MinIO, PostgreSQL, etc.) através da UI web
+3. **Variáveis de Ambiente:** Definir variáveis de ambiente para configurações sensíveis
+4. **Monitoramento:** Implementar monitoramento e alertas para as DAGs e serviços
+5. **Backup:** Configurar backup regular do banco de dados PostgreSQL
+
+### Comando para Reiniciar Serviços
+
+```bash
+# Reiniciar ambos os serviços
+systemctl restart airflow-webserver airflow-scheduler
+
+# Verificar status após reinício
+systemctl status airflow-webserver airflow-scheduler
+```
+
+**Status:** ✅ **CONFIGURADO E OPERACIONAL** - O Airflow está funcionando corretamente e acessível via `http://airflow.lan`
