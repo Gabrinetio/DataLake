@@ -240,4 +240,92 @@ with mlflow.start_run():
     mlflow.sklearn.log_model(model, "model")
 ```
 
+---
+
+## 9. Informações Adicionais de Configuração
+
+### Configuração de Segurança Adicional
+
+Para ambientes de produção, considere adicionar as seguintes configurações de segurança:
+
+```ini
+# No arquivo de serviço systemd, adicione:
+Environment="MLFLOW_AUTH_ENABLED=true"
+Environment="MLFLOW_AUTH_USERS=admin:password123,user:userpass"
+```
+
+### Configuração de Backup Automatizado
+
+```bash
+# Script de backup para metadados do MLflow
+#!/bin/bash
+pg_dump -h 10.10.10.11 -U mlflow mlflow > /backup/mlflow_$(date +%Y%m%d).sql
+
+# Backup dos artefatos do MinIO
+mc mirror minio/mlflow /backup/mlflow_artifacts_$(date +%Y%m%d)/
+```
+
+### Monitoramento de Saúde do Serviço
+
+```bash
+# Script de verificação de saúde
+#!/bin/bash
+if curl -s http://localhost:5000/health > /dev/null; then
+    echo "MLflow está saudável"
+else
+    echo "MLflow está com problemas"
+    systemctl restart mlflow.service
+fi
+```
+
+### Configuração de Logs
+
+Para logs mais detalhados, adicione ao serviço systemd:
+
+```ini
+Environment="MLFLOW_LOG_LEVEL=DEBUG"
+StandardOutput=journal
+StandardError=journal
+```
+
+---
+
+## 10. Integração com Outros Serviços
+
+### Conexão com Airflow
+Para integrar MLflow com Airflow, use o `MLflowOperator` ou a API REST do MLflow:
+
+```python
+from airflow.providers.mlflow.operators.mlflow import MLflowRunOperator
+
+mlflow_task = MLflowRunOperator(
+    task_id='train_model',
+    mlflow_conn_id='mlflow_default',
+    experiment_name='churn_prediction',
+    parameters={'param1': 'value1'}
+)
+```
+
+### Conexão com Superset
+Para visualizar métricas do MLflow no Superset, configure uma conexão com o PostgreSQL do MLflow.
+
+---
+
+## 11. Performance e Otimização
+
+### Ajustes para Alta Carga
+```ini
+# Aumentar workers para melhor performance
+ExecStart=/opt/mlflow/venv/bin/mlflow server \
+    --backend-store-uri postgresql+psycopg2://mlflow:sua_senha@10.10.10.11/mlflow \
+    --default-artifact-root s3://mlflow/ \
+    --host 0.0.0.0 \
+    --port 5000 \
+    --workers 8 \
+    --gunicorn-opts "--max-requests 1000 --max-requests-jitter 100"
+```
+
+### Otimização do PostgreSQL
+Certifique-se de que o PostgreSQL tenha configurações adequadas para o volume de dados do MLflow.
+
 **Status:** ✅ **CONFIGURADO E OPERACIONAL** - O MLflow está funcionando corretamente e acessível via `http://mlflow.lan`.
