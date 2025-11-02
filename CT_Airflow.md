@@ -56,7 +56,7 @@ Este guia detalha o processo de instalação consolidado, incorporando as corre�
     locale-gen
     ```
 
-### 2.2. Instalação Robusta do Airflow
+### 2.2. Instalação Robusta do Airflow e Dependências
 
 1.  **Criação do Ambiente Virtual:**
 
@@ -66,7 +66,8 @@ Este guia detalha o processo de instalação consolidado, incorporando as corre�
     source /opt/airflow/venv/bin/activate
     ```
 
-2.  **Instalação com Arquivo de Restrições (Constraints):** Este é o método recomendado para evitar conflitos de dependência.
+2.  **Instalação com Arquivo de Restrições (Constraints) e Dependências do Projeto:**
+    Este é o método recomendado para evitar conflitos. Instalamos o Airflow e todas as dependências do projeto de uma só vez para permitir que o `pip` resolva o ambiente de forma otimizada.
 
     ```bash
     export AIRFLOW_HOME=/opt/airflow
@@ -77,12 +78,44 @@ Este guia detalha o processo de instalação consolidado, incorporando as corre�
     PYTHON_VERSION=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
     CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
 
-    # Instalar Airflow core e provedores necessários
-    pip install "apache-airflow[postgres,s3]==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
-    pip install "apache-airflow-providers-amazon" --constraint "${CONSTRAINT_URL}"
+    # Instalar Airflow core, provedores e todas as bibliotecas do projeto de uma vez
+    pip install \
+        "apache-airflow[postgres,s3]==${AIRFLOW_VERSION}" \
+        "apache-airflow-providers-amazon" \
+        "pandas" \
+        "numpy" \
+        "scikit-learn" \
+        "pyarrow" \
+        "s3fs" \
+        "SQLAlchemy" \
+        "pandera" \
+        --constraint "${CONSTRAINT_URL}"
     ```
 
-### 2.3. Configuração do `airflow.cfg`
+### 2.3. Troubleshooting de Dependências Python
+
+Durante a manutenção ou ao adicionar novas DAGs, podem surgir conflitos de dependência (`ERROR: pip's dependency resolver...`).
+
+* **Problema Comum:** Bibliotecas como `boto3`, `botocore` e `aiobotocore` (usadas para a comunicação com o MinIO/S3) são muito sensíveis às suas versões. Instalar um novo pacote pode atualizar uma destas sub-dependências e quebrar a compatibilidade com outra.
+
+* **Estratégia de Resolução:**
+
+    1.  **Leia o Erro:** A mensagem de erro do `pip` dirá exatamente qual pacote e qual versão está a causar o conflito.
+    2.  **Tente uma Atualização Conjunta:** O primeiro passo é tentar atualizar os pacotes de alto nível em conjunto.
+        ```bash
+        pip install --upgrade boto3 s3fs
+        ```
+    3.  **Force uma Versão Específica:** Se o erro persistir, a mensagem indicará o requisito de versão. Por exemplo, se um pacote precisar de `botocore<1.41.0,>=1.40.64`, pode forçar a instalação de uma versão compatível:
+        ```bash
+        pip install "botocore==1.40.64"
+        ```
+    4.  **Verifique o Ambiente:** Após qualquer alteração, use `pip check` para validar se todos os conflitos foram resolvidos.
+    5.  **Reinicie os Serviços:** Lembre-se sempre de reiniciar o Airflow após modificar o ambiente Python:
+        ```bash
+        systemctl restart airflow-scheduler airflow-webserver
+        ```
+
+### 2.4. Configuração do `airflow.cfg`
 
 1.  **Geração e Edição:** Gerar o arquivo com `airflow db init` (com a pasta `dags` vazia) e depois editar `$AIRFLOW_HOME/airflow.cfg` com as seguintes configurações:
 
@@ -101,7 +134,7 @@ Este guia detalha o processo de instalação consolidado, incorporando as corre�
       allowed_hosts = airflow.lan, localhost, 127.0.0.1
       ```
 
-### 2.4. Inicialização do Banco de Dados e Criação de Usuário
+### 2.5. Inicialização do Banco de Dados e Criação de Usuário
 
 * **Pré-requisito:** Garantir que o banco de dados `airflow` no PostgreSQL foi criado com codificação `UTF-8`.
 
@@ -122,7 +155,7 @@ Este guia detalha o processo de instalação consolidado, incorporando as corre�
       --role Admin --email admin@example.com
   ```
 
-### 2.5. Configuração dos Serviços `systemd`
+### 2.6. Configuração dos Serviços `systemd`
 
 Os arquivos de serviço foram atualizados para incluir as variáveis de ambiente essenciais para a codificação e para a descoberta das DAGs.
 
@@ -157,7 +190,7 @@ Os arquivos de serviço foram atualizados para incluir as variáveis de ambiente
       ExecStart=/opt/airflow/venv/bin/airflow scheduler
       ```
 
-### 2.6. Finalização
+### 2.7. Finalização
 
 1.  **Ativação dos Serviços:**
 
