@@ -1,7 +1,7 @@
 # Projeto: Plataforma Preditiva de Churn (Auto-hospedado)
 
-**Versão:** 2.0 (Infraestrutura Completa)  
-**Data:** 1 de Novembro de 2025  
+**Versão:** 2.1 (Fase de Engenharia de Dados Iniciada)  
+**Data:** 2 de Novembro de 2025  
 **Stack Principal:** Proxmox, Debian 12 (LXC), Nginx Proxy Manager, Python, Git
 
 ---
@@ -118,40 +118,36 @@ Durante a instalação, foram encontrados e resolvidos vários desafios comuns e
     - **Superset:** Corrigir dependências Python e configurar `DATA_DIR`
     - **MLflow:** Adicionar variável `MLFLOW_SERVER_ALLOWED_HOSTS`
 
+* **Problema:** DAGs do Airflow não apareciam na interface web, apesar de serem visíveis via CLI (`airflow dags list`)
+  * **Causa Raiz:** Uma complexa cascata de erros de codificação (`UnicodeEncodeError: 'ascii' codec...`) e de ambiente
+  * **Solução Multi-camada:**
+    1. **Banco de Dados:** Recriar o banco de dados `airflow` no PostgreSQL com codificação `UTF-8`
+    2. **Container Airflow:** Instalar `locales` e gerar `en_US.UTF-8`
+    3. **Serviços `systemd`:** Adicionar explicitamente as variáveis `LANG`, `LC_ALL` e `AIRFLOW__CORE__DAGS_FOLDER` aos arquivos de serviço do `scheduler` e `webserver`
+    4. **DAG:** Recriar o arquivo .py da DAG para garantir que não continha metadados de codificação corrompidos
+
 ---
 
 ## 7. Próximos Passos: Fase 5 - Engenharia de Dados
 
-**A Fase de Instalação da Infraestrutura está agora completa!** A próxima grande etapa é desenvolver o primeiro pipeline de dados.
+**A Fase de Instalação da Infraestrutura está agora completa!** A próxima grande etapa é desenvolver os pipelines de dados.
 
-* [ ] **Configurar Conexões no Airflow:**
-  * [ ] Acessar a UI do Airflow (`http://airflow.lan`)
-  * [ ] Criar conexão do tipo "Amazon S3" para o MinIO
-* [ ] **Desenvolver a Primeira DAG:**
-  * [ ] Criar script Python na pasta `dags/`
-  * [ ] Implementar pipeline para processar dados brutos da `raw-zone` para `curated-zone`
+* [x] **Configurar Conexões no Airflow:**
+  * [x] Acessar a UI do Airflow (`http://airflow.lan`)
+  * [x] Criar conexão do tipo "Amazon Web Services" para o MinIO (`minio_s3_default`)
+* [ ] **Desenvolver DAGs de Processamento:**
+  * [ ] Implementar pipeline para ler dados da `raw-zone` do MinIO
+  * [ ] Aplicar transformações de limpeza e enriquecimento
+  * [ ] Gravar os dados processados na `curated-zone`
 * [ ] **Conectar Superset aos Dados:**
-  * [ ] Configurar o Superset para ler dados da `curated-zone`
+  * [ ] Configurar o Superset para ler dados da `curated-zone` para visualização
 
 ---
 
-## 8. Documentação Detalhada
-
-Documentos detalhados para a configuração de cada container estão disponíveis:
-
-* `docs/CT101_POSTGRES_SETUP.md`
-* `docs/CT102_MINIO_SETUP.md`
-* `docs/CT103_AIRFLOW_SETUP.md`
-* `docs/CT104_SUPERSET_SETUP.md`
-* `docs/CT105_MLFLOW_SETUP.md`
-* `docs/CT106_GATEWAY_SETUP.md`
-
----
-
-## 9. Roadmap Completo
+## 8. Roadmap Completo
 
 1.  **✅ Fase 1-4: Infraestrutura e Instalação dos Serviços Core** - **CONCLUÍDO**
-2.  **🔄 Fase 5: Engenharia de Dados (ETL/ELT)**
+2.  **🔄 Fase 5: Engenharia de Dados (ETL/ELT)** - **EM ANDAMENTO**
     * [ ] Desenvolver pipeline de dados para processar dados brutos
     * [ ] Implementar qualidade de dados e validações
 3.  **⏳ Fase 6: Modelagem de Machine Learning**
@@ -162,6 +158,19 @@ Documentos detalhados para a configuração de cada container estão disponívei
     * [ ] Criar DAG de scoring em batch
     * [ ] Desenvolver dashboards no Superset
     * [ ] Configurar monitoramento e alertas
+
+---
+
+## 9. Documentação Detalhada
+
+Documentos detalhados para a configuração de cada container estão disponíveis:
+
+* `docs/CT101_POSTGRES_SETUP.md`
+* `docs/CT102_MINIO_SETUP.md`
+* `docs/CT103_AIRFLOW_SETUP.md`
+* `docs/CT104_SUPERSET_SETUP.md`
+* `docs/CT105_MLFLOW_SETUP.md`
+* `docs/CT106_GATEWAY_SETUP.md`
 
 ---
 
@@ -192,8 +201,6 @@ pg_dump -h 10.10.10.11 -U postgres [nome_banco] > backup.sql
 mc mirror minio/mlflow /backup/mlflow/
 ```
 
-**Status do Projeto:** ✅ **INFRAESTRUTURA COMPLETA E OPERACIONAL**
-
 ---
 
 ## 11. Estrutura do Projeto
@@ -215,4 +222,4 @@ projeto-churn/
 
 Para questões relacionadas à infraestrutura ou configuração dos serviços, consulte a documentação específica de cada container. Em caso de problemas operacionais, verifique os logs do serviço correspondente.
 
-**Status do Projeto:** ✅ **INFRAESTRUTURA COMPLETA E OPERACIONAL**
+**Status do Projeto:** ✅ **INFRAESTRUTURA COMPLETA E OPERACIONAL. FASE DE ENGENHARIA DE DADOS INICIADA.**
