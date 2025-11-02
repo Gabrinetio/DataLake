@@ -1,7 +1,7 @@
 # Projeto: Plataforma Preditiva de Churn (Auto-hospedado)
 
-**Versão:** 2.0 (Infraestrutura Completa)
-**Data:** 1 de Novembro de 2025
+**Versão:** 2.0 (Infraestrutura Completa)  
+**Data:** 1 de Novembro de 2025  
 **Stack Principal:** Proxmox, Debian 12 (LXC), Nginx Proxy Manager, Python, Git
 
 ---
@@ -32,7 +32,7 @@ Este repositório contém o código e a documentação para a construção de um
 A infraestrutura é composta por containers LXC isolados em uma rede privada (`vmbr1` - `10.10.10.0/24`). O acesso a partir da rede local (LAN) é gerenciado de forma centralizada por um gateway dedicado.
 
 | ID | Hostname | Finalidade | IP (em `vmbr1`) | Status |
-| :- | :--- | :--- | :---------------- | :---------------- | :--- |
+| :- | :--- | :--- | :---------------- | :--- |
 | `101`| `postgres` | Banco de Dados | `10.10.10.11/24` | ✅ **Concluído** |
 | `102`| `minio` | Datalake Storage | `10.10.10.12/24` | ✅ **Concluído** |
 | `103`| `airflow` | Orquestração | `10.10.10.13/24` | ✅ **Concluído** |
@@ -46,49 +46,45 @@ A infraestrutura é composta por containers LXC isolados em uma rede privada (`v
 
 Para centralizar e proteger o acesso às interfaces web dos serviços, foi implementado um gateway no **CT 106** utilizando o **Nginx Proxy Manager** (executando em Docker).
 
-* **Acesso à UI de Admin:** `http://192.168.4.106:81` (IP do gateway na LAN).
+* **Acesso à UI de Admin:** `http://192.168.1.53:81` (IP do gateway na LAN)
 * **Funcionamento:** O gateway é o único container com acesso à rede local (`vmbr0`) e à rede privada do Datalake (`vmbr1`). Ele recebe as requisições da LAN e as encaminha para o IP e porta corretos na rede privada.
 
-A configuração envolve dois passos:
+### 4.1. Configuração dos Proxy Hosts
 
-1.  **Criação do Proxy Host (na UI do Nginx Proxy Manager):** Para cada serviço, é criado um `Proxy Host` que mapeia um nome de domínio local para um serviço interno. Exemplo para o Airflow:
-    * **Domain Name:** `airflow.lan`
-    * **Forward Hostname / IP:** `10.10.10.13`
-    * **Forward Port:** `8080`
+Na interface do Nginx Proxy Manager, foram criados os seguintes `Proxy Hosts` para cada serviço:
 
-2.  **Configuração de DNS Local (no computador cliente):** O arquivo `hosts` do sistema operacional do usuário é editado para que ele saiba que os domínios `.lan` devem apontar para o IP do gateway.
-    ```
-    # Exemplo de entrada no arquivo 'hosts'
-    192.168.4.106   airflow.lan superset.lan mlflow.lan minio.lan
-    ```
+| Serviço | Nome de Domínio (Acesso) | IP de Destino (Forward IP) | Porta de Destino (Forward Port) |
+| :-------- | :----------------------- | :------------------------- | :------------------------------ |
+| Airflow | `airflow.lan` | `10.10.10.13` | `8080` |
+| Superset | `superset.lan` | `10.10.10.14` | `8088` |
+| MLflow | `mlflow.lan` | `10.10.10.15` | `5000` |
+| MinIO | `minio.lan` | `10.10.10.12` | `9001` |
 
----
+**Nota sobre Configurações Avançadas:** Para serviços como o MLflow, que são rigorosos com a validação do `Host header`, foi necessário adicionar configurações personalizadas no separador `Advanced` para garantir que os cabeçalhos do proxy são passados corretamente. A configuração padrão que funcionou para a maioria dos serviços foi:
 
-## 5. Resumo dos Desafios e Soluções da Instalação
+```nginx
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+```
 
-Durante a instalação, foram encontrados e resolvidos vários desafios comuns em ambientes auto-hospedados. As soluções estão documentadas nos arquivos específicos de cada CT e resumem-se a:
+### 4.2. Configuração de DNS Local (no Computador Cliente)
 
-* **Problema:** Containers na rede privada (`vmbr1`) não tinham acesso à internet para instalar pacotes.
-    * **Solução:** Adição de uma segunda interface de rede temporária (`net1`) ligada à `vmbr0` (LAN) com DHCP e configuração manual da rota e do DNS (`ip route add default...`, `echo "nameserver..."`). A interface foi removida após a instalação para restaurar o isolamento.
+Para que os nomes de domínio locais funcionem no navegador, o arquivo `hosts` do sistema operacional do usuário deve ser editado para mapear todos os domínios ao IP do gateway.
 
-* **Problema:** Dificuldade em acessar o shell do PostgreSQL com `su -i -u postgres psql`.
-    * **Solução:** O usuário `postgres` é um usuário de sistema sem um shell de login. O comando correto, que executa `psql` com as permissões do usuário, é `su - postgres -c "psql"`.
+* **Localização do Arquivo `hosts`:**
+  * **Windows:** `C:\Windows\System32\drivers\etc\hosts`
+  * **Linux/macOS:** `/etc/hosts`
 
-* **Problema:** Airflow e Superset falhavam ao inicializar o banco de dados com o erro `permission denied for schema public`.
-    * **Solução:** O usuário da aplicação não era o "dono" (owner) do banco de dados. Foi necessário executar o comando `ALTER DATABASE [nome_db] OWNER TO [nome_user];` no PostgreSQL para cada serviço.
-
-* **Problema:** Serviços `systemd` do Airflow falhavam com o erro `status=203/EXEC`.
-    * **Solução:** O caminho (`ExecStart`) no arquivo `.service` estava apontando para um local incorreto do ambiente virtual. O problema foi resolvido ao encontrar o caminho absoluto correto do executável do Airflow com `find` e corrigindo o arquivo de serviço.
-
-* **Problema:** Airflow, Superset e MLflow retornavam o erro `Invalid Host header` ou `502 Bad Gateway` ao serem acessados através do proxy.
-    * **Solução:** Este foi o desafio mais complexo. A solução final variou por aplicação:
-        * **Airflow:** Adicionar o domínio local (`airflow.lan`) à configuração `allowed_hosts` no arquivo `airflow.cfg`.
-        * **Superset:** Corrigir várias dependências Python incompatíveis (`psycopg2`, `marshmallow`) e configurar o `DATA_DIR` no `superset_config.py`.
-        * **MLflow:** Adicionar a variável de ambiente `MLFLOW_SERVER_ALLOWED_HOSTS` ao arquivo de serviço `systemd`, instruindo diretamente a aplicação a confiar no domínio local (`mlflow.lan`).
+* **Entrada a ser Adicionada:**
+  ```
+  192.168.1.53   airflow.lan superset.lan mlflow.lan minio.lan
+  ```
 
 ---
 
-## 6. URLs de Acesso aos Serviços
+## 5. URLs de Acesso aos Serviços
 
 | Serviço | URL | Credenciais Padrão |
 | :--- | :--- | :--- |
@@ -96,26 +92,52 @@ Durante a instalação, foram encontrados e resolvidos vários desafios comuns e
 | **Superset** | `http://superset.lan` | admin / [definida na instalação] |
 | **MLflow** | `http://mlflow.lan` | - (acesso aberto) |
 | **MinIO Console** | `http://minio.lan` | admin / sua_senha_super_secreta_para_minio |
-| **Nginx Proxy Manager** | `http://192.168.4.106:81` | admin@example.com / changeme |
+| **Nginx Proxy Manager** | `http://192.168.1.53:81` | admin@example.com / changeme |
+
+---
+
+## 6. Resumo dos Desafios e Soluções da Instalação
+
+Durante a instalação, foram encontrados e resolvidos vários desafios comuns em ambientes auto-hospedados:
+
+* **Problema:** Containers na rede privada (`vmbr1`) não tinham acesso à internet para instalar pacotes
+  * **Solução:** Adição de uma segunda interface de rede temporária (`net1`) ligada à `vmbr0` (LAN) com DHCP e configuração manual da rota e do DNS. A interface foi removida após a instalação
+
+* **Problema:** Dificuldade em acessar o shell do PostgreSQL
+  * **Solução:** Uso do comando correto: `su - postgres -c "psql"`
+
+* **Problema:** Airflow e Superset falhavam com erro `permission denied for schema public`
+  * **Solução:** Executar `ALTER DATABASE [nome_db] OWNER TO [nome_user];` no PostgreSQL
+
+* **Problema:** Serviços `systemd` do Airflow falhavam com erro `status=203/EXEC`
+  * **Solução:** Corrigir o caminho do executável no arquivo de serviço
+
+* **Problema:** Erros `Invalid Host header` ou `502 Bad Gateway` através do proxy
+  * **Solução:** Configurações específicas por aplicação:
+    - **Airflow:** Adicionar domínio à configuração `allowed_hosts`
+    - **Superset:** Corrigir dependências Python e configurar `DATA_DIR`
+    - **MLflow:** Adicionar variável `MLFLOW_SERVER_ALLOWED_HOSTS`
 
 ---
 
 ## 7. Próximos Passos: Fase 5 - Engenharia de Dados
 
-**A Fase de Instalação da Infraestrutura está agora completa!** A próxima grande etapa é desenvolver o nosso primeiro pipeline de dados.
+**A Fase de Instalação da Infraestrutura está agora completa!** A próxima grande etapa é desenvolver o primeiro pipeline de dados.
 
 * [ ] **Configurar Conexões no Airflow:**
-    * [ ] Acessar à UI do Airflow (`http://airflow.lan`).
-    * [ ] Ir em `Admin` -> `Connections` e criar uma nova conexão do tipo "Amazon S3" para o nosso MinIO, fornecendo as credenciais e o endpoint URL (`http://10.10.10.12:9000`).
+  * [ ] Acessar a UI do Airflow (`http://airflow.lan`)
+  * [ ] Criar conexão do tipo "Amazon S3" para o MinIO
 * [ ] **Desenvolver a Primeira DAG:**
-    * [ ] Criar um novo script Python na pasta `dags/` do nosso projeto Git.
-    * [ ] A DAG será responsável por ler os 4 arquivos de dados brutos da nossa `raw-zone` no MinIO, processá-los e guardá-los de volta em uma `curated-zone` em formato Parquet.
+  * [ ] Criar script Python na pasta `dags/`
+  * [ ] Implementar pipeline para processar dados brutos da `raw-zone` para `curated-zone`
+* [ ] **Conectar Superset aos Dados:**
+  * [ ] Configurar o Superset para ler dados da `curated-zone`
 
 ---
 
 ## 8. Documentação Detalhada
 
-Documentos detalhados para a configuração de cada container estão disponíveis no repositório:
+Documentos detalhados para a configuração de cada container estão disponíveis:
 
 * `docs/CT101_POSTGRES_SETUP.md`
 * `docs/CT102_MINIO_SETUP.md`
@@ -169,5 +191,28 @@ pg_dump -h 10.10.10.11 -U postgres [nome_banco] > backup.sql
 # MinIO (usando mc client)
 mc mirror minio/mlflow /backup/mlflow/
 ```
+
+**Status do Projeto:** ✅ **INFRAESTRUTURA COMPLETA E OPERACIONAL**
+
+---
+
+## 11. Estrutura do Projeto
+
+```
+projeto-churn/
+├── docs/                    # Documentação técnica
+├── dags/                   # Pipelines do Airflow
+├── scripts/                # Scripts de utilitários
+├── data/                   # Dados do projeto
+│   ├── raw/               # Dados brutos
+│   └── processed/         # Dados processados
+└── models/                # Modelos de ML
+```
+
+---
+
+## 12. Contato e Suporte
+
+Para questões relacionadas à infraestrutura ou configuração dos serviços, consulte a documentação específica de cada container. Em caso de problemas operacionais, verifique os logs do serviço correspondente.
 
 **Status do Projeto:** ✅ **INFRAESTRUTURA COMPLETA E OPERACIONAL**
