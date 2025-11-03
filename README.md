@@ -1,8 +1,8 @@
 # Projeto: Plataforma Preditiva de Churn (Auto-hospedado)
 
-**Versão:** 3.0 (Arquitetura de Acesso Direto)  
+**Versão:** 3.1 (Pipeline de Dados Operacional)  
 **Data:** 2 de Novembro de 2025  
-**Stack Principal:** Proxmox, Debian 12 (LXC), Python, Git
+**Stack Principal:** Proxmox, Debian 12 (LXC), Python, Git, Airflow, Superset
 
 ---
 
@@ -65,80 +65,77 @@ Para um acesso conveniente aos serviços através de nomes de domínio, foi conf
 | **Airflow** | `http://airflow.gti.local` | admin / [definida na instalação] |
 | **Superset** | `http://superset.gti.local` | admin / [definida na instalação] |
 | **MLflow** | `http://mlflow.gti.local` | - (acesso aberto) |
-| **MinIO Console** | `http://minio.gti.local` | admin / sua_senha_super_secreta_para_minio |
+| **MinIO Console** | `http://minio.gti.local:9001` | admin / sua_senha_super_secreta_para_minio |
 
 ---
 
 ## 6. Resumo dos Desafios e Soluções da Instalação
 
-Durante a reconfiguração para acesso direto, foram encontrados e resolvidos vários desafios importantes:
+Durante a configuração, foram encontrados e resolvidos vários desafios importantes:
 
 ### Problema 1: Comunicação entre serviços via DNS
-* **Problema:** Após mover os containers para a rede local, os serviços não conseguiam comunicar entre si usando os nomes de domínio `.gti.local`
-* **Causa Raiz:** Os containers não estavam configurados para usar o servidor de DNS local
-* **Solução:** Em cada container LXC no Proxmox, na aba **Options**, o campo **DNS server** foi preenchido com o IP do servidor de DNS local
+
+* **Problema:** Após mover os containers para a rede local, os serviços não conseguiam comunicar entre si usando os nomes de domínio `.gti.local`.
+* **Causa Raiz:** Os containers não estavam configurados para usar o servidor de DNS local.
+* **Solução:** Em cada container LXC no Proxmox, na aba **Options**, o campo **DNS server** foi preenchido com o IP do servidor de DNS local.
 
 ### Problema 2: Erro de segurança no MLflow
-* **Problema:** A interface web do MLflow não carregava, retornando o erro `403 Forbidden` com a mensagem `Rejected request with invalid Host header` nos logs
-* **Causa Raiz:** Um problema de validação de segurança em duas camadas. O `header` `Host` enviado pelo navegador era `mlflow.gti.local:5000` (incluindo a porta), e a configuração padrão do MLflow não o reconhecia. Tentativas de usar o servidor Gunicorn diretamente também falharam, pois ele ignora o `middleware` de segurança do MLflow
-* **Solução Multi-camada (Definitiva):**
-  1. **Utilizar o Servidor Padrão:** O serviço `systemd` foi configurado para usar o comando padrão `mlflow server`, que ativa o servidor FastAPI/uvicorn correto
-  2. **Especificar Todos os Hosts Válidos:** A flag `--allowed-hosts` foi adicionada ao comando de inicialização no arquivo de serviço, permitindo explicitamente o domínio com e sem a porta: `--allowed-hosts "mlflow.gti.local,mlflow.gti.local:5000"`
 
-### Problema 3: Configuração de codificação UTF-8
-* **Contexto:** Erros de `UnicodeEncodeError` no Airflow
-* **Solução:** Configuração de locale UTF-8 nos containers e serviços systemd
+* **Problema:** A interface web do MLflow não carregava, retornando o erro `403 Forbidden`.
+* **Causa Raiz:** Validação de segurança do `Host header` enviado pelo navegador.
+* **Solução:** Adicionar a flag `--allowed-hosts` no serviço `systemd`, permitindo o domínio com e sem a porta: `--allowed-hosts "mlflow.gti.local,mlflow.gti.local:5000"`.
+
+### Problema 3: Conexão Superset → MinIO via DuckDB
+
+* **Problema:** O Superset não conseguia ler o arquivo Parquet do MinIO, retornando erros de `home_directory` e `Authentication Failure`.
+* **Causa Raiz:** Uma combinação de fatores: a engine DuckDB precisava da extensão `httpfs` para acessar URLs S3, mas não conseguia baixá-la por falta de permissão de escrita, e as credenciais do MinIO não estavam sendo passadas corretamente.
+* **Solução Multi-camada:**
+  1. **Extensão:** A extensão `httpfs` foi instalada **manualmente** dentro do ambiente virtual do Superset via linha de comando.
+  2. **Conexão:** A conexão no Superset foi configurada com o URI `duckdb:///` e os parâmetros de endpoint e credenciais do MinIO foram adicionados na seção **"Engine Parameters"** da configuração avançada.
 
 ---
 
-## 7. Próximos Passos: Fase 5 - Engenharia de Dados
+## 7. Resumo da Fase 5: Engenharia de Dados
 
-**A Fase de Instalação da Infraestrutura está agora completa!** A próxima grande etapa é desenvolver os pipelines de dados.
+A Fase 5 foi concluída com sucesso. Um pipeline de ETL foi implementado no Apache Airflow para processar os dados de churn.
 
-* [x] **Configurar Conexões no Airflow:**
-  * [x] Acessar a UI do Airflow (`http://airflow.gti.local`)
-  * [x] Criar conexão do tipo "Amazon S3" para o MinIO (`minio_s3_default`) apontando para `http://minio.gti.local:9000`
-* [ ] **Desenvolver DAGs de Processamento:**
-  * [ ] Implementar pipeline para ler dados da `raw-zone` do MinIO
-  * [ ] Aplicar transformações de limpeza e enriquecimento
-  * [ ] Gravar os dados processados na `curated-zone`
-* [ ] **Conectar Superset aos Dados:**
-  * [ ] Configurar o Superset para ler dados da `curated-zone` para visualização
+* [x] **Conexão Airflow → MinIO:** A conexão `minio_s3_default` foi configurada e validada na UI do Airflow.
+* [x] **Desenvolvimento da DAG:** Uma DAG chamada `process_churn_data_from_raw_to_curated` foi criada e implantada.
+  * [x] A DAG extrai o arquivo `WA_Fn-UseC_-Telco-Customer-Churn.csv` da `raw-zone`.
+  * [x] Aplica transformações de limpeza com Pandas, principalmente para corrigir valores numéricos na coluna `TotalCharges`.
+  * [x] Carrega o dataset processado como `processed_telco_churn.parquet` na `curated-zone`.
+* [x] **Pipeline Operacional:** O pipeline foi executado com sucesso e está pronto para orquestrações futuras.
 
 ---
 
 ## 8. Roadmap Completo
 
-1.  **✅ Fase 1-4: Infraestrutura e Instalação dos Serviços Core** - **CONCLUÍDO**
-2.  **🔄 Fase 5: Engenharia de Dados (ETL/ELT)** - **EM ANDAMENTO**
-    * [ ] Desenvolver pipeline de dados para processar dados brutos
-    * [ ] Implementar qualidade de dados e validações
-3.  **⏳ Fase 6: Modelagem de Machine Learning**
-    * [ ] Desenvolver scripts de treinamento de modelos
-    * [ ] Configurar tracking de experimentos no MLflow
-    * [ ] Implementar registro e versionamento de modelos
-4.  **⏳ Fase 7: Implantação e Visualização**
-    * [ ] Criar DAG de scoring em batch
-    * [ ] Desenvolver dashboards no Superset
-    * [ ] Configurar monitoramento e alertas
+1. **✅ Fase 1-4: Infraestrutura e Instalação dos Serviços Core** - **CONCLUÍDO**
+2. **✅ Fase 5: Engenharia de Dados (ETL/ELT)** - **CONCLUÍDO**
+   * [x] Desenvolver pipeline de dados para processar dados brutos.
+   * [x] Implementar qualidade de dados e validações.
+3. **⏳ Fase 6: Modelagem de Machine Learning**
+   * [ ] Desenvolver scripts de treinamento de modelos.
+   * [ ] Configurar tracking de experimentos no MLflow.
+   * [ ] Implementar registro e versionamento de modelos.
+4. **🔄 Fase 7: Implantação e Visualização** - **EM ANDAMENTO**
+   * [x] Conectar Superset aos dados curados no MinIO.
+   * [ ] Desenvolver dashboards no Superset.
+   * [ ] Criar DAG de scoring em batch.
+   * [ ] Configurar monitoramento e alertas.
 
 ---
 
 ## 9. Documentação Detalhada
 
-Documentos detalhados para a configuração de cada container estão disponíveis:
-
-* `docs/CT101_POSTGRES_SETUP.md`
-* `docs/CT102_MINIO_SETUP.md`
-* `docs/CT103_AIRFLOW_SETUP.md`
-* `docs/CT104_SUPERSET_SETUP.md`
-* `docs/CT105_MLFLOW_SETUP.md`
+Documentos detalhados para a configuração de cada container estão disponíveis nos arquivos `CT_*.md` deste repositório.
 
 ---
 
 ## 10. Comandos Úteis para Manutenção
 
 ### Verificar Status de Todos os Serviços
+
 ```bash
 # Em cada container, execute:
 systemctl status [nome-do-servico].service
@@ -150,11 +147,13 @@ systemctl status mlflow.service
 ```
 
 ### Ver Logs dos Serviços
+
 ```bash
 journalctl -u [nome-do-servico] -f
 ```
 
 ### Backup dos Dados
+
 ```bash
 # PostgreSQL
 pg_dump -h postgres.gti.local -U postgres [nome_banco] > backup.sql
@@ -184,4 +183,4 @@ projeto-churn/
 
 Para questões relacionadas à infraestrutura ou configuração dos serviços, consulte a documentação específica de cada container. Em caso de problemas operacionais, verifique os logs do serviço correspondente.
 
-**Status do Projeto:** ✅ **INFRAESTRUTURA COMPLETA E OPERACIONAL. FASE DE ENGENHARIA DE DADOS INICIADA.**
+**Status do Projeto:** ✅ **FASE DE ENGENHARIA DE DADOS CONCLUÍDA. FASE DE VISUALIZAÇÃO INICIADA.**
