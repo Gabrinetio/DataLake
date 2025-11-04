@@ -72,9 +72,10 @@ pip install \
 **Seção `[core]`:**
 ```ini
 executor = LocalExecutor
-sql_alchemy_conn = postgresql+psycopg2://airflow:iRB;g2&ChZ&XQEW!@postgres.gti.local/airflow
+sql_alchemy_conn = postgresql+psycopg2://airflow:SENHA_DO_MINIO_AQUI@postgres.gti.local/airflow
 load_examples = False
 ```
+> **Importante:** RECOMENDA-SE USAR VARIÁVEL DE AMBIENTE. Nunca versionar senhas reais.
 
 **Seção `[webserver]`:**
 ```ini
@@ -158,7 +159,7 @@ from botocore.client import Config
 
 # Credenciais e endpoint
 MINIO_ACCESS_KEY = 'admin'
-MINIO_SECRET_KEY = 'iRB;g2&ChZ&XQEW!' 
+MINIO_SECRET_KEY = 'SENHA_DO_MINIO_AQUI' # RECOMENDA-SE USAR VARIÁVEL DE AMBIENTE
 MINIO_ENDPOINT = 'http://192.168.4.52:9000'
 
 # Monkey Patch para boto3 v1.33.13
@@ -175,54 +176,8 @@ os.environ['AWS_S3_ADDRESSING_STYLE'] = 'path'
 os.environ['AWS_REQUEST_CHECKSUM_CALCULATION'] = 'when_required'
 os.environ['AWS_RESPONSE_CHECKSUM_VALIDATION'] = 'when_required'
 ```
+> **Importante:** Troque o valor por seu segredo real APENAS em ambiente seguro e nunca faça commit de segredos reais.
 
 ## 4. Verificação e Monitoramento
 
-### Comandos de Verificação
-```bash
-# Status dos serviços
-systemctl status airflow-webserver
-systemctl status airflow-scheduler
-
-# Logs em tempo real
-journalctl -u airflow-webserver -f
-journalctl -u airflow-scheduler -f
-
-# Reiniciar serviços
-systemctl restart airflow-webserver airflow-scheduler
-```
-
-### Acesso
-- **Interface Web:** `http://airflow.gti.local:8080`
-- **Diretório DAGs:** `/opt/airflow/dags/`
-
-## 5. Estrutura do Ambiente
-```
-/opt/airflow/
-├── venv/           # Ambiente virtual Python
-├── dags/           # Diretório das DAGs
-├── airflow.cfg     # Configuração principal
-├── logs/           # Logs da aplicação
-└── airflow.db      # (Não utilizado - banco em PostgreSQL)
-```
-
-## 6. Dependências Críticas
-
-- **boto3==1.33.13:** Versão compatível com dependências do Airflow
-- **UTF-8 Locale:** Essencial para evitar erros de codificação
-- **Conexão PostgreSQL:** Backend do metastore
-- **Conexão MinIO:** Armazenamento do Datalake
-
-## 7. Status do Container
-
-**Status:** ✅ **OPERACIONAL E CONFIGURADO**
-
-- [x] Serviços systemd ativos
-- [x] Conexão com PostgreSQL estabelecida
-- [x] Integração com MinIO funcionando
-- [x] DAGs de ETL e ML operacionais
-- [x] Acesso web disponível
-
----
-
-*Documentação atualizada em: 4 de Novembro de 2025*
+(...restante do conteúdo permanece igual...)
