@@ -1,6 +1,6 @@
 # Projeto: Plataforma Preditiva de Churn (Auto-hospedado)
 
-**Versão:** 4.0 (Pipeline de ML Operacional)  
+**Versão:** 4.1 (Documentação de Scripts)  
 **Data:** 4 de Novembro de 2025  
 **Stack Principal:** Proxmox, Debian 12 (LXC), Python, Git, Airflow, Superset, MLflow
 
@@ -99,32 +99,58 @@ Foi configurado um servidor de DNS local para acesso conveniente aos serviços. 
 - **Scoring:** DAG de batch em planejamento
 - **Monitoramento:** Configuração pendente
 
-## 8. Estrutura do Projeto
+## 8. Documentação dos Scripts de Automação
 
-```
-projeto-churn/
-├── docs/                    # Documentação técnica (Arquivos CT_*.md)
-├── dags/                    # Pipelines do Airflow
-│   ├── process_churn_data_from_raw_to_curated.py
-│   └── dag_train_churn_model.py
-├── scripts/                 # Scripts de utilitários
-└── README.md                # Este arquivo
-```
+Este projeto inclui scripts de automação para facilitar a configuração e manutenção.
+
+### Scripts de Infraestrutura
+
+#### 1. `init_minio_buckets.sh`
+- **Objetivo:** Inicializa e verifica a criação de buckets no MinIO
+- **Buckets:** `raw-zone`, `curated-zone`, `mlflow`
+- **Função:** Define alias `mc` e cria buckets caso não existam
+
+#### 2. `backup_minio_data.sh`
+- **Objetivo:** Realiza backup dos dados armazenados no MinIO
+- **Função:** Sincroniza dados dos buckets principais para bucket de backup
+
+### Scripts de Monitoramento
+
+#### 3. `monitor_airflow_logs.sh`
+- **Objetivo:** Monitora logs do Airflow e envia alertas por email
+- **Função:** Verifica logs recentes para mensagens de erro
+
+#### 4. `validate_airflow_connections.py`
+- **Objetivo:** Verifica se a conexão `minio_s3_default` está funcionando
+- **Função:** Testa conexão com MinIO usando credenciais do Airflow
+
+### Scripts de Manutenção
+
+#### 5. `update_airflow_dependencies.sh`
+- **Objetivo:** Atualiza dependências do Airflow no ambiente virtual
+- **Função:** Ativa venv e atualiza dependências conforme `requirements.txt`
+
+#### 6. `update_airflow_config.sh`
+- **Objetivo:** Automatiza atualização do `airflow.cfg`
+- **Função:** Atualiza valores de configuração como executor
+
+### Scripts de ML e Análise
+
+#### 7. `test_churn_model_performance.py`
+- **Objetivo:** Avalia desempenho do modelo de churn treinado
+- **Função:** Carrega dados da `curated-zone`, modelo do MLflow e calcula métricas
 
 ## 9. Comandos Úteis para Manutenção
 
-### Verificar Status de Todos os Serviços
+### Verificar Status de Serviços
 ```bash
-# Em cada container, execute:
-systemctl status [nome-do-servico].service
-
-# Exemplos:
+# Em cada container
 systemctl status airflow-webserver
 systemctl status superset.service
 systemctl status mlflow.service
 ```
 
-### Ver Logs dos Serviços
+### Monitoramento de Logs
 ```bash
 journalctl -u [nome-do-servico] -f
 ```
@@ -134,7 +160,33 @@ journalctl -u [nome-do-servico] -f
 systemctl restart [nome-do-servico]
 ```
 
-## 10. Próximos Passos
+## 10. Estrutura do Projeto
+
+```
+projeto-churn/
+├── docs/
+│   ├── images/               # Capturas de tela e diagramas
+│   ├── CT_Airflow.md         # Documentação do Airflow
+│   ├── CT_MLflow.md          # Documentação do MLflow
+│   ├── CT_MinIO.md           # Documentação do MinIO
+│   ├── CT_Postegres.md       # Documentação do PostgreSQL
+│   ├── CT_Superset.md        # Documentação do Superset
+│   └── Fase_5.md            # Documentação da Fase 5
+├── dags/
+│   ├── process_churn_data_from_raw_to_curated.py
+│   └── dag_train_churn_model.py
+├── scripts/
+│   ├── init_minio_buckets.sh
+│   ├── backup_minio_data.sh
+│   ├── monitor_airflow_logs.sh
+│   ├── update_airflow_dependencies.sh
+│   ├── validate_airflow_connections.py
+│   ├── test_churn_model_performance.py
+│   └── update_airflow_config.sh
+└── README.md
+```
+
+## 11. Próximos Passos
 
 1. **Desenvolvimento de Dashboards** no Superset
 2. **Criação da DAG de Scoring** em batch
