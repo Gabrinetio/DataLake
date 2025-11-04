@@ -1,32 +1,24 @@
 # Projeto: Plataforma Preditiva de Churn (Auto-hospedado)
 
-**Versão:** 3.1 (Pipeline de Dados Operacional)  
-**Data:** 2 de Novembro de 2025  
-**Stack Principal:** Proxmox, Debian 12 (LXC), Python, Git, Airflow, Superset
-
----
+**Versão:** 4.0 (Pipeline de ML Operacional)  
+**Data:** 4 de Novembro de 2025  
+**Stack Principal:** Proxmox, Debian 12 (LXC), Python, Git, Airflow, Superset, MLflow
 
 ## 1. Visão Geral do Projeto
 
 Este repositório contém o código e a documentação para a construção de uma plataforma de dados ponta a ponta, totalmente auto-hospedada, com o objetivo de prever o **churn (cancelamento) de clientes**. A plataforma é construída sobre uma stack 100% open-source, com a infraestrutura virtualizada em **Proxmox VE**, e segue os princípios de uma arquitetura de **Datalake** moderna.
 
-Nesta versão, a arquitetura foi simplificada para remover o reverse proxy (gateway), expondo cada serviço diretamente na rede local para um acesso mais direto e simplificado.
-
----
-
 ## 2. Stack de Tecnologias
 
 | Componente | Ferramenta Open-Source | Papel no Projeto |
 | :--- | :--- | :--- |
-| **Virtualização** | Proxmox VE | Camada de IaaS para criar e gerenciar os servidores virtuais. |
-| **Sistema Operacional**| Debian 12 "Bookworm" | SO base para todos os containers (CTs LXC). |
-| **Armazenamento** | MinIO | Datalake físico (Object Storage) para `raw-zone` e `curated-zone`. |
-| **Banco de Dados** | PostgreSQL | Backend metastore para Airflow, Superset e MLflow. |
-| **Orquestração** | Apache Airflow | Ferramenta para agendar, executar e monitorar pipelines de dados. |
-| **Visualização (BI)**| Apache Superset | Ferramenta para criar dashboards e explorar os dados curados. |
-| **MLOps** | MLflow | Plataforma para gerenciar o ciclo de vida dos modelos de Machine Learning. |
-
----
+| **Virtualização** | Proxmox VE | Camada de IaaS para criar e gerenciar os servidores virtuais |
+| **Sistema Operacional**| Debian 12 "Bookworm" | SO base para todos os containers (CTs LXC) |
+| **Armazenamento** | MinIO | Datalake físico (Object Storage) para `raw-zone`, `curated-zone` e `mlflow` |
+| **Banco de Dados** | PostgreSQL | Backend metastore para Airflow, Superset e MLflow |
+| **Orquestração** | Apache Airflow | Ferramenta para agendar, executar e monitorar pipelines de dados |
+| **Visualização (BI)**| Apache Superset | Ferramenta para criar dashboards e explorar os dados curados |
+| **MLOps** | MLflow | Plataforma para gerenciar o ciclo de vida dos modelos de Machine Learning |
 
 ## 3. Arquitetura da Infraestrutura (Proxmox)
 
@@ -40,11 +32,9 @@ A infraestrutura é composta por containers LXC, cada um com um IP estático na 
 | `104`| `superset` | Business Intelligence | `192.168.4.54/24` | ✅ **Concluído** |
 | `105`| `mlflow` | MLOps | `192.168.4.55/24` | ✅ **Concluído** |
 
----
-
 ## 4. Configuração de DNS Local
 
-Para um acesso conveniente aos serviços através de nomes de domínio, foi configurado um servidor de DNS local. Os containers no Proxmox foram configurados para usar este servidor de DNS, e as máquinas clientes na rede também devem usá-lo.
+Foi configurado um servidor de DNS local para acesso conveniente aos serviços. Os containers no Proxmox foram configurados para usar este servidor de DNS.
 
 **Mapeamento de DNS:**
 
@@ -56,86 +46,74 @@ Para um acesso conveniente aos serviços através de nomes de domínio, foi conf
 | Superset | `superset.gti.local` | `192.168.4.54` |
 | MLflow | `mlflow.gti.local` | `192.168.4.55` |
 
----
-
 ## 5. URLs de Acesso aos Serviços
 
-| Serviço | URL | Credenciais Padrão |
+| Serviço | URL (Acesso via Navegador) | Credenciais Padrão |
 | :--- | :--- | :--- |
-| **Airflow** | `http://airflow.gti.local` | admin / [definida na instalação] |
-| **Superset** | `http://superset.gti.local` | admin / [definida na instalação] |
-| **MLflow** | `http://mlflow.gti.local` | - (acesso aberto) |
-| **MinIO Console** | `http://minio.gti.local:9001` | admin / sua_senha_super_secreta_para_minio |
+| **Airflow** | `http://airflow.gti.local:8080` | admin / [definida na instalação] |
+| **Superset** | `http://superset.gti.local:8088` | admin / [definida na instalação] |
+| **MLflow** | `http://mlflow.gti.local:5000` | - (acesso aberto) |
+| **MinIO Console**| `http://minio.gti.local:9001` | admin / iRB;g2\&ChZ\&XQEW\! |
 
----
-
-## 6. Resumo dos Desafios e Soluções da Instalação
-
-Durante a configuração, foram encontrados e resolvidos vários desafios importantes:
+## 6. Resumo dos Desafios Críticos Resolvidos
 
 ### Problema 1: Comunicação entre serviços via DNS
+- **Problema:** Serviços não conseguiam comunicar-se via DNS local
+- **Causa:** Containers não configurados para usar DNS local
+- **Solução:** Configurar campo **DNS server** em cada container LXC no Proxmox
 
-* **Problema:** Após mover os containers para a rede local, os serviços não conseguiam comunicar entre si usando os nomes de domínio `.gti.local`.
-* **Causa Raiz:** Os containers não estavam configurados para usar o servidor de DNS local.
-* **Solução:** Em cada container LXC no Proxmox, na aba **Options**, o campo **DNS server** foi preenchido com o IP do servidor de DNS local.
-
-### Problema 2: Erro de segurança no MLflow
-
-* **Problema:** A interface web do MLflow não carregava, retornando o erro `403 Forbidden`.
-* **Causa Raiz:** Validação de segurança do `Host header` enviado pelo navegador.
-* **Solução:** Adicionar a flag `--allowed-hosts` no serviço `systemd`, permitindo o domínio com e sem a porta: `--allowed-hosts "mlflow.gti.local,mlflow.gti.local:5000"`.
+### Problema 2: Erro de segurança no MLflow (`403 Forbidden`)
+- **Problema:** Interface web do MLflow não carregava
+- **Causa:** Validação de segurança do `Host header`
+- **Solução:** Adicionar flag `--allowed-hosts` no serviço systemd
 
 ### Problema 3: Conexão Superset → MinIO via DuckDB
+- **Problema:** Superset não conseguia ler arquivos Parquet do MinIO
+- **Causa:** Extensão `httpfs` não instalada e credenciais incorretas
+- **Solução:** Instalação manual da extensão e configuração correta das credenciais
 
-* **Problema:** O Superset não conseguia ler o arquivo Parquet do MinIO, retornando erros de `home_directory` e `Authentication Failure`.
-* **Causa Raiz:** Uma combinação de fatores: a engine DuckDB precisava da extensão `httpfs` para acessar URLs S3, mas não conseguia baixá-la por falta de permissão de escrita, e as credenciais do MinIO não estavam sendo passadas corretamente.
-* **Solução Multi-camada:**
-  1. **Extensão:** A extensão `httpfs` foi instalada **manualmente** dentro do ambiente virtual do Superset via linha de comando.
-  2. **Conexão:** A conexão no Superset foi configurada com o URI `duckdb:///` e os parâmetros de endpoint e credenciais do MinIO foram adicionados na seção **"Engine Parameters"** da configuração avançada.
+### Problema 4: Falha `NoSuchBucket` na DAG de ML
+- **Problema:** DAG de ML falhava com `NoSuchBucket`
+- **Causa:** Versão antiga do `boto3` ignorava variáveis de ambiente S3
+- **Solução:** Implementação de "Monkey Patch" no código da DAG
 
----
+## 7. Resumo das Fases Concluídas
 
-## 7. Resumo da Fase 5: Engenharia de Dados
+### ✅ Fase 1-4: Infraestrutura e Instalação dos Serviços Core
+- Configuração completa da infraestrutura Proxmox
+- Instalação e configuração de todos os serviços principais
 
-A Fase 5 foi concluída com sucesso. Um pipeline de ETL foi implementado no Apache Airflow para processar os dados de churn.
+### ✅ Fase 5: Engenharia de Dados (ETL/ELT)
+- **Conexão Airflow → MinIO:** Configurada e validada
+- **DAG ETL:** `process_churn_data_from_raw_to_curated` operacional
+- **Pipeline:** Extração, transformação e carga funcionando
 
-* [x] **Conexão Airflow → MinIO:** A conexão `minio_s3_default` foi configurada e validada na UI do Airflow.
-* [x] **Desenvolvimento da DAG:** Uma DAG chamada `process_churn_data_from_raw_to_curated` foi criada e implantada.
-  * [x] A DAG extrai o arquivo `WA_Fn-UseC_-Telco-Customer-Churn.csv` da `raw-zone`.
-  * [x] Aplica transformações de limpeza com Pandas, principalmente para corrigir valores numéricos na coluna `TotalCharges`.
-  * [x] Carrega o dataset processado como `processed_telco_churn.parquet` na `curated-zone`.
-* [x] **Pipeline Operacional:** O pipeline foi executado com sucesso e está pronto para orquestrações futuras.
+### ✅ Fase 6: Modelagem de Machine Learning
+- **Scripts de Treinamento:** Desenvolvidos e testados
+- **MLflow:** Tracking de experimentos configurado
+- **Registro de Modelos:** Versionamento via DAG implementado
 
----
+### 🔄 Fase 7: Implantação e Visualização (Em Andamento)
+- **Superset:** Conectado aos dados curados no MinIO
+- **Dashboards:** Em desenvolvimento
+- **Scoring:** DAG de batch em planejamento
+- **Monitoramento:** Configuração pendente
 
-## 8. Roadmap Completo
+## 8. Estrutura do Projeto
 
-1. **✅ Fase 1-4: Infraestrutura e Instalação dos Serviços Core** - **CONCLUÍDO**
-2. **✅ Fase 5: Engenharia de Dados (ETL/ELT)** - **CONCLUÍDO**
-   * [x] Desenvolver pipeline de dados para processar dados brutos.
-   * [x] Implementar qualidade de dados e validações.
-3. **⏳ Fase 6: Modelagem de Machine Learning**
-   * [ ] Desenvolver scripts de treinamento de modelos.
-   * [ ] Configurar tracking de experimentos no MLflow.
-   * [ ] Implementar registro e versionamento de modelos.
-4. **🔄 Fase 7: Implantação e Visualização** - **EM ANDAMENTO**
-   * [x] Conectar Superset aos dados curados no MinIO.
-   * [ ] Desenvolver dashboards no Superset.
-   * [ ] Criar DAG de scoring em batch.
-   * [ ] Configurar monitoramento e alertas.
+```
+projeto-churn/
+├── docs/                    # Documentação técnica (Arquivos CT_*.md)
+├── dags/                    # Pipelines do Airflow
+│   ├── process_churn_data_from_raw_to_curated.py
+│   └── dag_train_churn_model.py
+├── scripts/                 # Scripts de utilitários
+└── README.md                # Este arquivo
+```
 
----
-
-## 9. Documentação Detalhada
-
-Documentos detalhados para a configuração de cada container estão disponíveis nos arquivos `CT_*.md` deste repositório.
-
----
-
-## 10. Comandos Úteis para Manutenção
+## 9. Comandos Úteis para Manutenção
 
 ### Verificar Status de Todos os Serviços
-
 ```bash
 # Em cada container, execute:
 systemctl status [nome-do-servico].service
@@ -147,40 +125,25 @@ systemctl status mlflow.service
 ```
 
 ### Ver Logs dos Serviços
-
 ```bash
 journalctl -u [nome-do-servico] -f
 ```
 
-### Backup dos Dados
-
+### Reiniciar Serviços
 ```bash
-# PostgreSQL
-pg_dump -h postgres.gti.local -U postgres [nome_banco] > backup.sql
-
-# MinIO (usando mc client)
-mc mirror minio/mlflow /backup/mlflow/
+systemctl restart [nome-do-servico]
 ```
+
+## 10. Próximos Passos
+
+1. **Desenvolvimento de Dashboards** no Superset
+2. **Criação da DAG de Scoring** em batch
+3. **Configuração de Monitoramento** e alertas
+4. **Otimização de Performance** dos serviços
+5. **Documentação de Operações** para produção
 
 ---
 
-## 11. Estrutura do Projeto
+**Status do Projeto:** ✅ **FASE DE MODELAGEM DE ML CONCLUÍDA. FASE DE VISUALIZAÇÃO EM ANDAMENTO.**
 
-```
-projeto-churn/
-├── docs/                    # Documentação técnica
-├── dags/                   # Pipelines do Airflow
-├── scripts/                # Scripts de utilitários
-├── data/                   # Dados do projeto
-│   ├── raw/               # Dados brutos
-│   └── processed/         # Dados processados
-└── models/                # Modelos de ML
-```
-
----
-
-## 12. Contato e Suporte
-
-Para questões relacionadas à infraestrutura ou configuração dos serviços, consulte a documentação específica de cada container. Em caso de problemas operacionais, verifique os logs do serviço correspondente.
-
-**Status do Projeto:** ✅ **FASE DE ENGENHARIA DE DADOS CONCLUÍDA. FASE DE VISUALIZAÇÃO INICIADA.**
+*Última atualização: 4 de Novembro de 2025*
