@@ -1,334 +1,228 @@
-# Documentação de Configuração: Container Apache Airflow (CT 103) - Versão 3.0 (Estável)
+# Documentação de Configuração: Container Apache Airflow (CT 103)
 
 **Hostname:** `airflow`  
-**IP Privado:** `10.10.10.13`  
-**Finalidade:** Orquestrador de pipelines de dados (ETL/ELT).
+**IP (LAN):** `192.168.4.53`  
+**URL de Acesso:** `http://airflow.gti.local:8080`  
+**Finalidade:** Orquestrador de pipelines de dados (ETL/ELT) e ML
 
----
+## 1. Configuração do Container no Proxmox
 
-## 1. Configuração do Container (CT) no Proxmox
+- **ID:** 103
+- **Hostname:** airflow
+- **Template Base:** `debian-12-template`
+- **Recursos:** 
+  - CPU: 4 Cores
+  - RAM: 8 GB
+  - Disco: 20 GB
 
-* **ID:** 103
-* **Hostname:** airflow
-* **Recursos:**
-    * **CPU Cores:** 4
-    * **RAM:** 8 GB
-    * **Disco:** 20 GB
-* **Rede Principal (`net0`):**
-    * **Bridge:** `vmbr1` (Rede Privada do Datalake)
-    * **Tipo:** Estático
-    * **Endereço IP:** `10.10.10.13/24`
-    * **Gateway:** `10.10.10.1`
-* **Rede Temporária (`net1` - *Removida após a instalação*):**
-    * **Bridge:** `vmbr0` (Rede Principal/LAN)
-    * **Tipo:** DHCP
-    * **Finalidade:** Permitir acesso à internet para a instalação inicial de pacotes.
+### Configuração de Rede
+- **Bridge:** `vmbr0` (Rede Principal/LAN)
+- **Tipo:** Estático
+- **IP:** `192.168.4.53/24`
+- **DNS:** Configurado com IP do servidor DNS local para resolução de domínios `.gti.local`
 
----
+## 2. Instalação e Configuração
 
-## 2. Passos de Instalação e Configuração (Executados como `root`)
+### 2.1. Preparação do Ambiente
 
-Este guia detalha o processo de instalação consolidado, incorporando as correções necessárias para um ambiente de produção estável.
+**Instalação de dependências do sistema:**
+```bash
+apt update
+apt install -y libpq-dev build-essential python3-venv python3-pip graphviz locales
+```
 
-### 2.1. Preparação do Ambiente do Container
+**Configuração de localização (UTF-8):**
+```bash
+sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen
+locale-gen
+```
 
-1.  **Acesso à Internet Temporário:** Configurar uma rota e DNS para permitir o download de pacotes.
+### 2.2. Instalação do Airflow
 
-    ```bash
-    ip route add default via [IP_DO_GATEWAY_DA_LAN] dev eth1
-    echo "nameserver 8.8.8.8" > /etc/resolv.conf
-    ```
+**Criação do ambiente virtual:**
+```bash
+mkdir -p /opt/airflow/dags
+python3 -m venv /opt/airflow/venv
+source /opt/airflow/venv/bin/activate
+```
 
-2.  **Instalação de Dependências de Sistema:**
+**Instalação das bibliotecas:**
+```bash
+export AIRFLOW_HOME=/opt/airflow
+pip install --upgrade pip
 
-    ```bash
-    apt update
-    apt install -y libpq-dev build-essential python3-venv python3-pip graphviz locales
-    ```
+AIRFLOW_VERSION=2.8.1
+PYTHON_VERSION=3.11
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
 
-3.  **Configuração de Localização (Locale) para Suporte a UTF-8:** Este passo é **crítico** para evitar erros de `UnicodeEncodeError`.
+pip install \
+    "apache-airflow[postgres,s3]==${AIRFLOW_VERSION}" \
+    "apache-airflow-providers-amazon" \
+    "pandas" \
+    "scikit-learn" \
+    "pyarrow" \
+    "s3fs" \
+    "mlflow" \
+    "boto3==1.33.13" \
+    --constraint "${CONSTRAINT_URL}"
+```
 
-    ```bash
-    # Descomentar a localização en_US.UTF-8
-    sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen
+### 2.3. Configuração do `airflow.cfg`
 
-    # Gerar a localização
-    locale-gen
-    ```
+**Seção `[core]`:**
+```ini
+executor = LocalExecutor
+sql_alchemy_conn = postgresql+psycopg2://airflow:iRB;g2&ChZ&XQEW!@postgres.gti.local/airflow
+load_examples = False
+```
 
-### 2.2. Instalação Robusta do Airflow e Dependências
+**Seção `[webserver]`:**
+```ini
+base_url = http://airflow.gti.local:8080
+```
 
-1.  **Criação do Ambiente Virtual:**
+### 2.4. Configuração dos Serviços Systemd
 
-    ```bash
-    mkdir -p /opt/airflow/dags
-    python3 -m venv /opt/airflow/venv
-    source /opt/airflow/venv/bin/activate
-    ```
+**Arquivo: `/etc/systemd/system/airflow-webserver.service`**
+```ini
+[Unit]
+Description=Airflow Webserver
+After=network.target postgresql.service
 
-2.  **Instalação com Arquivo de Restrições (Constraints) e Dependências do Projeto:**
-    Este é o método recomendado para evitar conflitos. Instalamos o Airflow e todas as dependências do projeto de uma só vez para permitir que o `pip` resolva o ambiente de forma otimizada.
+[Service]
+User=root
+Group=root
+Type=simple
+Environment="AIRFLOW_HOME=/opt/airflow"
+Environment="LANG=en_US.UTF-8"
+Environment="LC_ALL=en_US.UTF-8"
+Environment="AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags"
+ExecStart=/opt/airflow/venv/bin/airflow webserver
+Restart=on-failure
+RestartSec=10
 
-    ```bash
-    export AIRFLOW_HOME=/opt/airflow
-    echo "export AIRFLOW_HOME=/opt/airflow" >> ~/.bashrc
-    pip install --upgrade pip wheel
+[Install]
+WantedBy=multi-user.target
+```
 
-    AIRFLOW_VERSION=2.8.1
-    PYTHON_VERSION=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-    CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+**Arquivo: `/etc/systemd/system/airflow-scheduler.service`**
+```ini
+[Unit]
+Description=Airflow Scheduler
+After=network.target postgresql.service
 
-    # Instalar Airflow core, provedores e todas as bibliotecas do projeto de uma vez
-    pip install \
-        "apache-airflow[postgres,s3]==${AIRFLOW_VERSION}" \
-        "apache-airflow-providers-amazon" \
-        "pandas" \
-        "numpy" \
-        "scikit-learn" \
-        "pyarrow" \
-        "s3fs" \
-        "SQLAlchemy" \
-        "pandera" \
-        --constraint "${CONSTRAINT_URL}"
-    ```
+[Service]
+User=root
+Group=root
+Type=simple
+Environment="AIRFLOW_HOME=/opt/airflow"
+Environment="LANG=en_US.UTF-8"
+Environment="LC_ALL=en_US.UTF-8"
+Environment="AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags"
+ExecStart=/opt/airflow/venv/bin/airflow scheduler
+Restart=on-failure
+RestartSec=10
 
-### 2.3. Troubleshooting de Dependências Python
+[Install]
+WantedBy=multi-user.target
+```
 
-Durante a manutenção ou ao adicionar novas DAGs, podem surgir conflitos de dependência (`ERROR: pip's dependency resolver...`).
+**Ativação dos serviços:**
+```bash
+systemctl daemon-reload
+systemctl enable --now airflow-webserver
+systemctl enable --now airflow-scheduler
+```
 
-* **Problema Comum:** Bibliotecas como `boto3`, `botocore` e `aiobotocore` (usadas para a comunicação com o MinIO/S3) são muito sensíveis às suas versões. Instalar um novo pacote pode atualizar uma destas sub-dependências e quebrar a compatibilidade com outra.
+## 3. Integração Datalake e MLOps (DAGs)
 
-* **Estratégia de Resolução:**
+### 3.1. DAG de ETL: `process_churn_data_from_raw_to_curated`
+- **Objetivo:** Ler CSV da `raw-zone`, limpar dados e salvar como Parquet na `curated-zone`
+- **Status:** ✅ **Operacional**
+- **Método:** Utiliza `S3Hook` do Airflow com conexão `minio_s3_default`
 
-    1.  **Leia o Erro:** A mensagem de erro do `pip` dirá exatamente qual pacote e qual versão está a causar o conflito.
-    2.  **Tente uma Atualização Conjunta:** O primeiro passo é tentar atualizar os pacotes de alto nível em conjunto.
-        ```bash
-        pip install --upgrade boto3 s3fs
-        ```
-    3.  **Force uma Versão Específica:** Se o erro persistir, a mensagem indicará o requisito de versão. Por exemplo, se um pacote precisar de `botocore<1.41.0,>=1.40.64`, pode forçar a instalação de uma versão compatível:
-        ```bash
-        pip install "botocore==1.40.64"
-        ```
-    4.  **Verifique o Ambiente:** Após qualquer alteração, use `pip check` para validar se todos os conflitos foram resolvidos.
-    5.  **Reinicie os Serviços:** Lembre-se sempre de reiniciar o Airflow após modificar o ambiente Python:
-        ```bash
-        systemctl restart airflow-scheduler airflow-webserver
-        ```
+### 3.2. DAG de Treinamento: `train_churn_prediction_model`
+- **Objetivo:** Ler Parquet da `curated-zone`, treinar modelo e registrar no MLflow
+- **Status:** ✅ **Operacional (com patch)**
+- **Desafio:** Falha com `botocore.errorfactory.NoSuchBucket`
 
-### 2.4. Configuração do `airflow.cfg`
+### 3.3. Solução: Monkey Patch do Boto3
 
-1.  **Geração e Edição:** Gerar o arquivo com `airflow db init` (com a pasta `dags` vazia) e depois editar `$AIRFLOW_HOME/airflow.cfg` com as seguintes configurações:
+**Problema:** Versão antiga do `boto3==1.33.13` ignora variáveis de ambiente S3 e tenta conectar ao `s3.amazonaws.com`
 
-    * **Seção `[core]`:**
+**Solução implementada no início da DAG:**
+```python
+import os
+import boto3
+from botocore.client import Config
 
-      ```ini
-      executor = LocalExecutor
-      sql_alchemy_conn = postgresql+psycopg2://airflow:sua_senha_forte_para_airflow@10.10.10.11/airflow
-      load_examples = False
-      ```
+# Credenciais e endpoint
+MINIO_ACCESS_KEY = 'admin'
+MINIO_SECRET_KEY = 'iRB;g2&ChZ&XQEW!' 
+MINIO_ENDPOINT = 'http://192.168.4.52:9000'
 
-    * **Seção `[webserver]`:**
+# Monkey Patch para boto3 v1.33.13
+boto3.setup_default_session(
+    aws_access_key_id=MINIO_ACCESS_KEY,
+    aws_secret_access_key=MINIO_SECRET_KEY,
+    region_name='us-east-1'
+)
 
-      ```ini
-      base_url = http://airflow.lan
-      allowed_hosts = airflow.lan, localhost, 127.0.0.1
-      ```
-
-### 2.5. Inicialização do Banco de Dados e Criação de Usuário
-
-* **Pré-requisito:** Garantir que o banco de dados `airflow` no PostgreSQL foi criado com codificação `UTF-8`.
-
-* **Execução (com a pasta `dags` temporariamente vazia):**
-
-  ```bash
-  # Ativar o ambiente virtual e definir o locale para o terminal
-  export LANG=en_US.UTF-8
-  export LC_ALL=en_US.UTF-8
-  source /opt/airflow/venv/bin/activate
-
-  # Inicializar o banco de dados
-  airflow db init
-
-  # Criar o usuário administrador
-  airflow users create \
-      --username admin --firstname Admin --lastname User \
-      --role Admin --email admin@example.com
-  ```
-
-### 2.6. Configuração dos Serviços `systemd`
-
-Os arquivos de serviço foram atualizados para incluir as variáveis de ambiente essenciais para a codificação e para a descoberta das DAGs.
-
-1.  **`airflow-webserver.service`:** (`/etc/systemd/system/airflow-webserver.service`)
-
-    ```ini
-    [Unit]
-    Description=Airflow Webserver
-    After=network.target postgresql.service
-
-    [Service]
-    User=root
-    Group=root
-    Type=simple
-    Environment="AIRFLOW_HOME=/opt/airflow"
-    Environment="LANG=en_US.UTF-8"
-    Environment="LC_ALL=en_US.UTF-8"
-    Environment="AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags"
-    ExecStart=/opt/airflow/venv/bin/airflow webserver
-    Restart=on-failure
-    RestartSec=10
-
-    [Install]
-    WantedBy=multi-user.target
-    ```
-
-2.  **`airflow-scheduler.service`:** (`/etc/systemd/system/airflow-scheduler.service`)
-
-    * O conteúdo é idêntico ao do `webserver`, exceto pela linha `ExecStart`:
-
-      ```ini
-      ExecStart=/opt/airflow/venv/bin/airflow scheduler
-      ```
-
-### 2.7. Finalização
-
-1.  **Ativação dos Serviços:**
-
-    ```bash
-    systemctl daemon-reload
-    systemctl enable --now airflow-webserver airflow-scheduler
-    ```
-
-2.  **Remoção do Acesso à Internet:** A interface de rede temporária (`net1`) foi removida.
-
----
-
-## 3. Estado Final
-
-O container `airflow` (CT 103) está totalmente operacional e estável. A configuração de `locale`, a definição explícita da pasta de DAGs e a codificação correta do banco de dados garantem que o sistema funciona de forma confiável.
-
----
+# Variáveis de ambiente para Botocore
+os.environ['AWS_ENDPOINT_URL'] = MINIO_ENDPOINT
+os.environ['MLFLOW_S3_ENDPOINT_URL'] = MINIO_ENDPOINT
+os.environ['AWS_S3_ADDRESSING_STYLE'] = 'path'
+os.environ['AWS_REQUEST_CHECKSUM_CALCULATION'] = 'when_required'
+os.environ['AWS_RESPONSE_CHECKSUM_VALIDATION'] = 'when_required'
+```
 
 ## 4. Verificação e Monitoramento
 
-### Comandos Úteis
-
-**Verificar status dos serviços:**
+### Comandos de Verificação
 ```bash
+# Status dos serviços
 systemctl status airflow-webserver
 systemctl status airflow-scheduler
-```
 
-**Ver logs em tempo real:**
-```bash
+# Logs em tempo real
 journalctl -u airflow-webserver -f
 journalctl -u airflow-scheduler -f
+
+# Reiniciar serviços
+systemctl restart airflow-webserver airflow-scheduler
 ```
 
-**Listar DAGs via CLI:**
-```bash
-source /opt/airflow/venv/bin/activate
-airflow dags list
-```
+### Acesso
+- **Interface Web:** `http://airflow.gti.local:8080`
+- **Diretório DAGs:** `/opt/airflow/dags/`
 
-### Acesso à Interface Web
-
-A interface web do Airflow está disponível através de:
-- **URL:** `http://airflow.lan`
-- **Usuário:** `admin`
-- **Senha:** [definida durante a criação do usuário]
-
-### Estrutura de Diretórios
-
+## 5. Estrutura do Ambiente
 ```
 /opt/airflow/
-├── venv/                   # Ambiente virtual Python
-├── airflow.cfg             # Arquivo de configuração
-├── dags/                   # Local para colocar as DAGs do projeto
-├── logs/                   # Logs da aplicação
-└── (dados do banco no PostgreSQL)
+├── venv/           # Ambiente virtual Python
+├── dags/           # Diretório das DAGs
+├── airflow.cfg     # Configuração principal
+├── logs/           # Logs da aplicação
+└── airflow.db      # (Não utilizado - banco em PostgreSQL)
 ```
+
+## 6. Dependências Críticas
+
+- **boto3==1.33.13:** Versão compatível com dependências do Airflow
+- **UTF-8 Locale:** Essencial para evitar erros de codificação
+- **Conexão PostgreSQL:** Backend do metastore
+- **Conexão MinIO:** Armazenamento do Datalake
+
+## 7. Status do Container
+
+**Status:** ✅ **OPERACIONAL E CONFIGURADO**
+
+- [x] Serviços systemd ativos
+- [x] Conexão com PostgreSQL estabelecida
+- [x] Integração com MinIO funcionando
+- [x] DAGs de ETL e ML operacionais
+- [x] Acesso web disponível
 
 ---
 
-## 5. Próximos Passos
-
-1. **Desenvolvimento de DAGs:** Começar a desenvolver e implantar DAGs no diretório `/opt/airflow/dags`
-2. **Configuração de Conexões:** Configurar conexões com outros serviços (MinIO, PostgreSQL, etc.) através da UI web
-3. **Variáveis de Ambiente:** Definir variáveis de ambiente para configurações sensíveis
-4. **Monitoramento:** Implementar monitoramento e alertas para as DAGs e serviços
-5. **Backup:** Configurar backup regular do banco de dados PostgreSQL
-
-### Comando para Reiniciar Serviços
-
-```bash
-# Reiniciar ambos os serviços
-systemctl restart airflow-webserver airflow-scheduler
-
-# Verificar status após reinício
-systemctl status airflow-webserver airflow-scheduler
-```
-
----
-
-## 6. Problemas Resolvidos e Lições Aprendidas
-
-Durante a instalação, foram diagnosticados e resolvidos vários problemas complexos:
-
-### Problema 1: Erros de dependência Python (`AttributeError`)
-
-* **Causa:** Instalação de pacotes com versões incompatíveis
-* **Solução:** Recriar o ambiente virtual e usar o arquivo de restrições (`--constraint`) para garantir a compatibilidade de todo o ecossistema de pacotes
-
-### Problema 2: Erros de Codificação (`UnicodeEncodeError: 'ascii' codec...`)
-
-* **Causa:** Uma falha em cascata. O arquivo da DAG continha caracteres UTF-8 (`é`), mas o ambiente do terminal, os serviços `systemd` e o banco de dados PostgreSQL estavam configurados por padrão para `ASCII`
-* **Solução Multi-camada:**
-  1. **Banco de Dados:** Recriar o banco de dados `airflow` no PostgreSQL com `ENCODING = 'UTF8'`
-  2. **Sistema Operacional:** Instalar o pacote `locales` e gerar a localização `en_US.UTF-8`
-  3. **Serviços `systemd`:** Adicionar as variáveis `LANG` e `LC_ALL` aos arquivos de serviço
-  4. **DAG:** Recriar o arquivo .py para garantir que não continha metadados de codificação corrompidos
-
-### Problema 3: DAG visível no CLI (`airflow dags list`) mas não na Interface Web
-
-* **Causa:** O ambiente isolado do `systemd` não estava encontrando a pasta de DAGs, causando uma dessincronização entre o `scheduler` e o `webserver`
-* **Solução:** Adicionar a variável de ambiente `Environment="AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags"` explicitamente aos arquivos de serviço, eliminando qualquer ambiguidade
-
-### Problema 4: Erro `Invalid Host header` ao acessar via proxy
-
-* **Causa:** A aplicação Airflow não estava configurada para aceitar requisições do domínio `airflow.lan`
-* **Solução:** Adicionar `allowed_hosts = airflow.lan, localhost, 127.0.0.1` no `airflow.cfg`
-
----
-
-## 7. Configurações de Performance
-
-### Otimização para Produção
-
-```ini
-# No airflow.cfg, ajustar para melhor performance:
-[core]
-parallelism = 32
-dag_concurrency = 16
-max_active_tasks_per_dag = 16
-
-[scheduler]
-max_threads = 4
-scheduler_heartbeat_sec = 5
-
-[webserver]
-workers = 4
-worker_class = sync
-```
-
-### Configuração de Conexão com MinIO
-
-```python
-# No Airflow, criar uma conexão do tipo Amazon S3:
-# - Host: http://10.10.10.12:9000
-# - Login: admin
-# - Password: sua_senha_super_secreta_para_minio
-# - Extra: {"region_name": "us-east-1"}
-```
-
-**Status:** ✅ **CONFIGURADO E OPERACIONAL** - O Airflow está funcionando corretamente e acessível via `http://airflow.lan`
+*Documentação atualizada em: 4 de Novembro de 2025*
