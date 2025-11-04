@@ -17,30 +17,25 @@ from sklearn.metrics import accuracy_score
 # --- O FIX DEFINITIVO (Boto3 Monkey Patch para v1.33.13) ---
 import boto3
 
-# Estas credenciais serao usadas pelo Boto3 e pelo Pandas
-MINIO_ACCESS_KEY = 'admin'
-MINIO_SECRET_KEY = 'iRB;g2&ChZ&XQEW!' 
-MINIO_ENDPOINT = 'http://192.168.4.52:9000'
-MLFLOW_SERVER_URI = 'http://mlflow.gti.local:5000'
+# Credenciais agora são obtidas das variáveis de ambiente (NUNCA em texto!)
+MINIO_ACCESS_KEY = os.environ.get('MINIO_ACCESS_KEY')
+MINIO_SECRET_KEY = os.environ.get('MINIO_SECRET_KEY')
+MINIO_ENDPOINT = os.environ.get('MINIO_ENDPOINT')
+MLFLOW_SERVER_URI = os.environ.get('MLFLOW_SERVER_URI')
 
-# --- APLICAR O PATCH GLOBALMENTE NO BOTO3 (SINTAXE ANTIGA) ---
-# Isto forca a sessao padrao do Boto3 a usar estas credenciais.
-# A versao 1.33.13 nao tem o metodo .get_default_client_config()
+# --- Aplicar o patch globalmente no boto3 ---
 boto3.setup_default_session(
     aws_access_key_id=MINIO_ACCESS_KEY,
     aws_secret_access_key=MINIO_SECRET_KEY,
     region_name='us-east-1'
 )
-
-# Estas variaveis de ambiente serao lidas pelo Boto3/Botocore
-# para configurar o endpoint e o protocolo S3.
 os.environ['AWS_ENDPOINT_URL'] = MINIO_ENDPOINT
 os.environ['MLFLOW_S3_ENDPOINT_URL'] = MINIO_ENDPOINT
 os.environ['AWS_S3_ADDRESSING_STYLE'] = 'path'
 os.environ['AWS_REGION'] = 'us-east-1'
 os.environ['AWS_REQUEST_CHECKSUM_CALCULATION'] = 'when_required'
 os.environ['AWS_RESPONSE_CHECKSUM_VALIDATION'] = 'when_required'
-# --- FIM DO PATCH ---
+# --- Fim do patch ---
 
 @dag(
     dag_id='train_churn_prediction_model',
@@ -50,7 +45,7 @@ os.environ['AWS_RESPONSE_CHECKSUM_VALIDATION'] = 'when_required'
     tags=['ml', 'churn', 'training', 'patch_v2'],
     doc_md="""
     ### DAG de Treinamento do Modelo de Churn (VERSAO PATCHED v2)
-    
+
     Esta DAG aplica um 'monkey patch' na sessao padrao do Boto3
     (com sintaxe para v1.33) e define as variaveis de ambiente
     para forcar o MLflow client (Boto3 v1.33.13) a usar o MinIO.
@@ -63,14 +58,14 @@ def train_churn_model_dag_patched_v2():
         Executa o ciclo completo de carregamento de dados, treino
         e registro do modelo no MLflow.
         """
-        
-        # Define o servidor de tracking (CT 105)
+
+        # Define o servidor de tracking
         mlflow.set_tracking_uri(MLFLOW_SERVER_URI)
         mlflow.set_experiment("predicao_churn_telco")
 
         # --- 2. Carregamento dos Dados ---
         s3_uri = "s3://curated-zone/processed_telco_churn.parquet"
-        
+
         print(f"Lendo dados de: {s3_uri}")
         # O Pandas/s3fs ira usar o Boto3 patchado ou as storage_options
         df = pd.read_parquet(
@@ -109,7 +104,7 @@ def train_churn_model_dag_patched_v2():
             y_pred = model_pipeline.predict(X_test)
             accuracy = accuracy_score(y_test, y_pred)
             mlflow.log_metric("accuracy", accuracy)
-            
+
             # Esta chamada agora ira usar a sessao Boto3 que nos 'patchamos'
             mlflow.sklearn.log_model(model_pipeline, "churn_prediction_model")
             print("Modelo registrado com sucesso no MLflow.")
@@ -118,4 +113,3 @@ def train_churn_model_dag_patched_v2():
     train_and_register_model()
 
 train_churn_model_dag_patched_v2()
-
