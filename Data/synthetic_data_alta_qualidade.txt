@@ -1,0 +1,1001 @@
+customerID	gender	SeniorCitizen	Partner	Dependents	tenure	PhoneService	MultipleLines	InternetService	OnlineSecurity	OnlineBackup	DeviceProtection	TechSupport	StreamingTV	StreamingMovies	Contract	PaperlessBilling	PaymentMethod	MonthlyCharges	TotalCharges	Churn
+sdv-id-pJvgxt	Male	0	Yes	No	48	Yes	No	DSL	No	Yes	No	No	No	Yes	Month-to-month	Yes	Bank transfer (automatic)	110.84	5440.93	Yes
+sdv-id-QZoJix	Male	0	No	Yes	5	Yes	No	Fiber optic	Yes	Yes	Yes	No	Yes	Yes	Two year	No	Credit card (automatic)	28.86	308.28	No
+sdv-id-sUpodm	Female	0	Yes	Yes	1	Yes	No	Fiber optic	No	No internet service	Yes	Yes	No	No	Month-to-month	No	Electronic check	56.15	22.52	Yes
+sdv-id-VQZvMN	Female	0	Yes	No	72	No	Yes	DSL	Yes	No	Yes	No internet service	Yes	No internet service	One year	Yes	Credit card (automatic)	70.14	7143.85	No
+sdv-id-fHaBym	Male	1	No	No	29	Yes	Yes	Fiber optic	No	Yes	Yes	No	No	No	Month-to-month	Yes	Electronic check	118.27	6030.29	No
+sdv-id-vZLBtQ	Male	0	Yes	No	40	No	No phone service	No	Yes	No internet service	No internet service	No internet service	No internet service	Yes	One year	No	Credit card (automatic)	33.42	4237.09	No
+sdv-id-bsSPKa	Male	1	Yes	No	16	Yes	No phone service	Fiber optic	No	No	Yes	No	No	No	Month-to-month	Yes	Electronic check	28.74	131.53	Yes
+sdv-id-REEpbp	Male	1	No	No	1	Yes	No	DSL	No	No internet service	No	No	No	No	Month-to-month	No	Electronic check	101.81	250.27	Yes
+sdv-id-dSElnr	Male	0	Yes	No	7	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	No	Electronic check	91.33	423.27	No
+sdv-id-jZVxJd	Female	1	Yes	No	20	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	118.68	6501.19	Yes
+sdv-id-WXkorf	Male	0	No	No	23	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Credit card (automatic)	118.59	6330.4	No
+sdv-id-QUoJOA	Male	0	No	No	10	Yes	No	Fiber optic	No	No internet service	No	No internet service	Yes	Yes	Month-to-month	Yes	Electronic check	41.13	1179.47	Yes
+sdv-id-lmdzUR	Male	0	Yes	No	36	Yes	No	Fiber optic	Yes	No	Yes	Yes	Yes	No	One year	Yes	Credit card (automatic)	40.96	517.23	No
+sdv-id-bjwkpo	Male	0	No	Yes	1	Yes	Yes	Fiber optic	No	No	No	No	Yes	No	Month-to-month	No	Electronic check	60.68	46.62	No
+sdv-id-ZAiBUM	Female	0	No	No	1	Yes	No	Fiber optic	Yes	No internet service	Yes	No internet service	Yes	Yes	Month-to-month	Yes	Electronic check	23.01	27.55	No
+sdv-id-TJRNGW	Male	0	No	No	7	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	89.89	1044.07	No
+sdv-id-PtHatA	Female	1	Yes	No	65	Yes	No	No	Yes	No internet service	Yes	No internet service	No internet service	Yes	One year	No	Credit card (automatic)	38.01	1839.63	Yes
+sdv-id-OASRxR	Male	0	Yes	No	3	Yes	Yes	Fiber optic	Yes	No	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	81.7	713.93	Yes
+sdv-id-HWMHji	Female	0	Yes	No	43	Yes	Yes	No	No internet service	No	No internet service	No internet service	No	No internet service	Two year	No	Bank transfer (automatic)	46.04	3528.67	No
+sdv-id-eARzce	Male	0	No	No	6	Yes	No	Fiber optic	No internet service	No	Yes	No internet service	No internet service	No internet service	Month-to-month	No	Mailed check	24.8	157.07	No
+sdv-id-JRqtoJ	Male	0	Yes	No	72	Yes	Yes	Fiber optic	Yes	Yes	Yes	Yes	No	Yes	Two year	No	Credit card (automatic)	102.13	8639.53	No
+sdv-id-LhzQFb	Male	0	No	Yes	1	Yes	Yes	Fiber optic	No	No internet service	No	No	Yes	No internet service	One year	No	Mailed check	22.32	19.76	No
+sdv-id-yizlfe	Female	0	No	No	19	Yes	No	Fiber optic	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	Month-to-month	Yes	Electronic check	18.45	128.6	No
+sdv-id-uCOpIY	Female	0	No	Yes	5	Yes	No phone service	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Credit card (automatic)	18.25	18.82	No
+sdv-id-DFcOGw	Male	0	No	Yes	11	Yes	No	DSL	Yes	No internet service	No	No internet service	Yes	No internet service	Two year	No	Credit card (automatic)	18.58	71.37	No
+sdv-id-GfZiwb	Male	1	Yes	No	6	Yes	No	Fiber optic	No	Yes	No	No	Yes	Yes	Month-to-month	Yes	Mailed check	97.84	369.44	Yes
+sdv-id-wejIoO	Female	0	No	Yes	38	No	No	Fiber optic	No	No	No	No	Yes	No internet service	Two year	Yes	Credit card (automatic)	73.92	2841.11	No
+sdv-id-tlDpIK	Male	0	No	No	2	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	82.66	399.52	No
+sdv-id-knRFhK	Female	1	Yes	Yes	53	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	118.56	7210.37	Yes
+sdv-id-ekPSxb	Male	0	No	No	44	Yes	Yes	Fiber optic	No	No	No	No	Yes	Yes	Month-to-month	Yes	Credit card (automatic)	46.1	277.39	No
+sdv-id-piTHyQ	Female	0	Yes	Yes	71	Yes	No	No	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	Two year	Yes	Bank transfer (automatic)	22.33	4056.13	No
+sdv-id-yVnEaH	Female	0	Yes	No	2	Yes	No phone service	Fiber optic	No	No internet service	Yes	Yes	No	No	Month-to-month	Yes	Electronic check	21.15	19.17	Yes
+sdv-id-IPnOHm	Female	0	Yes	No	47	Yes	No	Fiber optic	Yes	Yes	No	No	No	No	One year	No	Bank transfer (automatic)	81.54	3797.36	No
+sdv-id-xNtYmG	Male	0	No	No	9	Yes	No	Fiber optic	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	One year	No	Mailed check	21.3	187.75	No
+sdv-id-HrqiQU	Male	0	Yes	No	68	Yes	Yes	DSL	No	No internet service	No internet service	No internet service	Yes	Yes	Two year	Yes	Bank transfer (automatic)	49.84	1446.97	No
+sdv-id-sbAwrO	Female	0	Yes	No	2	Yes	No	Fiber optic	Yes	No	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	35.43	182.41	No
+sdv-id-dQCoKl	Female	0	No	No	70	Yes	Yes	Fiber optic	No	No	No	No internet service	Yes	Yes	Two year	Yes	Electronic check	50.95	2338.67	Yes
+sdv-id-ATuhOL	Male	0	Yes	No	38	No	Yes	Fiber optic	Yes	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Mailed check	22.88	403.67	No
+sdv-id-fcdrWN	Female	0	No	Yes	3	Yes	No phone service	Fiber optic	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	Month-to-month	No	Credit card (automatic)	18.29	27.78	No
+sdv-id-ekgNmC	Male	0	No	No	71	Yes	Yes	Fiber optic	Yes	Yes	Yes	No internet service	Yes	No internet service	Two year	No	Mailed check	112.86	7719.06	No
+sdv-id-KXUeye	Female	0	Yes	Yes	52	Yes	Yes	Fiber optic	Yes	No	Yes	No internet service	No internet service	No internet service	Two year	Yes	Mailed check	33.83	2346.85	Yes
+sdv-id-DofnTO	Male	0	No	Yes	63	Yes	Yes	Fiber optic	Yes	No	Yes	No	No	Yes	One year	Yes	Credit card (automatic)	96.82	3947.96	No
+sdv-id-JiTlfR	Female	0	Yes	Yes	9	Yes	No	Fiber optic	No	No internet service	No	Yes	No	No	Month-to-month	Yes	Credit card (automatic)	51.88	117.98	Yes
+sdv-id-bhRVZs	Female	0	Yes	No	65	Yes	Yes	No	Yes	Yes	No	No	No	Yes	Two year	Yes	Bank transfer (automatic)	101.26	6093.42	No
+sdv-id-atJrij	Female	0	No	No	36	Yes	Yes	No	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	59.86	1168.65	No
+sdv-id-xKMkmJ	Male	0	No	No	7	Yes	No	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	108.2	4513.78	No
+sdv-id-QYnDDi	Male	0	Yes	No	42	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	118.72	7525.07	Yes
+sdv-id-JSXeas	Male	0	Yes	No	59	No	No	DSL	No	No	Yes	No	No	No	Month-to-month	No	Bank transfer (automatic)	91.91	4430.95	Yes
+sdv-id-RwEXwB	Male	0	Yes	Yes	62	Yes	Yes	Fiber optic	No	Yes	No	Yes	Yes	Yes	Two year	No	Bank transfer (automatic)	60.33	7102.06	No
+sdv-id-qznBbG	Male	0	Yes	Yes	69	Yes	Yes	Fiber optic	No	No	Yes	Yes	No internet service	Yes	One year	No	Mailed check	32.67	3711.96	No
+sdv-id-oHiZpY	Female	0	No	Yes	19	Yes	No	DSL	No internet service	No internet service	Yes	Yes	Yes	Yes	One year	Yes	Electronic check	38.25	1207.63	No
+sdv-id-iixvax	Female	0	No	No	57	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	111.33	4499.06	Yes
+sdv-id-fioaSK	Female	0	No	No	5	Yes	Yes	Fiber optic	No	Yes	No	No	Yes	Yes	Month-to-month	Yes	Mailed check	113.04	994.39	No
+sdv-id-sokADt	Female	0	No	No	68	Yes	Yes	DSL	No	Yes	No	No	No	No	One year	Yes	Bank transfer (automatic)	118.73	8450.76	No
+sdv-id-IAvIlw	Male	0	No	No	7	No	Yes	Fiber optic	No	No	No	No	No	No	Month-to-month	No	Electronic check	64.07	284.65	No
+sdv-id-VcZgmq	Male	0	Yes	No	19	Yes	Yes	No	No internet service	No	No internet service	No internet service	No internet service	No internet service	Month-to-month	No	Electronic check	37.08	1818.82	No
+sdv-id-zVRFKG	Male	0	No	No	48	No	Yes	Fiber optic	No	Yes	Yes	No	Yes	Yes	Month-to-month	No	Electronic check	89.46	3975.46	No
+sdv-id-ESOUpb	Male	0	No	No	3	Yes	No	Fiber optic	Yes	No	No	Yes	No	No	Month-to-month	No	Credit card (automatic)	37.9	203.31	Yes
+sdv-id-NEelCD	Female	0	Yes	Yes	59	Yes	No	Fiber optic	Yes	No	No internet service	No internet service	Yes	Yes	Two year	No	Credit card (automatic)	33.17	3311.94	No
+sdv-id-FSTSsK	Female	0	Yes	No	35	Yes	No	No	Yes	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Electronic check	25.14	3160.08	No
+sdv-id-PLIpBT	Male	0	No	No	10	Yes	Yes	Fiber optic	No internet service	No	No	Yes	Yes	Yes	Month-to-month	No	Electronic check	102.43	3020.61	No
+sdv-id-FduiqA	Male	1	Yes	Yes	60	No	No	DSL	No	Yes	No	No	Yes	Yes	One year	No	Credit card (automatic)	107.96	7706.64	No
+sdv-id-gxWIEv	Female	0	No	No	17	Yes	Yes	No	Yes	No internet service	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	78.42	598.99	Yes
+sdv-id-sFYJZm	Female	0	No	No	9	Yes	Yes	Fiber optic	No	Yes	No	Yes	Yes	No	Month-to-month	Yes	Electronic check	65.24	942.3	Yes
+sdv-id-xxVnIQ	Female	0	No	No	2	Yes	No	No	No internet service	No internet service	Yes	No	Yes	Yes	Month-to-month	No	Mailed check	20.46	35.67	No
+sdv-id-rlLViW	Female	0	No	No	47	Yes	Yes	Fiber optic	Yes	Yes	Yes	Yes	No	Yes	One year	Yes	Mailed check	56.72	3811.21	No
+sdv-id-XXMlFt	Male	0	Yes	No	23	Yes	No	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Credit card (automatic)	114.77	5700.8	Yes
+sdv-id-lJgyrb	Female	0	Yes	No	55	Yes	Yes	No	Yes	No	Yes	Yes	No internet service	Yes	Two year	Yes	Electronic check	95.74	5104.0	Yes
+sdv-id-gMRobY	Female	0	Yes	Yes	32	Yes	Yes	No	No internet service	Yes	No internet service	No	No internet service	Yes	Two year	Yes	Credit card (automatic)	58.92	4535.46	No
+sdv-id-MuiUWQ	Female	0	No	No	10	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Month-to-month	No	Bank transfer (automatic)	24.67	411.84	No
+sdv-id-HJoErq	Female	0	No	No	50	Yes	Yes	Fiber optic	No	Yes	Yes	Yes	No internet service	No internet service	Two year	No	Electronic check	89.28	1455.83	No
+sdv-id-LtIzod	Female	0	Yes	No	72	Yes	Yes	Fiber optic	Yes	No	No internet service	No	Yes	No internet service	One year	No	Mailed check	61.0	5069.41	No
+sdv-id-MkSrUR	Male	1	Yes	No	2	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	No	Bank transfer (automatic)	92.06	775.43	Yes
+sdv-id-PYFqHF	Male	0	Yes	No	72	Yes	No phone service	Fiber optic	No	Yes	Yes	Yes	Yes	Yes	Two year	Yes	Credit card (automatic)	83.76	7977.3	No
+sdv-id-QdbtEt	Female	0	No	No	48	Yes	No	DSL	No	No	Yes	No	Yes	No	One year	No	Bank transfer (automatic)	37.25	1964.63	No
+sdv-id-AlAEbN	Female	0	Yes	No	18	No	No	No	No internet service	No	No internet service	No internet service	Yes	Yes	One year	Yes	Mailed check	66.27	1610.24	No
+sdv-id-OOuBpn	Male	1	No	No	8	Yes	No	DSL	No	No	Yes	No	Yes	No	Month-to-month	Yes	Mailed check	42.06	1209.28	Yes
+sdv-id-ehPPJQ	Male	0	No	No	63	Yes	No	DSL	Yes	Yes	Yes	Yes	Yes	Yes	Two year	Yes	Credit card (automatic)	34.34	4526.29	No
+sdv-id-RQOvat	Male	0	No	No	14	Yes	Yes	No	Yes	No internet service	No internet service	Yes	Yes	No internet service	Month-to-month	No	Electronic check	27.88	136.35	No
+sdv-id-yBUqof	Male	0	No	Yes	56	No	No	No	No internet service	No internet service	No internet service	No	Yes	Yes	Month-to-month	No	Bank transfer (automatic)	18.7	500.93	Yes
+sdv-id-NSzgfi	Female	0	No	No	3	Yes	No	No	Yes	No	Yes	No internet service	No internet service	No internet service	One year	No	Bank transfer (automatic)	25.04	105.99	Yes
+sdv-id-NHPBfJ	Male	0	No	No	47	Yes	No phone service	Fiber optic	No	Yes	Yes	No	Yes	No	Two year	No	Electronic check	66.28	2920.98	No
+sdv-id-SvAaUH	Female	0	No	No	7	Yes	Yes	No	No	No internet service	Yes	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	67.05	463.41	No
+sdv-id-Ochlnt	Female	0	No	No	72	Yes	Yes	Fiber optic	Yes	No	Yes	No internet service	No internet service	No internet service	Two year	Yes	Mailed check	92.34	7925.79	No
+sdv-id-kxNXlc	Female	0	No	No	15	Yes	No	Fiber optic	Yes	No	Yes	Yes	No internet service	No internet service	Two year	No	Bank transfer (automatic)	67.03	1523.74	No
+sdv-id-pNITQx	Male	1	No	Yes	19	Yes	Yes	No	No internet service	No internet service	No internet service	No	Yes	No internet service	Month-to-month	Yes	Bank transfer (automatic)	23.73	239.17	No
+sdv-id-duxrZU	Female	1	No	Yes	3	Yes	No phone service	Fiber optic	Yes	No	Yes	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	23.02	31.85	Yes
+sdv-id-pAxkHC	Male	0	No	No	28	Yes	No	No	Yes	No internet service	Yes	No internet service	No internet service	No internet service	Two year	Yes	Credit card (automatic)	21.45	214.49	No
+sdv-id-vhyToQ	Female	0	Yes	Yes	17	Yes	No	Fiber optic	Yes	No	No internet service	No internet service	Yes	Yes	Two year	No	Bank transfer (automatic)	33.35	3354.18	No
+sdv-id-lCkBcH	Male	0	No	No	55	Yes	Yes	Fiber optic	Yes	No	No internet service	No internet service	No internet service	No internet service	Month-to-month	No	Mailed check	18.45	925.88	No
+sdv-id-uWvJgU	Female	1	No	No	1	Yes	Yes	Fiber optic	No	No internet service	No	No	Yes	Yes	Month-to-month	No	Electronic check	51.85	352.26	No
+sdv-id-IZVWRn	Male	0	No	No	24	Yes	Yes	Fiber optic	No	Yes	Yes	Yes	No	No	Month-to-month	Yes	Mailed check	62.21	952.32	No
+sdv-id-ZiHHPV	Female	0	No	Yes	2	Yes	No	Fiber optic	No	No	No	No	Yes	Yes	One year	No	Bank transfer (automatic)	20.79	33.21	Yes
+sdv-id-vDczXc	Male	0	No	No	28	Yes	No	Fiber optic	No	Yes	No	Yes	No	No	Month-to-month	No	Bank transfer (automatic)	94.31	4256.25	No
+sdv-id-yfakMX	Female	0	Yes	Yes	63	Yes	Yes	No	Yes	No	No internet service	No	Yes	No internet service	One year	No	Mailed check	58.79	3258.29	No
+sdv-id-fXdKCV	Male	0	No	No	34	Yes	No	No	Yes	No internet service	Yes	No	No internet service	Yes	Month-to-month	Yes	Electronic check	24.04	747.58	No
+sdv-id-gAxbXi	Female	0	Yes	No	5	Yes	No phone service	DSL	No	No internet service	Yes	No	Yes	No	Month-to-month	Yes	Electronic check	31.52	72.09	No
+sdv-id-wEldtF	Female	0	No	No	62	Yes	Yes	No	No internet service	No	Yes	Yes	No internet service	No internet service	Month-to-month	Yes	Electronic check	34.72	904.49	No
+sdv-id-KGHHfj	Female	0	No	No	8	Yes	Yes	Fiber optic	Yes	No	No internet service	No	Yes	Yes	One year	Yes	Electronic check	41.77	187.56	Yes
+sdv-id-WtenBH	Male	0	Yes	No	3	Yes	Yes	Fiber optic	Yes	No	No	Yes	No	Yes	Two year	Yes	Credit card (automatic)	38.23	97.43	Yes
+sdv-id-XUzRyK	Female	0	No	No	70	Yes	Yes	Fiber optic	No internet service	No internet service	No internet service	Yes	Yes	No internet service	Two year	No	Bank transfer (automatic)	30.98	3173.61	No
+sdv-id-ftTiCp	Male	1	No	No	3	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Credit card (automatic)	99.35	1493.55	No
+sdv-id-IRvvIW	Male	0	Yes	No	17	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Month-to-month	Yes	Mailed check	19.0	189.02	Yes
+sdv-id-fDILGu	Female	0	Yes	No	63	Yes	Yes	DSL	No	Yes	No internet service	No	No	No	Two year	Yes	Bank transfer (automatic)	95.56	6760.35	Yes
+sdv-id-nsjCjz	Male	0	Yes	No	27	Yes	No phone service	Fiber optic	Yes	Yes	No internet service	Yes	Yes	Yes	Month-to-month	No	Mailed check	89.5	2299.65	Yes
+sdv-id-SkGMnK	Male	0	Yes	Yes	68	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	Yes	Electronic check	33.92	4278.76	No
+sdv-id-iACJoG	Female	1	No	No	2	Yes	No	DSL	No	Yes	Yes	No	No	No	Month-to-month	Yes	Electronic check	109.19	927.74	No
+sdv-id-KfcYTf	Female	1	No	No	7	Yes	Yes	No	No internet service	No	No internet service	Yes	Yes	No	One year	No	Electronic check	28.38	352.55	No
+sdv-id-WMuTmi	Male	0	Yes	Yes	38	Yes	Yes	DSL	No	Yes	Yes	No	No	No internet service	Two year	Yes	Bank transfer (automatic)	59.79	3079.24	No
+sdv-id-tRiXhh	Male	0	No	No	1	Yes	No	Fiber optic	Yes	No	Yes	No	No	Yes	Month-to-month	No	Mailed check	20.71	20.15	Yes
+sdv-id-GhkfEk	Female	0	Yes	No	66	Yes	Yes	Fiber optic	No	No	No internet service	Yes	Yes	Yes	Two year	No	Credit card (automatic)	88.03	5805.96	No
+sdv-id-sBHopM	Female	0	Yes	No	7	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Two year	Yes	Electronic check	116.88	3020.51	Yes
+sdv-id-AvZQqH	Female	0	Yes	No	63	Yes	Yes	Fiber optic	Yes	No internet service	Yes	Yes	Yes	Yes	One year	Yes	Mailed check	74.06	3756.93	No
+sdv-id-rnoPUI	Female	1	Yes	No	50	Yes	No	DSL	No internet service	No	Yes	No	No	No	Two year	Yes	Electronic check	92.53	3224.21	No
+sdv-id-FQHjXr	Male	0	No	No	33	Yes	No phone service	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	Yes	Mailed check	18.46	146.54	No
+sdv-id-WECOnu	Female	0	Yes	No	67	Yes	No phone service	DSL	No	No	Yes	No internet service	Yes	No internet service	Two year	No	Credit card (automatic)	18.73	469.93	No
+sdv-id-aIIgga	Male	0	Yes	No	61	Yes	Yes	No	No	No internet service	No	No	No	Yes	Two year	Yes	Credit card (automatic)	78.98	3786.27	No
+sdv-id-xeuXdq	Female	0	No	Yes	5	Yes	No	DSL	No	Yes	No	No	No	No	One year	Yes	Bank transfer (automatic)	68.66	463.7	Yes
+sdv-id-mhzvZc	Male	0	No	No	2	Yes	Yes	Fiber optic	No	No	No	No	No internet service	Yes	Month-to-month	Yes	Electronic check	68.49	75.98	Yes
+sdv-id-EVavya	Female	0	No	No	54	Yes	Yes	DSL	Yes	No internet service	No	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	61.4	3473.88	No
+sdv-id-zNbKYX	Male	0	Yes	No	71	Yes	No phone service	Fiber optic	No internet service	No	Yes	Yes	No	No internet service	Two year	No	Bank transfer (automatic)	36.67	7106.86	No
+sdv-id-ihbZWG	Female	0	No	No	22	Yes	Yes	Fiber optic	No	No	No	No	Yes	No	Month-to-month	Yes	Electronic check	109.86	2176.24	No
+sdv-id-ZvIkTL	Female	0	No	No	17	Yes	No phone service	Fiber optic	No internet service	No internet service	No internet service	No internet service	Yes	Yes	Month-to-month	No	Mailed check	18.3	34.14	No
+sdv-id-VhZavu	Male	0	No	No	1	Yes	No phone service	No	Yes	No internet service	Yes	Yes	Yes	No	Month-to-month	Yes	Bank transfer (automatic)	19.36	31.12	No
+sdv-id-VDTZZx	Male	0	Yes	No	45	Yes	Yes	No	Yes	No	No internet service	No	Yes	No internet service	Month-to-month	Yes	Electronic check	60.99	2669.24	Yes
+sdv-id-DihKlb	Male	0	No	Yes	11	Yes	Yes	Fiber optic	Yes	No	Yes	Yes	No	Yes	One year	No	Electronic check	68.17	620.71	Yes
+sdv-id-jrptEI	Male	1	Yes	No	39	Yes	No	DSL	Yes	No	No	No	No internet service	No	One year	Yes	Electronic check	88.17	4271.86	Yes
+sdv-id-XklEJs	Male	1	No	No	22	Yes	No	Fiber optic	Yes	No	Yes	No	No internet service	Yes	Month-to-month	Yes	Mailed check	41.21	1337.2	No
+sdv-id-lFrkDC	Male	0	No	No	26	Yes	Yes	Fiber optic	No	No	No	No	No	Yes	Month-to-month	Yes	Electronic check	103.48	3839.6	No
+sdv-id-pedodN	Female	0	No	Yes	29	Yes	No	No	Yes	No internet service	Yes	No	No	Yes	Month-to-month	Yes	Credit card (automatic)	18.81	165.5	No
+sdv-id-KFdbft	Female	0	Yes	No	43	Yes	No	No	Yes	No internet service	No internet service	No internet service	Yes	Yes	Two year	Yes	Mailed check	20.2	871.99	Yes
+sdv-id-LhgmNT	Female	0	No	No	27	Yes	No	Fiber optic	No	Yes	No internet service	No	Yes	No	One year	No	Bank transfer (automatic)	86.85	4428.35	No
+sdv-id-NRokeq	Male	0	No	No	72	Yes	Yes	No	No internet service	Yes	No internet service	Yes	No internet service	No internet service	Two year	No	Credit card (automatic)	44.56	5456.69	No
+sdv-id-KiYGdW	Male	0	Yes	No	8	Yes	No phone service	Fiber optic	No	No	No internet service	Yes	No	No	Month-to-month	Yes	Bank transfer (automatic)	20.36	30.58	No
+sdv-id-ZAwPaj	Male	0	No	No	44	Yes	Yes	Fiber optic	Yes	No	Yes	Yes	No	Yes	Month-to-month	No	Mailed check	39.29	448.44	No
+sdv-id-cXoTDa	Male	1	Yes	No	64	Yes	No	DSL	No	Yes	No	No	Yes	No	Two year	No	Electronic check	89.7	5148.89	No
+sdv-id-nQZMTG	Male	0	Yes	Yes	71	Yes	No	Fiber optic	Yes	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	116.09	7602.37	No
+sdv-id-UIiIwi	Male	0	No	No	19	Yes	No	Fiber optic	No internet service	No internet service	Yes	Yes	Yes	No internet service	Month-to-month	No	Electronic check	21.92	366.09	Yes
+sdv-id-DOpHOP	Male	0	No	No	46	Yes	No phone service	Fiber optic	Yes	No	No internet service	Yes	No internet service	Yes	Month-to-month	Yes	Mailed check	34.5	482.45	No
+sdv-id-tsvAIh	Female	0	Yes	No	72	Yes	No	Fiber optic	Yes	Yes	Yes	No	Yes	No internet service	Two year	No	Electronic check	51.47	7167.08	No
+sdv-id-GeZCaQ	Male	1	Yes	No	7	Yes	Yes	Fiber optic	No internet service	Yes	Yes	No	Yes	Yes	Month-to-month	Yes	Bank transfer (automatic)	88.4	675.84	No
+sdv-id-iiScun	Female	1	Yes	No	1	Yes	No	Fiber optic	No	No	No	No	No	No	Month-to-month	Yes	Mailed check	91.94	91.68	Yes
+sdv-id-IKKTHg	Female	0	No	No	26	Yes	Yes	Fiber optic	No	No	No	No internet service	No	Yes	Month-to-month	Yes	Credit card (automatic)	57.34	855.84	No
+sdv-id-GUmrXr	Male	0	Yes	Yes	11	Yes	No phone service	DSL	No	No	No	No	No	Yes	Two year	Yes	Mailed check	71.28	1448.87	Yes
+sdv-id-EOlPQi	Male	0	Yes	Yes	4	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	No internet service	Yes	Two year	No	Electronic check	22.67	265.13	Yes
+sdv-id-fyXpIr	Female	0	No	No	67	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Two year	Yes	Electronic check	118.65	8474.94	Yes
+sdv-id-YTzysP	Female	1	No	No	71	Yes	No	Fiber optic	No internet service	No	No internet service	Yes	Yes	No internet service	Two year	Yes	Electronic check	80.0	5063.38	Yes
+sdv-id-buxUvC	Male	1	No	Yes	1	Yes	No	Fiber optic	No	No	Yes	No	Yes	Yes	Month-to-month	No	Electronic check	43.74	25.57	Yes
+sdv-id-knENFh	Male	0	No	Yes	69	Yes	Yes	DSL	No internet service	No	No internet service	No internet service	Yes	Yes	Two year	Yes	Mailed check	56.14	5532.82	No
+sdv-id-chMPpy	Female	0	Yes	No	35	Yes	Yes	Fiber optic	No	Yes	Yes	Yes	No	No	One year	Yes	Mailed check	118.55	6872.37	No
+sdv-id-PSPDQX	Female	0	No	Yes	69	Yes	No	DSL	No	Yes	Yes	Yes	No	No	Two year	No	Mailed check	47.94	2828.94	No
+sdv-id-cmmmBI	Male	0	Yes	No	1	Yes	No	DSL	No	No	No	Yes	No	No	Month-to-month	Yes	Electronic check	68.36	63.32	Yes
+sdv-id-heeHhx	Female	0	No	Yes	3	Yes	No	Fiber optic	No	No internet service	Yes	Yes	Yes	No	Month-to-month	No	Electronic check	48.7	308.97	No
+sdv-id-VKIhzf	Male	0	Yes	No	36	No	No	DSL	No	Yes	No	No	No	No	Month-to-month	No	Credit card (automatic)	77.68	1504.11	Yes
+sdv-id-aVvRDn	Female	0	Yes	No	33	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	117.47	5021.52	No
+sdv-id-lQbejb	Female	0	No	No	10	Yes	No	Fiber optic	No	No	No	Yes	No	Yes	Month-to-month	No	Bank transfer (automatic)	59.76	809.6	No
+sdv-id-bxeVxk	Female	0	No	Yes	24	No	No phone service	Fiber optic	Yes	No internet service	Yes	No internet service	Yes	No	Two year	No	Mailed check	21.89	41.76	No
+sdv-id-DgqEFs	Female	0	No	No	50	Yes	No	Fiber optic	No	No internet service	No internet service	No	Yes	No	Two year	Yes	Bank transfer (automatic)	50.61	3075.56	No
+sdv-id-lTpKgB	Male	1	No	No	24	Yes	No	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Credit card (automatic)	105.9	5112.73	No
+sdv-id-QaatQJ	Female	0	No	No	45	Yes	No	DSL	Yes	Yes	Yes	No	No	Yes	One year	Yes	Credit card (automatic)	85.43	2871.56	No
+sdv-id-alCEfO	Male	0	Yes	No	42	Yes	No	Fiber optic	Yes	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	112.09	5725.99	No
+sdv-id-rEQVPg	Female	0	No	Yes	6	Yes	Yes	Fiber optic	Yes	No internet service	Yes	Yes	Yes	Yes	Month-to-month	No	Electronic check	29.31	157.07	Yes
+sdv-id-OQlzXy	Male	0	Yes	No	7	No	Yes	No	No	No	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	35.11	120.87	Yes
+sdv-id-cloPXf	Male	0	Yes	Yes	31	Yes	Yes	Fiber optic	Yes	No	Yes	No	No	Yes	Two year	No	Bank transfer (automatic)	44.4	751.83	No
+sdv-id-oBuPLM	Male	0	No	No	37	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	110.79	602.39	No
+sdv-id-ANeiGp	Female	1	Yes	No	1	Yes	No	DSL	Yes	No	No	No internet service	Yes	No	Month-to-month	Yes	Electronic check	43.98	143.28	Yes
+sdv-id-HLHPBy	Male	0	No	No	35	Yes	Yes	DSL	No internet service	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	111.32	4978.1	No
+sdv-id-TZBMTE	Female	0	No	No	52	No	No	DSL	No	Yes	No	No	No	No	One year	Yes	Electronic check	117.87	6392.59	Yes
+sdv-id-JyBePL	Female	0	No	Yes	4	Yes	No	DSL	No	No	Yes	No	No	No	Month-to-month	Yes	Electronic check	32.03	439.69	Yes
+sdv-id-wpkBWD	Male	1	Yes	No	3	Yes	Yes	Fiber optic	No	No	No	No	No	No	Month-to-month	No	Electronic check	85.09	892.93	No
+sdv-id-NFfQoT	Male	0	No	No	2	No	No	DSL	No	Yes	No	No	No	No	One year	Yes	Electronic check	108.85	668.14	No
+sdv-id-dnKUdE	Female	0	Yes	No	4	Yes	Yes	Fiber optic	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	One year	No	Bank transfer (automatic)	42.23	394.66	No
+sdv-id-QhTTDj	Male	0	No	No	4	No	Yes	DSL	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	106.32	753.94	Yes
+sdv-id-JJMpTj	Male	1	No	No	50	Yes	Yes	Fiber optic	No	Yes	Yes	No	Yes	No internet service	Month-to-month	Yes	Electronic check	114.95	7724.97	Yes
+sdv-id-kEXoUa	Male	0	Yes	Yes	5	Yes	No phone service	DSL	No	Yes	No	No	No	No	One year	No	Bank transfer (automatic)	44.47	409.5	Yes
+sdv-id-uaoOvB	Male	0	No	No	51	Yes	No	Fiber optic	No internet service	Yes	No internet service	No internet service	Yes	No internet service	Two year	Yes	Electronic check	35.05	1914.29	No
+sdv-id-EGJnUX	Male	0	No	No	31	Yes	Yes	Fiber optic	No	No	Yes	Yes	No	Yes	Month-to-month	Yes	Electronic check	54.38	1567.66	Yes
+sdv-id-nkxOUi	Female	0	No	No	5	Yes	No	No	No	No	Yes	No	No internet service	No	Month-to-month	No	Electronic check	49.89	228.13	Yes
+sdv-id-IERzkC	Female	0	Yes	No	72	No	Yes	No	No internet service	No	No	No internet service	Yes	No internet service	Two year	No	Mailed check	42.53	5447.27	No
+sdv-id-MZGrUu	Female	0	No	Yes	66	Yes	No	DSL	No	Yes	Yes	No	Yes	No	One year	Yes	Credit card (automatic)	68.45	3820.26	No
+sdv-id-BzIgil	Female	0	Yes	Yes	46	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	103.15	2299.89	Yes
+sdv-id-LEYjDi	Female	1	Yes	Yes	56	No	Yes	DSL	Yes	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	108.89	3670.3	Yes
+sdv-id-zEUKBI	Male	0	Yes	Yes	15	Yes	Yes	No	Yes	No internet service	No internet service	No internet service	No internet service	Yes	Two year	No	Bank transfer (automatic)	38.24	1480.18	No
+sdv-id-KPALxV	Female	0	No	No	39	Yes	Yes	No	Yes	No	No internet service	Yes	No internet service	No internet service	One year	Yes	Electronic check	82.16	3419.92	No
+sdv-id-InwATH	Female	0	No	Yes	14	Yes	No phone service	Fiber optic	Yes	No internet service	Yes	No internet service	No internet service	Yes	One year	Yes	Bank transfer (automatic)	19.65	105.7	No
+sdv-id-BWwqxn	Male	0	No	Yes	14	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	One year	Yes	Bank transfer (automatic)	23.7	975.63	No
+sdv-id-aEkYaX	Male	0	No	No	18	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	88.62	1739.11	No
+sdv-id-JXuIRG	Male	0	No	Yes	5	Yes	Yes	Fiber optic	No internet service	No	No internet service	No internet service	No internet service	No internet service	One year	No	Mailed check	37.85	133.24	Yes
+sdv-id-qqorbM	Male	0	No	No	51	Yes	Yes	Fiber optic	Yes	Yes	Yes	No	Yes	Yes	Two year	Yes	Credit card (automatic)	69.3	2433.63	No
+sdv-id-CzyKXK	Female	0	Yes	No	71	No	Yes	Fiber optic	No internet service	No	No internet service	Yes	Yes	No internet service	Two year	No	Credit card (automatic)	53.37	6852.71	No
+sdv-id-rSPDet	Male	0	No	No	2	Yes	No	No	Yes	No internet service	No internet service	No internet service	Yes	No internet service	Month-to-month	Yes	Electronic check	40.09	198.93	Yes
+sdv-id-prHCdQ	Male	0	Yes	Yes	22	Yes	Yes	DSL	Yes	No internet service	Yes	No	No internet service	Yes	Month-to-month	No	Credit card (automatic)	74.44	772.55	Yes
+sdv-id-kIotfO	Female	0	No	Yes	68	Yes	Yes	No	No internet service	No	No internet service	No internet service	No internet service	Yes	One year	Yes	Credit card (automatic)	32.31	4703.47	Yes
+sdv-id-aiQAAc	Male	0	No	No	71	No	Yes	DSL	No	No	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	105.72	5873.25	No
+sdv-id-CAtWlY	Male	0	Yes	No	16	Yes	No	No	No internet service	No	No	No internet service	Yes	Yes	Month-to-month	No	Bank transfer (automatic)	30.65	71.26	No
+sdv-id-ZnflJz	Male	1	Yes	No	51	Yes	No	Fiber optic	Yes	Yes	No	No	Yes	Yes	Month-to-month	Yes	Mailed check	54.18	1956.74	No
+sdv-id-mQoghf	Female	0	Yes	No	11	Yes	No	No	Yes	No internet service	No	No	No	No	One year	Yes	Bank transfer (automatic)	25.9	1044.53	No
+sdv-id-fwAYVV	Female	0	Yes	No	14	Yes	No phone service	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	99.98	2219.08	No
+sdv-id-VQzJcM	Male	0	No	Yes	32	Yes	Yes	DSL	No	No	No	No internet service	No	Yes	Month-to-month	Yes	Credit card (automatic)	69.85	1299.37	No
+sdv-id-GAVUXQ	Female	0	No	Yes	1	Yes	No phone service	DSL	No	No	No	No	No	No	Month-to-month	No	Electronic check	28.57	19.57	Yes
+sdv-id-sPYLAJ	Female	0	No	No	49	Yes	Yes	Fiber optic	No	No	Yes	No	No	No	One year	No	Electronic check	104.06	4618.7	Yes
+sdv-id-ClJMyF	Female	0	Yes	Yes	16	Yes	Yes	Fiber optic	Yes	No	Yes	No	Yes	Yes	One year	Yes	Credit card (automatic)	78.89	1335.48	Yes
+sdv-id-WcFEru	Female	0	No	No	1	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	115.59	191.41	Yes
+sdv-id-sJaiXT	Male	1	Yes	No	14	No	No phone service	DSL	No	Yes	Yes	No	No	No	Month-to-month	No	Electronic check	88.25	1024.08	Yes
+sdv-id-ourbcG	Male	0	No	No	2	Yes	Yes	No	No	No	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	86.7	145.58	Yes
+sdv-id-jXeOnt	Female	0	No	No	20	Yes	Yes	DSL	No	No	No	No	No	No	Month-to-month	Yes	Mailed check	110.59	2968.34	Yes
+sdv-id-nBMwTb	Female	0	No	No	10	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	87.91	1138.79	Yes
+sdv-id-pCSAly	Female	1	No	No	54	Yes	Yes	No	No internet service	No	Yes	No internet service	No internet service	Yes	Two year	Yes	Electronic check	26.11	1799.24	No
+sdv-id-EiiYVH	Female	0	No	No	8	Yes	No	DSL	No	No	No	No	No	No	One year	No	Electronic check	57.74	798.0	Yes
+sdv-id-UFzJse	Male	0	Yes	No	65	Yes	Yes	Fiber optic	No	Yes	Yes	No	No	No	Month-to-month	Yes	Electronic check	115.0	6087.8	No
+sdv-id-MOGsUx	Female	0	No	No	70	Yes	No	Fiber optic	No	Yes	No	No	No	Yes	One year	Yes	Mailed check	67.06	2305.58	No
+sdv-id-vIoeho	Female	0	No	No	28	Yes	Yes	No	No	No	Yes	No internet service	No internet service	No internet service	Two year	Yes	Mailed check	42.89	1176.79	No
+sdv-id-HnYVit	Male	0	No	Yes	8	Yes	Yes	No	No	No	No internet service	Yes	No	No	Month-to-month	Yes	Electronic check	22.97	31.48	Yes
+sdv-id-aQVxeO	Female	1	No	No	65	Yes	No	Fiber optic	No	No	No	No	Yes	No	Month-to-month	Yes	Electronic check	111.66	4302.34	No
+sdv-id-FutCHt	Female	0	No	No	56	Yes	No phone service	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	44.23	1578.0	No
+sdv-id-UtQFOS	Male	0	No	No	27	Yes	Yes	No	No internet service	No	Yes	Yes	Yes	No internet service	One year	Yes	Electronic check	27.94	282.17	Yes
+sdv-id-IGjywU	Female	0	Yes	No	52	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	No	Mailed check	95.55	3924.55	Yes
+sdv-id-tQpxPP	Female	0	No	No	10	Yes	No	Fiber optic	No	Yes	Yes	Yes	Yes	Yes	Two year	Yes	Mailed check	96.21	1304.38	Yes
+sdv-id-JOAPET	Male	0	No	Yes	49	Yes	No	No	Yes	No internet service	No	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	22.85	148.15	No
+sdv-id-RUgShq	Female	0	Yes	No	34	Yes	Yes	DSL	Yes	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	95.96	4932.04	No
+sdv-id-gSbdgj	Male	0	Yes	No	13	Yes	No	No	Yes	No internet service	Yes	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	34.38	346.51	Yes
+sdv-id-UVecyk	Male	0	Yes	No	20	Yes	Yes	DSL	Yes	No	Yes	Yes	Yes	Yes	One year	Yes	Electronic check	65.03	826.45	No
+sdv-id-lVoMJM	Female	0	No	Yes	40	Yes	No	DSL	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	87.94	1426.91	No
+sdv-id-CYeUfC	Male	0	No	No	48	Yes	Yes	DSL	Yes	Yes	Yes	No	Yes	No	Two year	No	Mailed check	44.01	2778.72	No
+sdv-id-KehgVK	Male	1	No	No	53	Yes	Yes	Fiber optic	No	Yes	No	No	No	No internet service	One year	Yes	Bank transfer (automatic)	116.0	5627.53	Yes
+sdv-id-LaPtWk	Female	0	No	No	68	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	Yes	Mailed check	86.03	3680.03	No
+sdv-id-JORVuj	Female	0	No	No	62	Yes	No	Fiber optic	No	No	Yes	No	No	No	One year	Yes	Bank transfer (automatic)	111.42	5029.28	Yes
+sdv-id-xhetoP	Female	0	Yes	No	6	Yes	No	Fiber optic	No	No	No internet service	No	No internet service	No internet service	Two year	Yes	Electronic check	45.08	234.53	Yes
+sdv-id-WNFYqQ	Male	0	No	No	32	Yes	No	Fiber optic	No internet service	No internet service	Yes	No internet service	Yes	Yes	Two year	No	Electronic check	33.15	541.12	No
+sdv-id-fmTYhG	Male	0	No	Yes	65	Yes	Yes	No	No	No	Yes	No internet service	Yes	No internet service	Two year	Yes	Bank transfer (automatic)	65.76	4958.58	No
+sdv-id-JlSzvR	Female	0	No	No	3	Yes	Yes	No	Yes	No	Yes	No	No internet service	Yes	Month-to-month	Yes	Mailed check	102.39	1763.03	Yes
+sdv-id-iNkYQV	Male	1	Yes	No	52	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	89.38	2360.1	No
+sdv-id-CohtQe	Female	0	Yes	No	7	Yes	No	Fiber optic	No internet service	No	No	Yes	No internet service	No internet service	Two year	No	Credit card (automatic)	27.14	387.23	No
+sdv-id-sAafRd	Male	0	No	No	1	Yes	Yes	Fiber optic	No	Yes	No	No	Yes	No	Month-to-month	Yes	Electronic check	117.25	1954.98	Yes
+sdv-id-epvnrC	Male	0	No	No	8	Yes	No	Fiber optic	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	86.29	1645.32	Yes
+sdv-id-CsXLza	Male	1	No	No	22	Yes	No	No	No	No internet service	No internet service	No internet service	Yes	No internet service	Two year	Yes	Mailed check	23.93	1362.77	No
+sdv-id-QRfAoN	Female	0	Yes	Yes	52	Yes	Yes	Fiber optic	No internet service	Yes	No	No internet service	No internet service	No	Two year	Yes	Credit card (automatic)	57.0	3399.93	No
+sdv-id-ldDCWb	Male	0	No	No	15	Yes	Yes	No	Yes	No	Yes	No internet service	Yes	No internet service	Two year	No	Electronic check	56.7	806.62	No
+sdv-id-EqYaLO	Female	0	No	Yes	4	No	Yes	DSL	No	Yes	No	No internet service	No	No	Month-to-month	No	Bank transfer (automatic)	49.76	51.01	No
+sdv-id-CeQgNt	Male	0	No	No	47	Yes	Yes	Fiber optic	No	No internet service	Yes	No	Yes	No	Two year	Yes	Electronic check	52.21	3010.43	Yes
+sdv-id-CpUIxF	Female	0	No	Yes	28	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	Yes	One year	No	Mailed check	18.48	70.86	No
+sdv-id-UqgLHZ	Male	1	No	Yes	8	Yes	No	DSL	No	No	No	No	No	Yes	Month-to-month	Yes	Bank transfer (automatic)	72.94	1600.15	No
+sdv-id-TbuUhC	Male	0	No	No	13	Yes	No	No	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	Two year	Yes	Mailed check	20.49	646.75	No
+sdv-id-fIobvi	Male	1	No	No	3	No	No	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	97.86	100.95	Yes
+sdv-id-dzooqH	Female	0	Yes	No	52	Yes	No	Fiber optic	No	Yes	No internet service	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	75.98	2516.95	No
+sdv-id-IfnIOB	Female	0	No	No	18	Yes	Yes	No	No	No	No	Yes	Yes	Yes	Month-to-month	No	Credit card (automatic)	47.32	678.82	No
+sdv-id-KSCuPI	Male	0	Yes	No	13	Yes	Yes	No	No	No internet service	No	No	Yes	No	Month-to-month	No	Credit card (automatic)	68.67	811.15	Yes
+sdv-id-OQbuoU	Female	0	Yes	Yes	6	Yes	No	Fiber optic	No	No internet service	No	No	Yes	No	Month-to-month	Yes	Mailed check	21.07	253.12	No
+sdv-id-CACgUY	Male	0	No	No	2	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	No	Electronic check	95.94	546.03	No
+sdv-id-QAKRXc	Male	0	Yes	Yes	19	Yes	Yes	Fiber optic	Yes	No internet service	Yes	No internet service	No internet service	No internet service	Two year	No	Bank transfer (automatic)	40.94	1379.66	No
+sdv-id-XvxBqX	Male	0	No	No	55	Yes	Yes	Fiber optic	Yes	No	No internet service	Yes	Yes	Yes	Month-to-month	No	Mailed check	34.24	1062.56	No
+sdv-id-mKFcVc	Female	0	No	Yes	48	Yes	No	DSL	Yes	Yes	No	No	No internet service	No	Month-to-month	Yes	Bank transfer (automatic)	101.04	4080.21	No
+sdv-id-QxwkIV	Male	0	Yes	No	66	No	No phone service	Fiber optic	No internet service	No	No internet service	Yes	Yes	No internet service	One year	No	Credit card (automatic)	39.66	4546.33	No
+sdv-id-vFOSEs	Male	0	No	No	37	Yes	No	DSL	No	No	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	73.26	1282.94	Yes
+sdv-id-bgqqlB	Male	0	No	No	2	Yes	Yes	DSL	No	No	No	No	No	No	Two year	Yes	Mailed check	114.77	1498.61	No
+sdv-id-WkjpNT	Male	0	No	No	2	Yes	No	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Electronic check	101.87	390.33	Yes
+sdv-id-ktjZqZ	Female	0	No	Yes	1	No	No	DSL	No	No	No	No	Yes	No	Month-to-month	No	Mailed check	52.25	26.68	No
+sdv-id-rCygfS	Female	0	No	No	9	No	No	DSL	No	Yes	No	No	No	No	Month-to-month	No	Mailed check	62.45	349.64	No
+sdv-id-rRuztu	Male	0	No	Yes	65	Yes	Yes	Fiber optic	Yes	Yes	Yes	Yes	No	No	Month-to-month	Yes	Credit card (automatic)	22.72	1819.35	No
+sdv-id-TZyKVO	Male	0	No	No	44	No	No	Fiber optic	No internet service	No	No internet service	Yes	Yes	Yes	Month-to-month	No	Bank transfer (automatic)	29.13	172.45	No
+sdv-id-BWvKsc	Female	0	No	Yes	67	Yes	Yes	DSL	No	Yes	No	No	No	No	One year	No	Credit card (automatic)	117.12	6876.53	No
+sdv-id-sKdWii	Male	1	Yes	No	40	Yes	No	Fiber optic	Yes	No internet service	No internet service	Yes	Yes	No internet service	Month-to-month	No	Mailed check	44.69	1724.69	Yes
+sdv-id-RdoOLk	Male	0	Yes	No	52	Yes	No phone service	Fiber optic	No internet service	No internet service	No internet service	No internet service	No internet service	Yes	Two year	Yes	Credit card (automatic)	19.46	133.95	No
+sdv-id-sIkZSg	Male	0	Yes	No	65	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Two year	No	Credit card (automatic)	106.7	5859.2	No
+sdv-id-GhFkar	Female	1	Yes	Yes	47	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	88.12	3859.25	No
+sdv-id-gSQjRi	Male	0	No	No	1	Yes	Yes	Fiber optic	Yes	No internet service	Yes	Yes	Yes	No	Month-to-month	No	Mailed check	32.99	91.54	Yes
+sdv-id-dUeODk	Female	1	No	No	63	Yes	Yes	No	No internet service	Yes	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	106.02	5174.23	No
+sdv-id-YvhXSZ	Male	0	Yes	No	67	Yes	Yes	DSL	Yes	No	No	No internet service	No internet service	No	Two year	Yes	Credit card (automatic)	96.5	6223.8	No
+sdv-id-rBcrRM	Male	0	Yes	No	16	Yes	Yes	Fiber optic	No	No	Yes	No internet service	No	No	Month-to-month	Yes	Electronic check	65.16	3428.55	No
+sdv-id-KGTZZs	Male	0	Yes	No	23	Yes	Yes	DSL	No	No	No	No	No	No	Two year	Yes	Bank transfer (automatic)	83.33	4912.72	No
+sdv-id-zZVPgw	Male	0	Yes	No	71	Yes	Yes	Fiber optic	No	No	Yes	Yes	Yes	Yes	Two year	Yes	Bank transfer (automatic)	100.11	7626.31	No
+sdv-id-vjFwhh	Male	0	No	Yes	4	Yes	No	DSL	No internet service	No	Yes	No internet service	No internet service	Yes	Month-to-month	No	Credit card (automatic)	21.61	77.3	No
+sdv-id-rdnFLV	Female	0	Yes	No	18	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	Yes	Month-to-month	Yes	Credit card (automatic)	41.96	1187.17	No
+sdv-id-yHpvBO	Female	0	Yes	No	16	Yes	No phone service	Fiber optic	No	Yes	No	No	Yes	No	Month-to-month	Yes	Bank transfer (automatic)	105.16	2875.35	Yes
+sdv-id-rwlaEh	Female	0	No	No	9	Yes	Yes	No	Yes	No internet service	No	Yes	Yes	No internet service	Month-to-month	Yes	Electronic check	69.99	2450.01	Yes
+sdv-id-MnUJHZ	Male	1	Yes	No	62	Yes	Yes	Fiber optic	No	No	No	No	Yes	No internet service	Month-to-month	Yes	Electronic check	75.6	1938.38	Yes
+sdv-id-vcEFWq	Female	0	Yes	Yes	2	Yes	No	No	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	One year	No	Bank transfer (automatic)	18.29	28.12	No
+sdv-id-qLicJl	Female	0	Yes	No	43	Yes	Yes	Fiber optic	Yes	Yes	No	No	No	Yes	One year	No	Mailed check	92.14	4399.99	No
+sdv-id-VPOarQ	Male	0	No	No	13	Yes	No phone service	Fiber optic	Yes	Yes	Yes	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	38.41	643.71	No
+sdv-id-aBWqxw	Female	0	Yes	No	60	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	No	Credit card (automatic)	100.71	4912.13	No
+sdv-id-JajPKw	Female	0	Yes	Yes	41	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	Yes	No internet service	One year	No	Credit card (automatic)	28.17	1381.11	No
+sdv-id-TQVcLl	Female	0	Yes	No	16	Yes	No	No	Yes	No internet service	No internet service	No internet service	Yes	Yes	One year	No	Electronic check	19.19	680.27	No
+sdv-id-lkRnhb	Female	0	Yes	Yes	32	Yes	No	Fiber optic	No	No	No	No	No	No	Two year	No	Electronic check	81.74	2850.62	Yes
+sdv-id-ycTpcG	Male	0	Yes	Yes	42	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	One year	Yes	Credit card (automatic)	18.72	1283.97	No
+sdv-id-JkkwSM	Female	0	Yes	No	72	Yes	Yes	DSL	Yes	Yes	Yes	No	No internet service	No	Two year	Yes	Credit card (automatic)	63.63	7862.11	No
+sdv-id-uMFuul	Female	0	Yes	No	56	Yes	No	DSL	Yes	Yes	No	No	No	No	Month-to-month	No	Credit card (automatic)	105.25	6489.23	No
+sdv-id-JzAMRJ	Male	0	No	No	48	Yes	Yes	No	Yes	No	No internet service	Yes	Yes	No internet service	One year	No	Electronic check	71.72	2880.16	No
+sdv-id-IcsyZf	Female	0	No	No	29	Yes	Yes	DSL	No	Yes	Yes	No	No	No	Month-to-month	Yes	Electronic check	102.1	3020.64	Yes
+sdv-id-fDydWw	Female	0	No	Yes	8	Yes	Yes	DSL	No	No	Yes	No	No	Yes	Month-to-month	No	Electronic check	79.75	80.63	No
+sdv-id-ksRZHh	Male	0	Yes	No	67	Yes	Yes	No	Yes	No	Yes	No internet service	Yes	No internet service	Two year	No	Credit card (automatic)	28.51	5137.39	Yes
+sdv-id-nWFrwJ	Male	0	Yes	No	72	Yes	No phone service	Fiber optic	Yes	Yes	Yes	Yes	No internet service	No internet service	Two year	Yes	Mailed check	72.21	6366.29	No
+sdv-id-CIgGat	Male	0	Yes	No	11	Yes	Yes	DSL	No	No	No	Yes	Yes	No	One year	Yes	Electronic check	81.25	711.01	No
+sdv-id-sHUrNn	Male	0	Yes	No	21	Yes	No	Fiber optic	No	Yes	No	No	Yes	No	Month-to-month	No	Electronic check	111.55	4107.0	No
+sdv-id-ffdmeK	Male	0	No	No	69	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	Month-to-month	Yes	Mailed check	67.87	4946.31	No
+sdv-id-YrAZfR	Male	0	Yes	No	64	Yes	No	Fiber optic	Yes	No	Yes	No	Yes	No	One year	No	Mailed check	80.04	4113.53	Yes
+sdv-id-SdBPtM	Male	0	No	No	7	Yes	Yes	DSL	No	No	No	No	No	No	Month-to-month	Yes	Mailed check	98.95	518.97	Yes
+sdv-id-iTqwvH	Female	1	Yes	Yes	3	Yes	No phone service	No	Yes	No	Yes	Yes	No internet service	No internet service	Month-to-month	No	Bank transfer (automatic)	48.87	468.32	No
+sdv-id-tBbEmX	Male	0	No	No	47	Yes	No	DSL	Yes	No	No	Yes	No	No	One year	No	Credit card (automatic)	54.46	2621.23	No
+sdv-id-aCctqe	Male	0	No	No	5	Yes	No	No	No	No internet service	No internet service	No internet service	No internet service	Yes	Two year	Yes	Mailed check	18.46	27.21	No
+sdv-id-BaxVUt	Female	1	No	No	33	Yes	Yes	Fiber optic	Yes	No	No	No internet service	Yes	Yes	One year	No	Electronic check	83.79	5244.63	No
+sdv-id-NsjqOf	Male	0	No	Yes	34	Yes	No	Fiber optic	No internet service	No	Yes	Yes	No internet service	Yes	One year	Yes	Bank transfer (automatic)	31.8	1258.31	No
+sdv-id-utnDIp	Male	0	No	Yes	36	Yes	Yes	Fiber optic	No internet service	No internet service	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	26.06	315.86	Yes
+sdv-id-SoHPHo	Female	1	No	No	42	Yes	No	DSL	No	Yes	No	No	Yes	No	Month-to-month	No	Mailed check	81.74	3288.54	No
+sdv-id-LbtOXB	Female	0	Yes	No	20	Yes	No phone service	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	75.82	562.62	No
+sdv-id-obJcFZ	Female	0	No	Yes	11	Yes	No	Fiber optic	No	Yes	No	No	Yes	No	Month-to-month	Yes	Electronic check	81.84	1322.11	No
+sdv-id-LtnZLN	Female	0	No	No	39	No	No	DSL	Yes	No	Yes	Yes	No	No	Two year	Yes	Bank transfer (automatic)	43.19	2986.97	No
+sdv-id-kVFwGv	Male	0	No	No	3	Yes	Yes	Fiber optic	No	No internet service	Yes	No	No	No	Month-to-month	No	Electronic check	66.8	233.22	No
+sdv-id-hANDNN	Female	0	No	No	56	Yes	Yes	Fiber optic	No internet service	No internet service	Yes	No internet service	No internet service	No internet service	Two year	Yes	Electronic check	21.66	356.36	No
+sdv-id-TmOrLm	Female	1	No	No	14	Yes	No phone service	Fiber optic	No	No internet service	Yes	No	Yes	No internet service	Month-to-month	Yes	Mailed check	29.82	571.56	Yes
+sdv-id-phIkEM	Female	0	No	No	71	No	No	Fiber optic	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	80.79	4845.62	No
+sdv-id-KqyUbV	Male	0	No	Yes	20	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	114.17	1817.84	Yes
+sdv-id-sTrkpC	Male	1	No	No	1	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	105.86	26.74	Yes
+sdv-id-aPAxsd	Female	0	Yes	No	53	Yes	Yes	Fiber optic	No	Yes	No internet service	No internet service	Yes	No internet service	One year	No	Mailed check	75.87	3379.84	Yes
+sdv-id-IebTZZ	Male	0	No	No	8	Yes	No	Fiber optic	Yes	Yes	Yes	Yes	No	Yes	One year	Yes	Credit card (automatic)	47.33	1997.43	Yes
+sdv-id-foNQlD	Female	0	Yes	No	9	Yes	No	DSL	No	Yes	No	Yes	Yes	Yes	One year	Yes	Electronic check	113.99	4953.38	No
+sdv-id-CrFnKT	Male	0	Yes	No	20	Yes	No	No	No	Yes	No internet service	No internet service	Yes	Yes	Two year	No	Credit card (automatic)	33.4	1237.31	No
+sdv-id-HFRuEC	Male	0	No	No	30	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Electronic check	101.09	4490.99	No
+sdv-id-ShYNLW	Male	0	No	Yes	12	Yes	Yes	Fiber optic	Yes	No	No	No	Yes	Yes	One year	Yes	Mailed check	100.96	2722.42	No
+sdv-id-ROjCVE	Male	0	Yes	No	67	Yes	Yes	No	No	Yes	No	No	No	No	Two year	Yes	Mailed check	101.5	5767.63	No
+sdv-id-SfhzNe	Male	0	Yes	No	42	Yes	No	DSL	No internet service	No	No internet service	No internet service	No	No	Month-to-month	Yes	Credit card (automatic)	31.65	1325.35	No
+sdv-id-sxUZql	Female	0	Yes	Yes	42	Yes	No	No	No internet service	No internet service	Yes	No internet service	No internet service	No internet service	Two year	No	Bank transfer (automatic)	18.3	191.45	Yes
+sdv-id-nIatIn	Male	0	No	No	3	Yes	No phone service	Fiber optic	No	No internet service	No internet service	Yes	No internet service	Yes	One year	No	Mailed check	20.87	25.46	No
+sdv-id-yCDPSW	Male	0	No	No	50	No	No	Fiber optic	No	No	Yes	No	No	Yes	Month-to-month	Yes	Electronic check	77.77	1226.18	No
+sdv-id-UTDyKZ	Female	0	Yes	No	28	Yes	No phone service	DSL	Yes	Yes	Yes	No	Yes	No	Two year	Yes	Electronic check	46.96	2165.68	No
+sdv-id-fIjXCq	Male	1	No	No	35	Yes	No	No	Yes	No internet service	Yes	No	No internet service	No internet service	One year	Yes	Bank transfer (automatic)	53.85	816.91	No
+sdv-id-AQxgoP	Female	0	Yes	Yes	54	No	No	DSL	Yes	Yes	No	No internet service	No	Yes	Month-to-month	No	Credit card (automatic)	40.55	2212.17	No
+sdv-id-zcpnPW	Female	1	Yes	No	58	Yes	Yes	Fiber optic	No	No	Yes	No	No	No	Month-to-month	Yes	Mailed check	75.31	3306.84	No
+sdv-id-dzyCDt	Female	0	No	No	26	Yes	No	No	Yes	No	No internet service	Yes	Yes	Yes	Month-to-month	No	Credit card (automatic)	43.99	2274.75	No
+sdv-id-lXeDhY	Female	0	No	No	67	Yes	Yes	No	No	No	Yes	Yes	Yes	Yes	Month-to-month	Yes	Mailed check	117.77	5524.68	No
+sdv-id-EgjoLw	Female	1	Yes	No	29	Yes	No	Fiber optic	Yes	No	Yes	Yes	No internet service	No internet service	Month-to-month	Yes	Mailed check	92.74	1292.95	No
+sdv-id-qgyqtL	Male	0	Yes	Yes	62	Yes	Yes	Fiber optic	Yes	No	No internet service	No	Yes	No	Month-to-month	Yes	Mailed check	59.48	2053.16	No
+sdv-id-Yzziya	Female	0	No	No	55	Yes	Yes	Fiber optic	Yes	No	Yes	No internet service	No internet service	No internet service	One year	Yes	Mailed check	45.9	2794.02	Yes
+sdv-id-YjMuQN	Female	0	No	No	1	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	111.35	562.14	No
+sdv-id-mHjEuQ	Male	0	No	No	40	Yes	Yes	DSL	No	No	Yes	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	62.45	1570.51	No
+sdv-id-imzCxL	Female	0	Yes	No	17	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	No	Mailed check	116.32	4432.53	No
+sdv-id-IKqTdg	Male	0	Yes	No	68	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	117.05	6845.78	No
+sdv-id-TlPNkw	Male	0	Yes	No	8	Yes	No	Fiber optic	No	Yes	No	No	No	No	Month-to-month	No	Mailed check	71.54	1814.55	Yes
+sdv-id-TDaesv	Male	0	No	No	26	Yes	Yes	Fiber optic	No	No	No	Yes	No	No	Month-to-month	Yes	Electronic check	110.11	1943.76	Yes
+sdv-id-PxPwVn	Female	0	Yes	No	62	Yes	No	Fiber optic	No internet service	No	Yes	Yes	Yes	Yes	One year	Yes	Credit card (automatic)	76.86	1927.63	No
+sdv-id-sTsWsL	Male	0	No	No	12	Yes	Yes	Fiber optic	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	82.06	664.52	No
+sdv-id-IAiChH	Female	0	Yes	Yes	21	Yes	Yes	No	No	No	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	88.13	3536.34	No
+sdv-id-xNxoUA	Female	0	No	Yes	12	Yes	No	DSL	No internet service	No	No internet service	No internet service	No internet service	Yes	One year	Yes	Bank transfer (automatic)	31.18	938.16	Yes
+sdv-id-BRxhin	Male	0	No	No	3	Yes	No phone service	Fiber optic	No	No	No	No	No	Yes	Month-to-month	Yes	Electronic check	59.17	352.52	Yes
+sdv-id-stwNVb	Male	0	No	No	12	Yes	Yes	Fiber optic	No	No internet service	No internet service	Yes	No internet service	No internet service	One year	No	Mailed check	80.25	1247.58	No
+sdv-id-svsbAh	Male	0	No	No	67	Yes	Yes	No	No internet service	No	No internet service	No internet service	No internet service	No internet service	Two year	No	Bank transfer (automatic)	36.3	3125.88	No
+sdv-id-IkoyrB	Female	0	No	Yes	18	Yes	No	Fiber optic	No	No	No	No	Yes	No	Month-to-month	No	Bank transfer (automatic)	35.97	129.78	No
+sdv-id-OVXulc	Female	0	No	Yes	62	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Mailed check	107.31	1648.7	Yes
+sdv-id-kaYQXH	Female	0	No	Yes	71	Yes	Yes	No	No	No	Yes	No	Yes	No	Month-to-month	No	Electronic check	36.99	2568.8	Yes
+sdv-id-YjGbyp	Female	0	No	No	4	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	One year	No	Electronic check	112.69	456.59	No
+sdv-id-efljmS	Male	0	Yes	Yes	68	Yes	No	Fiber optic	Yes	No	Yes	Yes	Yes	Yes	Month-to-month	No	Credit card (automatic)	48.53	3270.13	No
+sdv-id-vficuT	Female	0	No	No	65	Yes	Yes	No	Yes	No	Yes	No internet service	Yes	No internet service	Month-to-month	Yes	Electronic check	42.53	2542.43	No
+sdv-id-uNayoR	Male	0	No	No	1	Yes	Yes	No	No internet service	No internet service	Yes	No internet service	No internet service	Yes	Two year	No	Mailed check	22.17	228.33	No
+sdv-id-QswiEL	Male	0	Yes	Yes	8	Yes	No	Fiber optic	No	No	No	No	No	No	One year	Yes	Electronic check	96.93	2728.02	No
+sdv-id-lowVAr	Female	0	Yes	No	15	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Credit card (automatic)	63.87	625.1	No
+sdv-id-DNXfZV	Male	0	No	Yes	33	Yes	Yes	Fiber optic	Yes	No	No	No	No	No internet service	Month-to-month	Yes	Electronic check	86.12	1719.78	Yes
+sdv-id-bollrY	Female	0	Yes	No	42	Yes	No	Fiber optic	No internet service	Yes	Yes	No internet service	Yes	Yes	Two year	No	Mailed check	32.38	1478.09	No
+sdv-id-CtJZFa	Female	1	No	No	13	Yes	No	Fiber optic	No	No internet service	Yes	No internet service	Yes	Yes	One year	Yes	Electronic check	61.73	1066.42	No
+sdv-id-MfBsgd	Female	0	Yes	No	61	Yes	No	No	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	Two year	No	Credit card (automatic)	20.32	1072.22	No
+sdv-id-mzIyDP	Female	0	No	No	3	Yes	No phone service	Fiber optic	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	64.77	89.19	Yes
+sdv-id-sGHzXV	Male	1	Yes	No	65	Yes	Yes	DSL	No	No	Yes	No	No	No	Month-to-month	Yes	Mailed check	102.29	6671.87	No
+sdv-id-YkPekT	Female	0	Yes	No	18	Yes	No	Fiber optic	No	No	No internet service	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	89.78	415.63	No
+sdv-id-bcrncC	Female	0	No	No	54	Yes	No	DSL	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Electronic check	18.26	251.11	No
+sdv-id-JHCwAq	Male	0	Yes	No	47	Yes	Yes	DSL	Yes	No	No	Yes	No	Yes	One year	Yes	Mailed check	89.55	2951.18	Yes
+sdv-id-mrKzwp	Male	1	No	No	63	Yes	No	No	No internet service	Yes	Yes	Yes	No	No	Month-to-month	Yes	Credit card (automatic)	99.66	6434.19	No
+sdv-id-vhEsTv	Male	0	Yes	Yes	6	Yes	No	Fiber optic	Yes	No	No	Yes	Yes	No	Month-to-month	Yes	Credit card (automatic)	39.2	131.61	Yes
+sdv-id-ZdzTxc	Male	0	Yes	Yes	55	Yes	No	Fiber optic	No	Yes	Yes	No	No	No internet service	Month-to-month	Yes	Electronic check	89.92	2482.93	No
+sdv-id-ELRSZq	Male	0	No	Yes	22	Yes	No phone service	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	113.24	1259.72	Yes
+sdv-id-ftPARH	Female	0	Yes	No	72	Yes	Yes	DSL	No	Yes	No	No	No	No	Two year	Yes	Bank transfer (automatic)	115.58	7966.59	No
+sdv-id-nIaekL	Male	1	Yes	No	69	Yes	Yes	No	Yes	Yes	No internet service	Yes	Yes	Yes	Month-to-month	Yes	Credit card (automatic)	102.8	7065.26	No
+sdv-id-fjVQbG	Female	0	No	Yes	1	Yes	No	No	No	No internet service	No	Yes	No	Yes	Month-to-month	No	Credit card (automatic)	32.12	25.16	Yes
+sdv-id-oeESXR	Female	0	Yes	No	6	Yes	No	No	No internet service	No	No	Yes	Yes	No	Month-to-month	No	Mailed check	20.45	58.16	Yes
+sdv-id-bbFycB	Female	0	No	No	8	Yes	No phone service	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Electronic check	111.91	1237.82	No
+sdv-id-NBxMtQ	Female	0	No	No	46	Yes	Yes	Fiber optic	No	Yes	No	No	Yes	No	Month-to-month	Yes	Bank transfer (automatic)	96.16	5042.02	No
+sdv-id-QSufNz	Female	0	No	No	10	Yes	No	No	No internet service	No internet service	Yes	No internet service	Yes	No internet service	Month-to-month	Yes	Electronic check	18.52	47.4	Yes
+sdv-id-fHdahs	Male	0	No	Yes	1	Yes	No	DSL	Yes	Yes	No	Yes	No	No	Month-to-month	No	Bank transfer (automatic)	70.28	42.69	Yes
+sdv-id-JFcgsM	Female	0	No	Yes	44	Yes	No	Fiber optic	No internet service	No internet service	No internet service	Yes	Yes	Yes	One year	Yes	Electronic check	18.34	69.27	Yes
+sdv-id-XpFuMh	Female	0	Yes	No	42	Yes	No	DSL	Yes	No	Yes	No	No	Yes	Month-to-month	No	Electronic check	84.53	1277.4	No
+sdv-id-Wovnpc	Female	0	Yes	No	15	Yes	No	DSL	No	Yes	No	Yes	No	No	Month-to-month	Yes	Electronic check	68.98	1256.99	No
+sdv-id-gkePqt	Female	0	No	No	13	Yes	No	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Electronic check	106.6	1675.54	No
+sdv-id-pUVqNc	Female	0	Yes	Yes	14	Yes	Yes	DSL	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	113.76	2425.06	Yes
+sdv-id-cfOgrs	Male	0	No	Yes	13	No	No phone service	Fiber optic	No	No	Yes	Yes	No	Yes	Month-to-month	Yes	Credit card (automatic)	47.53	639.45	No
+sdv-id-npgwkc	Male	0	Yes	No	44	Yes	Yes	No	No	Yes	Yes	No	No	Yes	One year	No	Electronic check	117.59	7563.57	No
+sdv-id-MszJRQ	Male	0	Yes	No	24	No	Yes	Fiber optic	Yes	No	No internet service	No internet service	Yes	Yes	Month-to-month	No	Electronic check	25.55	387.08	No
+sdv-id-DvGxnm	Female	0	No	Yes	43	Yes	Yes	No	No internet service	No internet service	Yes	No internet service	Yes	No internet service	Two year	Yes	Bank transfer (automatic)	30.51	2854.25	No
+sdv-id-BiCbwU	Male	0	Yes	No	12	No	No	DSL	No	Yes	No	No	Yes	No	Month-to-month	No	Electronic check	40.92	316.95	No
+sdv-id-BJSBdC	Male	0	No	No	24	Yes	No	Fiber optic	No	No internet service	No	No	Yes	No internet service	Month-to-month	Yes	Bank transfer (automatic)	33.22	367.85	Yes
+sdv-id-PtXLfI	Female	1	Yes	No	10	Yes	Yes	DSL	Yes	No	No	No	Yes	Yes	Month-to-month	Yes	Bank transfer (automatic)	24.89	44.21	No
+sdv-id-TebehY	Male	0	Yes	No	72	Yes	No	DSL	No	Yes	No	No internet service	No	No	Two year	Yes	Mailed check	110.45	8328.51	No
+sdv-id-KZZNWG	Female	1	No	No	54	Yes	Yes	No	Yes	No	Yes	Yes	No internet service	Yes	One year	No	Mailed check	58.15	1456.52	No
+sdv-id-BtsSFc	Male	0	Yes	No	67	Yes	Yes	Fiber optic	No internet service	No	No internet service	No	Yes	No internet service	Two year	Yes	Credit card (automatic)	71.19	5602.95	No
+sdv-id-Jxrnkd	Male	0	No	No	52	Yes	No	Fiber optic	Yes	Yes	No	No	Yes	Yes	Month-to-month	Yes	Mailed check	23.03	1156.92	No
+sdv-id-ifLacB	Female	0	No	No	1	Yes	No phone service	Fiber optic	No	No	Yes	Yes	No internet service	No	Month-to-month	No	Electronic check	22.72	19.11	No
+sdv-id-mKyylI	Male	0	Yes	No	2	Yes	No phone service	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	106.19	1547.06	No
+sdv-id-hcNhha	Male	0	No	No	9	Yes	No	DSL	No	No	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	93.77	798.75	Yes
+sdv-id-vaKrSf	Male	0	No	No	51	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	97.82	1899.95	No
+sdv-id-cDXKJy	Female	0	No	No	4	Yes	No	Fiber optic	No	No	No	No	No	No	Month-to-month	No	Electronic check	30.42	52.72	No
+sdv-id-ZfAfHZ	Male	0	No	No	1	Yes	No	DSL	Yes	No	No	Yes	No	No	Month-to-month	Yes	Mailed check	41.37	34.2	No
+sdv-id-nSHgsv	Female	1	No	No	67	No	No	No	No internet service	Yes	No internet service	Yes	No internet service	No internet service	Month-to-month	Yes	Mailed check	76.55	7301.86	No
+sdv-id-wzHEXo	Male	0	No	No	29	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	96.39	1901.5	Yes
+sdv-id-eIdzqb	Female	0	No	No	2	Yes	No	No	Yes	No	Yes	No	No internet service	Yes	One year	Yes	Electronic check	69.51	135.86	Yes
+sdv-id-EPDOmQ	Male	0	Yes	Yes	1	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Month-to-month	Yes	Bank transfer (automatic)	18.3	18.83	No
+sdv-id-qSXmtt	Male	0	No	No	67	No	No	Fiber optic	No internet service	No	No internet service	Yes	Yes	Yes	Two year	No	Bank transfer (automatic)	44.77	4370.78	No
+sdv-id-jvOKAU	Female	1	No	No	30	Yes	No	Fiber optic	Yes	No	No	No	Yes	No	One year	No	Electronic check	77.65	5394.07	Yes
+sdv-id-UeZMAK	Male	0	Yes	No	2	No	No	Fiber optic	Yes	No	No	No	Yes	Yes	Month-to-month	No	Electronic check	51.04	107.86	No
+sdv-id-ZaYPXK	Male	1	Yes	No	48	Yes	No	Fiber optic	Yes	Yes	Yes	No	Yes	No	Month-to-month	Yes	Electronic check	96.35	4208.23	No
+sdv-id-POVFQY	Male	0	Yes	Yes	71	No	No	DSL	No	Yes	Yes	No	No	No	Two year	Yes	Bank transfer (automatic)	108.95	5924.17	No
+sdv-id-ACImhz	Female	0	No	Yes	72	Yes	Yes	No	No internet service	No	No internet service	No internet service	Yes	No internet service	Two year	No	Bank transfer (automatic)	40.64	6063.43	No
+sdv-id-pKVoHy	Female	0	Yes	Yes	66	Yes	Yes	DSL	No internet service	Yes	Yes	No internet service	No	Yes	Two year	No	Electronic check	30.41	3074.11	No
+sdv-id-KEbJur	Male	0	Yes	No	10	Yes	No	Fiber optic	No internet service	No internet service	No internet service	No internet service	No internet service	Yes	Month-to-month	No	Credit card (automatic)	25.79	482.53	Yes
+sdv-id-gIFDFT	Female	0	No	No	37	Yes	No	Fiber optic	Yes	No	No	Yes	No	No	Two year	No	Mailed check	78.97	1215.05	No
+sdv-id-HAfxXB	Female	0	No	Yes	27	Yes	No phone service	Fiber optic	Yes	Yes	No	No	No	No	One year	No	Bank transfer (automatic)	68.01	1195.52	No
+sdv-id-UyOCJw	Male	0	No	No	16	Yes	Yes	DSL	Yes	No internet service	No	Yes	No	Yes	Month-to-month	Yes	Mailed check	70.35	757.48	No
+sdv-id-roVJfM	Female	0	No	No	61	Yes	Yes	Fiber optic	No	No	No	No	No	Yes	Two year	No	Electronic check	60.44	3676.3	Yes
+sdv-id-QUuwsw	Female	0	Yes	Yes	69	No	No phone service	DSL	No	Yes	No	Yes	Yes	Yes	Two year	Yes	Mailed check	115.42	7746.47	No
+sdv-id-WNNlkA	Female	0	Yes	No	33	Yes	No	Fiber optic	Yes	No	No	No internet service	No	Yes	Month-to-month	No	Credit card (automatic)	26.13	806.23	No
+sdv-id-TENSBf	Female	0	No	No	32	Yes	No	No	No	No internet service	No internet service	Yes	No internet service	No internet service	Two year	Yes	Bank transfer (automatic)	45.55	3769.3	No
+sdv-id-cUvasY	Male	0	Yes	Yes	42	Yes	Yes	DSL	No	Yes	No	No	No	No	One year	Yes	Bank transfer (automatic)	70.29	2047.29	Yes
+sdv-id-FpJNYS	Female	0	No	Yes	39	Yes	Yes	DSL	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	111.68	2743.45	Yes
+sdv-id-zrJxNx	Male	0	Yes	No	27	Yes	No	DSL	No	Yes	No	Yes	No	No	Month-to-month	Yes	Credit card (automatic)	109.42	2149.29	No
+sdv-id-xIRfMp	Male	0	Yes	No	42	Yes	No	Fiber optic	No internet service	No	Yes	No	No internet service	No internet service	Two year	Yes	Electronic check	47.06	1433.68	No
+sdv-id-QjPnBN	Male	0	No	No	4	Yes	No	Fiber optic	Yes	No internet service	Yes	No internet service	No	No	Month-to-month	Yes	Credit card (automatic)	19.57	389.23	No
+sdv-id-CKxtOk	Female	0	No	Yes	5	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No	No	One year	No	Electronic check	31.86	56.6	Yes
+sdv-id-GrQurS	Female	0	No	Yes	28	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	71.61	1776.23	No
+sdv-id-MYNUhR	Female	0	Yes	Yes	60	Yes	No	Fiber optic	Yes	No	No	Yes	Yes	Yes	Two year	Yes	Credit card (automatic)	69.49	2936.89	No
+sdv-id-tXUxHE	Male	0	No	No	22	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	118.4	6114.98	No
+sdv-id-UcJvhi	Male	0	Yes	No	29	Yes	No phone service	DSL	No	No	Yes	No	Yes	Yes	One year	Yes	Electronic check	27.09	1149.05	No
+sdv-id-BvUEtt	Female	0	Yes	No	41	Yes	Yes	Fiber optic	Yes	No	No internet service	No	Yes	Yes	Two year	Yes	Bank transfer (automatic)	34.84	1565.09	No
+sdv-id-wzHoQB	Male	0	Yes	Yes	46	Yes	No	Fiber optic	No	No	No internet service	No	No internet service	Yes	One year	No	Electronic check	56.0	1811.94	No
+sdv-id-NuPieP	Female	0	Yes	Yes	34	Yes	Yes	No	No internet service	No internet service	Yes	No internet service	No internet service	No internet service	Month-to-month	Yes	Credit card (automatic)	24.6	1122.27	No
+sdv-id-BVZOdn	Male	0	Yes	Yes	3	Yes	Yes	DSL	Yes	No	No	No	No	No	Month-to-month	No	Bank transfer (automatic)	56.56	74.59	No
+sdv-id-MtjGOA	Male	0	Yes	No	33	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	Yes	Mailed check	20.52	644.77	No
+sdv-id-ZowzCI	Male	0	Yes	Yes	2	Yes	No	No	Yes	No internet service	No internet service	No internet service	No internet service	No	Month-to-month	No	Credit card (automatic)	52.15	60.58	No
+sdv-id-SeAAvM	Female	0	No	No	25	No	No phone service	DSL	No	Yes	No	No	No	No	Month-to-month	No	Bank transfer (automatic)	35.68	592.67	Yes
+sdv-id-TZORaY	Female	0	Yes	Yes	49	Yes	Yes	No	No internet service	No	No internet service	No internet service	No internet service	No internet service	One year	Yes	Bank transfer (automatic)	25.19	1324.42	No
+sdv-id-caPIwo	Female	0	Yes	No	2	Yes	No	DSL	Yes	Yes	No	No	No	No	One year	Yes	Credit card (automatic)	92.3	582.84	Yes
+sdv-id-xunIzS	Male	0	No	No	1	Yes	No	DSL	No	No internet service	Yes	No	No	Yes	Month-to-month	No	Electronic check	22.99	19.4	No
+sdv-id-ZoWMjJ	Male	1	Yes	No	29	Yes	No	Fiber optic	No internet service	No	No	Yes	No	No	Month-to-month	No	Bank transfer (automatic)	25.03	683.44	No
+sdv-id-OifQGi	Male	0	No	No	63	Yes	No	Fiber optic	Yes	No internet service	Yes	Yes	Yes	No internet service	Month-to-month	No	Mailed check	24.84	2163.9	No
+sdv-id-aHGzEz	Female	1	Yes	No	66	Yes	No	Fiber optic	No	Yes	Yes	No	No	No	Two year	No	Mailed check	102.73	7270.93	No
+sdv-id-SaQOug	Female	0	No	No	55	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	117.13	4903.86	Yes
+sdv-id-tdpjGi	Male	0	Yes	Yes	5	Yes	No	Fiber optic	No	No	Yes	Yes	Yes	Yes	Month-to-month	Yes	Mailed check	48.05	385.76	No
+sdv-id-hqauoB	Female	0	Yes	Yes	43	Yes	Yes	DSL	No	Yes	Yes	No internet service	No internet service	No internet service	Two year	No	Electronic check	48.78	6293.72	No
+sdv-id-UmnDmC	Male	0	No	No	47	Yes	No	DSL	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	One year	Yes	Mailed check	23.01	234.4	No
+sdv-id-RNXeuw	Male	0	Yes	Yes	72	Yes	Yes	Fiber optic	No	Yes	No	No	Yes	No	Two year	Yes	Electronic check	118.35	8218.17	No
+sdv-id-tEfXDO	Male	0	Yes	No	4	Yes	No	No	No	No internet service	Yes	Yes	No internet service	No internet service	Month-to-month	No	Mailed check	29.02	33.52	Yes
+sdv-id-uyDMvs	Female	0	Yes	No	18	Yes	Yes	Fiber optic	No	No	No	No	Yes	Yes	Month-to-month	Yes	Credit card (automatic)	74.19	978.95	Yes
+sdv-id-HvnfMi	Male	0	No	No	2	Yes	No	Fiber optic	No	No	Yes	No	No	No	Month-to-month	No	Electronic check	58.41	75.24	No
+sdv-id-aDcyxY	Male	0	No	Yes	21	No	No	DSL	No internet service	No	No	No	No	Yes	Month-to-month	No	Mailed check	24.67	223.47	No
+sdv-id-AUZdFX	Male	0	No	Yes	23	Yes	No	Fiber optic	No	Yes	No	No	Yes	No	Month-to-month	Yes	Credit card (automatic)	86.33	3345.28	No
+sdv-id-QISQdc	Female	0	Yes	No	56	Yes	Yes	Fiber optic	No internet service	No	No internet service	No	Yes	No internet service	Two year	Yes	Electronic check	66.42	2727.61	No
+sdv-id-gcuatv	Female	0	Yes	No	23	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	74.11	1788.84	Yes
+sdv-id-QfIIzs	Female	0	Yes	Yes	5	Yes	No	Fiber optic	Yes	No	No internet service	No	No	No internet service	Month-to-month	No	Mailed check	26.37	792.55	No
+sdv-id-btdYGy	Female	1	Yes	Yes	20	Yes	No phone service	Fiber optic	No	No	No	Yes	No	No	Month-to-month	No	Bank transfer (automatic)	84.62	2588.33	No
+sdv-id-wiXCDO	Male	0	No	No	4	Yes	Yes	DSL	No	Yes	No	No	No	Yes	Month-to-month	Yes	Bank transfer (automatic)	54.69	259.07	No
+sdv-id-AJqflX	Male	0	No	Yes	3	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	Month-to-month	Yes	Credit card (automatic)	33.15	995.54	No
+sdv-id-nRCnYO	Female	0	No	No	50	Yes	No	Fiber optic	Yes	No internet service	No	No	No	No	Two year	Yes	Bank transfer (automatic)	24.66	1365.21	Yes
+sdv-id-JXlFhF	Female	0	No	No	39	Yes	No	Fiber optic	No	Yes	Yes	No	Yes	No	Month-to-month	Yes	Mailed check	109.31	5846.3	No
+sdv-id-gfadbl	Female	1	No	Yes	67	Yes	Yes	Fiber optic	Yes	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	113.27	7000.69	No
+sdv-id-HkMgbK	Female	0	Yes	No	62	Yes	Yes	No	No internet service	No internet service	Yes	No internet service	Yes	No internet service	Two year	Yes	Mailed check	34.61	4239.68	No
+sdv-id-XtaDPX	Female	0	No	Yes	53	Yes	No phone service	Fiber optic	No internet service	No	Yes	Yes	Yes	No internet service	Two year	Yes	Credit card (automatic)	21.05	351.1	No
+sdv-id-jUlbil	Female	1	No	No	72	Yes	Yes	No	No internet service	Yes	No internet service	Yes	No internet service	Yes	Two year	Yes	Mailed check	109.97	8466.68	No
+sdv-id-QzeGEz	Female	0	Yes	Yes	10	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	30.09	416.29	No
+sdv-id-lwbJCm	Female	0	No	No	8	Yes	Yes	DSL	No	Yes	No	No	No	No	Two year	Yes	Electronic check	76.98	1844.11	Yes
+sdv-id-sbVqtO	Female	0	No	No	51	No	No	DSL	Yes	Yes	Yes	No	Yes	No	One year	No	Credit card (automatic)	78.6	6200.28	No
+sdv-id-dWxrSW	Female	1	Yes	No	60	Yes	Yes	DSL	Yes	Yes	Yes	No	No	Yes	Two year	Yes	Electronic check	118.56	8250.77	No
+sdv-id-GAxOxF	Female	0	Yes	Yes	17	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Month-to-month	No	Mailed check	18.26	21.96	No
+sdv-id-bPuVjM	Male	0	Yes	No	9	Yes	Yes	Fiber optic	No	No	Yes	Yes	No	No	Month-to-month	No	Electronic check	111.82	407.35	Yes
+sdv-id-ImZErT	Male	0	Yes	Yes	46	No	Yes	No	Yes	No	No	Yes	Yes	Yes	Two year	Yes	Bank transfer (automatic)	100.47	6508.45	No
+sdv-id-BKccWA	Female	1	No	No	62	Yes	No phone service	Fiber optic	No	Yes	No internet service	No internet service	No internet service	Yes	Month-to-month	Yes	Electronic check	67.59	4101.45	No
+sdv-id-viFeKD	Male	0	Yes	No	20	No	No	No	Yes	No	No internet service	Yes	No internet service	No internet service	Month-to-month	Yes	Mailed check	53.36	933.72	No
+sdv-id-SPHYCu	Male	0	No	No	60	Yes	Yes	DSL	No	Yes	No	Yes	No internet service	Yes	One year	No	Mailed check	115.67	6445.16	No
+sdv-id-NulOQG	Female	1	No	No	60	No	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	117.48	5719.12	No
+sdv-id-GQjDIl	Male	0	Yes	Yes	72	Yes	Yes	No	No internet service	Yes	Yes	Yes	No internet service	Yes	One year	Yes	Electronic check	30.65	6442.97	No
+sdv-id-RhHygM	Male	1	Yes	Yes	11	Yes	Yes	No	No	No internet service	Yes	No	No	Yes	Month-to-month	No	Electronic check	64.07	929.37	Yes
+sdv-id-mFNFbF	Male	0	Yes	Yes	67	No	No	DSL	Yes	Yes	Yes	Yes	No	No	One year	Yes	Bank transfer (automatic)	79.92	4437.69	Yes
+sdv-id-hDTDQd	Male	0	No	No	53	Yes	Yes	No	Yes	No	No	No internet service	No internet service	No	Month-to-month	Yes	Electronic check	99.37	2273.25	No
+sdv-id-akzWBh	Female	0	No	Yes	46	Yes	Yes	No	No	Yes	No internet service	Yes	No internet service	Yes	Month-to-month	No	Bank transfer (automatic)	65.52	4825.02	No
+sdv-id-BAGcbG	Female	0	No	Yes	29	No	No	DSL	Yes	No	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	65.45	1159.32	No
+sdv-id-MUyqCN	Male	0	Yes	No	67	Yes	Yes	DSL	No	Yes	Yes	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	107.43	7335.26	No
+sdv-id-nrJGMn	Male	0	Yes	No	15	Yes	No	Fiber optic	No internet service	No internet service	Yes	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	31.5	979.95	Yes
+sdv-id-hqdykf	Female	0	Yes	Yes	18	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	Yes	Mailed check	20.51	687.62	No
+sdv-id-rIVJtf	Male	0	Yes	No	3	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	Yes	Month-to-month	No	Electronic check	18.25	20.6	No
+sdv-id-JFSxKD	Male	0	No	No	60	Yes	No	No	Yes	No	No	Yes	Yes	Yes	Month-to-month	Yes	Bank transfer (automatic)	60.28	4945.88	No
+sdv-id-WHMBVi	Male	0	No	No	22	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	112.65	3332.2	No
+sdv-id-EiKijj	Female	0	No	Yes	14	Yes	No	DSL	No	Yes	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	88.07	723.56	Yes
+sdv-id-jdpQwk	Male	0	Yes	No	27	No	No phone service	No	No internet service	No internet service	No internet service	Yes	Yes	No	Month-to-month	No	Mailed check	18.62	194.49	No
+sdv-id-hyOPfh	Female	1	No	No	1	Yes	Yes	Fiber optic	No	No internet service	Yes	No	No internet service	Yes	One year	Yes	Electronic check	33.48	89.77	No
+sdv-id-rIIaRR	Female	0	No	No	72	Yes	Yes	Fiber optic	No	Yes	No	No	No	Yes	Two year	Yes	Credit card (automatic)	115.39	8124.1	No
+sdv-id-rXbrCv	Female	0	No	Yes	72	Yes	Yes	Fiber optic	Yes	Yes	Yes	Yes	No	Yes	Two year	No	Credit card (automatic)	117.84	8475.31	No
+sdv-id-PuXRck	Male	0	Yes	No	58	Yes	No	DSL	No	Yes	No	No	No	No	One year	No	Bank transfer (automatic)	117.08	7389.37	No
+sdv-id-izbcNb	Female	0	Yes	Yes	11	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	106.56	1190.78	No
+sdv-id-toXRVB	Male	0	No	No	21	Yes	Yes	No	No internet service	No	Yes	Yes	No internet service	Yes	Month-to-month	Yes	Credit card (automatic)	73.92	2162.57	No
+sdv-id-YMOXXk	Female	0	Yes	No	69	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Two year	Yes	Credit card (automatic)	113.66	6000.76	Yes
+sdv-id-gbgekF	Male	0	No	No	61	Yes	Yes	DSL	No	Yes	No	No	Yes	Yes	Two year	Yes	Mailed check	118.01	5604.56	No
+sdv-id-uBMtyx	Male	0	No	No	14	Yes	No	No	Yes	No internet service	Yes	No internet service	Yes	Yes	One year	Yes	Bank transfer (automatic)	47.74	430.83	No
+sdv-id-WZfEhY	Female	0	No	No	55	Yes	No	Fiber optic	Yes	No	No	Yes	Yes	Yes	One year	No	Credit card (automatic)	83.68	2628.87	No
+sdv-id-wAhgKs	Female	0	No	No	27	Yes	No	Fiber optic	No	Yes	No	Yes	No internet service	Yes	Month-to-month	Yes	Electronic check	65.95	1304.45	Yes
+sdv-id-zqwaXe	Male	0	Yes	Yes	22	Yes	Yes	DSL	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	96.08	872.23	No
+sdv-id-AkocKN	Male	0	Yes	No	45	Yes	Yes	DSL	No	No	No	No	No	Yes	Month-to-month	Yes	Electronic check	118.12	1623.8	Yes
+sdv-id-VgLnXF	Female	0	No	No	9	Yes	Yes	Fiber optic	No	Yes	No	No	Yes	Yes	Month-to-month	No	Electronic check	79.11	667.42	Yes
+sdv-id-JamKUX	Male	0	No	No	18	Yes	Yes	Fiber optic	No	Yes	No	No	Yes	No	Two year	No	Credit card (automatic)	99.23	2614.44	No
+sdv-id-UfFbnO	Female	0	No	Yes	26	No	Yes	Fiber optic	No	No internet service	No internet service	Yes	Yes	Yes	One year	Yes	Mailed check	22.75	197.64	No
+sdv-id-KlWKqf	Male	0	Yes	No	63	Yes	Yes	No	No	Yes	Yes	Yes	Yes	Yes	Two year	Yes	Electronic check	89.01	5217.65	No
+sdv-id-KSxcUQ	Male	0	No	Yes	29	Yes	No	DSL	No	Yes	No	No	No	Yes	Month-to-month	Yes	Credit card (automatic)	101.26	3365.66	No
+sdv-id-vbmmIr	Female	0	No	Yes	45	Yes	No	Fiber optic	No internet service	No internet service	Yes	Yes	Yes	Yes	Two year	No	Credit card (automatic)	47.68	5230.79	No
+sdv-id-mMwcDa	Female	1	No	No	49	Yes	Yes	Fiber optic	Yes	No	No internet service	No	Yes	Yes	One year	Yes	Mailed check	103.0	4559.41	No
+sdv-id-XjZhkL	Female	0	Yes	No	5	Yes	No	DSL	Yes	No	No	No	No	Yes	Month-to-month	No	Electronic check	48.52	84.27	No
+sdv-id-WxYGei	Male	0	Yes	Yes	55	Yes	Yes	DSL	Yes	Yes	No	No	No internet service	Yes	Two year	Yes	Bank transfer (automatic)	117.25	5939.58	Yes
+sdv-id-zhfyMC	Male	0	No	No	61	Yes	No	Fiber optic	No internet service	No	No internet service	No internet service	Yes	No internet service	Month-to-month	Yes	Credit card (automatic)	22.98	1235.05	No
+sdv-id-uoOBaQ	Female	1	No	Yes	35	Yes	No	No	No internet service	No internet service	No internet service	Yes	No	Yes	Two year	No	Electronic check	19.6	502.94	No
+sdv-id-RWCYCp	Male	0	Yes	No	50	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Credit card (automatic)	86.35	1992.4	No
+sdv-id-NfTPJg	Male	0	No	No	48	Yes	No phone service	DSL	No	No	Yes	No	No	Yes	One year	No	Credit card (automatic)	33.05	438.88	Yes
+sdv-id-mQuLmL	Male	0	No	Yes	46	Yes	No	Fiber optic	Yes	No internet service	No	Yes	Yes	No internet service	Month-to-month	No	Mailed check	57.78	3218.01	No
+sdv-id-BQCreS	Male	0	No	No	2	Yes	No	No	Yes	No internet service	Yes	No internet service	Yes	Yes	Month-to-month	No	Electronic check	29.48	19.13	No
+sdv-id-PMlWrh	Female	0	Yes	No	5	Yes	Yes	DSL	Yes	No	Yes	Yes	Yes	No	Month-to-month	No	Credit card (automatic)	25.79	372.99	No
+sdv-id-PsUGyn	Female	0	No	No	4	Yes	Yes	Fiber optic	Yes	No internet service	Yes	No internet service	No	Yes	One year	Yes	Bank transfer (automatic)	25.08	49.61	Yes
+sdv-id-ZWQtGS	Male	0	Yes	No	2	Yes	Yes	Fiber optic	No	No internet service	Yes	No	Yes	No	Month-to-month	Yes	Electronic check	43.48	26.07	Yes
+sdv-id-JBoOan	Female	1	Yes	Yes	28	Yes	Yes	Fiber optic	No	No	No	No	No	No	Month-to-month	Yes	Credit card (automatic)	68.4	682.6	No
+sdv-id-JqjSyf	Female	0	No	Yes	1	Yes	Yes	Fiber optic	No	No internet service	No	No	No	No	Month-to-month	Yes	Electronic check	52.82	19.32	No
+sdv-id-fhBHHh	Female	0	Yes	No	29	Yes	Yes	Fiber optic	No internet service	No	Yes	No internet service	No internet service	No internet service	Two year	Yes	Electronic check	27.93	779.84	No
+sdv-id-nDnZiR	Male	0	No	No	49	Yes	Yes	Fiber optic	No internet service	Yes	Yes	Yes	Yes	Yes	Two year	Yes	Credit card (automatic)	75.22	4357.64	No
+sdv-id-dQsyst	Male	0	No	Yes	46	Yes	No	No	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	Two year	No	Bank transfer (automatic)	18.45	325.35	No
+sdv-id-AePPWd	Male	0	Yes	Yes	4	No	No phone service	DSL	No	No	No	No internet service	Yes	No	Two year	Yes	Bank transfer (automatic)	46.67	283.23	Yes
+sdv-id-oaHteV	Female	0	No	No	3	Yes	No	No	Yes	No	Yes	No	Yes	No	Month-to-month	Yes	Mailed check	38.87	51.31	Yes
+sdv-id-kuuWHM	Female	1	Yes	Yes	11	Yes	Yes	No	No	No internet service	No internet service	Yes	No internet service	Yes	One year	Yes	Mailed check	25.45	553.52	Yes
+sdv-id-TtRTWa	Female	0	Yes	No	70	Yes	No	No	No	Yes	No	No internet service	Yes	No internet service	Two year	No	Electronic check	103.11	6881.05	No
+sdv-id-qCSkkC	Male	0	No	No	7	Yes	No	No	Yes	No internet service	No internet service	No internet service	No internet service	No internet service	One year	Yes	Credit card (automatic)	31.56	462.49	No
+sdv-id-UWAPfr	Female	0	No	Yes	8	Yes	No	DSL	No internet service	No internet service	Yes	Yes	No	No	Two year	No	Mailed check	30.47	1013.59	No
+sdv-id-srwKjk	Female	0	Yes	No	26	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	Yes	Yes	Two year	Yes	Electronic check	44.0	546.8	Yes
+sdv-id-vcyASy	Male	0	Yes	Yes	70	Yes	Yes	No	No internet service	No	No internet service	No	No internet service	Yes	One year	No	Bank transfer (automatic)	25.33	3368.37	No
+sdv-id-tIEoeh	Male	1	No	No	2	Yes	No	No	Yes	No internet service	No internet service	No internet service	No internet service	No internet service	Month-to-month	No	Electronic check	18.95	55.08	No
+sdv-id-kZirak	Female	0	Yes	No	11	Yes	Yes	DSL	Yes	No	Yes	No	No	No internet service	Month-to-month	No	Mailed check	82.63	588.33	No
+sdv-id-CIEhTe	Female	0	Yes	No	63	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	107.08	4040.22	No
+sdv-id-MapUgi	Male	1	Yes	Yes	29	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Bank transfer (automatic)	19.92	1406.98	No
+sdv-id-FHXoHh	Male	0	No	No	1	Yes	No	DSL	No	Yes	No internet service	No	No	Yes	Month-to-month	Yes	Mailed check	56.0	245.35	No
+sdv-id-bCuVVz	Female	0	No	Yes	2	Yes	Yes	DSL	No	No	No	No	Yes	Yes	Month-to-month	Yes	Mailed check	56.19	296.6	No
+sdv-id-HjeEMf	Female	0	No	No	32	Yes	Yes	DSL	Yes	Yes	No	No	No	Yes	Month-to-month	Yes	Credit card (automatic)	113.3	1815.41	No
+sdv-id-KxpTcW	Female	0	Yes	No	26	Yes	Yes	Fiber optic	No	No	Yes	No	No	No	One year	Yes	Credit card (automatic)	54.44	175.53	No
+sdv-id-PCammq	Male	0	No	No	10	Yes	No	No	Yes	No	No internet service	Yes	Yes	No internet service	Month-to-month	Yes	Mailed check	72.36	1754.94	No
+sdv-id-qKMbaX	Male	0	No	No	1	Yes	Yes	DSL	No	No	No	No	No	Yes	Month-to-month	No	Electronic check	76.71	202.27	Yes
+sdv-id-RHjsDn	Female	0	No	No	44	Yes	Yes	Fiber optic	No	Yes	No	Yes	Yes	Yes	One year	No	Mailed check	103.97	2505.6	No
+sdv-id-LSDQXa	Female	1	Yes	No	54	Yes	No	DSL	Yes	Yes	No	No	No	No	Month-to-month	No	Credit card (automatic)	116.12	6429.44	Yes
+sdv-id-MITxZa	Female	1	No	No	1	Yes	No	DSL	Yes	No internet service	No	No internet service	No	Yes	Month-to-month	No	Electronic check	32.25	23.04	No
+sdv-id-wyHIvL	Male	1	No	No	2	Yes	Yes	Fiber optic	No	No	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	63.18	323.66	No
+sdv-id-nJJiWx	Male	1	No	No	2	Yes	No	Fiber optic	No internet service	No internet service	No	No internet service	No	No	Month-to-month	No	Bank transfer (automatic)	24.32	39.29	No
+sdv-id-JGYHFK	Male	0	Yes	Yes	56	Yes	Yes	Fiber optic	No internet service	No	No internet service	No internet service	No internet service	No	Two year	Yes	Electronic check	35.98	2202.54	No
+sdv-id-MOGVms	Female	0	No	Yes	37	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	104.04	3760.66	No
+sdv-id-zNcDNc	Female	1	Yes	No	39	Yes	Yes	DSL	No	No	No	No	No	No internet service	Month-to-month	Yes	Bank transfer (automatic)	107.83	3121.33	No
+sdv-id-aNybFr	Female	0	No	No	15	Yes	No	Fiber optic	No	No	No internet service	No internet service	Yes	Yes	Month-to-month	Yes	Credit card (automatic)	27.18	542.72	No
+sdv-id-IrGhBz	Female	0	Yes	No	41	Yes	No	DSL	No internet service	No	No	Yes	Yes	No	One year	Yes	Bank transfer (automatic)	26.43	358.17	No
+sdv-id-DpEoGK	Male	0	Yes	No	72	Yes	Yes	Fiber optic	Yes	Yes	No internet service	No	Yes	Yes	Two year	No	Credit card (automatic)	84.84	8549.99	No
+sdv-id-OwXnrA	Male	1	No	No	18	No	No	Fiber optic	Yes	No	Yes	No	No	No internet service	Two year	No	Electronic check	23.18	87.71	Yes
+sdv-id-KHrgBN	Female	0	Yes	Yes	72	Yes	No	DSL	No	No	Yes	Yes	No	No internet service	One year	Yes	Credit card (automatic)	67.03	8017.15	No
+sdv-id-ZkTpEr	Female	0	Yes	Yes	65	Yes	Yes	Fiber optic	No internet service	No internet service	No internet service	Yes	Yes	No internet service	Two year	Yes	Mailed check	30.6	1710.52	No
+sdv-id-tGfUiU	Male	0	No	Yes	2	No	No phone service	DSL	No	Yes	Yes	No	No	No	Month-to-month	Yes	Electronic check	52.49	491.76	No
+sdv-id-uCYEnn	Female	0	Yes	Yes	68	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	One year	Yes	Bank transfer (automatic)	116.77	7211.82	No
+sdv-id-ASBpcI	Male	0	Yes	No	13	Yes	No	DSL	Yes	No	No	No	No	No	Month-to-month	Yes	Mailed check	94.05	996.51	Yes
+sdv-id-ocoueK	Female	0	Yes	Yes	2	Yes	No	Fiber optic	Yes	No	Yes	No	No	Yes	Month-to-month	Yes	Mailed check	41.52	634.73	No
+sdv-id-ZxwTGd	Male	0	No	No	6	Yes	Yes	DSL	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	115.05	3054.84	Yes
+sdv-id-ekmnEm	Female	0	No	No	12	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	No	Mailed check	95.53	366.44	No
+sdv-id-jWFKOY	Female	0	Yes	No	47	Yes	Yes	Fiber optic	No internet service	Yes	No	No internet service	Yes	Yes	One year	Yes	Electronic check	97.88	6178.62	No
+sdv-id-uWoMWf	Female	0	No	No	59	Yes	Yes	Fiber optic	No internet service	No	No internet service	Yes	No internet service	No internet service	Month-to-month	Yes	Credit card (automatic)	39.58	3004.53	No
+sdv-id-DxnxVO	Male	0	No	Yes	23	Yes	Yes	Fiber optic	Yes	Yes	No	Yes	No	Yes	Two year	Yes	Bank transfer (automatic)	107.83	2295.37	Yes
+sdv-id-JeumSo	Male	1	Yes	No	2	Yes	No	Fiber optic	No	No internet service	No internet service	No	Yes	Yes	One year	Yes	Mailed check	19.88	28.81	No
+sdv-id-kcpcHg	Female	0	Yes	Yes	60	Yes	Yes	Fiber optic	No internet service	Yes	No internet service	Yes	Yes	No internet service	Two year	No	Mailed check	104.33	7566.06	No
+sdv-id-tNFzdb	Male	0	No	No	47	Yes	No phone service	DSL	No	No	Yes	No	No	No	Month-to-month	No	Bank transfer (automatic)	37.05	805.46	No
+sdv-id-OGjWRU	Female	1	No	No	11	Yes	Yes	No	Yes	No internet service	Yes	Yes	Yes	No internet service	Month-to-month	Yes	Mailed check	52.77	1356.21	No
+sdv-id-vRkcdc	Male	0	No	No	1	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	93.35	65.23	Yes
+sdv-id-FWEFve	Male	0	Yes	No	9	Yes	Yes	DSL	No	No	Yes	No internet service	Yes	Yes	One year	Yes	Credit card (automatic)	48.27	617.6	Yes
+sdv-id-FAVGSq	Male	0	No	Yes	2	Yes	Yes	No	No	No internet service	No internet service	Yes	Yes	No internet service	Month-to-month	Yes	Electronic check	43.47	171.6	Yes
+sdv-id-oGhhdI	Female	0	No	No	2	Yes	No	DSL	No	No	No	No	No	No	Two year	Yes	Mailed check	109.27	2030.82	No
+sdv-id-KTVWrW	Male	0	Yes	No	53	Yes	No	DSL	No	Yes	No internet service	No	No internet service	No	Month-to-month	Yes	Electronic check	117.16	7807.91	No
+sdv-id-LCKttW	Male	0	Yes	Yes	52	Yes	Yes	Fiber optic	No internet service	No	No internet service	No internet service	No internet service	No internet service	One year	No	Mailed check	31.39	3301.77	No
+sdv-id-pGrYZX	Female	0	Yes	Yes	49	Yes	Yes	No	Yes	No internet service	No	Yes	No internet service	No internet service	One year	Yes	Mailed check	87.1	2976.17	No
+sdv-id-rnbWBg	Female	0	No	No	8	Yes	No	No	No internet service	No	No	No	Yes	Yes	Month-to-month	No	Bank transfer (automatic)	59.91	1077.53	No
+sdv-id-scvYSa	Male	1	Yes	No	47	Yes	Yes	DSL	No	Yes	Yes	No	Yes	No	One year	Yes	Mailed check	110.94	4944.22	No
+sdv-id-FzkJbp	Male	0	Yes	Yes	65	Yes	Yes	DSL	No	Yes	No	No	No	No	One year	Yes	Bank transfer (automatic)	114.86	5871.71	No
+sdv-id-oDGesx	Female	0	No	No	68	Yes	No	DSL	No	Yes	No	No	No	No	One year	Yes	Credit card (automatic)	104.06	4636.41	Yes
+sdv-id-JwoIgT	Female	0	No	Yes	2	Yes	Yes	Fiber optic	Yes	Yes	No	Yes	No	Yes	Month-to-month	No	Electronic check	64.69	147.56	No
+sdv-id-HiBLaG	Male	0	No	No	65	Yes	Yes	No	No internet service	No internet service	Yes	No	No	Yes	Month-to-month	Yes	Mailed check	21.3	2297.25	No
+sdv-id-SImYrH	Male	0	Yes	No	70	No	Yes	DSL	No	Yes	Yes	No	Yes	Yes	Two year	Yes	Electronic check	103.48	7078.58	No
+sdv-id-zWlXsu	Female	1	Yes	Yes	72	Yes	Yes	Fiber optic	No internet service	Yes	Yes	No	Yes	Yes	Two year	Yes	Credit card (automatic)	107.1	8218.46	No
+sdv-id-ArZRiV	Male	0	No	No	47	Yes	No	Fiber optic	Yes	No	Yes	Yes	No internet service	Yes	One year	Yes	Bank transfer (automatic)	65.81	3940.05	No
+sdv-id-fdNYmx	Male	1	Yes	No	72	Yes	Yes	No	No	Yes	No internet service	No	No internet service	Yes	Month-to-month	Yes	Mailed check	111.75	7001.53	No
+sdv-id-bdqJcx	Male	0	Yes	No	62	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	One year	No	Credit card (automatic)	23.59	3442.52	No
+sdv-id-QfWstK	Female	0	No	Yes	65	Yes	Yes	Fiber optic	No	No internet service	No	No	No	No	Two year	Yes	Bank transfer (automatic)	109.64	5254.65	No
+sdv-id-bzvuGD	Female	0	Yes	No	14	Yes	No	No	No internet service	No internet service	No internet service	No internet service	Yes	Yes	Month-to-month	No	Credit card (automatic)	18.35	105.68	No
+sdv-id-PWQxtS	Male	0	Yes	Yes	49	Yes	Yes	Fiber optic	No internet service	No internet service	No internet service	No	Yes	Yes	One year	Yes	Electronic check	41.7	2653.74	No
+sdv-id-OQyWaP	Male	1	No	No	1	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	90.95	63.36	No
+sdv-id-rRfeyt	Female	0	Yes	Yes	58	Yes	Yes	Fiber optic	Yes	No	Yes	No	No	Yes	Month-to-month	No	Credit card (automatic)	84.78	2884.82	No
+sdv-id-xMPcgt	Female	0	Yes	No	52	Yes	Yes	Fiber optic	No	No internet service	No internet service	No	No internet service	No internet service	Month-to-month	No	Electronic check	62.33	1058.77	No
+sdv-id-HcJeMk	Male	0	No	No	67	Yes	No	DSL	No	Yes	Yes	No	No	No	Two year	Yes	Credit card (automatic)	108.18	6200.05	No
+sdv-id-QFOQXu	Female	0	Yes	Yes	19	No	No phone service	DSL	Yes	No	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	35.99	284.58	Yes
+sdv-id-ryUyvK	Female	0	No	No	4	Yes	No	DSL	No	Yes	Yes	No	No	No	One year	Yes	Electronic check	78.5	1542.28	Yes
+sdv-id-SxTRzv	Female	0	No	No	48	Yes	No	DSL	No	Yes	No	No	No	No	Two year	Yes	Electronic check	97.71	3554.34	No
+sdv-id-UtQgXn	Male	0	Yes	Yes	24	Yes	No	No	No internet service	No internet service	Yes	No internet service	No internet service	No internet service	One year	Yes	Mailed check	29.12	851.74	No
+sdv-id-cFWOXf	Male	1	Yes	No	68	Yes	Yes	Fiber optic	Yes	No	No	Yes	Yes	Yes	One year	No	Mailed check	105.84	6389.64	No
+sdv-id-IgAvuD	Male	0	Yes	No	72	Yes	Yes	Fiber optic	No	Yes	Yes	No	Yes	Yes	Two year	Yes	Electronic check	53.67	6638.1	No
+sdv-id-ucVHFw	Male	0	No	No	33	Yes	No	No	No	No internet service	No	No	No	Yes	Month-to-month	Yes	Electronic check	77.24	1166.57	No
+sdv-id-bVGvRO	Male	0	Yes	Yes	69	No	No phone service	DSL	Yes	Yes	No	Yes	Yes	No internet service	Two year	No	Mailed check	74.81	3454.76	No
+sdv-id-qQffdx	Male	0	Yes	No	4	Yes	No	No	No	Yes	No internet service	No	No internet service	No internet service	Month-to-month	Yes	Electronic check	101.97	728.29	No
+sdv-id-WVSdIR	Male	0	No	Yes	67	Yes	No	Fiber optic	Yes	No	No internet service	No internet service	Yes	No internet service	Two year	No	Electronic check	21.63	1805.95	No
+sdv-id-LGTMZK	Female	0	No	No	36	Yes	Yes	DSL	No	Yes	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	106.9	3891.42	Yes
+sdv-id-GgzpFG	Female	0	Yes	No	63	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	116.16	4695.82	Yes
+sdv-id-TUnSjL	Male	0	Yes	Yes	63	Yes	No	Fiber optic	Yes	No internet service	No	Yes	Yes	Yes	Two year	Yes	Electronic check	49.95	3542.7	No
+sdv-id-yKLpXe	Female	0	Yes	No	67	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Mailed check	25.86	1690.8	No
+sdv-id-ItzfOD	Male	0	No	No	19	Yes	Yes	Fiber optic	No	No	No	No	Yes	No	Month-to-month	Yes	Electronic check	103.79	3883.88	Yes
+sdv-id-VkAYqN	Male	0	Yes	Yes	27	Yes	Yes	Fiber optic	Yes	No	Yes	Yes	No internet service	No internet service	Month-to-month	Yes	Credit card (automatic)	78.0	2797.71	No
+sdv-id-GIxnaF	Male	0	No	No	12	Yes	Yes	Fiber optic	No	No	No internet service	No	No	No internet service	Month-to-month	Yes	Mailed check	63.71	1059.39	No
+sdv-id-EDcRTn	Male	0	No	No	7	Yes	No phone service	Fiber optic	Yes	No internet service	No internet service	Yes	No internet service	Yes	Two year	No	Bank transfer (automatic)	18.73	21.32	No
+sdv-id-rWxyax	Male	0	Yes	No	70	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	Month-to-month	No	Mailed check	48.73	6526.18	No
+sdv-id-iGYJqX	Male	0	No	Yes	36	Yes	No	DSL	No	Yes	No	No	No	Yes	One year	Yes	Credit card (automatic)	87.13	3064.85	No
+sdv-id-raaTYo	Female	0	Yes	No	2	Yes	No	Fiber optic	No	No	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	74.96	60.24	No
+sdv-id-AspnHc	Male	0	No	No	2	Yes	Yes	Fiber optic	Yes	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	37.24	266.88	No
+sdv-id-qFtzZS	Male	0	No	No	24	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	114.7	3355.47	No
+sdv-id-sGhEaT	Male	0	No	Yes	35	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	Month-to-month	Yes	Bank transfer (automatic)	42.4	401.02	No
+sdv-id-EfHtfZ	Female	0	No	Yes	1	Yes	No phone service	Fiber optic	No internet service	No	Yes	No	No internet service	No internet service	One year	Yes	Mailed check	28.11	33.01	Yes
+sdv-id-YgXftR	Female	0	No	No	6	No	No	Fiber optic	No	No	Yes	No	No internet service	No internet service	One year	Yes	Electronic check	50.18	535.18	Yes
+sdv-id-hfZSLc	Male	0	Yes	No	64	No	Yes	Fiber optic	No	No	No	No	No	No	Two year	Yes	Credit card (automatic)	105.22	5882.31	No
+sdv-id-CtumzM	Female	0	Yes	Yes	60	Yes	No	Fiber optic	No	Yes	No	No	No	No	One year	Yes	Credit card (automatic)	114.63	6338.58	No
+sdv-id-hwtieJ	Male	1	No	No	18	Yes	No phone service	Fiber optic	Yes	No	Yes	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	22.43	81.55	Yes
+sdv-id-PGAzwm	Female	0	No	Yes	1	Yes	No	No	No internet service	No	Yes	No internet service	Yes	No internet service	Two year	No	Bank transfer (automatic)	19.08	323.7	Yes
+sdv-id-tvHgHj	Male	0	No	No	1	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	24.29	18.81	No
+sdv-id-UWEqID	Female	0	Yes	Yes	70	No	No phone service	Fiber optic	Yes	No	Yes	No internet service	No internet service	Yes	Two year	No	Bank transfer (automatic)	35.04	3641.6	No
+sdv-id-lwUSRJ	Male	0	No	Yes	45	Yes	No phone service	No	No internet service	No internet service	Yes	No internet service	No internet service	No internet service	Two year	No	Electronic check	18.71	466.65	No
+sdv-id-mZSeZJ	Female	1	No	No	30	Yes	No phone service	DSL	No	No	No	No	No	No	One year	Yes	Mailed check	71.12	1692.82	Yes
+sdv-id-SCNEbL	Female	0	Yes	Yes	37	Yes	No	Fiber optic	Yes	No internet service	No internet service	No	No internet service	Yes	Two year	Yes	Bank transfer (automatic)	21.66	649.03	No
+sdv-id-BdtoxT	Female	0	No	No	35	Yes	Yes	DSL	No	No	No	No	Yes	Yes	Month-to-month	No	Bank transfer (automatic)	101.66	1563.94	No
+sdv-id-wqIsXB	Male	0	Yes	Yes	70	Yes	No	No	No	No	Yes	Yes	Yes	No internet service	Month-to-month	Yes	Bank transfer (automatic)	57.97	3938.55	No
+sdv-id-OuryRm	Male	1	No	No	4	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	118.22	2829.07	No
+sdv-id-tYZcsG	Female	1	No	No	32	Yes	No	Fiber optic	No	Yes	Yes	No	No	No	Month-to-month	No	Electronic check	114.56	4571.38	No
+sdv-id-qmXQcJ	Male	0	No	No	41	Yes	Yes	Fiber optic	Yes	No	Yes	Yes	No	No	Two year	Yes	Credit card (automatic)	45.53	1517.68	No
+sdv-id-xoXVJs	Female	0	Yes	No	56	Yes	No	Fiber optic	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	One year	Yes	Electronic check	24.21	2254.77	No
+sdv-id-Nsmdst	Male	0	No	No	4	Yes	Yes	DSL	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	111.86	2500.41	Yes
+sdv-id-yOLDnd	Female	0	Yes	Yes	49	Yes	No	DSL	Yes	Yes	Yes	Yes	Yes	Yes	One year	Yes	Credit card (automatic)	106.37	5479.04	No
+sdv-id-gkmzkK	Male	0	No	No	5	Yes	Yes	DSL	No internet service	Yes	No	No	No	No	Month-to-month	No	Credit card (automatic)	74.96	638.14	Yes
+sdv-id-NNcgKN	Female	0	No	No	7	Yes	Yes	No	No	No	Yes	Yes	Yes	No	Two year	Yes	Mailed check	80.27	566.61	No
+sdv-id-HbFxnf	Male	0	No	Yes	3	Yes	No phone service	Fiber optic	No internet service	No	No internet service	No internet service	Yes	Yes	Month-to-month	Yes	Bank transfer (automatic)	18.48	39.52	No
+sdv-id-FttDzD	Female	0	Yes	Yes	9	Yes	Yes	Fiber optic	No	No	Yes	No	Yes	Yes	Month-to-month	Yes	Mailed check	106.08	1566.51	Yes
+sdv-id-sNxvBN	Female	0	No	No	10	Yes	No	Fiber optic	No	Yes	No	No	No	No internet service	Month-to-month	No	Electronic check	81.57	1559.55	No
+sdv-id-eepcTv	Male	0	No	No	15	Yes	No	DSL	Yes	No	No	Yes	Yes	Yes	Month-to-month	Yes	Bank transfer (automatic)	32.55	771.64	No
+sdv-id-VfLpFj	Female	1	No	No	36	Yes	No	No	No	No	Yes	Yes	Yes	Yes	Month-to-month	Yes	Mailed check	44.38	588.34	No
+sdv-id-vatZgE	Male	0	No	No	21	Yes	Yes	No	No internet service	No	No internet service	Yes	Yes	No internet service	Two year	No	Credit card (automatic)	37.16	647.06	No
+sdv-id-llAVIl	Male	0	No	No	2	Yes	No phone service	DSL	No	No	No	No	Yes	No	Two year	No	Bank transfer (automatic)	33.02	442.48	No
+sdv-id-ERcQwJ	Male	0	No	No	14	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	110.62	913.02	No
+sdv-id-QCMENl	Male	0	No	No	6	Yes	No	Fiber optic	No	Yes	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	118.57	3262.32	Yes
+sdv-id-mHGKLO	Male	0	Yes	No	64	Yes	No	Fiber optic	Yes	Yes	Yes	No	Yes	No	One year	Yes	Credit card (automatic)	85.09	3364.25	No
+sdv-id-XYShJy	Male	0	Yes	No	32	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	Two year	No	Bank transfer (automatic)	34.23	2502.56	No
+sdv-id-JJjEyv	Male	1	No	Yes	44	No	No	DSL	Yes	No	Yes	No	Yes	Yes	Two year	Yes	Credit card (automatic)	70.58	3475.94	No
+sdv-id-xyyMWa	Male	0	Yes	No	58	Yes	Yes	DSL	No	No	No	No	Yes	No	Two year	No	Mailed check	87.35	3548.23	No
+sdv-id-jluYmU	Male	0	No	Yes	71	Yes	Yes	DSL	No internet service	Yes	Yes	No internet service	No internet service	Yes	One year	No	Credit card (automatic)	108.88	7936.32	No
+sdv-id-vXWiuw	Male	0	Yes	No	18	Yes	Yes	No	No	No internet service	Yes	Yes	No	No internet service	Month-to-month	No	Credit card (automatic)	104.81	1481.1	No
+sdv-id-zAtMXp	Male	0	No	No	2	Yes	No phone service	No	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	Month-to-month	No	Mailed check	18.28	19.19	Yes
+sdv-id-WrxjgD	Female	0	No	No	5	Yes	No	No	No	No	No	No	No	No	Month-to-month	No	Electronic check	20.28	25.12	No
+sdv-id-dUeeHk	Male	0	Yes	No	12	Yes	No	No	No	Yes	No internet service	Yes	No internet service	Yes	Month-to-month	Yes	Electronic check	36.64	769.45	Yes
+sdv-id-prAhQE	Female	0	No	No	61	Yes	Yes	DSL	Yes	Yes	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	107.25	5098.61	Yes
+sdv-id-mKAbyp	Male	0	Yes	No	7	Yes	No phone service	DSL	No internet service	No	No	Yes	Yes	Yes	Month-to-month	No	Electronic check	19.46	112.79	No
+sdv-id-tdvRKC	Female	0	No	No	6	No	Yes	No	No internet service	No	Yes	Yes	Yes	Yes	Month-to-month	No	Credit card (automatic)	38.24	247.15	Yes
+sdv-id-ikXobC	Male	1	No	No	56	Yes	Yes	Fiber optic	No	No	Yes	Yes	Yes	Yes	Month-to-month	No	Bank transfer (automatic)	88.59	3880.6	No
+sdv-id-KFtHgZ	Female	1	No	No	9	Yes	Yes	DSL	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	105.44	3692.53	No
+sdv-id-IRhaBk	Male	0	Yes	No	69	Yes	Yes	Fiber optic	No	No	Yes	Yes	Yes	No	Two year	Yes	Bank transfer (automatic)	92.01	6142.77	No
+sdv-id-CwJamP	Female	1	Yes	Yes	18	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Electronic check	19.03	188.54	No
+sdv-id-vGIriS	Female	0	No	Yes	9	Yes	No	DSL	Yes	No	Yes	Yes	Yes	Yes	One year	Yes	Bank transfer (automatic)	53.35	468.11	Yes
+sdv-id-GLVDsV	Male	0	No	No	57	Yes	No	DSL	Yes	Yes	Yes	No internet service	No internet service	No	Two year	No	Credit card (automatic)	92.8	4413.0	No
+sdv-id-iwGfBc	Male	1	Yes	No	6	Yes	No	DSL	No	No internet service	No	Yes	No internet service	Yes	Month-to-month	Yes	Electronic check	62.98	123.84	No
+sdv-id-fiqZDv	Male	0	No	No	10	Yes	Yes	No	Yes	No	Yes	No	No	No	Month-to-month	Yes	Credit card (automatic)	90.94	2317.58	No
+sdv-id-SqmrNt	Male	0	Yes	No	65	Yes	No	No	No internet service	No	Yes	Yes	Yes	Yes	Two year	No	Mailed check	58.7	4846.01	No
+sdv-id-vEYybu	Male	0	Yes	No	29	Yes	Yes	Fiber optic	No	No	No internet service	No	No	No internet service	Two year	Yes	Mailed check	53.92	1494.52	Yes
+sdv-id-FmpnUB	Female	0	No	No	1	Yes	Yes	Fiber optic	No	No internet service	No	No	Yes	No	Month-to-month	No	Bank transfer (automatic)	78.71	91.08	Yes
+sdv-id-howIPW	Male	0	Yes	Yes	41	Yes	Yes	Fiber optic	No	No	No	Yes	Yes	Yes	One year	No	Bank transfer (automatic)	107.9	1804.75	Yes
+sdv-id-SFKUXS	Male	0	No	No	1	Yes	No	Fiber optic	No	No internet service	No	No	No	No	Month-to-month	No	Electronic check	20.3	18.82	Yes
+sdv-id-ZlupKM	Male	0	Yes	No	1	Yes	No	Fiber optic	No internet service	No	No internet service	Yes	Yes	No	One year	Yes	Electronic check	18.56	19.94	No
+sdv-id-HjBJlw	Male	0	No	Yes	70	Yes	Yes	Fiber optic	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	71.97	4483.02	No
+sdv-id-xqarxL	Female	0	Yes	No	24	Yes	No	Fiber optic	No internet service	No	Yes	Yes	No	No	Month-to-month	Yes	Mailed check	40.0	600.6	No
+sdv-id-JYOKRT	Female	0	No	Yes	15	No	Yes	DSL	No	Yes	No	No	No	No	One year	Yes	Electronic check	95.54	1293.74	Yes
+sdv-id-MvlJMl	Male	0	No	No	29	Yes	Yes	DSL	No	No	No	Yes	Yes	No	Month-to-month	Yes	Credit card (automatic)	88.66	2865.18	Yes
+sdv-id-VbBYuX	Male	1	Yes	No	71	Yes	Yes	No	Yes	Yes	Yes	No	No internet service	No internet service	Two year	No	Electronic check	95.95	7232.53	Yes
+sdv-id-GOregV	Male	1	No	No	17	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	109.96	616.53	Yes
+sdv-id-ULsDkk	Male	0	Yes	No	64	Yes	No	No	No internet service	No	Yes	No internet service	No internet service	No internet service	Month-to-month	No	Electronic check	21.71	1167.99	No
+sdv-id-ZcjcVI	Male	0	No	Yes	58	Yes	No	Fiber optic	No	No	No internet service	No	Yes	No	Month-to-month	Yes	Bank transfer (automatic)	99.52	4048.45	No
+sdv-id-UAlREa	Female	0	Yes	No	7	Yes	Yes	No	Yes	No internet service	Yes	Yes	No internet service	No internet service	Month-to-month	Yes	Electronic check	54.11	679.01	No
+sdv-id-hmZdlC	Female	0	No	No	8	Yes	No	Fiber optic	Yes	No	Yes	Yes	No	Yes	Month-to-month	Yes	Electronic check	19.04	19.4	No
+sdv-id-UthSaA	Female	0	No	Yes	65	No	Yes	Fiber optic	No internet service	No	No internet service	Yes	No internet service	No internet service	One year	Yes	Bank transfer (automatic)	19.26	2833.95	No
+sdv-id-NoWcVe	Male	0	No	No	1	Yes	No phone service	Fiber optic	No internet service	No internet service	Yes	Yes	Yes	Yes	Month-to-month	No	Electronic check	18.26	18.8	Yes
+sdv-id-oPnIJa	Male	0	Yes	Yes	26	Yes	Yes	No	No	No	Yes	No	No	Yes	Month-to-month	Yes	Electronic check	59.14	530.58	No
+sdv-id-nAjvyD	Male	0	Yes	No	35	Yes	No	Fiber optic	No	No	No	Yes	Yes	Yes	Two year	Yes	Electronic check	97.0	3598.89	Yes
+sdv-id-caKXvj	Male	1	No	No	2	Yes	No	DSL	No	No	Yes	No	No	No	Month-to-month	Yes	Electronic check	63.87	192.83	Yes
+sdv-id-mdMVCn	Female	0	No	No	2	Yes	No	DSL	No internet service	No internet service	No	No internet service	No	No	Month-to-month	No	Electronic check	42.18	92.42	Yes
+sdv-id-fdeNNT	Male	1	Yes	No	56	Yes	Yes	DSL	Yes	No	Yes	Yes	No	No	One year	Yes	Bank transfer (automatic)	69.19	4235.26	No
+sdv-id-oqctCH	Female	0	Yes	No	72	Yes	No	DSL	No	Yes	No internet service	No	Yes	No internet service	Two year	No	Mailed check	80.16	6345.93	No
+sdv-id-QpzfsB	Female	0	Yes	Yes	71	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	117.85	7607.32	No
+sdv-id-JKYSNO	Male	0	No	No	32	Yes	No	Fiber optic	No	Yes	No	No	Yes	No internet service	Month-to-month	Yes	Credit card (automatic)	97.64	4563.91	No
+sdv-id-zqCHjs	Female	0	Yes	No	55	Yes	No phone service	DSL	No	Yes	No	No	No	No	Two year	Yes	Credit card (automatic)	53.51	3547.64	No
+sdv-id-LYRktv	Male	0	Yes	No	64	Yes	No	Fiber optic	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	Two year	Yes	Credit card (automatic)	22.46	3992.84	No
+sdv-id-iTWZTE	Male	1	Yes	Yes	72	Yes	Yes	Fiber optic	No internet service	No	Yes	No	No internet service	No internet service	Two year	No	Credit card (automatic)	60.82	5869.42	No
+sdv-id-zAOYBl	Male	0	No	No	3	Yes	No	Fiber optic	No	Yes	No	No	No	Yes	Month-to-month	Yes	Bank transfer (automatic)	105.16	1730.52	No
+sdv-id-ouWPdi	Female	0	Yes	No	7	Yes	No	Fiber optic	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	49.32	298.31	No
+sdv-id-gtqRsa	Male	0	No	No	2	Yes	Yes	Fiber optic	No internet service	No internet service	Yes	Yes	Yes	No internet service	Month-to-month	Yes	Electronic check	37.88	895.69	Yes
+sdv-id-EWCehh	Female	0	No	Yes	27	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	82.95	974.66	No
+sdv-id-tAUPwR	Male	0	No	No	46	Yes	Yes	No	No	No	Yes	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	67.47	2020.01	No
+sdv-id-tyAtuW	Male	0	No	No	47	Yes	Yes	Fiber optic	No	Yes	Yes	No	Yes	Yes	Month-to-month	Yes	Electronic check	118.23	6170.86	Yes
+sdv-id-xcSnJC	Female	0	No	No	1	Yes	Yes	No	Yes	No internet service	Yes	No	Yes	Yes	One year	Yes	Mailed check	23.41	36.38	No
+sdv-id-wWIIAI	Male	0	No	No	13	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Month-to-month	No	Electronic check	18.43	35.6	No
+sdv-id-XpgjaA	Female	1	No	No	27	Yes	No	No	Yes	Yes	No	No	No	Yes	Two year	Yes	Electronic check	90.2	2361.02	Yes
+sdv-id-OSggBA	Male	0	Yes	No	51	Yes	Yes	DSL	No	Yes	No internet service	No	No	No	One year	Yes	Mailed check	91.25	5196.8	No
+sdv-id-tzqFQZ	Female	0	Yes	No	67	Yes	No	Fiber optic	No	Yes	No	Yes	No	No	Month-to-month	Yes	Mailed check	109.48	5575.59	Yes
+sdv-id-QMuhAx	Female	0	Yes	Yes	41	Yes	Yes	Fiber optic	Yes	No internet service	No internet service	No	Yes	No	One year	Yes	Bank transfer (automatic)	62.45	2273.32	No
+sdv-id-fXFgJP	Female	0	No	No	7	Yes	Yes	Fiber optic	Yes	No	Yes	Yes	Yes	No	Month-to-month	No	Mailed check	33.08	745.8	No
+sdv-id-TnJlPv	Female	1	No	No	4	Yes	No phone service	No	Yes	No internet service	No internet service	Yes	Yes	No internet service	Month-to-month	No	Mailed check	32.22	583.93	No
+sdv-id-qDuDBc	Male	0	No	No	58	Yes	No	Fiber optic	No internet service	No internet service	Yes	No	No	No	Two year	No	Credit card (automatic)	37.41	2871.84	No
+sdv-id-iCYdNt	Female	0	No	No	69	Yes	Yes	DSL	No	No	No	No	Yes	No	Two year	Yes	Electronic check	72.91	3262.94	Yes
+sdv-id-SPiJzj	Female	0	No	No	31	Yes	No phone service	Fiber optic	Yes	No	No	No	No	Yes	Month-to-month	Yes	Electronic check	106.47	2403.29	No
+sdv-id-jhLxyZ	Female	0	Yes	No	16	Yes	Yes	DSL	Yes	No	No internet service	No internet service	No	No	Two year	No	Credit card (automatic)	27.11	1023.48	No
+sdv-id-eVkEry	Male	1	Yes	No	35	Yes	No	Fiber optic	No	No internet service	No internet service	Yes	No internet service	No internet service	Two year	Yes	Electronic check	21.73	351.82	No
+sdv-id-JlWwjQ	Female	0	No	No	4	Yes	Yes	DSL	No	Yes	No	No	No	No	One year	No	Mailed check	118.74	3242.73	No
+sdv-id-VHHXiA	Male	0	Yes	Yes	67	Yes	Yes	No	No internet service	No	Yes	No internet service	No internet service	Yes	Two year	Yes	Credit card (automatic)	74.31	5087.8	No
+sdv-id-LnjBiF	Male	0	Yes	No	28	Yes	No	Fiber optic	Yes	No	Yes	No internet service	Yes	Yes	One year	Yes	Mailed check	56.8	1319.17	Yes
+sdv-id-SYeyvW	Female	0	No	No	4	Yes	Yes	DSL	No	No	No internet service	No	Yes	Yes	One year	No	Electronic check	91.68	858.03	No
+sdv-id-GSGEan	Male	0	Yes	No	72	Yes	Yes	Fiber optic	Yes	Yes	Yes	No internet service	Yes	Yes	One year	Yes	Mailed check	97.56	7195.24	No
+sdv-id-jYGCRi	Female	0	No	No	53	Yes	No	No	Yes	No internet service	No	No internet service	No internet service	No internet service	Two year	No	Bank transfer (automatic)	55.24	1684.13	No
+sdv-id-ZEvsXC	Male	0	Yes	No	42	Yes	No phone service	No	No internet service	No	No internet service	No internet service	No internet service	No internet service	One year	No	Bank transfer (automatic)	40.44	2885.71	Yes
+sdv-id-gsSHHY	Female	0	Yes	Yes	2	Yes	No	Fiber optic	No internet service	No internet service	No	No	No	No	Month-to-month	No	Bank transfer (automatic)	21.17	23.15	Yes
+sdv-id-hvnowh	Female	1	No	No	55	Yes	No	Fiber optic	Yes	No	Yes	No	Yes	No	Month-to-month	No	Bank transfer (automatic)	89.11	4595.45	No
+sdv-id-gVXSLU	Male	0	Yes	Yes	50	Yes	No	Fiber optic	No	No	No internet service	Yes	No internet service	No	One year	No	Electronic check	31.4	824.73	No
+sdv-id-WcWPRB	Male	0	Yes	No	62	No	No phone service	DSL	Yes	Yes	No internet service	Yes	No	No	Two year	Yes	Credit card (automatic)	77.14	3399.05	No
+sdv-id-gSTdcU	Male	0	Yes	No	30	Yes	No phone service	DSL	No	Yes	No	No	Yes	No	One year	Yes	Credit card (automatic)	83.61	2424.1	No
+sdv-id-MxOOsP	Male	1	Yes	No	70	Yes	No	Fiber optic	No	Yes	No	Yes	Yes	No	Month-to-month	No	Mailed check	112.0	6644.72	No
+sdv-id-xYQIIw	Female	0	Yes	No	15	Yes	Yes	DSL	No	Yes	No	No	No	Yes	Month-to-month	No	Electronic check	57.96	626.12	No
+sdv-id-Kawpiz	Male	0	Yes	No	69	Yes	No	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Mailed check	117.39	7927.49	Yes
+sdv-id-uLZcRN	Female	0	Yes	No	4	Yes	No	No	No	No	Yes	Yes	Yes	No internet service	Month-to-month	Yes	Mailed check	106.56	1363.11	No
+sdv-id-fvyxpy	Male	0	No	No	3	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Month-to-month	Yes	Bank transfer (automatic)	19.23	23.33	No
+sdv-id-TCNUEz	Female	0	Yes	Yes	14	Yes	Yes	DSL	No	Yes	Yes	No	No	No	Month-to-month	Yes	Mailed check	58.53	1715.33	Yes
+sdv-id-BrscYn	Female	0	No	No	14	Yes	No	Fiber optic	No	No	No	No	No	Yes	Month-to-month	No	Bank transfer (automatic)	47.15	455.8	Yes
+sdv-id-TwqXgj	Female	0	Yes	Yes	2	Yes	Yes	DSL	No	No	No	No	No	No	Month-to-month	Yes	Mailed check	61.14	65.95	Yes
+sdv-id-itzvbh	Female	0	Yes	Yes	69	Yes	Yes	Fiber optic	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Bank transfer (automatic)	40.11	3829.99	No
+sdv-id-YjRjVd	Female	0	Yes	Yes	72	Yes	Yes	DSL	No	Yes	No	No	No	Yes	Two year	Yes	Mailed check	98.32	7298.01	No
+sdv-id-CKhvLx	Male	0	Yes	No	4	Yes	No	Fiber optic	No	No internet service	Yes	No	Yes	No	Two year	No	Mailed check	67.96	550.25	No
+sdv-id-WxVpcq	Female	0	No	No	47	Yes	No	Fiber optic	Yes	No	No internet service	Yes	Yes	No internet service	Month-to-month	Yes	Electronic check	63.98	1244.95	Yes
+sdv-id-QnAwjE	Female	0	No	No	22	Yes	Yes	Fiber optic	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	One year	Yes	Bank transfer (automatic)	18.42	36.47	No
+sdv-id-ufAimG	Male	1	Yes	No	67	No	No	No	No internet service	No	No internet service	No internet service	No internet service	No internet service	One year	No	Bank transfer (automatic)	20.15	2712.17	No
+sdv-id-HpUfet	Male	0	No	Yes	52	Yes	Yes	Fiber optic	No	No	Yes	No	Yes	No	Two year	No	Credit card (automatic)	49.77	1389.11	No
+sdv-id-fsmBPn	Female	0	Yes	No	46	Yes	No	Fiber optic	No	No	No internet service	Yes	No internet service	Yes	Two year	No	Credit card (automatic)	30.0	2151.11	Yes
+sdv-id-kRnHak	Male	0	Yes	No	5	Yes	No	DSL	Yes	Yes	Yes	Yes	No	No	Two year	No	Bank transfer (automatic)	60.05	706.45	No
+sdv-id-ggEdZy	Male	0	No	No	47	Yes	No phone service	Fiber optic	No internet service	No	No internet service	No internet service	No internet service	No internet service	One year	No	Electronic check	19.0	1011.83	No
+sdv-id-aIfCTD	Female	0	No	No	72	Yes	No	Fiber optic	No	Yes	No	No	Yes	Yes	Two year	Yes	Electronic check	118.02	8139.06	No
+sdv-id-qzZbOQ	Male	0	No	No	4	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	89.06	457.92	No
+sdv-id-PaMTdD	Male	1	Yes	Yes	38	No	No phone service	Fiber optic	No internet service	No	Yes	Yes	Yes	No internet service	Two year	Yes	Bank transfer (automatic)	30.95	1820.98	No
+sdv-id-gjbkoV	Male	0	Yes	Yes	18	Yes	No phone service	Fiber optic	Yes	No internet service	Yes	No internet service	No internet service	No internet service	One year	Yes	Bank transfer (automatic)	32.91	1605.53	No
+sdv-id-DQjPaG	Female	0	Yes	Yes	10	Yes	No	No	Yes	No	Yes	No	Yes	No internet service	Month-to-month	Yes	Credit card (automatic)	19.69	48.93	No
+sdv-id-OcIkAO	Male	0	Yes	No	15	Yes	No phone service	DSL	No	Yes	No	No	Yes	Yes	Month-to-month	No	Bank transfer (automatic)	89.9	991.86	No
+sdv-id-qlKDRu	Female	0	No	No	3	Yes	No	No	No	Yes	No	No	Yes	No	Month-to-month	No	Electronic check	114.22	1493.18	Yes
+sdv-id-yEpKHA	Male	0	Yes	No	1	Yes	No	Fiber optic	Yes	No	Yes	No	Yes	No	Month-to-month	No	Bank transfer (automatic)	91.15	105.31	No
+sdv-id-GLDvUU	Male	0	No	Yes	10	Yes	No	Fiber optic	No	Yes	No	No	Yes	No	Month-to-month	Yes	Mailed check	93.41	1388.74	No
+sdv-id-QSBOfK	Male	0	No	No	37	Yes	No	DSL	No	Yes	No	Yes	No	No	Month-to-month	Yes	Credit card (automatic)	56.48	1768.77	No
+sdv-id-OHIwXb	Female	0	No	No	69	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	116.11	5910.77	No
+sdv-id-fvBTBz	Male	0	Yes	No	12	Yes	Yes	Fiber optic	Yes	No	Yes	Yes	No internet service	Yes	Month-to-month	Yes	Mailed check	84.39	1553.28	No
+sdv-id-AdWUGI	Male	1	Yes	Yes	20	No	No phone service	DSL	No internet service	No internet service	No	Yes	Yes	Yes	Two year	Yes	Credit card (automatic)	26.87	1716.49	No
+sdv-id-AFzNiy	Female	1	No	No	1	Yes	No	No	No internet service	No internet service	No internet service	No	Yes	No internet service	Two year	No	Electronic check	24.27	78.44	No
+sdv-id-gLISZQ	Female	0	No	No	55	No	Yes	No	No	Yes	Yes	No	Yes	No internet service	Month-to-month	Yes	Credit card (automatic)	112.66	6642.58	No
+sdv-id-lGwmes	Male	0	Yes	No	49	Yes	No	Fiber optic	Yes	Yes	Yes	Yes	No	Yes	Two year	No	Bank transfer (automatic)	62.43	1632.28	No
+sdv-id-mBqlAu	Female	0	No	No	51	Yes	No	DSL	No	No	No	Yes	No	Yes	Two year	No	Electronic check	105.4	3821.73	Yes
+sdv-id-dsMAhL	Female	0	Yes	Yes	29	Yes	Yes	DSL	No	Yes	No	Yes	No	Yes	One year	Yes	Credit card (automatic)	112.34	4963.04	No
+sdv-id-GaHyqz	Male	0	Yes	No	34	Yes	No	DSL	Yes	Yes	No	Yes	No	No	Two year	Yes	Credit card (automatic)	72.17	3415.59	No
+sdv-id-PcutFU	Male	0	No	No	2	Yes	No	Fiber optic	No	No	No	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	58.96	50.05	Yes
+sdv-id-zZeusE	Female	0	Yes	Yes	4	Yes	No	Fiber optic	No	No internet service	No	Yes	No	Yes	Month-to-month	Yes	Mailed check	46.78	44.52	Yes
+sdv-id-ORMmWw	Male	0	Yes	No	1	Yes	No	DSL	No	No	No	Yes	No	No	Month-to-month	Yes	Electronic check	24.49	38.69	No
+sdv-id-okrIik	Female	0	Yes	No	11	Yes	No	DSL	No	Yes	No	No	Yes	Yes	Month-to-month	Yes	Bank transfer (automatic)	111.73	839.17	Yes
+sdv-id-HvAWnr	Male	0	Yes	No	72	Yes	Yes	Fiber optic	Yes	Yes	Yes	Yes	Yes	Yes	One year	No	Credit card (automatic)	50.74	5655.46	No
+sdv-id-bkxXaV	Female	1	No	No	48	Yes	No	DSL	No	Yes	No	Yes	No	No	One year	Yes	Mailed check	115.02	3400.64	No
+sdv-id-NEcKre	Female	0	No	Yes	5	Yes	Yes	No	No internet service	No internet service	Yes	No internet service	Yes	No internet service	Two year	No	Bank transfer (automatic)	28.5	484.36	No
+sdv-id-ygTpvg	Male	0	Yes	No	61	Yes	Yes	Fiber optic	No	Yes	Yes	No internet service	No internet service	Yes	Month-to-month	No	Credit card (automatic)	74.9	6222.99	No
+sdv-id-NqGFQD	Female	0	No	No	52	Yes	Yes	DSL	Yes	Yes	Yes	Yes	No	Yes	Two year	No	Credit card (automatic)	84.7	3569.96	No
+sdv-id-pnoksW	Male	0	No	Yes	69	Yes	No	DSL	Yes	No	Yes	No	Yes	Yes	One year	Yes	Mailed check	29.29	2229.32	Yes
+sdv-id-BEFNrO	Female	0	Yes	No	67	Yes	No	No	No	No	No	No	Yes	No internet service	Month-to-month	Yes	Electronic check	60.9	2235.45	Yes
+sdv-id-GDjChV	Female	1	No	Yes	7	Yes	No phone service	DSL	Yes	No	Yes	Yes	Yes	No	Month-to-month	Yes	Mailed check	18.73	151.74	No
+sdv-id-kHJdun	Female	0	Yes	No	29	No	Yes	DSL	Yes	Yes	No internet service	No	Yes	Yes	Month-to-month	Yes	Electronic check	100.59	1750.34	Yes
+sdv-id-omSKEm	Female	0	No	No	18	Yes	Yes	DSL	No	Yes	No	Yes	No	Yes	Month-to-month	No	Electronic check	105.94	3551.51	No
+sdv-id-dIeBYE	Male	0	No	No	23	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	One year	No	Mailed check	19.94	149.11	No
+sdv-id-CmhAxR	Female	0	No	No	5	Yes	Yes	Fiber optic	Yes	Yes	No internet service	No internet service	Yes	Yes	Month-to-month	No	Mailed check	37.88	366.68	Yes
+sdv-id-VaxUpi	Female	0	Yes	No	41	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	114.25	3571.02	No
+sdv-id-hgfjHf	Male	0	Yes	No	22	Yes	No	No	No	Yes	No	Yes	No	No	Month-to-month	Yes	Mailed check	32.65	1069.3	No
+sdv-id-EaezWq	Male	1	No	Yes	27	Yes	No	DSL	No	No	No internet service	Yes	Yes	No	Month-to-month	No	Bank transfer (automatic)	28.59	1648.08	Yes
+sdv-id-EkdIyT	Male	0	No	No	6	Yes	Yes	DSL	No	No	No	No	Yes	No	Month-to-month	Yes	Bank transfer (automatic)	96.76	181.42	No
+sdv-id-jQJDWV	Male	1	No	No	70	Yes	Yes	Fiber optic	Yes	Yes	Yes	No	No internet service	No internet service	One year	Yes	Bank transfer (automatic)	100.72	5749.91	No
+sdv-id-gvuWtj	Male	0	No	No	3	Yes	No	No	No	No	Yes	No internet service	No internet service	No internet service	Month-to-month	Yes	Electronic check	33.55	53.39	Yes
+sdv-id-GVeXSK	Male	0	Yes	No	67	Yes	No	DSL	Yes	No	No internet service	Yes	No internet service	No internet service	Two year	Yes	Credit card (automatic)	36.15	3680.65	No
+sdv-id-dzWjQu	Female	1	No	No	4	Yes	No phone service	No	Yes	No	Yes	No	No	No	Month-to-month	No	Bank transfer (automatic)	55.2	109.37	Yes
+sdv-id-lxJDZS	Female	0	No	No	17	Yes	No	DSL	No	No	No	No	No	Yes	Month-to-month	Yes	Mailed check	85.79	2493.86	Yes
+sdv-id-udgExj	Male	0	Yes	No	3	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	53.28	672.74	No
+sdv-id-CxYyBx	Male	0	No	No	61	Yes	No	Fiber optic	Yes	Yes	Yes	No	No	Yes	One year	No	Credit card (automatic)	71.52	5689.82	No
+sdv-id-rpuGHB	Female	0	No	No	2	Yes	Yes	Fiber optic	Yes	No internet service	Yes	No	No	Yes	Month-to-month	No	Electronic check	69.18	149.06	No
+sdv-id-tWFTDr	Male	1	Yes	No	1	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	71.99	28.33	No
+sdv-id-xRDicB	Male	0	Yes	No	58	Yes	No	Fiber optic	No	Yes	No	No	No	Yes	Month-to-month	No	Electronic check	100.68	5572.23	No
+sdv-id-OBnYAD	Female	0	Yes	Yes	20	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	65.33	1648.65	No
+sdv-id-nCSdrc	Male	0	No	No	7	Yes	Yes	DSL	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	115.33	681.58	Yes
+sdv-id-VGcSkn	Male	0	Yes	Yes	9	Yes	No	No	Yes	No internet service	Yes	Yes	No internet service	No internet service	Month-to-month	No	Mailed check	20.87	206.23	Yes
+sdv-id-JfjNjN	Male	0	Yes	No	70	Yes	Yes	Fiber optic	Yes	No	No internet service	No	No	Yes	One year	Yes	Credit card (automatic)	94.97	4888.94	No
+sdv-id-KUdSBb	Male	0	No	No	1	Yes	No	No	No internet service	No internet service	Yes	No internet service	No internet service	No internet service	One year	No	Credit card (automatic)	18.26	20.04	No
+sdv-id-jWexht	Male	1	Yes	Yes	67	Yes	Yes	No	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	One year	No	Mailed check	19.77	2187.25	No
+sdv-id-Xwbtin	Female	0	Yes	Yes	62	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Two year	Yes	Credit card (automatic)	118.29	7147.38	No
+sdv-id-BRyhur	Male	0	Yes	Yes	42	Yes	Yes	Fiber optic	Yes	No internet service	No	No	No	No	Month-to-month	No	Electronic check	86.91	1146.03	No
+sdv-id-wKqlVt	Male	0	Yes	No	70	Yes	No	DSL	No	Yes	No	No	No	No	Two year	No	Electronic check	118.24	7646.67	No
+sdv-id-SGWIbb	Male	0	Yes	Yes	1	Yes	No	DSL	Yes	No internet service	Yes	No	No	No	Month-to-month	Yes	Electronic check	33.06	23.52	No
+sdv-id-gWlMYU	Female	1	No	No	9	Yes	No phone service	Fiber optic	Yes	No internet service	Yes	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	22.35	112.01	Yes
+sdv-id-iXzuoF	Male	0	Yes	No	10	Yes	Yes	DSL	No	No internet service	Yes	No	No	Yes	Month-to-month	Yes	Electronic check	111.14	2189.4	No
+sdv-id-zZIQLU	Male	0	Yes	No	58	Yes	No	Fiber optic	Yes	No internet service	Yes	Yes	No internet service	No internet service	Month-to-month	Yes	Electronic check	39.95	1236.92	No
+sdv-id-qlPtZe	Male	1	No	No	54	No	No	Fiber optic	No internet service	No	Yes	No internet service	No internet service	Yes	Two year	No	Credit card (automatic)	40.85	2620.45	No
+sdv-id-pXWfdX	Male	0	Yes	Yes	35	Yes	No	Fiber optic	No	No	No	Yes	Yes	Yes	Two year	Yes	Bank transfer (automatic)	31.62	487.4	No
+sdv-id-BYozhs	Female	0	No	Yes	4	Yes	Yes	No	No	No	No	Yes	No internet service	No	Month-to-month	Yes	Mailed check	56.29	143.32	Yes
+sdv-id-PEazTk	Male	0	Yes	No	52	Yes	No	Fiber optic	Yes	No	Yes	No internet service	No internet service	Yes	Two year	Yes	Credit card (automatic)	76.39	6225.7	No
+sdv-id-yhfChH	Male	0	No	No	49	Yes	Yes	Fiber optic	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	118.66	4670.67	No
+sdv-id-mFMyJg	Male	0	No	Yes	5	No	No phone service	DSL	No	No	No	No	No	No	Month-to-month	No	Electronic check	77.96	283.34	No
+sdv-id-FAcjGh	Male	0	No	No	26	Yes	No phone service	DSL	No	Yes	No	No	No	No	One year	No	Credit card (automatic)	109.98	1114.95	Yes
+sdv-id-MvqFAx	Female	0	No	Yes	53	No	Yes	Fiber optic	Yes	No	No internet service	Yes	Yes	Yes	One year	No	Credit card (automatic)	40.0	3342.18	No
+sdv-id-XxnJxB	Male	0	No	No	65	Yes	Yes	Fiber optic	Yes	No	No internet service	No internet service	No internet service	No internet service	Two year	Yes	Electronic check	28.0	2053.12	Yes
+sdv-id-EGvcpp	Male	0	No	No	27	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	44.95	179.19	No
+sdv-id-kYvHHV	Male	1	Yes	No	3	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	116.36	527.55	Yes
+sdv-id-qnujIJ	Male	0	Yes	No	15	Yes	No	Fiber optic	No internet service	Yes	No internet service	Yes	Yes	No internet service	Month-to-month	No	Mailed check	19.51	125.02	No
+sdv-id-ixQEsI	Female	0	No	No	4	Yes	Yes	Fiber optic	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	One year	Yes	Bank transfer (automatic)	18.95	25.56	Yes
+sdv-id-EEQLvk	Female	0	No	No	2	Yes	No	No	Yes	No internet service	No	No	No	No	Month-to-month	Yes	Electronic check	20.85	24.93	No
+sdv-id-nHIcNd	Male	1	No	No	18	Yes	No	Fiber optic	No	Yes	No	No	Yes	No	Month-to-month	Yes	Mailed check	118.1	3521.44	Yes
+sdv-id-yRxTej	Female	0	No	No	46	Yes	Yes	No	No internet service	No	No internet service	No internet service	No internet service	No internet service	One year	No	Electronic check	27.05	1465.65	No
+sdv-id-cwlwVr	Female	1	Yes	No	62	Yes	Yes	Fiber optic	No	No	No internet service	No	No	Yes	Two year	Yes	Credit card (automatic)	72.22	6800.22	No
+sdv-id-UFOkmU	Male	0	Yes	Yes	71	Yes	Yes	No	No internet service	Yes	Yes	No internet service	Yes	Yes	Two year	No	Credit card (automatic)	33.34	4609.81	No
+sdv-id-zjMfQF	Male	0	No	No	45	No	No	Fiber optic	No	Yes	Yes	No	No	No internet service	Month-to-month	No	Electronic check	64.89	1572.14	No
+sdv-id-qNrSYp	Male	0	No	No	17	Yes	No	DSL	No	No	No	No	No	No	One year	Yes	Bank transfer (automatic)	67.07	1494.23	No
+sdv-id-GjaoZN	Female	0	No	No	11	Yes	No	Fiber optic	Yes	Yes	Yes	Yes	No	Yes	One year	Yes	Electronic check	72.74	667.69	Yes
+sdv-id-xDRiwl	Male	0	Yes	No	21	Yes	No	Fiber optic	No	No	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	50.04	149.9	Yes
+sdv-id-pnUPuy	Female	0	No	No	33	Yes	No	DSL	No internet service	Yes	No	No	Yes	Yes	Two year	Yes	Electronic check	43.37	2240.61	No
+sdv-id-LKXivl	Female	0	No	Yes	62	Yes	No	DSL	No	Yes	No	Yes	No	No	One year	Yes	Credit card (automatic)	81.22	3074.22	No
+sdv-id-eMkXaW	Male	0	No	No	13	Yes	No phone service	DSL	No	No	No	No	No	No	Month-to-month	Yes	Electronic check	65.13	667.5	No
+sdv-id-Oodzgc	Female	0	No	No	72	Yes	No	No	No internet service	No	No	Yes	Yes	Yes	Two year	Yes	Electronic check	81.31	4674.05	No
+sdv-id-BDxXlE	Male	0	No	No	3	Yes	No	DSL	No	No internet service	Yes	Yes	No	Yes	One year	Yes	Electronic check	22.64	92.46	No
+sdv-id-eEmcZS	Female	0	No	No	44	Yes	Yes	Fiber optic	No	No internet service	Yes	No	Yes	No	One year	Yes	Mailed check	48.42	3378.77	Yes
+sdv-id-obFNNW	Male	0	No	No	14	Yes	No	DSL	No	Yes	No	No	Yes	No	One year	No	Electronic check	88.65	1884.04	Yes
+sdv-id-eFpKmq	Male	0	No	No	42	Yes	Yes	Fiber optic	No	No	No	No	No	Yes	Month-to-month	Yes	Electronic check	86.1	2563.0	No
+sdv-id-JQkxxi	Female	0	No	No	50	Yes	No	DSL	Yes	No	Yes	Yes	No internet service	Yes	One year	No	Credit card (automatic)	24.41	2526.43	No
+sdv-id-ainaEF	Male	0	No	Yes	1	Yes	No	Fiber optic	No internet service	No internet service	Yes	Yes	Yes	Yes	Month-to-month	No	Mailed check	19.53	34.54	Yes
+sdv-id-WfbRBD	Male	0	No	Yes	28	Yes	Yes	Fiber optic	No	No	No	No	Yes	No	Month-to-month	Yes	Electronic check	72.07	1674.86	Yes
+sdv-id-EGOvvZ	Female	0	No	Yes	6	Yes	No	No	Yes	No	Yes	No internet service	Yes	No internet service	Two year	No	Bank transfer (automatic)	31.43	286.8	No
+sdv-id-QexiTK	Female	0	Yes	No	18	Yes	Yes	DSL	Yes	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	83.95	2060.04	No
+sdv-id-WWeJzm	Male	1	Yes	No	70	Yes	No	DSL	No	Yes	No	No	No	No	One year	Yes	Credit card (automatic)	115.32	4971.4	No
+sdv-id-oBQzLq	Female	0	Yes	No	9	Yes	Yes	DSL	No	No	No	No	No	No	Two year	No	Bank transfer (automatic)	114.93	1454.44	No
+sdv-id-bwwWuJ	Male	1	No	No	32	No	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	95.83	1039.65	Yes
+sdv-id-lkPyOE	Female	0	No	No	14	Yes	Yes	DSL	No	Yes	Yes	No	Yes	Yes	Month-to-month	Yes	Mailed check	92.56	2367.7	No
+sdv-id-krGmNc	Female	0	Yes	No	20	Yes	No	No	Yes	No internet service	No internet service	No internet service	No	Yes	Month-to-month	No	Credit card (automatic)	25.24	1567.0	No
+sdv-id-wXWRiY	Female	0	Yes	Yes	25	Yes	No	Fiber optic	No	No	Yes	Yes	No internet service	Yes	Month-to-month	Yes	Credit card (automatic)	44.0	856.33	No
+sdv-id-NJCWzU	Female	0	No	No	4	Yes	No	No	No	No	Yes	No	Yes	Yes	Month-to-month	Yes	Mailed check	69.21	134.99	No
+sdv-id-upxXio	Female	1	No	No	3	Yes	Yes	Fiber optic	No internet service	No	Yes	Yes	No	Yes	One year	No	Electronic check	32.17	71.23	Yes
+sdv-id-xJUBNQ	Female	0	No	No	18	Yes	No	Fiber optic	No	No internet service	Yes	Yes	No	Yes	Month-to-month	Yes	Mailed check	19.36	56.39	No
+sdv-id-TNlUJm	Female	0	Yes	No	36	Yes	No	Fiber optic	Yes	Yes	No	No	No	No	One year	No	Credit card (automatic)	84.18	2399.07	No
+sdv-id-qEkJfS	Female	0	No	No	3	Yes	No	Fiber optic	Yes	No	No	No	No	No internet service	Month-to-month	No	Electronic check	28.83	251.03	No
+sdv-id-pHjcbq	Male	0	No	Yes	2	Yes	No phone service	Fiber optic	Yes	No	Yes	No	Yes	Yes	Month-to-month	Yes	Bank transfer (automatic)	51.57	245.9	No
+sdv-id-SlRKzb	Male	0	No	No	43	Yes	No	No	No	No	Yes	No internet service	Yes	No internet service	Month-to-month	Yes	Mailed check	45.08	2481.16	No
+sdv-id-gueuLA	Female	0	Yes	No	67	Yes	Yes	DSL	Yes	Yes	No	Yes	No	No	Two year	Yes	Mailed check	116.93	7807.98	Yes
+sdv-id-ewQEHJ	Male	0	No	No	28	Yes	No	DSL	No	No	No	No	Yes	Yes	Month-to-month	No	Mailed check	86.45	4003.96	No
+sdv-id-NaZcqI	Female	0	No	No	72	Yes	Yes	DSL	Yes	No	No	No	No	No	Two year	Yes	Credit card (automatic)	117.34	8359.71	No
+sdv-id-IiCBoK	Male	0	Yes	Yes	30	Yes	Yes	Fiber optic	No	No	No	Yes	Yes	Yes	One year	Yes	Electronic check	68.77	1723.95	Yes
+sdv-id-hbfJjH	Male	0	Yes	No	64	Yes	No	No	No internet service	No internet service	No	Yes	No internet service	No internet service	One year	No	Mailed check	44.89	2056.89	Yes
+sdv-id-KlNCJM	Female	0	Yes	Yes	34	Yes	Yes	No	Yes	No internet service	No	No	No internet service	No internet service	Month-to-month	No	Electronic check	34.94	916.17	Yes
+sdv-id-OKNEhw	Female	0	Yes	Yes	43	Yes	No	No	Yes	No internet service	No	No	No internet service	Yes	Two year	No	Bank transfer (automatic)	37.19	1277.16	No
+sdv-id-IcQJRX	Male	0	Yes	No	9	Yes	No	No	Yes	No	Yes	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	63.82	1367.52	Yes
+sdv-id-cbiFvP	Male	0	Yes	Yes	65	Yes	Yes	DSL	No	No	No internet service	No	No internet service	No	One year	Yes	Bank transfer (automatic)	52.1	4530.67	No
+sdv-id-LscPap	Male	0	No	No	62	Yes	No	No	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	Month-to-month	No	Mailed check	19.44	246.77	No
+sdv-id-vREcwo	Female	0	No	Yes	39	Yes	No	Fiber optic	No	Yes	No	No	No	Yes	Month-to-month	Yes	Electronic check	116.81	3972.82	No
+sdv-id-JBuOVz	Female	0	No	No	1	Yes	No phone service	Fiber optic	No	No	No	No	Yes	Yes	Month-to-month	Yes	Mailed check	52.63	34.02	Yes
+sdv-id-FncaLD	Male	0	Yes	Yes	19	No	Yes	Fiber optic	No	Yes	Yes	Yes	Yes	No internet service	Month-to-month	Yes	Mailed check	69.52	609.0	No
+sdv-id-ogdDDR	Male	0	Yes	Yes	35	Yes	No	No	No	No	Yes	No	Yes	No	Two year	Yes	Mailed check	98.71	4125.71	Yes
+sdv-id-gUnZOX	Female	0	No	Yes	12	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	No	Electronic check	87.29	274.39	No
+sdv-id-TKVAzq	Male	0	Yes	Yes	13	Yes	No	Fiber optic	No	No	Yes	No	Yes	No internet service	Two year	Yes	Bank transfer (automatic)	39.51	963.0	No
+sdv-id-sdcOjn	Male	0	No	No	57	Yes	Yes	No	Yes	No internet service	No	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	111.46	3768.47	No
+sdv-id-OTvUfi	Female	0	No	No	1	Yes	No	Fiber optic	No internet service	No internet service	Yes	Yes	Yes	No	One year	Yes	Electronic check	21.27	24.22	Yes
+sdv-id-cISVMV	Female	0	No	No	46	Yes	Yes	Fiber optic	Yes	Yes	Yes	Yes	Yes	Yes	Two year	Yes	Bank transfer (automatic)	109.56	2660.55	Yes
+sdv-id-XpGyvn	Female	0	No	No	20	Yes	No phone service	Fiber optic	No	Yes	Yes	No	Yes	No internet service	Month-to-month	Yes	Mailed check	24.47	167.67	Yes
+sdv-id-KUAmEv	Male	0	Yes	Yes	65	Yes	No	DSL	No internet service	Yes	Yes	Yes	No	Yes	One year	Yes	Bank transfer (automatic)	31.18	2733.41	No
+sdv-id-BWLHXf	Female	0	Yes	Yes	3	No	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	80.89	1088.19	Yes
+sdv-id-usjeCs	Female	0	No	No	18	Yes	No	DSL	No	No	Yes	No	No	No	Month-to-month	No	Electronic check	31.61	134.26	No
+sdv-id-ebgCfv	Male	0	Yes	No	24	Yes	Yes	DSL	No	Yes	No	No	No	No internet service	Month-to-month	Yes	Mailed check	103.0	3208.61	Yes
+sdv-id-lLmlkC	Male	0	No	Yes	16	Yes	Yes	No	No	No internet service	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	113.82	4907.65	Yes
+sdv-id-gsiKky	Male	0	Yes	Yes	54	Yes	No	Fiber optic	Yes	No	No internet service	Yes	No	No	Month-to-month	No	Credit card (automatic)	42.07	1159.95	No
+sdv-id-swqyQk	Male	0	No	No	19	Yes	No	Fiber optic	Yes	Yes	No	No	Yes	Yes	Two year	No	Bank transfer (automatic)	63.05	2447.57	Yes
+sdv-id-umWNNs	Male	1	Yes	No	3	Yes	Yes	Fiber optic	No	No	No	No	Yes	No	Month-to-month	Yes	Electronic check	67.11	1079.49	No
+sdv-id-NLRPKp	Male	1	No	No	3	No	No	DSL	No	No	No	No	No	No	Month-to-month	No	Electronic check	47.1	27.44	No
+sdv-id-BzczFy	Female	1	No	No	7	Yes	No	Fiber optic	No	No	No	Yes	Yes	Yes	One year	Yes	Credit card (automatic)	70.07	1724.28	No
+sdv-id-NxAheX	Female	0	No	No	5	Yes	No	Fiber optic	No	No	No	No	No	No	One year	No	Mailed check	40.37	541.53	No
+sdv-id-btdAvL	Female	0	Yes	Yes	71	No	No	DSL	No	Yes	Yes	Yes	Yes	Yes	Two year	Yes	Bank transfer (automatic)	111.69	7794.44	Yes
+sdv-id-FIRxJi	Female	0	No	No	3	Yes	No	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Electronic check	45.27	610.54	Yes
+sdv-id-SNHSAw	Female	0	Yes	Yes	69	Yes	Yes	Fiber optic	No	No	Yes	No	No	Yes	Month-to-month	No	Bank transfer (automatic)	54.27	2457.0	No
+sdv-id-MHgLIy	Male	0	No	Yes	67	Yes	No	Fiber optic	No	No	Yes	No internet service	Yes	Yes	Month-to-month	No	Credit card (automatic)	48.62	3748.08	No
+sdv-id-ZACVSY	Female	0	No	No	33	Yes	No	DSL	No	Yes	Yes	No	No	No	Month-to-month	No	Electronic check	62.11	1501.06	No
+sdv-id-FYkyDt	Female	1	Yes	No	70	Yes	Yes	Fiber optic	Yes	Yes	Yes	No	Yes	No	Month-to-month	Yes	Mailed check	118.64	7530.97	Yes
+sdv-id-uKsVym	Female	0	Yes	No	47	Yes	Yes	No	No	No	No	Yes	Yes	Yes	Month-to-month	Yes	Mailed check	54.79	1438.89	No
+sdv-id-REphpG	Female	0	Yes	Yes	12	Yes	Yes	DSL	Yes	No	No	Yes	No	No	Month-to-month	No	Credit card (automatic)	114.37	4570.94	No
+sdv-id-ngQTmc	Female	0	No	Yes	49	Yes	Yes	DSL	No	No	Yes	No	Yes	No	Month-to-month	No	Bank transfer (automatic)	23.83	639.15	No
+sdv-id-hIvJew	Female	1	No	No	5	Yes	No	No	Yes	No	No	Yes	Yes	Yes	Month-to-month	Yes	Electronic check	42.84	184.87	No
+sdv-id-uPLwrX	Male	0	Yes	Yes	63	No	No	DSL	Yes	No	No	Yes	Yes	Yes	One year	Yes	Mailed check	66.33	4084.75	No
+sdv-id-dDpTGj	Female	0	Yes	Yes	71	Yes	No	DSL	No	No	Yes	No	No	No	One year	Yes	Bank transfer (automatic)	65.79	7136.04	Yes
+sdv-id-mlivrI	Male	1	Yes	No	67	Yes	Yes	No	No	Yes	No internet service	Yes	Yes	No internet service	Two year	Yes	Credit card (automatic)	116.36	7897.63	No
+sdv-id-ynEuLu	Male	0	Yes	Yes	7	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	No	Bank transfer (automatic)	115.03	2298.34	Yes
+sdv-id-ACIIvM	Male	0	No	No	11	Yes	No	DSL	No	Yes	No	No	No	No	Two year	Yes	Mailed check	97.8	3767.31	Yes
+sdv-id-AfGKcd	Female	0	No	Yes	46	Yes	No	DSL	Yes	No	No internet service	No internet service	No internet service	No internet service	Two year	No	Electronic check	36.52	2531.51	No
+sdv-id-cecjZx	Male	0	Yes	Yes	66	Yes	Yes	Fiber optic	Yes	Yes	No	Yes	Yes	Yes	Two year	No	Credit card (automatic)	58.16	5048.33	No
+sdv-id-LOjBSd	Female	0	Yes	Yes	70	Yes	No	DSL	No	Yes	Yes	No	No	No	One year	Yes	Credit card (automatic)	55.4	3607.84	No
+sdv-id-WYumNd	Female	1	Yes	Yes	63	Yes	Yes	DSL	Yes	Yes	No	No	No	No	One year	Yes	Bank transfer (automatic)	99.0	6827.15	No
+sdv-id-tQuaYv	Female	1	No	No	59	Yes	Yes	No	Yes	No	Yes	No	No	No	Month-to-month	Yes	Electronic check	89.97	4889.73	No
+sdv-id-Gymtnn	Male	0	No	No	36	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	118.41	5293.96	Yes
+sdv-id-msXERe	Female	0	No	No	5	Yes	Yes	DSL	Yes	No internet service	Yes	No internet service	Yes	Yes	Two year	Yes	Bank transfer (automatic)	23.13	89.88	No
+sdv-id-cRbTce	Male	0	Yes	Yes	2	Yes	Yes	Fiber optic	No	No	Yes	No internet service	No	No	Two year	Yes	Electronic check	70.73	1574.99	No
+sdv-id-hqPzZL	Male	0	Yes	No	57	Yes	Yes	DSL	No internet service	No	No	Yes	No	No	One year	Yes	Credit card (automatic)	32.94	3186.47	Yes
+sdv-id-BqduCF	Female	1	No	No	28	No	No	DSL	Yes	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	107.47	1220.95	Yes
+sdv-id-wlzlSD	Male	0	Yes	Yes	39	Yes	No	Fiber optic	No internet service	Yes	No	Yes	Yes	No	Two year	Yes	Credit card (automatic)	88.16	4156.07	Yes
+sdv-id-OHNODu	Male	0	Yes	Yes	72	Yes	Yes	Fiber optic	No internet service	No	No internet service	No internet service	No internet service	Yes	Two year	Yes	Credit card (automatic)	49.6	5165.39	No
+sdv-id-JjaUaf	Female	0	No	No	42	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	116.64	850.25	No
+sdv-id-LOrXha	Female	0	No	Yes	54	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Credit card (automatic)	99.29	3529.66	No
+sdv-id-YmhgGN	Male	0	No	No	31	Yes	No	Fiber optic	Yes	No	Yes	No	No internet service	No internet service	Month-to-month	Yes	Bank transfer (automatic)	103.85	3860.95	No
+sdv-id-StVGjT	Female	0	Yes	No	48	Yes	No	Fiber optic	Yes	Yes	No	No	No	No	Month-to-month	No	Electronic check	80.6	1561.88	No
+sdv-id-FiQeha	Male	0	No	No	42	Yes	Yes	Fiber optic	Yes	No	No internet service	Yes	No	No internet service	Two year	No	Mailed check	24.05	1375.01	No
+sdv-id-DPmeFe	Female	0	Yes	No	37	Yes	No	Fiber optic	Yes	Yes	No	No	Yes	Yes	Month-to-month	No	Credit card (automatic)	102.33	2222.7	No
+sdv-id-ePqQiH	Male	0	Yes	No	32	Yes	Yes	Fiber optic	Yes	No	Yes	Yes	Yes	No internet service	Two year	Yes	Electronic check	110.92	5187.75	No
+sdv-id-fRsJYu	Male	0	Yes	Yes	24	Yes	Yes	Fiber optic	Yes	No	Yes	No	Yes	No internet service	Two year	No	Bank transfer (automatic)	68.22	1987.73	No
+sdv-id-pSoRsN	Female	0	Yes	Yes	69	No	Yes	DSL	Yes	Yes	Yes	No	Yes	No	Month-to-month	No	Bank transfer (automatic)	100.19	7204.14	No
+sdv-id-tiFFKx	Male	0	Yes	No	10	Yes	No	Fiber optic	Yes	Yes	Yes	Yes	No	Yes	Month-to-month	Yes	Credit card (automatic)	76.76	1658.28	Yes
+sdv-id-SLioqs	Male	0	No	Yes	25	No	No	DSL	No internet service	No	Yes	No internet service	No internet service	Yes	Two year	No	Electronic check	23.45	1119.51	No
+sdv-id-nnZScO	Male	0	Yes	Yes	60	Yes	Yes	Fiber optic	Yes	Yes	No	No	Yes	Yes	One year	Yes	Bank transfer (automatic)	118.3	7668.51	Yes
+sdv-id-ulZkoX	Female	0	No	No	53	Yes	No	No	No internet service	No internet service	No internet service	No internet service	Yes	No internet service	Two year	No	Electronic check	20.39	974.39	No
+sdv-id-poSbli	Male	1	No	No	40	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	No	Credit card (automatic)	114.15	4002.0	No
+sdv-id-OhfPHl	Female	0	Yes	No	40	Yes	Yes	No	No	No	Yes	No internet service	No	Yes	Month-to-month	Yes	Credit card (automatic)	68.28	5546.48	No
+sdv-id-NrWIbG	Female	0	No	No	69	Yes	Yes	DSL	No	No	No	Yes	Yes	Yes	Month-to-month	No	Mailed check	104.05	5721.25	No
+sdv-id-yzgcso	Male	0	Yes	No	9	Yes	Yes	DSL	No	No	No	No	No	Yes	One year	Yes	Electronic check	89.96	2453.47	No
+sdv-id-ydwiLZ	Male	0	Yes	No	54	Yes	No	Fiber optic	No internet service	No	Yes	Yes	Yes	Yes	One year	No	Electronic check	74.57	2466.62	No
+sdv-id-UnqSKw	Male	1	No	No	3	Yes	No	Fiber optic	No	Yes	Yes	Yes	Yes	Yes	Two year	Yes	Mailed check	67.69	1120.83	No
+sdv-id-iTchwz	Female	0	No	No	7	No	No	DSL	No	No	No	Yes	No	No	Month-to-month	Yes	Electronic check	59.03	101.51	No
+sdv-id-RRCNJe	Female	0	Yes	No	64	Yes	No	Fiber optic	No internet service	No	No internet service	No internet service	No internet service	No internet service	Two year	Yes	Credit card (automatic)	39.07	4712.1	No
+sdv-id-omuKpA	Female	0	Yes	Yes	55	Yes	No	Fiber optic	No	No	Yes	No	Yes	Yes	Month-to-month	Yes	Mailed check	86.2	3445.02	Yes
+sdv-id-ndxAQy	Female	0	Yes	No	1	Yes	No phone service	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Credit card (automatic)	18.36	20.92	No
+sdv-id-JyRwkz	Male	0	No	No	2	Yes	Yes	Fiber optic	No	No	No	No	No	No	Month-to-month	No	Electronic check	56.11	112.36	No
+sdv-id-vRfxFh	Female	0	No	Yes	26	Yes	Yes	Fiber optic	No	Yes	No	Yes	No	No	Month-to-month	Yes	Electronic check	105.77	3232.7	Yes
+sdv-id-IUSMaJ	Female	0	No	No	36	Yes	No	Fiber optic	Yes	Yes	No	No internet service	No	No	Two year	Yes	Bank transfer (automatic)	98.65	3654.59	No
+sdv-id-fUJDyW	Male	0	Yes	Yes	50	Yes	Yes	No	No	No internet service	No	No	No internet service	Yes	One year	No	Electronic check	30.25	732.53	No
+sdv-id-UmSnMM	Female	1	Yes	No	63	Yes	No	Fiber optic	Yes	Yes	No	Yes	Yes	No	One year	Yes	Credit card (automatic)	110.39	7640.79	No
+sdv-id-fgsmek	Female	1	No	Yes	69	Yes	No	DSL	No	Yes	No	No	Yes	Yes	One year	Yes	Credit card (automatic)	98.4	6486.88	Yes
+sdv-id-yHYlUy	Male	1	No	No	43	Yes	Yes	Fiber optic	No	Yes	Yes	Yes	No	Yes	One year	Yes	Bank transfer (automatic)	42.77	3432.98	Yes
+sdv-id-LbzlxO	Male	0	Yes	Yes	57	Yes	No	DSL	No	No	Yes	No	No	Yes	Two year	No	Bank transfer (automatic)	65.01	2873.4	No
+sdv-id-JrCfCZ	Male	0	Yes	Yes	8	No	No	Fiber optic	No	Yes	No	No	No	No	One year	Yes	Electronic check	78.58	734.32	Yes
+sdv-id-BtaIXT	Female	1	No	No	6	No	No	Fiber optic	No	Yes	Yes	Yes	No	Yes	Month-to-month	Yes	Electronic check	59.2	942.32	No
+sdv-id-ixoWcT	Male	0	No	No	34	Yes	No phone service	DSL	Yes	No	Yes	Yes	No	Yes	Month-to-month	Yes	Electronic check	63.19	886.33	No
+sdv-id-FTjmjv	Male	0	No	No	14	Yes	No	Fiber optic	No internet service	No internet service	No internet service	No	No internet service	Yes	Month-to-month	Yes	Mailed check	22.59	338.08	Yes
+sdv-id-vxfaaT	Male	0	Yes	Yes	68	Yes	No	Fiber optic	No	Yes	Yes	No	Yes	No	Two year	No	Mailed check	58.43	3776.71	Yes
+sdv-id-rHrfnS	Male	0	Yes	Yes	18	Yes	Yes	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Electronic check	55.82	2519.71	No
+sdv-id-godvsR	Male	0	No	No	8	Yes	No phone service	Fiber optic	No	Yes	No	Yes	Yes	Yes	One year	Yes	Electronic check	50.7	284.27	Yes
+sdv-id-hzsDdS	Female	0	Yes	No	28	Yes	No	Fiber optic	No internet service	No internet service	No internet service	Yes	No internet service	No internet service	Two year	Yes	Bank transfer (automatic)	23.07	812.83	No
+sdv-id-AvLYoX	Female	0	No	No	72	Yes	Yes	Fiber optic	No internet service	No	No internet service	No internet service	No	Yes	One year	Yes	Bank transfer (automatic)	50.04	6283.06	No
+sdv-id-AdNWvq	Female	0	No	No	23	Yes	Yes	No	Yes	No	Yes	Yes	No internet service	Yes	Month-to-month	Yes	Electronic check	93.22	2601.01	No
+sdv-id-LBGbKT	Male	0	No	Yes	54	Yes	Yes	Fiber optic	Yes	No	No	Yes	Yes	Yes	One year	No	Credit card (automatic)	47.78	4881.52	No
+sdv-id-YlussU	Female	1	Yes	No	31	Yes	No	DSL	No	No	No	No	No	No	Month-to-month	No	Electronic check	62.98	1725.64	No
+sdv-id-pzgLWb	Male	1	Yes	No	48	Yes	No	No	Yes	No	Yes	Yes	Yes	No internet service	Month-to-month	Yes	Electronic check	34.98	508.15	Yes
+sdv-id-OPSzHR	Male	0	No	No	2	Yes	Yes	DSL	No	No	No	Yes	Yes	Yes	Month-to-month	Yes	Credit card (automatic)	76.04	512.91	No
+sdv-id-wfNHIP	Female	0	No	No	3	Yes	Yes	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	One year	No	Bank transfer (automatic)	18.27	21.3	No
+sdv-id-JTDLyr	Male	0	Yes	Yes	71	Yes	No	Fiber optic	Yes	No	No internet service	No internet service	Yes	No internet service	Month-to-month	Yes	Credit card (automatic)	78.6	4844.5	No
+sdv-id-sqDEDb	Male	0	No	No	72	Yes	No	No	No	Yes	Yes	No	Yes	No	Two year	Yes	Mailed check	106.71	8045.26	No
+sdv-id-vityVN	Female	0	No	No	15	Yes	No	DSL	No	Yes	No	No	No	No	Month-to-month	Yes	Bank transfer (automatic)	70.95	1033.45	No
+sdv-id-jDEbYu	Female	0	No	Yes	68	Yes	Yes	Fiber optic	Yes	Yes	Yes	No	No	No	Month-to-month	No	Credit card (automatic)	48.26	2202.64	No
+sdv-id-FqwOtx	Male	1	No	Yes	19	Yes	No	No	No	No	No	No internet service	Yes	Yes	Month-to-month	No	Mailed check	47.97	549.51	No
+sdv-id-KpXfBY	Female	0	Yes	Yes	8	Yes	No	Fiber optic	No	No	No	Yes	No	No	Month-to-month	No	Bank transfer (automatic)	63.98	255.31	No
+sdv-id-eYCfML	Male	0	No	Yes	72	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Two year	No	Credit card (automatic)	116.62	8485.78	No
+sdv-id-wLMBoC	Male	0	Yes	Yes	21	Yes	No	No	No	No internet service	Yes	No internet service	No internet service	Yes	Two year	Yes	Credit card (automatic)	24.08	1346.7	No
+sdv-id-CdIqxo	Female	1	Yes	No	67	Yes	Yes	Fiber optic	Yes	Yes	No	No	No	Yes	Two year	Yes	Bank transfer (automatic)	114.57	7080.64	Yes
+sdv-id-XeEyiN	Male	0	Yes	No	70	No	No phone service	Fiber optic	No	Yes	Yes	No	Yes	Yes	Month-to-month	No	Electronic check	62.48	6938.46	No
+sdv-id-sRrqWN	Female	0	No	No	69	Yes	Yes	No	No	No	No	Yes	No internet service	Yes	One year	Yes	Mailed check	96.29	7088.68	No
+sdv-id-nJrTHj	Male	0	No	No	4	Yes	Yes	Fiber optic	No	No internet service	No internet service	Yes	No internet service	No internet service	Month-to-month	No	Credit card (automatic)	62.37	307.79	No
+sdv-id-DmPrsG	Male	1	No	No	58	Yes	No	Fiber optic	No	No internet service	No	No	No	No	Month-to-month	No	Electronic check	71.48	2067.76	No
+sdv-id-UgpNyI	Female	0	No	Yes	60	Yes	Yes	Fiber optic	No	Yes	No	No	No	Yes	Two year	Yes	Bank transfer (automatic)	92.24	5199.3	No
+sdv-id-dLovlW	Female	1	No	No	1	Yes	Yes	Fiber optic	No	Yes	No	No	No	No	Month-to-month	Yes	Mailed check	92.11	74.94	Yes
+sdv-id-LlmeTl	Female	1	No	Yes	7	Yes	No phone service	No	No internet service	No internet service	No internet service	No internet service	Yes	Yes	Two year	No	Mailed check	18.43	81.56	Yes
+sdv-id-nnZeJy	Female	0	Yes	No	47	Yes	Yes	Fiber optic	Yes	No	No internet service	Yes	Yes	No internet service	Month-to-month	Yes	Bank transfer (automatic)	88.34	3869.76	No
+sdv-id-mXaDYX	Female	0	No	No	7	Yes	No phone service	Fiber optic	No internet service	No	Yes	Yes	No	No	Month-to-month	Yes	Credit card (automatic)	27.25	136.7	No
+sdv-id-wdTKCO	Female	0	Yes	No	42	Yes	Yes	DSL	No	Yes	No	No	Yes	No	Month-to-month	Yes	Bank transfer (automatic)	117.4	6909.7	Yes
+sdv-id-lPBoUb	Female	0	No	Yes	51	Yes	No	Fiber optic	No internet service	No	Yes	Yes	No internet service	No internet service	Two year	No	Credit card (automatic)	42.05	3372.05	No
+sdv-id-hoMKWa	Male	0	No	No	1	Yes	No phone service	DSL	No	Yes	Yes	No	No	No	Month-to-month	No	Mailed check	42.94	19.52	Yes
+sdv-id-hSiVWT	Female	0	Yes	No	58	Yes	Yes	DSL	No internet service	No internet service	Yes	No internet service	No internet service	No internet service	Month-to-month	No	Electronic check	27.29	3039.19	No
+sdv-id-fRmPTR	Female	0	No	Yes	5	No	No phone service	No	No internet service	No internet service	No internet service	No internet service	No internet service	No internet service	Two year	No	Mailed check	18.25	25.51	No
+sdv-id-IPXKmu	Female	0	No	No	54	Yes	No	Fiber optic	No	No	Yes	No internet service	Yes	Yes	Month-to-month	No	Mailed check	22.39	2448.68	No
+sdv-id-rIAiRE	Male	0	Yes	Yes	66	Yes	No	Fiber optic	No internet service	No	Yes	No internet service	No	Yes	Two year	Yes	Bank transfer (automatic)	83.06	6776.14	No
+sdv-id-ZNqkfT	Female	0	No	No	18	Yes	No	Fiber optic	Yes	Yes	No	No internet service	Yes	Yes	Two year	No	Credit card (automatic)	18.83	223.69	No
+sdv-id-VUvbjq	Female	0	Yes	No	22	Yes	Yes	Fiber optic	No internet service	No internet service	No internet service	No	No internet service	No internet service	One year	No	Electronic check	45.09	1722.62	Yes
+sdv-id-wyWqhn	Male	0	No	No	17	Yes	Yes	No	No internet service	No internet service	Yes	Yes	Yes	No	Two year	Yes	Electronic check	39.44	1266.65	No
+sdv-id-LyqEtp	Male	0	Yes	No	32	Yes	Yes	Fiber optic	Yes	Yes	No	Yes	Yes	Yes	Month-to-month	No	Electronic check	111.99	2750.81	No
+sdv-id-pKYQkH	Male	0	Yes	No	30	Yes	Yes	DSL	No	No	No	No	Yes	Yes	Month-to-month	No	Credit card (automatic)	71.05	3565.57	Yes
+sdv-id-qRJGGO	Male	0	No	No	2	Yes	No	No	No internet service	No internet service	Yes	Yes	Yes	Yes	Month-to-month	No	Electronic check	31.41	98.96	Yes
+sdv-id-KCLWnn	Male	0	No	No	6	Yes	Yes	Fiber optic	Yes	No	No	No	Yes	Yes	Month-to-month	Yes	Electronic check	114.94	4476.5	No
+sdv-id-arzEVh	Female	0	No	No	57	Yes	Yes	DSL	No	Yes	Yes	No	No	No	Month-to-month	Yes	Electronic check	93.26	4278.74	No
+sdv-id-NHjObe	Male	0	Yes	No	70	Yes	No	DSL	Yes	Yes	No	Yes	Yes	Yes	Month-to-month	Yes	Bank transfer (automatic)	25.88	3124.42	No
+sdv-id-LdMvzC	Female	0	No	No	3	No	No phone service	DSL	No	No	Yes	No	Yes	No	Month-to-month	Yes	Credit card (automatic)	67.26	423.67	No
+sdv-id-FxVtQn	Male	0	Yes	Yes	42	Yes	No	Fiber optic	Yes	No	Yes	No	No internet service	No internet service	Month-to-month	Yes	Bank transfer (automatic)	40.69	1424.96	No
+sdv-id-INTLry	Female	0	Yes	No	50	Yes	No	No	Yes	No internet service	Yes	Yes	No internet service	No internet service	Two year	No	Mailed check	22.56	682.88	No
+sdv-id-arSYEP	Male	1	No	No	1	Yes	Yes	Fiber optic	No	No internet service	No	Yes	No internet service	Yes	Month-to-month	Yes	Bank transfer (automatic)	94.65	1694.3	Yes
+sdv-id-YffUUY	Male	0	No	No	7	Yes	No	No	No internet service	No internet service	No internet service	No internet service	No internet service	Yes	Month-to-month	Yes	Bank transfer (automatic)	22.36	218.85	Yes
+sdv-id-WuoiWi	Female	0	Yes	Yes	27	Yes	No	No	No internet service	No internet service	No internet service	Yes	Yes	No internet service	One year	Yes	Credit card (automatic)	22.7	814.2	No
+sdv-id-WSBKob	Male	1	Yes	No	9	Yes	No	Fiber optic	Yes	Yes	No	No	No	Yes	Month-to-month	No	Electronic check	79.48	1853.26	No
+sdv-id-IBzTaD	Male	0	Yes	No	67	Yes	No	DSL	No	Yes	No internet service	No	No internet service	No internet service	Two year	Yes	Credit card (automatic)	69.21	5028.2	No
