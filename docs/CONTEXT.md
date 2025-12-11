@@ -68,7 +68,8 @@ Hive Metastore: jdbc:mariadb://localhost:3306/metastore (Porta 9083) — **VALID
 Gitea:        http://192.168.4.26:3000 (CT 118) — **TOTALMENTE FUNCIONAL** ✅ (11/12/2025)
 Database:     MariaDB (localhost:3306)
 User:         git
-Status:       Serviço ativo, repositório datalake_fb criado
+Status:       Serviço ativo, repositório datalake_fb configurado e populado
+Arquivos:     247 arquivos, 45K+ linhas, branch main ativo
 ```
 
 ### Stack Técnico:
