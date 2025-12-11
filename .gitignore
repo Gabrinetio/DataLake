@@ -1,0 +1,70 @@
+# ========================================
+# Ambiente e Credenciais
+# ========================================
+.env                           # Variáveis de ambiente com credenciais (NUNCA commitar!)
+.env.local
+.env.*.local
+.env.production.local
+
+# ========================================
+# Python
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs e resultados de teste
+*.log
+logs/
+results/
+*.json
+!**/results/*.json  # Manter alguns resultados documentados
+
+# Dados sensíveis
+*.key
+*.pem
+*.crt
+!/.ssh/*.pub
+
+# Cache de sistema
+.cache/
+.pytest_cache/
+
+# Variáveis de Sistema
+.env.systemd
+systemd.env
+
+# Certificados temporários
+certs/
+*.cert

@@ -1,0 +1,1 @@
+CREATE TABLE iceberg.default.test_table (id INTEGER, name VARCHAR) WITH (location = 'hdfs://192.168.4.33:9000/user/hive/warehouse/test_table')

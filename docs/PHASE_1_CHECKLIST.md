@@ -1,0 +1,66 @@
+# Phase 1 - Checklist e Procedimentos (Resumo)
+
+**Objetivo:** Orientar a execução do PHASE 1 (deploy e validação da Iteração 5 em produção).
+
+Pré-requisitos:
+- Acesso SSH configurado (chave ED25519 em `$env:USERPROFILE\.ssh\id_ed25519` ou similar)
+- Servidor online: `192.168.4.33` (usuário `datalake`)
+- Script de execução remoto: `phase1_execute.ps1` disponível localmente
+- `scp` e `ssh` instalados e configurados
+
+Passo-a-passo (automático):
+1. Verifique a conectividade (PowerShell):
+
+```powershell
+Test-NetConnection -ComputerName 192.168.4.33 -Port 22
+```
+
+2. Execute o script automatizado (PowerShell):
+
+```powershell
+# Exemplo: use seu path de chave se diferente
+powershell -File etc/scripts/phase1_checklist.ps1 -Host 192.168.4.33 -User datalake -KeyPath $env:USERPROFILE\.ssh\id_ed25519 -VerboseRun
+```
+
+3. O script fará:
+- SCP `phase1_execute.ps1` para `/home/datalake/`
+- Executará `pwsh /home/datalake/phase1_execute.ps1` remotamente
+- Baixará arquivos `*.json` gerados para `src/results/`
+- Validará presença dos arquivos JSON e reportará sumário
+
+4. Caso prefira execução manual, siga os passos abaixo:
+- Copiar arquivo:
+
+```powershell
+scp -i "$env:USERPROFILE\.ssh\id_ed25519" phase1_execute.ps1 datalake@192.168.4.33:/home/datalake/
+```
+
+- Execute remotamente:
+
+```powershell
+ssh -i "$env:USERPROFILE\.ssh\id_ed25519" datalake@192.168.4.33 "pwsh /home/datalake/phase1_execute.ps1"
+```
+
+- Coletar resultados:
+
+```powershell
+scp -i "$env:USERPROFILE\.ssh\id_ed25519" datalake@192.168.4.33:/tmp/*.json src/results/
+```
+
+Resultados esperados:
+- `* _results.json` files in `src/results/` (e.g., `cdc_pipeline_results.json`, `rlac_implementation_results.json`, `bi_integration_results.json`)
+- Outputs will also contain textual logs in stdout/stderr on remote host (and should be captured by script).
+
+Observações de segurança:
+- Não versionar chaves SSH.
+- Remover `phase1_execute.ps1` do host após execução se policy exigir.
+- Use `scp`/`ssh` com `-i` para chave dedicada.
+
+Fallback / troubleshooting:
+- Se o `scp` falhar, verifique permissões no diretório remoto e `sshd` logs.
+- Se `ssh` não estiver acessível, valide firewall e `sshd` active status.
+
+Referências:
+- `PRODUCTION_DEPLOYMENT_CHECKLIST.md` - procedimento completo de deploy
+- `etc/scripts/phase1_checklist.ps1` - script helper
+- `docs/PHASE_1_CHECKLIST.md` - este arquivo

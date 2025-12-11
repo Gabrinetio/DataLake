@@ -1,0 +1,18 @@
+[Unit]
+Description=Apache Spark Worker (standalone)
+After=network.target
+
+[Service]
+Type=forking
+User=spark
+Group=spark
+Environment=SPARK_HOME=/opt/spark
+Environment=HADOOP_HOME=/opt/hadoop
+# Ajuste o endereço do master conforme necessário (ex.: spark://spark.gti.local:7077)
+ExecStart=/opt/spark/sbin/start-worker.sh ${SPARK_MASTER_URL:-spark://localhost:7077}
+ExecStop=/opt/spark/sbin/stop-worker.sh ${SPARK_MASTER_URL:-spark://localhost:7077}
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,1 @@
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOdLsgS42YlZFPY8fyKziwPqrSm+NRe+F5NjIWQaoWyN datalake@spark.gti.local
