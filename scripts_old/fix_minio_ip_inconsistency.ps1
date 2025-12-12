@@ -62,7 +62,7 @@ $corrections = @(
         File = "docs\PROBLEMAS_ESOLUCOES.md"
         Pattern = "192.168.4.33"
         Replacement = "192.168.4.31"
-        Description = "Corrigir IP na documentação de problemas"
+        Description = "Corrigir IP na documentação de problemas (ATUALIZADO: docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md)"
     },
     @{
         File = "docs\Projeto.md"

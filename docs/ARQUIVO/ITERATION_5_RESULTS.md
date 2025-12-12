@@ -371,7 +371,7 @@ STATUS:          🚀 PRONTO PARA PRODUÇÃO
 
 1. ✅ **Revisar documentação:** Todos os docs em `docs/INDICE_DOCUMENTACAO.md`
 2. ✅ **Executar testes:** Todos os 18 testes passando
-3. ✅ **Preparar deployment:** Checklist em ITERATION_5_EXECUTION_CHECKLIST.md
+3. ✅ **Preparar deployment:** Checklist em `../30-iterations/results/ITERATION_5_EXECUTION_CHECKLIST.md`
 4. ✅ **Comunicar stakeholders:** Projeto em 90%, pronto para produção
 
 ---

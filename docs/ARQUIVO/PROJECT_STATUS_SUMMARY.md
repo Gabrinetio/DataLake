@@ -228,12 +228,12 @@ TOTAL: 11 scripts, ~2,150 linhas
 ### Documentação (2,000+ linhas)
 ```
 docs/CONTEXT.md                            - 200 linhas
-docs/PROBLEMAS_ESOLUCOES.md               - 300 linhas
+docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md               - 300 linhas
 docs/Spark_Implementacao.md                - 250 linhas
 docs/MinIO_Implementacao.md                - 200 linhas
 docs/DB_Hive_Implementacao.md             - 150 linhas
 
-ITERATION_3_RESULTS.md                     - 300 linhas
+30-iterations/results/ITERATION_3_RESULTS.md                     - 300 linhas
 ITERATION_3_COMPLETE.md                    - 150 linhas
 ITERATION_4_STATUS.md                      - 100 linhas
 ITERATION_4_TECHNICAL_REPORT.md            - 250 linhas
@@ -245,11 +245,11 @@ TOTAL: ~2,500 linhas de documentação
 
 ### Testes & Resultados (5 arquivos JSON)
 ```
-benchmark_results.json
-compaction_results.json
-snapshot_lifecycle_results.json
+artifacts/results/benchmark_results.json
+artifacts/results/compaction_results.json
+artifacts/results/snapshot_lifecycle_results.json
 monitoring_report.json
-security_hardening_results.json
+artifacts/results/security_hardening_results.json
 ```
 
 ---

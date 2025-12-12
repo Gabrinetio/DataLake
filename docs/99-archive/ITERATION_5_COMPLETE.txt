@@ -1,0 +1,4 @@
+# Arquivo movido
+
+Conteúdo agora em `docs/30-iterations/results/ITERATION_5_COMPLETE.txt`.
+Atualize links e referências para o novo caminho.

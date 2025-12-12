@@ -101,4 +101,4 @@ cat ../results/data_gen_backup_results.json | python -m json.tool
 
 - [`docs/INDICE_DOCUMENTACAO.md`](../../docs/INDICE_DOCUMENTACAO.md) - Índice geral
 - [`docs/Projeto.md`](../../docs/Projeto.md) - Arquitetura e detalhes
-- [`src/results/`](../results/) - Resultados de execução
+- [`artifacts/results/`](../artifacts/results/) - Resultados de execução

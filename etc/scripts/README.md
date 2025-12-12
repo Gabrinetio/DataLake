@@ -42,4 +42,4 @@ Se o seu ambiente Proxmox usa storage e templates diferentes, passe `--storage` 
 
 ***
 
-Sempre revise as credenciais (MinIO, Hive) antes de lançar em produção. Documente alterações em `docs/PROBLEMAS_ESOLUCOES.md` caso surjam problemas.
+Sempre revise as credenciais (MinIO, Hive) antes de lançar em produção. Documente alterações em `docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md` caso surjam problemas.

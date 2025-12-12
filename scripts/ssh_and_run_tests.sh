@@ -49,14 +49,15 @@ else
 fi
 
 # Fetch results
+mkdir -p artifacts/results
 if [ -n "${SSH_KEY:-}" ]; then
-  scp -i "${SSH_KEY}" "${REMOTE}:/tmp/*_results.json" ./src/results/ || true
-  scp -i "${SSH_KEY}" "${REMOTE}:/tmp/test_execution.log" ./src/results/ || true
+  scp -i "${SSH_KEY}" "${REMOTE}:/tmp/*_results.json" ./artifacts/results/ || true
+  scp -i "${SSH_KEY}" "${REMOTE}:/tmp/test_execution.log" ./artifacts/results/ || true
 else
-  scp "${REMOTE}:/tmp/*_results.json" ./src/results/ || true
-  scp "${REMOTE}:/tmp/test_execution.log" ./src/results/ || true
+  scp "${REMOTE}:/tmp/*_results.json" ./artifacts/results/ || true
+  scp "${REMOTE}:/tmp/test_execution.log" ./artifacts/results/ || true
 fi
 
-echo "Done. Results downloaded to ./src/results/ (where available)"
+echo "Done. Results downloaded to ./artifacts/results/ (where available)"
 
 exit 0

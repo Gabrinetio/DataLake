@@ -91,11 +91,11 @@
 
 ### Documentation (2,500+ lines)
 - ✅ CONTEXT.md
-- ✅ PROBLEMAS_ESOLUCOES.md
+- ✅ ../40-troubleshooting/PROBLEMAS_ESOLUCOES.md
 - ✅ ROADMAP_ITERACOES_DETAILED.md
-- ✅ ITERATION_1_RESULTS.md
-- ✅ ITERATION_2_RESULTS.md
-- ✅ ITERATION_3_RESULTS.md
+- ✅ ../30-iterations/results/ITERATION_1_RESULTS.md
+- ✅ ../30-iterations/results/ITERATION_2_RESULTS.md
+- ✅ ../30-iterations/results/ITERATION_3_RESULTS.md
 - ✅ ENTREGA_COMPLETA.md
 - ✅ STATUS_PROGRESSO.md
 

@@ -99,7 +99,7 @@
 
 ### Documentação
 ```
-✅ ITERATION_3_RESULTS.md       (Relatório detalhado)
+✅ ../30-iterations/results/ITERATION_3_RESULTS.md       (Relatório detalhado)
 ✅ STATUS_PROGRESSO.md          (Atualizado para 60%)
 ```
 
@@ -165,11 +165,11 @@ Overall: 🟩🟩🟩⬜⬜ 60% READY FOR PROD
 Acesse para mais informações:
 
 1. **Arquitetura:** `docs/CONTEXT.md`
-2. **Problemas & Soluções:** `docs/PROBLEMAS_ESOLUCOES.md`
+2. **Problemas & Soluções:** `docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md`
 3. **Roadmap Detalhado:** `docs/ROADMAP_ITERACOES_DETAILED.md`
-4. **Resultado Iter 1:** `docs/ITERATION_1_RESULTS.md`
-5. **Resultado Iter 2:** `docs/ITERATION_2_RESULTS.md`
-6. **Resultado Iter 3:** `docs/ITERATION_3_RESULTS.md`
+4. **Resultado Iter 1:** `../30-iterations/results/ITERATION_1_RESULTS.md`
+5. **Resultado Iter 2:** `../30-iterations/results/ITERATION_2_RESULTS.md`
+6. **Resultado Iter 3:** `../30-iterations/results/ITERATION_3_RESULTS.md`
 7. **Status Geral:** `docs/STATUS_PROGRESSO.md`
 8. **Entrega Completa:** `ENTREGA_COMPLETA.md`
 

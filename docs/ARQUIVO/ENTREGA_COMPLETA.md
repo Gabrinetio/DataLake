@@ -33,11 +33,11 @@
 ### Documentação (7 documentos)
 ```
 ✅ docs/CONTEXT.md                      - Arquitetura base
-✅ docs/PROBLEMAS_ESOLUCOES.md          - 10 problemas resolvidos
+✅ docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md          - 10 problemas resolvidos
 ✅ docs/ROADMAP_ITERACOES.md            - Roadmap 5 iterações
 ✅ docs/ROADMAP_ITERACOES_DETAILED.md   - Plano detalhado
-✅ docs/ITERATION_1_RESULTS.md          - Relatório Iter 1
-✅ docs/ITERATION_2_RESULTS.md          - Relatório Iter 2
+✅ ../30-iterations/results/ITERATION_1_RESULTS.md          - Relatório Iter 1
+✅ ../30-iterations/results/ITERATION_2_RESULTS.md          - Relatório Iter 2
 ✅ docs/STATUS_PROGRESSO.md             - Status overall
 ```
 

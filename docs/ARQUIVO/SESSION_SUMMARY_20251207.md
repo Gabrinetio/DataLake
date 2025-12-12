@@ -42,10 +42,10 @@
 ### 4. Resultados Copiados do Servidor
 
 ```
-✅ compaction_results.json                  (Iteration 3)
-✅ snapshot_lifecycle_results.json          (Iteration 3)
+✅ artifacts/results/compaction_results.json                  (Iteration 3)
+✅ artifacts/results/snapshot_lifecycle_results.json          (Iteration 3)
 ✅ monitoring_report.json                   (Iteration 3)
-✅ security_hardening_results.json          (Iteration 4)
+✅ artifacts/results/security_hardening_results.json          (Iteration 4)
 ```
 
 ### 5. Problemas Identificados e Soluções

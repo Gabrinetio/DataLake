@@ -436,7 +436,7 @@ Fornecer um playbook sample para executar instalação, configuração, criaçã
 ## 16. Referências
 - `docs/Projeto.md` — Capítulo 5 (MinIO)
 - Documentação oficial MinIO: https://min.io/docs
-- `docs/CONTEXT.md` e `docs/PROBLEMAS_ESOLUCOES.md` — guias do projeto
+- `docs/CONTEXT.md` e `docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md` — guias do projeto
 
 ---
 

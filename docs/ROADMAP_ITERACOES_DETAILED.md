@@ -25,7 +25,7 @@
 - ✅ 10 benchmark queries com metrics
 - ✅ Partition pruning validation
 - ✅ OutOfMemory error resolved (2GB executor)
-- ✅ ITERATION_1_RESULTS.md + benchmark_results.json
+- ✅ 30-iterations/results/ITERATION_1_RESULTS.md + artifacts/results/benchmark_results.json
 
 ### Key Metrics
 | Métrica | Valor |
@@ -149,7 +149,7 @@ SELECT product_id, quantity FROM inventory WHERE product_id IN ('PROD_001', 'PRO
 ✅ test_time_travel.py
 ✅ test_merge_into.py
 ✅ test_schema_evolution.py
-✅ ITERATION_2_RESULTS.md
+✅ 30-iterations/results/ITERATION_2_RESULTS.md
 ✅ Snapshots metadata validation
 ```
 
@@ -220,7 +220,7 @@ SELECT product_id, quantity FROM inventory WHERE product_id IN ('PROD_001', 'PRO
 ✅ test_compaction.py
 ✅ test_snapshot_lifecycle.py
 ✅ test_monitoring.py
-✅ ITERATION_3_RESULTS.md
+✅ 30-iterations/results/ITERATION_3_RESULTS.md
 ✅ Performance comparison report
 ```
 
@@ -353,7 +353,7 @@ SELECT product_id, quantity FROM inventory WHERE product_id IN ('PROD_001', 'PRO
 ✅ CDC pipeline setup
 ✅ RLAC implementation
 ✅ BI integration guide
-✅ ITERATION_5_RESULTS.md
+✅ 30-iterations/results/ITERATION_5_RESULTS.md
 ✅ Production readiness checklist
 ```
 
@@ -432,8 +432,8 @@ Semana 9-10:  Iteration 5                              [==⏳==]
 ## 🔗 File Dependencies
 
 ```
-ITERATION_1_RESULTS.md
-├── benchmark_results.json
+30-iterations/results/ITERATION_1_RESULTS.md
+├── artifacts/results/benchmark_results.json
 ├── test_simple_data_gen.py
 └── test_simple_benchmark.py
 

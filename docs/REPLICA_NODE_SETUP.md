@@ -58,7 +58,7 @@ ssh -i $env:USERPROFILE\.ssh\id_ed25519 datalake@<replica-node-ip> "mc ls datala
 
 8. Registrar IP e hostname do nó de réplica em `docs/Projeto.md` e `docs/PHASE_1_REPLICA_PLAN.md` (opcional).
 
-9. Atualizar `docs/PROBLEMAS_ESOLUCOES.md` com eventuais problemas detectados.
+9. Atualizar `docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md` com eventuais problemas detectados.
 
 ---
 

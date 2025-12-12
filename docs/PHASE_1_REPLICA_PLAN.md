@@ -433,7 +433,7 @@ Mitigation:
 
 ## 📚 Related Documents
 
-- 📄 `PROJETO_COMPLETO_90_PORCENTO.md` - Current project status
+- 📄 `../30-iterations/results/PROJETO_COMPLETO_90_PORCENTO.md` - Current project status
 - 📄 `docs/ROADMAP_ITERACOES_DETAILED.md` - Overall roadmap
 - 📄 `docs/CONTEXT.md` - Current infrastructure
 - 📄 `docs/Projeto.md` - Architecture (Section 12)

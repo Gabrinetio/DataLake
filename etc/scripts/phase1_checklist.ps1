@@ -5,7 +5,7 @@
 .DESCRIPTION
     This PowerShell script validates connectivity to the remote server,
     copies the `phase1_execute.ps1` to the remote host, executes it, and
-    fetches result JSONs back to the local `src/results/` directory.
+    fetches result JSONs back to the local `artifacts/results/` directory.
 
 .NOTES
     - Assumes OpenSSH client (`ssh`, `scp`) is available on the workstation.
@@ -21,7 +21,7 @@ param(
     [string]$User = "datalake",
     [string]$KeyPath = "$env:USERPROFILE\.ssh\id_ed25519",
     [string]$RemoteScript = "/home/datalake/phase1_execute.ps1",
-    [string]$LocalResultsPath = "src/results",
+    [string]$LocalResultsPath = "artifacts/results",
     [switch]$VerboseRun
 )
 
