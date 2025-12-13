@@ -59,6 +59,11 @@ key/*
 !key/*.pub
 !/.ssh/*.pub
 
+# Ignore private keys under scripts/key; permit public keys and README
+scripts/key/*
+!scripts/key/*.pub
+!scripts/key/README.md
+
 # Cache de sistema
 .cache/
 .pytest_cache/
