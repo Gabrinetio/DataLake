@@ -16,14 +16,14 @@ key = os.environ.get('SSH_KEY_PATH', os.path.abspath(os.path.join(os.path.dirnam
 
 # Commands to fix the test scripts on the server
 commands = [
-    # Fix CDC Pipeline test
-    f'''ssh -i {key} {user}@{server} "sed -i 's/.getOrCreate()/.master("local[*]")\\\n        .getOrCreate()/' /home/datalake/test_cdc_pipeline.py"''',
+    # Fix CDC Pipeline test (no-op fallback if missing)
+    f'''ssh -i {key} {user}@{server} "if [ -f /home/datalake/test_cdc_pipeline.py ]; then sed -i 's/.getOrCreate()/.master(\"local[*]\")\\\n        .getOrCreate()/' /home/datalake/test_cdc_pipeline.py; fi"''',
     
-    # Fix RLAC test
-    f'''ssh -i {key} {user}@{server} "sed -i 's/.getOrCreate()/.master("local[*]")\\\n        .getOrCreate()/' /home/datalake/test_rlac_implementation.py"''',
+    # Fix RLAC test (both variants)
+    f'''ssh -i {key} {user}@{server} "if [ -f /home/datalake/test_rlac_implementation.py ]; then sed -i 's/.getOrCreate()/.master(\"local[*]\")\\\n        .getOrCreate()/' /home/datalake/test_rlac_implementation.py; elif [ -f /home/datalake/test_rlac_fixed.py ]; then sed -i 's/.getOrCreate()/.master(\"local[*]\")\\\n        .getOrCreate()/' /home/datalake/test_rlac_fixed.py; fi"''',
     
     # Fix BI test
-    f'''ssh -i {key} {user}@{server} "sed -i 's/.getOrCreate()/.master("local[*]")\\\n        .getOrCreate()/' /home/datalake/test_bi_integration.py"'''
+    f'''ssh -i {key} {user}@{server} "if [ -f /home/datalake/test_bi_integration.py ]; then sed -i 's/.getOrCreate()/.master(\"local[*]\")\\\n        .getOrCreate()/' /home/datalake/test_bi_integration.py; fi"'''
 ]
 
 print("🔧 Fixando scripts de teste para usar modo local...")
@@ -32,14 +32,22 @@ print("🔧 Fixando scripts de teste para usar modo local...")
 fix_command = f'''
 ssh -i {key} {user}@{server} << 'ENDSSH'
 
-# Fix CDC Pipeline
-sed -i '381s/.getOrCreate()/.master("local[*]")\\\n        .getOrCreate()/' /home/datalake/test_cdc_pipeline.py
+# Fix CDC Pipeline (global replace)
+if [ -f /home/datalake/test_cdc_pipeline.py ]; then
+    sed -i 's/\.getOrCreate()/\.master("local[*]")\\\n        \.getOrCreate()/g' /home/datalake/test_cdc_pipeline.py
+fi
 
-# Fix RLAC Implementation  
-sed -i '375s/.getOrCreate()/.master("local[*]")\\\n        .getOrCreate()/' /home/datalake/test_rlac_implementation.py
+# Fix RLAC Implementation (patch both possible filenames)
+if [ -f /home/datalake/test_rlac_implementation.py ]; then
+    sed -i 's/\.getOrCreate()/\.master("local[*]")\\\n        \.getOrCreate()/g' /home/datalake/test_rlac_implementation.py
+elif [ -f /home/datalake/test_rlac_fixed.py ]; then
+    sed -i 's/\.getOrCreate()/\.master("local[*]")\\\n        \.getOrCreate()/g' /home/datalake/test_rlac_fixed.py
+fi
 
-# Fix BI Integration
-sed -i '376s/.getOrCreate()/.master("local[*]")\\\n        .getOrCreate()/' /home/datalake/test_bi_integration.py
+# Fix BI Integration (global replace)
+if [ -f /home/datalake/test_bi_integration.py ]; then
+    sed -i 's/\.getOrCreate()/\.master("local[*]")\\\n        \.getOrCreate()/g' /home/datalake/test_bi_integration.py
+fi
 
 echo "✅ Scripts fixados!"
 ENDSSH

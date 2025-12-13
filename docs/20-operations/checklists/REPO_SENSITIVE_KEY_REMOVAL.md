@@ -55,6 +55,12 @@ Checklist pós-remoção de histórico:
 - Avise todos os colaboradores para re-clonar, ou rebase/force-pull.
 - Atualize tokens, chaves e segredos que podem ter sido comprometidos.
 
+### Decisão atual: não reescrever histórico (por enquanto)
+
+- Justificativa: a reescrita de histórico (BFG/git-filter-repo + force-push) é invasiva e exige coordenação de equipe; optamos por mitigação contínua (remoção das chaves do HEAD, hooks pre-commit, CI scanning e documentação) para reduzir risco imediato.
+- Consequências: o repositório manterá referências históricas a chaves privadas removidas, porém o HEAD não as contém e o pipeline impede novos commits de chaves privadas.
+- Quando reescrever: reescrever só se for detectado acesso não autorizado ou se compliance/retrospecção exigir a remoção total do histórico. Procedimento de reescrita está descrito nesta seção e pode ser executado após validação de coordenação com o time.
+
 ## 3) Rotação e armazenamento seguro (essencial)
 1. Gere uma nova chave ED25519 para automação usando ferramenta segura:
 ```bash

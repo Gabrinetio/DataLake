@@ -29,11 +29,11 @@ powershell -File etc/scripts/phase1_checklist.ps1 -Host 192.168.4.33 -User datal
 - Validará presença dos arquivos JSON e reportará sumário
 
 4. Caso prefira execução manual, siga os passos abaixo:
-- Copiar arquivo:
 
 ```powershell
 scp -i "scripts/key/ct_datalake_id_ed25519" phase1_execute.ps1 datalake@192.168.4.33:/home/datalake/  # recomendado: usar chave canônica do projeto
-```
+	- Se preferir padronizar, renomeie `src/tests/test_rlac_fixed.py` para `src/tests/test_rlac_implementation.py`.
+	- Caso contrário, a execução aceita ambos os nomes: `test_rlac_implementation.py` ou `test_rlac_fixed.py`.
 
 - Execute remotamente:
 
@@ -46,6 +46,8 @@ ssh -i "scripts/key/ct_datalake_id_ed25519" datalake@192.168.4.33 "pwsh /home/da
 ```powershell
 scp -i "scripts/key/ct_datalake_id_ed25519" datalake@192.168.4.33:/tmp/*.json artifacts/results/  # recomendado: usar chave canônica do projeto
 ```
+
+- **CI note:** PRs are validated by a CI check that executes `scripts/check_p1_coverage.sh --require-local`. Ensure `src/tests/test_cdc_pipeline.py`, `src/tests/test_rlac_implementation.py` (or `test_rlac_fixed.py`), and `src/tests/test_bi_integration.py` are present to pass pre-merge validation.
 
 Resultados esperados:
 - `* _results.json` files em `artifacts/results/` (e.g., `cdc_pipeline_results.json`, `rlac_implementation_results.json`, `bi_integration_results.json`)

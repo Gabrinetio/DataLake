@@ -16,6 +16,8 @@ scp -i scripts/key/ct_datalake_id_ed25519 src\tests\test_cdc_pipeline.py datalak
 
 # RLAC Implementation
 scp -i scripts/key/ct_datalake_id_ed25519 src\tests\test_rlac_implementation.py datalake@192.168.4.37:/home/datalake/  # recomendado: usar chave canônica do projeto
+# Observação: o script espera por `test_rlac_implementation.py`. Como compatibilidade, o projeto também usa `test_rlac_fixed.py`.
+# Se `test_rlac_implementation.py` estiver ausente, a execução aceitará `test_rlac_fixed.py`.
 
 # BI Integration
 scp -i scripts/key/ct_datalake_id_ed25519 src\tests\test_bi_integration.py datalake@192.168.4.37:/home/datalake/  # recomendado: usar chave canônica do projeto

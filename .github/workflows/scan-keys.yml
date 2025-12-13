@@ -33,3 +33,7 @@ jobs:
           run: |
             pwsh -NoProfile -Command "Set-ExecutionPolicy Bypass -Scope Process; pwsh -NoProfile -File scripts/check_no_private_keys.ps1"
           shell: pwsh
+        - name: Require P1 test coverage (local)
+          run: |
+            bash scripts/check_p1_coverage.sh --require-local
+          shell: bash

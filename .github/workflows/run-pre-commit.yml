@@ -41,6 +41,16 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pre-commit
         shell: pwsh
+
+  p1-coverage-check:
+    name: P1 Coverage Script Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run P1 coverage script (local presence enforcement)
+        run: |
+          bash scripts/check_p1_coverage.sh --require-local
+        shell: bash
       - name: Run pre-commit (Windows)
         run: |
           pre-commit run --all-files --show-diff-on-failure

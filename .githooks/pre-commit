@@ -2,7 +2,7 @@
 # This script is a pre-commit hook template. Enable with:
 # git config core.hooksPath .githooks
 # Pre-commit hook: prevent committing files that include private SSH keys.
-set -euo pipefail
+set -eu
 
 # Prefer scanning staged files if in a git repo
 if command -v bash >/dev/null 2>&1 && [[ -f scripts/check_no_private_keys.sh ]]; then

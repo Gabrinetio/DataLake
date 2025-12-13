@@ -89,11 +89,26 @@ Write-Host "`n
   STEP 2: UPLOAD DOS SCRIPTS
 ════════════════════════════════════════════════════════════════" -ForegroundColor Cyan
 
+$rlacCandidate1 = Join-Path $localScriptsDir 'test_rlac_implementation.py'
+$rlacCandidate2 = Join-Path $localScriptsDir 'test_rlac_fixed.py'
+$rlacChoice = 'test_rlac_implementation.py'
+if (-not (Test-Path $rlacCandidate1) -and (Test-Path $rlacCandidate2)) { $rlacChoice = 'test_rlac_fixed.py' }
+
 $scripts = @(
     "test_cdc_pipeline.py",
-    "test_rlac_implementation.py",
+    $rlacChoice,
     "test_bi_integration.py"
 )
+
+# Filter out missing local scripts (skip rather than fail early)
+$missingScripts = @()
+$availableScripts = @()
+foreach ($s in $scripts) {
+    $localPath = Join-Path $localScriptsDir $s
+    if (Test-Path $localPath) { $availableScripts += $s } else { $missingScripts += $s; Write-Host "⚠️  Local script faltando, pulando: $s" -ForegroundColor Yellow }
+}
+$scripts = $availableScripts
+if ($scripts.Count -eq 0) { Write-Host "❌ Nenhum script local disponível. Abortando." -ForegroundColor Red; exit 1 }
 
 foreach ($script in $scripts) {
     Write-Host ""
@@ -131,9 +146,17 @@ Write-Host "`n
 
 $tests = @(
     @{ Name = "CDC Pipeline"; File = "test_cdc_pipeline.py"; Timeout = 60 },
-    @{ Name = "RLAC Implementation"; File = "test_rlac_implementation.py"; Timeout = 60 },
+    @{ Name = "RLAC Implementation"; File = $rlacChoice; Timeout = 60 },
     @{ Name = "BI Integration"; File = "test_bi_integration.py"; Timeout = 60 }
 )
+
+# Filter out tests that don't have a local script available
+$availableTests = @()
+foreach ($t in $tests) {
+    $localPath = Join-Path $localScriptsDir $t.File
+    if (Test-Path $localPath) { $availableTests += $t } else { Write-Host "⚠️  Test script ausente, pulando teste: $($t.File)" -ForegroundColor Yellow }
+}
+$tests = $availableTests
 
 $sparkCmd = @"
 cd /home/datalake

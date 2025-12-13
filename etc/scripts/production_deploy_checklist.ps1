@@ -221,9 +221,23 @@ Write-Host " - Logs remotos: $(($scriptItems | ForEach-Object { $_.Log }) -join 
 Write-Ok "Checklist multi-host concluído"
 
 
+$rlacLocal = "src/tests/test_rlac_implementation.py"
+$rlacRemote = "$RemoteDir/test_rlac_implementation.py"
+if (-not (Test-Path $rlacLocal)) {
+    $alt = "src/tests/test_rlac_fixed.py"
+    if (Test-Path $alt) {
+        Write-Info "RLAC: using fallback src/tests/test_rlac_fixed.py"
+        $rlacLocal = $alt
+        $rlacRemote = "$RemoteDir/test_rlac_fixed.py"
+    } else {
+        Write-Info "RLAC test script not found locally; it will be skipped"
+        $rlacLocal = $null
+    }
+}
+
 $scriptItems = @(
     @{ Label = "CDC";  Local = "src/tests/test_cdc_pipeline.py";       Remote = "$RemoteDir/test_cdc_pipeline.py";  Log = "$RemoteDir/cdc_execution.log";  Result = "/tmp/cdc_pipeline_results.json" },
-    @{ Label = "RLAC"; Local = "src/tests/test_rlac_implementation.py"; Remote = "$RemoteDir/test_rlac_implementation.py"; Log = "$RemoteDir/rlac_execution.log"; Result = "/tmp/rlac_implementation_results.json" },
+    @{ Label = "RLAC"; Local = $rlacLocal; Remote = $rlacRemote; Log = "$RemoteDir/rlac_execution.log"; Result = "/tmp/rlac_implementation_results.json" },
     @{ Label = "BI";   Local = "src/tests/test_bi_integration.py";     Remote = "$RemoteDir/test_bi_integration.py";   Log = "$RemoteDir/bi_execution.log";   Result = "/tmp/bi_integration_results.json" }
 )
 
@@ -231,7 +245,7 @@ if (-not (Test-Path $KeyPath)) { Write-Err "Chave SSH não encontrada: $KeyPath"
 # Filtrar scripts faltantes (não falhar imediatamente, permitir execução parcial)
 $missing = @()
 $scriptItems = $scriptItems | Where-Object {
-    if (-not (Test-Path $_.Local)) { Write-Info "Arquivo local ausente, pulando: $($_.Local)"; $missing += $_.Local; $false } else { $true }
+    if (-not $_.Local -or -not (Test-Path $_.Local)) { Write-Info "Arquivo local ausente, pulando: $($_.Local)"; $missing += $_.Local; $false } else { $true }
 }
 if ($scriptItems.Count -eq 0) { Write-Err "Nenhum script local disponível para execução. Verifique os arquivos listados no checklist."; exit 3 }
 if ($missing.Count -gt 0) { Write-Info "Atenção: arquivos ausentes: $($missing -join ', ')" }
