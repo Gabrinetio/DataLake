@@ -166,7 +166,7 @@ CREATE TABLE iceberg.default.test_table (
 
 - **MinIO:** `spark_user` / `SENHA_SPARK_MINIO`
 - **Hive Metastore:** Sem autenticação (Thrift simples)
-- **SSH:** chave `~/.ssh/id_ed25519`
+- **SSH:** chave `~/.ssh/id_ed25519` (pessoal) — para automações use a chave canônica `scripts/key/ct_datalake_id_ed25519`
 
 ---
 

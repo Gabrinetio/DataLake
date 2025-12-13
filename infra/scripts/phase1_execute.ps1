@@ -1,6 +1,7 @@
 #!/usr/bin/env pwsh
 # PHASE 1 - AUTOMATED EXECUTION SCRIPT
 # Executa todos os passos de PHASE 1 automaticamente
+# Nota: por padrão usa a chave canônica do projeto (scripts/key/ct_datalake_id_ed25519); pode ser sobrescrita via SSH_KEY_PATH env var (ex.: $env:SSH_KEY_PATH = 'scripts/key/ct_datalake_id_ed25519')
 
 Write-Host "
 ╔════════════════════════════════════════════════════════════════╗
@@ -9,7 +10,17 @@ Write-Host "
 ╚════════════════════════════════════════════════════════════════╝
 " -ForegroundColor Green
 
-$sshKey = "$env:USERPROFILE\.ssh\id_ed25519"
+$sshKey = $env:SSH_KEY_PATH
+if (-not $sshKey) {
+    # Primeiro tenta a chave canônica do projeto relativa ao repositório
+    $canonicalCandidate = Join-Path $PSScriptRoot '..\..\scripts\key\ct_datalake_id_ed25519'
+    if (Test-Path $canonicalCandidate) {
+        $sshKey = $canonicalCandidate
+    } else {
+        # Fallback para a chave pessoal do usuário (compatibilidade)
+        $sshKey = "$env:USERPROFILE\.ssh\id_ed25519"
+    }
+}
 $server = "192.168.4.33"
 $user = "datalake"
 $sshTarget = "$user@$server"
@@ -89,7 +100,7 @@ foreach ($script in $scripts) {
     Write-Host "▶️ Upload: $script" -ForegroundColor Yellow
     
     $localPath = Join-Path $localScriptsDir $script
-    $remotePath = "$sshTarget:$remoteScriptsDir/"
+    $remotePath = "$($sshTarget):$remoteScriptsDir/"
     
     $sw = [System.Diagnostics.Stopwatch]::StartNew()
     scp -i $sshKey $localPath $remotePath 2>&1 | Out-Null
@@ -178,7 +189,7 @@ foreach ($jsonFile in $jsonFiles) {
     Write-Host ""
     Write-Host "▶️ Download: $jsonFile" -ForegroundColor Yellow
     
-    $remotePath = "$sshTarget:/home/datalake/$jsonFile"
+    $remotePath = "$($sshTarget):/home/datalake/$jsonFile"
     $localPath = "$resultDir\"
     
     scp -i $sshKey $remotePath $localPath 2>&1 | Out-Null

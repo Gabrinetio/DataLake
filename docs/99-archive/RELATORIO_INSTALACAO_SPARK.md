@@ -74,7 +74,7 @@ spark.default.parallelism=8
 
 ### 1. Iniciar Spark Master
 ```bash
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37  # recomendado: usar chave canônica do projeto
 source /etc/profile
 /opt/spark/sbin/start-master.sh
 ```

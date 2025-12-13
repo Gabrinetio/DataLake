@@ -12,7 +12,7 @@ param(
   [switch]$DryRun,
   [string]$ProxmoxHost = '192.168.4.25',
   [string]$ProxmoxPassword = $env:PROXMOX_PASSWORD,
-  [string]$KeyPath = "$env:USERPROFILE/.ssh/id_ed25519",
+  [string]$KeyPath = $null,
   [string]$User = 'datalake'
 )
 
@@ -26,6 +26,10 @@ $CTHosts = @{
   '116' = 'airflow.gti.local'
   '118' = 'gitea.gti.local'
 }
+
+$scriptUtil = Join-Path $PSScriptRoot 'get_canonical_key.ps1'
+if (Test-Path $scriptUtil) { . $scriptUtil }
+if (-not $KeyPath -and (Get-Command Get-CanonicalSshKeyPath -ErrorAction SilentlyContinue)) { $KeyPath = Get-CanonicalSshKeyPath }
 
 $OutDir = Join-Path -Path $PSScriptRoot -ChildPath '../artifacts/ssh_keys'
 if (-not (Test-Path $OutDir)) { New-Item -ItemType Directory -Path $OutDir | Out-Null }

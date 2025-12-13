@@ -1,6 +1,8 @@
 param()
 # Checks staged files for private key PEM headers. Returns non-zero if a match is found.
 $patterns = @('-----BEGIN OPENSSH PRIVATE KEY-----','-----BEGIN RSA PRIVATE KEY-----','-----BEGIN PRIVATE KEY-----')
+# Files and patterns to exclude (self and known workflow files)
+$excludePaths = @('scripts/check_no_private_keys.ps1','scripts/check_no_private_keys.sh','.githooks/pre-commit','.github/workflows/scan-keys.yml')
 $found = $false
 try {
     # If repo index exists, use git grep --cached to search staged files
@@ -12,7 +14,10 @@ try {
 
 if ($isRepo) {
     foreach ($p in $patterns) {
-        $matches = git grep -n --cached -- $p 2>$null
+        # Build a exclude filter for git grep
+        $excludeArgs = @()
+        foreach ($ex in $excludePaths) { $excludeArgs += @('--', ":(exclude)$ex") }
+        $matches = git grep -n --cached -- $p -- $excludeArgs 2>$null
         if ($matches) {
             Write-Host "Found pattern '$p' in staged files:`n$matches"
             $found = $true

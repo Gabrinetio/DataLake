@@ -44,6 +44,12 @@ Helpers:
 - `scripts/get_canonical_key.ps1` - utilitário PowerShell que retorna o caminho da chave canônica do projeto (prioriza `SSH_KEY_PATH` env var e depois `scripts/key/ct_datalake_id_ed25519`).
  - `scripts/check_no_private_keys.sh` - scanner para detectar possíveis chaves privadas em arquivos staged (pre-commit) e no repositório (CI/scan).
  - `scripts/check_no_private_keys.ps1` - versão PowerShell do scanner para ambientes Windows.
+Enabling pre-commit hook locally:
+1. `git config core.hooksPath .githooks`
+2. Ensure `.githooks/pre-commit` is executable on Unix (`chmod +x .githooks/pre-commit`).
+3. Test by staging a change and attempting commit with a simulated private key pattern in one of the staged files.
+
+CI: The repository also contains `.github/workflows/scan-keys.yml` which runs the same scan on push/PR and will fail the check if sensitive patterns are found.
 
 ***
 

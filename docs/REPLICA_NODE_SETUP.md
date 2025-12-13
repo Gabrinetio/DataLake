@@ -17,15 +17,15 @@
 3. Testar acesso SSH do host de gerenciamento:
 
 ```powershell
-ssh -i $env:USERPROFILE\.ssh\id_ed25519 datalake@<replica-node-ip> "echo 'SSH OK'"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@<replica-node-ip> "echo 'SSH OK'"  # recomendado: usar chave canônica do projeto
 ```
 
 4. Copiar chaves e scripts de automação (opcional):
 
 ```powershell
-scp -i $env:USERPROFILE\.ssh\id_ed25519 etc/scripts/create-spark-ct.sh datalake@<replica-node-ip>:/home/datalake/
-scp -i $env:USERPROFILE\.ssh\id_ed25519 etc/scripts/install-spark.sh datalake@<replica-node-ip>:/home/datalake/
-scp -i $env:USERPROFILE\.ssh\id_ed25519 etc/scripts/install-minio.sh datalake@<replica-node-ip>:/home/datalake/
+scp -i scripts/key/ct_datalake_id_ed25519 etc/scripts/create-spark-ct.sh datalake@<replica-node-ip>:/home/datalake/  # recomendado: usar chave canônica do projeto
+scp -i scripts/key/ct_datalake_id_ed25519 etc/scripts/install-spark.sh datalake@<replica-node-ip>:/home/datalake/  # recomendado: usar chave canônica do projeto
+scp -i scripts/key/ct_datalake_id_ed25519 etc/scripts/install-minio.sh datalake@<replica-node-ip>:/home/datalake/  # recomendado: usar chave canônica do projeto
 ```
 
 5. Executar os scripts do servidor (como usuário `datalake`):
@@ -49,11 +49,11 @@ sudo bash /home/datalake/install-minio.sh
 
 ```powershell
 # Spark
-ssh -i $env:USERPROFILE\.ssh\id_ed25519 datalake@<replica-node-ip> "spark-submit --version"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@<replica-node-ip> "spark-submit --version"  # recomendado: usar chave canônica do projeto
 
 # MinIO
-ssh -i $env:USERPROFILE\.ssh\id_ed25519 datalake@<replica-node-ip> "systemctl status minio || echo 'MinIO service not found'"
-ssh -i $env:USERPROFILE\.ssh\id_ed25519 datalake@<replica-node-ip> "mc ls datalake/ || echo 'mc or bucket not present'"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@<replica-node-ip> "systemctl status minio || echo 'MinIO service not found'"  # recomendado: usar chave canônica do projeto
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@<replica-node-ip> "mc ls datalake/ || echo 'mc or bucket not present'"  # recomendado: usar chave canônica do projeto
 ```
 
 8. Registrar IP e hostname do nó de réplica em `docs/Projeto.md` e `docs/PHASE_1_REPLICA_PLAN.md` (opcional).

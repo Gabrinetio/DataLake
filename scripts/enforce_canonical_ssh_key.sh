@@ -5,11 +5,11 @@ PROXMOX="${PROXMOX_HOST:-}"
 CTS="${CT_IDS:-}"
 PUB_KEY="${PUB_KEY_PATH:-scripts/key/ct_datalake_id_ed25519.pub}"
 SSH_USER="${SSH_USER:-datalake}"
-SSH_OPTS="${SSH_OPTS:-}" # ex.: -i ~/.ssh/id_ed25519
+SSH_OPTS="${SSH_OPTS:-}" # ex.: -i scripts/key/ct_datalake_id_ed25519
 
 usage() {
   cat <<'EOF'
-Uso: enforce_canonical_ssh_key.sh --proxmox root@HOST --cts "107 108" [--pub-key caminho] [--user datalake] [--ssh-opts "-i ~/.ssh/id_ed25519"]
+Uso: enforce_canonical_ssh_key.sh --proxmox root@HOST --cts "107 108" [--pub-key caminho] [--user datalake] [--ssh-opts "-i scripts/key/ct_datalake_id_ed25519"]  # recomendado: usar chave canônica
 EOF
 }
 

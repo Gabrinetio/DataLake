@@ -680,6 +680,7 @@ spark_config = get_spark_s3_config()
 
 **Notas:**
 - Use a chave ED25519 gerada localmente (`ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N '' -C 'datalake@local'`).
+  - Nota: Para *automações* e deploys gerenciados pelo projeto, **recomenda-se** usar a chave canônica do repositório `scripts/key/ct_datalake_id_ed25519`; utilize `-KeyPath`/env `SSH_KEY_PATH` para sobrepor quando necessário.
 - Evite acesso root em produção; use `datalake` com sudo.
 - Para operações no CT, acesse diretamente via SSH `datalake@<IP>`, evitando o host Proxmox.
 
@@ -704,13 +705,14 @@ spark_config = get_spark_s3_config()
     ```powershell
     ssh -i .\scripts\key\ct_datalake_id_ed25519 -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 datalake@minio.gti.local echo ok
     ```
+  - Observação: scripts de administração (ex.: `deploy_authorized_key.ps1`, `prune_authorized_keys.ps1`, `run_ct_verification.ps1`, `inventory_authorized_keys.ps1`) usam por padrão a chave canônica em `scripts/key/ct_datalake_id_ed25519`. Você pode sobrescrever com `-KeyPath` se preferir usar sua chave pessoal.
   - Teste de acesso a todos os CTs:
     ```bash
-    bash scripts/test_canonical_ssh.sh --hosts "107 108 109 115 116 118" --ssh-opts "-i ~/.ssh/id_ed25519"
+    bash scripts/test_canonical_ssh.sh --hosts "107 108 109 115 116 118" --ssh-opts "-i scripts/key/ct_datalake_id_ed25519"  # recomendado: usar chave canônica do projeto
     ```
   - Verificação de um CT específico:
     ```bash
-    bash scripts/test_canonical_ssh.sh --hosts "107" --ssh-opts "-i ~/.ssh/id_ed25519"
+    bash scripts/test_canonical_ssh.sh --hosts "107" --ssh-opts "-i scripts/key/ct_datalake_id_ed25519"  # recomendado: usar chave canônica do projeto
     ```
 - **Boas práticas:**
   - Prefira acesso direto `datalake@<hostname>` (ex.: `minio.gti.local`). Se DNS falhar, use o IP.
@@ -1728,7 +1730,7 @@ usermod -aG sudo datalake
 > e deployment das unidades systemd). Exemplo de uso:
 
 ```
-sudo bash etc/scripts/create-spark-ct.sh --vmid 103 --hostname spark.gti.local --ip 192.168.4.33/24 --template local:vztmpl/debian-12-standard_12.0-1_amd64.tar.gz --cores 4 --memory 8192 --disk 40 --ssh-key ~/.ssh/id_ed25519.pub
+sudo bash etc/scripts/create-spark-ct.sh --vmid 103 --hostname spark.gti.local --ip 192.168.4.33/24 --template local:vztmpl/debian-12-standard_12.0-1_amd64.tar.gz --cores 4 --memory 8192 --disk 40 --ssh-key scripts/key/ct_datalake_id_ed25519.pub  # recomendado: usar chave pública canônica do projeto para automações/provisionamento
 ```
 
 

@@ -107,7 +107,7 @@ JAR `spark-sql-kafka-0-10_2.12-3.5.7.jar` pronto em `/opt/spark/jars/`
 
 ### 1. Acessar CT Spark
 ```bash
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.33
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.33  # recomendado: usar chave canônica do projeto
 source /etc/profile
 ```
 

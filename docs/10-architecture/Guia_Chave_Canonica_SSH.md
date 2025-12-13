@@ -26,14 +26,16 @@ pct exec <ID> -- bash -lc "mkdir -p /home/datalake/.ssh && echo '$(cat scripts/k
 ```powershell
 ssh -i .\scripts\key\ct_datalake_id_ed25519 -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 datalake@minio.gti.local echo ok
 ```
-- Teste de todos os CTs: `bash scripts/test_canonical_ssh.sh --hosts "107 108 109 115 116 118" --ssh-opts "-i ~/.ssh/id_ed25519"`
-- Verificacao de CT especifico: `bash scripts/test_canonical_ssh.sh --hosts "107" --ssh-opts "-i ~/.ssh/id_ed25519"`
+- Teste de todos os CTs: `bash scripts/test_canonical_ssh.sh --hosts "107 108 109 115 116 118" --ssh-opts "-i scripts/key/ct_datalake_id_ed25519"`
+- Verificacao de CT especifico: `bash scripts/test_canonical_ssh.sh --hosts "107" --ssh-opts "-i scripts/key/ct_datalake_id_ed25519"`
 
 ## Como garantir que so a chave canonica existe no repo
 - Scanner/limpeza: `scripts/cleanup_ssh_keys.ps1` (dry-run por padrao)
 - Remover chaves extras: `scripts/cleanup_ssh_keys.ps1 -Delete`
 - Inventario de chaves em CTs: `scripts/inventory_authorized_keys.ps1`
 - Prune de chaves antigas: `scripts/prune_authorized_keys.ps1`
+ 
+ - **AVISO:** a chave privada canônica **não deve** ser comprometida em repositórios públicos ou produção. Se `scripts/key/ct_datalake_id_ed25519` existir no repositório, remova-a antes de pushar para um ambiente público e gere um par exclusivo para produção. Use `.gitignore` para evitar commits acidentais.
 
 ## Aplicacao automatizada via Proxmox (bash)
 Use o script bash (Linux/WSL/Git Bash) para aplicar a chave publica canonicamente em varios CTs:
@@ -43,7 +45,7 @@ bash scripts/enforce_canonical_ssh_key.sh \
   --proxmox root@192.168.4.25 \
   --cts "107 108 109 115 116 118" \
   --pub-key scripts/key/ct_datalake_id_ed25519.pub \
-  --ssh-opts "-i ~/.ssh/id_ed25519"
+  --ssh-opts "-i scripts/key/ct_datalake_id_ed25519"
 ```
 
 O script:

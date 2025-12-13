@@ -11,7 +11,7 @@
     - Assumes OpenSSH client (`ssh`, `scp`) is available on the workstation.
     - Default host: 192.168.4.33
     - Default user: datalake
-    - Default identity file: $env:USERPROFILE\.ssh\id_ed25519
+    - Default identity file: scripts/key/ct_datalake_id_ed25519 (recomendado); pass `-KeyPath $env:USERPROFILE\.ssh\id_ed25519` to use personal key
     - Results are expected under `/tmp/*.json` on the remote host.
 
 #>
@@ -19,7 +19,7 @@
 param(
     [string]$Host = "192.168.4.33",
     [string]$User = "datalake",
-    [string]$KeyPath = "$env:USERPROFILE\.ssh\id_ed25519",
+    [string]$KeyPath = (Join-Path $PSScriptRoot 'key\ct_datalake_id_ed25519'),
     [string]$RemoteScript = "/home/datalake/phase1_execute.ps1",
     [string]$LocalResultsPath = "artifacts/results",
     [switch]$VerboseRun
@@ -33,7 +33,7 @@ if (-not (Test-Path $KeyPath)) {
     Write-Err "SSH key file not found: $KeyPath"; exit 2
 }
 
-Write-Info "Testing connectivity to $Host:22..."
+Write-Info "Testing connectivity to ${Host}:22..."
 if (-not (Test-NetConnection -ComputerName $Host -Port 22).TcpTestSucceeded) {
     Write-Err "SSH port 22 not reachable on $Host"; exit 3
 }
@@ -43,9 +43,9 @@ Write-Info "Copying local phase1_execute.ps1 to remote host ($RemoteScript)..."
 $localScript = "phase1_execute.ps1"
 if (-not (Test-Path $localScript)) { Write-Err "Local script not found: $localScript"; exit 4 }
 
-$scpCmd = "scp -i `"$KeyPath`" `"$localScript`" $User@$Host:$RemoteScript"
+$scpCmd = "scp -i `"$KeyPath`" `"$localScript`" $User@${Host}:$RemoteScript"
 if ($VerboseRun) { Write-Host "Running: $scpCmd" }
-$scpRes = & scp -i $KeyPath $localScript $User@$Host:$RemoteScript 2>&1
+$scpRes = & scp -i $KeyPath $localScript $User@${Host}:$RemoteScript 2>&1
 if ($LASTEXITCODE -ne 0) { Write-Err "SCP failed: $scpRes"; exit 5 }
 Write-Ok "Script copied"
 
@@ -61,9 +61,9 @@ Write-Ok "Remote execution completed"
 Write-Info "Fetching result JSONs from remote to $LocalResultsPath..."
 if (-not (Test-Path $LocalResultsPath)) { New-Item -ItemType Directory -Path $LocalResultsPath | Out-Null }
 
-$scpResultsCmd = "scp -i `"$KeyPath`" $User@$Host:/tmp/*.json $LocalResultsPath/"
+$scpResultsCmd = "scp -i `"$KeyPath`" $User@${Host}:/tmp/*.json $LocalResultsPath/"
 if ($VerboseRun) { Write-Host "Running: $scpResultsCmd" }
-$scpRes = & scp -i $KeyPath "$User@$Host:/tmp/*.json" $LocalResultsPath 2>&1
+$scpRes = & scp -i $KeyPath "$User@${Host}:/tmp/*.json" $LocalResultsPath 2>&1
 if ($LASTEXITCODE -ne 0) { Write-Err "Fetching results failed: $scpRes"; exit 7 }
 Write-Ok "Results fetched to $LocalResultsPath"
 
@@ -72,11 +72,15 @@ $jsonFiles = Get-ChildItem -Path $LocalResultsPath -Filter '*_results.json' -Fil
 if (-not $jsonFiles) { Write-Err "No result JSONs found under $LocalResultsPath"; exit 8 }
 Write-Ok "Found $($jsonFiles.Count) result JSON file(s)"
 
-Write-Host "`nSummary:`
- - Host: $Host
- - Remote Script: $RemoteScript
- - Local Results Path: $LocalResultsPath
- - Files copied: $($jsonFiles | ForEach-Object { $_.Name } | Join-String ", ")`n"
+$filesList = $jsonFiles | ForEach-Object { $_.Name } | Join-String ", "
+$summary = @"
+Summary:
+ - Host: $($Host)
+ - Remote Script: $($RemoteScript)
+ - Local Results Path: $($LocalResultsPath)
+ - Files copied: $($filesList)
+"@
+Write-Host $summary
 
 Write-Ok "Phase 1 checklist completed"
 exit 0

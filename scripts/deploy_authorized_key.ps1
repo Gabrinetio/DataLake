@@ -17,11 +17,17 @@
 param(
   [Parameter(Mandatory=$true)] [string]$PublicKeyPath,
   [switch]$DryRun,
-  [string]$KeyPath = "$env:USERPROFILE/.ssh/id_ed25519",
+  [string]$KeyPath = $null,
   [string]$User = 'datalake',
   [string]$ProxmoxHost = '192.168.4.25',
   [string]$ProxmoxPassword = $env:PROXMOX_PASSWORD
 )
+
+$scriptUtil = Join-Path $PSScriptRoot 'get_canonical_key.ps1'
+if (Test-Path $scriptUtil) { . $scriptUtil }
+
+if (-not $KeyPath -and (Get-Command Get-CanonicalSshKeyPath -ErrorAction SilentlyContinue)) { $KeyPath = Get-CanonicalSshKeyPath }
+if (-not $KeyPath) { $KeyPath = (Join-Path $PSScriptRoot 'key\ct_datalake_id_ed25519') }
 
 if (-not (Test-Path $PublicKeyPath)) { Write-Error "PublicKey $PublicKeyPath nao existe."; exit 1 }
 $pub = Get-Content $PublicKeyPath -Raw

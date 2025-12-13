@@ -3,7 +3,7 @@
 **Objetivo:** Orientar a execução do PHASE 1 (deploy e validação da Iteração 5 em produção).
 
 Pré-requisitos:
-- Acesso SSH configurado (chave ED25519 em `$env:USERPROFILE\.ssh\id_ed25519` ou similar)
+- Acesso SSH configurado (chave ED25519; para operações do projeto prefira a chave canônica `scripts/key/ct_datalake_id_ed25519`; ou use `$env:USERPROFILE\.ssh\id_ed25519` para chave pessoal)
 - Servidor online: `192.168.4.33` (usuário `datalake`)
 - Script de execução remoto: `phase1_execute.ps1` disponível localmente
 - `scp` e `ssh` instalados e configurados
@@ -19,7 +19,7 @@ Test-NetConnection -ComputerName 192.168.4.33 -Port 22
 
 ```powershell
 # Exemplo: use seu path de chave se diferente
-powershell -File etc/scripts/phase1_checklist.ps1 -Host 192.168.4.33 -User datalake -KeyPath $env:USERPROFILE\.ssh\id_ed25519 -VerboseRun
+powershell -File etc/scripts/phase1_checklist.ps1 -Host 192.168.4.33 -User datalake -KeyPath scripts/key/ct_datalake_id_ed25519 -VerboseRun  # recomendado: use a chave canônica do projeto
 ```
 
 3. O script fará:
@@ -32,19 +32,19 @@ powershell -File etc/scripts/phase1_checklist.ps1 -Host 192.168.4.33 -User datal
 - Copiar arquivo:
 
 ```powershell
-scp -i "$env:USERPROFILE\.ssh\id_ed25519" phase1_execute.ps1 datalake@192.168.4.33:/home/datalake/
+scp -i "scripts/key/ct_datalake_id_ed25519" phase1_execute.ps1 datalake@192.168.4.33:/home/datalake/  # recomendado: usar chave canônica do projeto
 ```
 
 - Execute remotamente:
 
 ```powershell
-ssh -i "$env:USERPROFILE\.ssh\id_ed25519" datalake@192.168.4.33 "pwsh /home/datalake/phase1_execute.ps1"
+ssh -i "scripts/key/ct_datalake_id_ed25519" datalake@192.168.4.33 "pwsh /home/datalake/phase1_execute.ps1"  # recomendado: usar chave canônica do projeto
 ```
 
 - Coletar resultados:
 
 ```powershell
-scp -i "$env:USERPROFILE\.ssh\id_ed25519" datalake@192.168.4.33:/tmp/*.json artifacts/results/
+scp -i "scripts/key/ct_datalake_id_ed25519" datalake@192.168.4.33:/tmp/*.json artifacts/results/  # recomendado: usar chave canônica do projeto
 ```
 
 Resultados esperados:

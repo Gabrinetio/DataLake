@@ -1,5 +1,5 @@
 param(
-  [string]$KeyPath = "$env:USERPROFILE\.ssh\id_ed25519",
+  [string]$KeyPath = $null,
   [string[]]$CTs = $null
 )
 $CTHosts = @{
@@ -12,6 +12,10 @@ $CTHosts = @{
   "116" = "airflow.gti.local";
   "118" = "gitea.gti.local"
 }
+
+$scriptUtil = Join-Path $PSScriptRoot 'get_canonical_key.ps1'
+if (Test-Path $scriptUtil) { . $scriptUtil }
+if (-not $KeyPath -and (Get-Command Get-CanonicalSshKeyPath -ErrorAction SilentlyContinue)) { $KeyPath = Get-CanonicalSshKeyPath }
 
 $OutDir = "$PSScriptRoot\..\artifacts\results"
 if (-not (Test-Path $OutDir)) { New-Item -ItemType Directory -Path $OutDir }

@@ -11,7 +11,7 @@
 
 param(
   [string]$TargetUser = "datalake",
-  [string]$KeyPath = "$env:USERPROFILE/.ssh/id_ed25519",
+  [string]$KeyPath = $null,
   [string[]]$CTs = @("117","107","108","109","111","115","116","118"),
   [hashtable]$CTHosts = @{
     "117" = "db-hive.gti.local";
@@ -25,9 +25,11 @@ param(
   }
 )
 
-if (-not (Test-Path $KeyPath)) {
-  Write-Error "Chave nao encontrada em $KeyPath. Ajuste -KeyPath."; exit 1
-}
+# Load util and set default KeyPath if not provided
+$scriptUtil = Join-Path $PSScriptRoot 'get_canonical_key.ps1'
+if (Test-Path $scriptUtil) { . $scriptUtil }
+if (-not $KeyPath -and (Get-Command Get-CanonicalSshKeyPath -ErrorAction SilentlyContinue)) { $KeyPath = Get-CanonicalSshKeyPath }
+if (-not (Test-Path $KeyPath)) { Write-Error "Chave nao encontrada em $KeyPath. Ajuste -KeyPath."; exit 1 }
 
 $DateTag = Get-Date -Format "yyyyMMdd_HHmm"
 $OutDir = Join-Path -Path "$PSScriptRoot" -ChildPath "../artifacts/results"

@@ -38,7 +38,7 @@ Se servidor está ligado mas não responde:
 ping 192.168.4.37
 
 # Se responder, tente SSH:
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "echo OK"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "echo OK"  # recomendado: usar chave canônica do projeto
 
 # Se SSH falhar, pode ser firewall
 ```
@@ -107,7 +107,7 @@ mkdir -p logs/phase1/
 ### 1. Teste Rápido
 ```bash
 ping 192.168.4.37
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "echo OK"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "echo OK"  # recomendado: usar chave canônica do projeto
 ```
 
 ### 2. Execute PHASE 1
@@ -143,7 +143,7 @@ Enquanto aguarda servidor:
 
 **Passo 1: Confirme acesso**
 ```bash
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "hostname"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "hostname"  # recomendado: usar chave canônica do projeto
 # Deve retornar: datalake (ou similar)
 ```
 

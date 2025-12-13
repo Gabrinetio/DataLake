@@ -100,7 +100,7 @@ Portas Abertas:
 📊 INFORMAÇÕES DE ACESSO
 ────────────────────────────────────────────────────────────────────────────────────
 SSH Connection:
-  ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.33
+  ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.33  # recomendado: usar chave canônica do projeto
 
 Spark Shell:
   source /etc/profile

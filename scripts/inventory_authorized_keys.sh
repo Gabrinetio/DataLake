@@ -6,7 +6,7 @@ set -euo pipefail
 PROXMOX_HOST=${PROXMOX_HOST:-192.168.4.25}
 PROXMOX_PASS=${PROXMOX_PASS:-}
 DRY_RUN=false
-KEY_PRIVATE=${KEY_PRIVATE:-$HOME/.ssh/id_ed25519}
+KEY_PRIVATE=${KEY_PRIVATE:-scripts/key/ct_datalake_id_ed25519}  # recomendado: usar chave canônica do projeto (padrão)
 USER=${USER:-datalake}
 OUTDIR="$(dirname "$0")/../artifacts/ssh_keys"
 mkdir -p "$OUTDIR"

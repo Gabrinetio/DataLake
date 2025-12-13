@@ -132,7 +132,14 @@ SSH direto para CT 118 (192.168.4.26) resultava em "Connection timed out".
 - Para CTs críticos, preferir IP estático em `pct set` em vez de DHCP.  
 - Se banner SSH demora/time out mas porta 22 abre, checar IP/rota antes de sshd.  
 - Para hosts Windows, se permissões da chave forem problema, usar cópia em `/tmp/ct_key` com chmod 600 para testes.  
-- Monitorar fail2ban ao testar múltiplas vezes (evitar bloqueios por tentativas).  
+- Monitorar fail2ban ao testar múltiplas vezes (evitar bloqueios por tentativas).
+
+### Nota: Padronização da chave canônica (12/12/2025)
+- Atualizamos scripts de administração (`deploy_authorized_key.ps1`, `prune_authorized_keys.ps1`, `run_ct_verification.ps1`, `inventory_authorized_keys.ps1`) para usar por padrão a chave canônica localizada em `scripts/key/ct_datalake_id_ed25519`.
+- O script `infra/scripts/phase1_execute.ps1` agora aceita `SSH_KEY_PATH` via variável de ambiente (se definida); caso contrário continua usando a chave em `$env:USERPROFILE\.ssh\id_ed25519` para compatibilidade.
+    - Nota: scripts PowerShell de automação passaram a usar um util compartilhado `scripts/get_canonical_key.ps1` que prioriza `SSH_KEY_PATH`, e, se ausente, tenta `scripts/key/ct_datalake_id_ed25519` antes do fallback.
+- Atualizamos a documentação para recomendar o uso da chave canônica para operações automatizadas, mantendo a opção de sobrescrever com `-KeyPath` quando necessário.
+  
 
 ---
 
@@ -721,8 +728,10 @@ Lição Aprendida:
 - CT criado sem usuário `datalake` configurado com chaves SSH.
 
 **Processo Realizado:**
-1. Gerar chave SSH ED25519 na máquina local: `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N '' -C 'datalake@local'`
+1. Gerar chave SSH ED25519 na máquina local (pessoal): `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N '' -C 'datalake@local'`
 2. Obter chave pública: `cat ~/.ssh/id_ed25519.pub`
+
+Nota: Para tarefas de automação e operações do projeto, **use a chave canônica** `scripts/key/ct_datalake_id_ed25519` (privada) e `scripts/key/ct_datalake_id_ed25519.pub` (pública). A chave pessoal `~/.ssh/id_ed25519` permanece útil para acesso individual e desenvolvimento local.
 3. Conectar ao CT como root: `ssh root@192.168.4.32`
 4. Criar diretório .ssh para `datalake`: `mkdir -p /home/datalake/.ssh`
 5. Adicionar chave pública: `echo 'CHAVE_PUBLICA_AQUI' >> /home/datalake/.ssh/authorized_keys`

@@ -29,16 +29,16 @@ ping 192.168.4.33
 
 ```bash
 # Teste SSH
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "echo 'SSH OK'"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "echo 'SSH OK'"  # recomendado: usar chave canônica do projeto
 
 # Teste Spark
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.33 "spark-submit --version | head -1"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.33 "spark-submit --version | head -1"  # recomendado: usar chave canônica do projeto
 
 # Teste MinIO
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "pgrep -f minio && echo 'MinIO OK'"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "pgrep -f minio && echo 'MinIO OK'"  # recomendado: usar chave canônica do projeto
 
 # Disco
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "df -h /home/datalake | grep datalake"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "df -h /home/datalake | grep datalake"  # recomendado: usar chave canônica do projeto
 ```
 
 ✅ **Todos devem retornar OK**
@@ -52,22 +52,22 @@ ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "df -h /home/datalake | grep data
 cd c:\Users\Gabriel Santana\Documents\VS_Code\DataLake_FB-v2
 
 # CDC Pipeline
-scp -i $env:USERPROFILE\.ssh\id_ed25519 `
+scp -i scripts/key/ct_datalake_id_ed25519 `
     src\tests\test_cdc_pipeline.py `
-    datalake@192.168.4.37:/home/datalake/
+    datalake@192.168.4.37:/home/datalake/  # recomendado: usar chave canônica do projeto
 
 # RLAC Implementation
-scp -i $env:USERPROFILE\.ssh\id_ed25519 `
+scp -i scripts/key/ct_datalake_id_ed25519 `
     src\tests\test_rlac_implementation.py `
-    datalake@192.168.4.37:/home/datalake/
+    datalake@192.168.4.37:/home/datalake/  # recomendado: usar chave canônica do projeto
 
 # BI Integration
-scp -i $env:USERPROFILE\.ssh\id_ed25519 `
+scp -i scripts/key/ct_datalake_id_ed25519 `
     src\tests\test_bi_integration.py `
-    datalake@192.168.4.37:/home/datalake/
+    datalake@192.168.4.37:/home/datalake/  # recomendado: usar chave canônica do projeto
 
 # Verificar
-ssh -i $env:USERPROFILE\.ssh\id_ed25519 datalake@192.168.4.37 "ls -lh *.py"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "ls -lh *.py"  # recomendado: usar chave canônica do projeto
 ```
 
 ✅ **Todos os 3 arquivos devem aparecer**
@@ -78,7 +78,7 @@ ssh -i $env:USERPROFILE\.ssh\id_ed25519 datalake@192.168.4.37 "ls -lh *.py"
 
 ```bash
 # Test 1: CDC Pipeline
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 << 'EOF'
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 << 'EOF'  # recomendado: usar chave canônica do projeto
 cd /home/datalake
 spark-submit --master spark://192.168.4.33:7077 \
   --packages org.apache.iceberg:iceberg-spark-runtime-3.4_2.12:1.10.0 \
@@ -87,7 +87,7 @@ spark-submit --master spark://192.168.4.33:7077 \
 EOF
 
 # Test 2: RLAC Implementation
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 << 'EOF'
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 << 'EOF'  # recomendado: usar chave canônica do projeto
 cd /home/datalake
 spark-submit --master spark://192.168.4.33:7077 \
   --packages org.apache.iceberg:iceberg-spark-runtime-3.4_2.12:1.10.0 \
@@ -96,7 +96,7 @@ spark-submit --master spark://192.168.4.33:7077 \
 EOF
 
 # Test 3: BI Integration
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 << 'EOF'
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 << 'EOF'  # recomendado: usar chave canônica do projeto
 cd /home/datalake
 spark-submit --master spark://192.168.4.33:7077 \
   --packages org.apache.iceberg:iceberg-spark-runtime-3.4_2.12:1.10.0 \
@@ -113,9 +113,9 @@ EOF
 
 ```bash
 # Copiar JSONs
-scp -i ~/.ssh/id_ed25519 \
+scp -i scripts/key/ct_datalake_id_ed25519 \
     datalake@192.168.4.37:/home/datalake/*_results.json \
-    artifacts/results/
+    artifacts/results/  # recomendado: usar chave canônica do projeto
 
 # Verificar localmente
 ls -lh artifacts/results/*_results.json
@@ -129,14 +129,14 @@ ls -lh artifacts/results/*_results.json
 
 ```bash
 # Verificar tabelas Hive
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.32 "hive -e 'SHOW TABLES;' 2>/dev/null"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.32 "hive -e 'SHOW TABLES;' 2>/dev/null"  # recomendado: usar chave canônica do projeto
 
 # Verificar MinIO
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "mc ls datalake/ 2>/dev/null"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "mc ls datalake/ 2>/dev/null"  # recomendado: usar chave canônica do projeto
 
 # Contar registros
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 \
-  "spark-sql -e 'SELECT COUNT(*) FROM iceberg_table;'"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 \
+  "spark-sql -e 'SELECT COUNT(*) FROM iceberg_table;'"  # recomendado: usar chave canônica do projeto
 ```
 
 ✅ **Dados devem estar intactos**
@@ -200,15 +200,15 @@ ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 \
 
 ```bash
 # STOP tudo
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 "pkill -f spark-submit"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "pkill -f spark-submit"  # recomendado: usar chave canônica do projeto
 
 # Restaurar (se tiver backup)
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 \
-  "cp -r /home/datalake/backups/pre_iter5/* /home/datalake/warehouse/"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 \
+  "cp -r /home/datalake/backups/pre_iter5/* /home/datalake/warehouse/"  # recomendado: usar chave canônica do projeto
 
 # Reiniciar
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 \
-  "systemctl restart spark-master spark-worker hive-metastore"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 \
+  "systemctl restart spark-master spark-worker hive-metastore"  # recomendado: usar chave canônica do projeto
 ```
 
 Duration: ~5-10 minutos

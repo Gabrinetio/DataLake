@@ -10,7 +10,9 @@ import sys
 # SSH connection details
 server = "192.168.4.33"
 user = "datalake"
-key = f"$env:USERPROFILE\\.ssh\\id_ed25519"
+import os
+key = os.environ.get('SSH_KEY_PATH', os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'scripts', 'key', 'ct_datalake_id_ed25519')))
+
 
 # Commands to fix the test scripts on the server
 commands = [

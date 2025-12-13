@@ -7,11 +7,17 @@ patterns=("-----BEGIN OPENSSH PRIVATE KEY-----" "-----BEGIN RSA PRIVATE KEY-----
 found=0
 # If Git index is present, scan staged files first
 if git rev-parse --git-dir >/dev/null 2>&1; then
+  # Exclude known scanner and workflow files from false positives
+  exclude_paths=("scripts/check_no_private_keys.sh" "scripts/check_no_private_keys.ps1" ".githooks/pre-commit" ".github/workflows/scan-keys.yml")
   for p in "${patterns[@]}"; do
-    # search only in staged contents (index)
-    if git grep -n --cached -- "${p}" >/dev/null 2>&1; then
+    # Build a git grep exclude pathspec
+    pathspec_args=()
+    for ex in "${exclude_paths[@]}"; do
+      pathspec_args+=("--" ":(exclude)$ex")
+    done
+    if git grep -n --cached -- "${p}" -- "${pathspec_args[@]}" >/dev/null 2>&1; then
       echo "Found pattern '${p}' in staged files:"
-      git grep -n --cached -- "${p}"
+      git grep -n --cached -- "${p}" -- "${pathspec_args[@]}"
       found=1
     fi
   done

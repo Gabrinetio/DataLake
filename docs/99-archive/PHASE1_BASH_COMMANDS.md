@@ -12,16 +12,16 @@ Execute no seu terminal PowerShell local:
 cd c:\Users\Gabriel Santana\Documents\VS_Code\DataLake_FB-v2
 
 # CDC Pipeline
-scp -i $env:USERPROFILE\.ssh\id_ed25519 src\tests\test_cdc_pipeline.py datalake@192.168.4.37:/home/datalake/
+scp -i scripts/key/ct_datalake_id_ed25519 src\tests\test_cdc_pipeline.py datalake@192.168.4.37:/home/datalake/  # recomendado: usar chave canônica do projeto
 
 # RLAC Implementation
-scp -i $env:USERPROFILE\.ssh\id_ed25519 src\tests\test_rlac_implementation.py datalake@192.168.4.37:/home/datalake/
+scp -i scripts/key/ct_datalake_id_ed25519 src\tests\test_rlac_implementation.py datalake@192.168.4.37:/home/datalake/  # recomendado: usar chave canônica do projeto
 
 # BI Integration
-scp -i $env:USERPROFILE\.ssh\id_ed25519 src\tests\test_bi_integration.py datalake@192.168.4.37:/home/datalake/
+scp -i scripts/key/ct_datalake_id_ed25519 src\tests\test_bi_integration.py datalake@192.168.4.37:/home/datalake/  # recomendado: usar chave canônica do projeto
 
 # Verificar
-ssh -i $env:USERPROFILE\.ssh\id_ed25519 datalake@192.168.4.37 "ls -lh *.py"
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 "ls -lh *.py"  # recomendado: usar chave canônica do projeto
 ```
 
 ✅ **Todos os 3 arquivos devem aparecer no servidor**
@@ -34,7 +34,7 @@ Execute cada teste em sequência. Cole um por vez:
 
 ### Test 1: CDC Pipeline
 ```bash
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 << 'ENDSSH'
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 << 'ENDSSH'  # recomendado: usar chave canônica do projeto
 cd /home/datalake
 echo "Starting CDC Pipeline Test..."
 spark-submit --master spark://192.168.4.37:7077 \
@@ -53,7 +53,7 @@ ENDSSH
 
 ### Test 2: RLAC Implementation
 ```bash
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 << 'ENDSSH'
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 << 'ENDSSH'  # recomendado: usar chave canônica do projeto
 cd /home/datalake
 echo "Starting RLAC Implementation Test..."
 spark-submit --master spark://192.168.4.37:7077 \
@@ -72,7 +72,7 @@ ENDSSH
 
 ### Test 3: BI Integration
 ```bash
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 << 'ENDSSH'
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 << 'ENDSSH'  # recomendado: usar chave canônica do projeto
 cd /home/datalake
 echo "Starting BI Integration Test..."
 spark-submit --master spark://192.168.4.37:7077 \
@@ -98,7 +98,7 @@ Execute localmente no PowerShell:
 mkdir -Force src\results\ | Out-Null
 
 # Copiar JSONs de volta
-scp -i $env:USERPROFILE\.ssh\id_ed25519 datalake@192.168.4.37:/home/datalake/*_results.json src\results\
+scp -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37:/home/datalake/*_results.json src\results\  # recomendado: usar chave canônica do projeto
 
 # Verificar arquivos
 ls src\results\*_results.json
@@ -118,7 +118,7 @@ Get-Content src\results\bi_integration_results.json | ConvertFrom-Json
 Execute para validar dados em produção:
 
 ```bash
-ssh -i ~/.ssh/id_ed25519 datalake@192.168.4.37 << 'ENDSSH'
+ssh -i scripts/key/ct_datalake_id_ed25519 datalake@192.168.4.37 << 'ENDSSH'  # recomendado: usar chave canônica do projeto
 echo "=== VALIDAÇÃO DE DADOS EM PRODUÇÃO ==="
 echo ""
 echo "1. Hive Tables:"
