@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: check-no-private-keys
+        name: Check for accidental private keys in staged files
+        entry: bash scripts/check_no_private_keys.sh
+        language: script
+        always_run: false
+        types: [text]

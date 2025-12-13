@@ -50,6 +50,10 @@ Enabling pre-commit hook locally:
 2. Ensure `.githooks/pre-commit` is executable on Unix (`chmod +x .githooks/pre-commit`).
 3. Test by staging a change and attempting commit with a simulated private key pattern in one of the staged files.
 4. See `docs/20-operations/checklists/REPO_SENSITIVE_KEY_REMOVAL.md` for detailed incident steps.
+5. If you want to integrate `pre-commit` framework for additional checks (recommended):
+  - Install pre-commit: `pip install pre-commit`.
+  - Install Python hooks: `pre-commit install`.
+  - Test hooks: `pre-commit run --all-files`.
 
 CI: The repository also contains `.github/workflows/scan-keys.yml` which runs the same scan on push/PR and will fail the check if sensitive patterns are found.
 
