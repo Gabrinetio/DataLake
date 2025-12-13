@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# This script is a pre-commit hook template. Enable with:
+# git config core.hooksPath .githooks
+# Pre-commit hook: prevent committing files that include private SSH keys.
+set -euo pipefail
+
+# Prefer scanning staged files if in a git repo
+if command -v bash >/dev/null 2>&1 && [[ -f scripts/check_no_private_keys.sh ]]; then
+  if ! bash scripts/check_no_private_keys.sh; then
+    echo "Pre-commit check failed: private key pattern detected. Abort commit." >&2
+    exit 1
+  fi
+  # ensure the script runs only on staged files; it will fail if found
+elif command -v pwsh >/dev/null 2>&1 && [[ -f scripts/check_no_private_keys.ps1 ]]; then
+  pwsh -NoProfile -File scripts/check_no_private_keys.ps1
+  rc=$?
+  if [ $rc -ne 0 ]; then
+    echo "Pre-commit: private key pattern detected (PowerShell). Abort commit." >&2
+    exit $rc
+  fi
+else
+  echo "No scanner available; skipping pre-commit key check." >&2
+fi
+
+exit 0

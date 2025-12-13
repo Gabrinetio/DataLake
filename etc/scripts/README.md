@@ -18,7 +18,7 @@ sudo bash etc/scripts/create-spark-ct.sh \
   --cores 4 \
   --memory 8192 \
   --disk 40 \
-  --ssh-key ~/.ssh/id_ed25519.pub
+  --ssh-key scripts/key/ct_datalake_id_ed25519.pub  # recomendado: chave pública canônica do projeto para provisionamento de CTs
 ```
 
 Observações:
@@ -39,6 +39,11 @@ Se o seu ambiente Proxmox usa storage e templates diferentes, passe `--storage` 
  - `deploy-kafka-systemd.sh` - deploya a unit systemd `kafka.service` e inicia o serviço
  - `create-kafka-topics.sh` - cria tópicos iniciais para o ambiente (ex.: cdc.vendas)
  - `test-kafka.sh` - smoke test: lista tópicos e produz/consome mensagens
+
+Helpers:
+- `scripts/get_canonical_key.ps1` - utilitário PowerShell que retorna o caminho da chave canônica do projeto (prioriza `SSH_KEY_PATH` env var e depois `scripts/key/ct_datalake_id_ed25519`).
+ - `scripts/check_no_private_keys.sh` - scanner para detectar possíveis chaves privadas em arquivos staged (pre-commit) e no repositório (CI/scan).
+ - `scripts/check_no_private_keys.ps1` - versão PowerShell do scanner para ambientes Windows.
 
 ***
 
