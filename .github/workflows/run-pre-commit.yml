@@ -14,11 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Ensure hooks path and run hook
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install pre-commit
         run: |
-          git config core.hooksPath .githooks
-          chmod +x .githooks/pre-commit
-          bash .githooks/pre-commit
+          python -m pip install --upgrade pip
+          python -m pip install pre-commit
+      - name: Run pre-commit
+        run: |
+          pre-commit run --all-files --show-diff-on-failure
         shell: bash
 
   pre-commit-windows:
@@ -26,7 +32,16 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run PowerShell scanner
+      - name: Setup Python on Windows
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install pre-commit (Windows)
         run: |
-          pwsh -NoProfile -Command "Set-ExecutionPolicy Bypass -Scope Process; pwsh -NoProfile -File scripts/check_no_private_keys.ps1"
+          python -m pip install --upgrade pip
+          python -m pip install pre-commit
+        shell: pwsh
+      - name: Run pre-commit (Windows)
+        run: |
+          pre-commit run --all-files --show-diff-on-failure
         shell: pwsh
