@@ -1,0 +1,32 @@
+name: Run Pre-Commit Hook
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  pre-commit-linux:
+    name: Run pre-commit hook (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure hooks path and run hook
+        run: |
+          git config core.hooksPath .githooks
+          chmod +x .githooks/pre-commit
+          bash .githooks/pre-commit
+        shell: bash
+
+  pre-commit-windows:
+    name: Run pre-commit check (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run PowerShell scanner
+        run: |
+          pwsh -NoProfile -Command "Set-ExecutionPolicy Bypass -Scope Process; pwsh -NoProfile -File scripts/check_no_private_keys.ps1"
+        shell: pwsh
