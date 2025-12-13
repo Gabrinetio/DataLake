@@ -247,7 +247,7 @@ Exemplos de arquivos que podem precisar atualização:
 - [docs/00-overview/README.md](docs/00-overview/README.md) - Novo índice
 - [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) - Guia de contribuição
 - [docs/30-iterations/STATUS.md](docs/30-iterations/STATUS.md) - Status de iterações
-- [README.md](README.md) - Documentação principal
+- [README.md](../README.md) - Documentação principal
 
 ---
 

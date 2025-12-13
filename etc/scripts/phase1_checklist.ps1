@@ -50,9 +50,9 @@ if ($LASTEXITCODE -ne 0) { Write-Err "SCP failed: $scpRes"; exit 5 }
 Write-Ok "Script copied"
 
 Write-Info "Executing remote script via SSH (may take several minutes)..."
-$sshCmd = "ssh -i `"$KeyPath`" $User@$Host pwsh $RemoteScript"
+$sshCmd = "ssh -i `"$KeyPath`" -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 $User@$Host pwsh $RemoteScript"
 if ($VerboseRun) { Write-Host "Running: $sshCmd" }
-$out = & ssh -i $KeyPath $User@$Host pwsh $RemoteScript 2>&1
+$out = & ssh -i $KeyPath -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 $User@$Host pwsh $RemoteScript 2>&1
 $exitCode = $LASTEXITCODE
 Write-Host $out
 if ($exitCode -ne 0) { Write-Err "Remote execution failed with exit code $exitCode"; exit 6 }

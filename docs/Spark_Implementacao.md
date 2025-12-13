@@ -69,10 +69,10 @@ Para evitar warnings sobre hostname resolvendo para loopback, configure o IP loc
 
 ```bash
 sudo cp /opt/spark/conf/spark-env.sh.template /opt/spark/conf/spark-env.sh
-echo 'SPARK_LOCAL_IP=192.168.4.32' | sudo tee -a /opt/spark/conf/spark-env.sh
+echo 'SPARK_LOCAL_IP=192.168.4.33' | sudo tee -a /opt/spark/conf/spark-env.sh
 ```
 
-Substitua `192.168.4.32` pelo IP real do servidor. Verifique com `hostname -I`.
+Substitua `192.168.4.33` pelo IP real do servidor Spark. Verifique com `hostname -I`.
 
 ### Configuração de Credenciais MinIO e Hive
 

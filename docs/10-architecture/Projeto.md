@@ -683,6 +683,40 @@ spark_config = get_spark_s3_config()
 - Evite acesso root em produção; use `datalake` com sudo.
 - Para operações no CT, acesse diretamente via SSH `datalake@<IP>`, evitando o host Proxmox.
 
+#### **Chave Canônica de Acesso SSH (Padrão do Projeto)**
+
+- **Localização da chave (projeto):**
+  - Privada: `scripts/key/ct_datalake_id_ed25519` (uso local; manter fora do controle de versão)
+  - Pública: `scripts/key/ct_datalake_id_ed25519.pub` (para inserir em `authorized_keys`)
+- **Algoritmo:** ED25519
+- **Usuário padrão:** `datalake`
+- **Política de prompts:** os scripts usam `-o NumberOfPasswordPrompts=3` no cliente para limitar tentativas de senha; não alteramos `sshd_config` dos servidores.
+- **Permissões exigidas no CT:**
+  - `chmod 700 /home/datalake/.ssh`
+  - `chmod 600 /home/datalake/.ssh/authorized_keys`
+  - `chown -R datalake:datalake /home/datalake/.ssh`
+- **Como aplicar a chave pública no CT (via Proxmox ou acesso local):**
+  ```bash
+  pct exec <ID> -- bash -lc "mkdir -p /home/datalake/.ssh && echo '$(cat scripts/key/ct_datalake_id_ed25519.pub)' >> /home/datalake/.ssh/authorized_keys && chmod 600 /home/datalake/.ssh/authorized_keys && chown -R datalake:datalake /home/datalake/.ssh"
+  ```
+- **Como usar a chave nos scripts:**
+  - Teste rápido:
+    ```powershell
+    ssh -i .\scripts\key\ct_datalake_id_ed25519 -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 datalake@minio.gti.local echo ok
+    ```
+  - Teste de acesso a todos os CTs:
+    ```bash
+    bash scripts/test_canonical_ssh.sh --hosts "107 108 109 115 116 118" --ssh-opts "-i ~/.ssh/id_ed25519"
+    ```
+  - Verificação de um CT específico:
+    ```bash
+    bash scripts/test_canonical_ssh.sh --hosts "107" --ssh-opts "-i ~/.ssh/id_ed25519"
+    ```
+- **Boas práticas:**
+  - Prefira acesso direto `datalake@<hostname>` (ex.: `minio.gti.local`). Se DNS falhar, use o IP.
+  - Não editar `sshd_config` em produção; padronizar acesso por chave e permissões corretas.
+  - Evitar `StrictHostKeyChecking=no` em produção (usar apenas em automações controladas); cadastre `known_hosts` quando possível.
+
 ### 🔹 Segurança do MinIO
 
 * Sempre rodar com HTTPS (certificados próprios ou ACME interno)
@@ -824,15 +858,16 @@ Cada serviço é provisionado como um container LXC dedicado, executando dentro 
 
 ### **Tabela de containers com a nova rede**
 
-| CT ID   | Hostname             | IP               | Função                      | vCPU | RAM  | Disco      |
-| ------- | -------------------- | ---------------- | --------------------------- | ---- | ---- | ---------- |
-| **117** | `db-hive.gti.local`  | **192.168.4.32** | MariaDB + Hive Metastore    | 2    | 4 GB | 40 GB      |
-| **107** | `minio.gti.local`    | **192.168.4.32** | Armazenamento S3            | 2    | 4 GB | 250–500 GB |
-| **108** | `spark.gti.local`    | **192.168.4.33** | Spark (batch/streaming)     | 4    | 8 GB | 40 GB      |
-| **109** | `kafka.gti.local`    | **192.168.4.32** | Kafka broker                | 2    | 4 GB | 20 GB      |
-| **111** | `trino.gti.local`    | **192.168.4.32** | SQL engine                  | 2    | 4 GB | 20 GB      |
-| **115** | `superset.gti.local` | **192.168.4.16** | BI/dashboards               | 2    | 4 GB | 20 GB      |
-| **116** | `airflow.gti.local`  | **192.168.4.32** | Orquestração                | 2    | 4 GB | 20 GB      |
+| CT ID   | Hostname             | IP                | Função                      | vCPU | RAM  | Disco      |
+| ------- | -------------------- | ------------------|--------------------------- | ---- | ---- | ---------- |
+| **117** | `db-hive.gti.local`  | **192.168.4.32**  | MariaDB + Hive Metastore    | 2    | 4 GB | 40 GB      |
+| **107** | `minio.gti.local`    | **192.168.4.31**  | Armazenamento S3            | 2    | 4 GB | 250–500 GB |
+| **108** | `spark.gti.local`    | **192.168.4.33**  | Spark (batch/streaming)     | 4    | 8 GB | 40 GB      |
+| **109** | `kafka.gti.local`    | **192.168.4.34**  | Kafka broker                | 2    | 4 GB | 20 GB      |
+| **111** | `trino.gti.local`    | **192.168.4.35**  | SQL engine                  | 2    | 4 GB | 20 GB      |
+| **115** | `superset.gti.local` | **192.168.4.37**  | BI/dashboards (NOT EXPOSED) | 2    | 4 GB | 20 GB      |
+| **116** | `airflow.gti.local`  | **192.168.4.36**  | Orquestração                | 2    | 4 GB | 20 GB      |
+| **118** | `gitea.gti.local`    | **192.168.4.26**  | Git + Repositório           | 2    | 4 GB | 20 GB      |
 
 ---
 
@@ -850,6 +885,13 @@ Gateway normalmente:
 
 ```
 192.168.4.1
+```
+
+**DNS Interno:**
+
+```
+192.168.4.30 (nameserver primário)
+searchdomain: gti.local
 ```
 
 Bridge padrão no Proxmox:
@@ -872,9 +914,12 @@ Gateway: 192.168.4.1
 
 ---
 
-## **/etc/hosts padrão atualizado**
+## **/etc/hosts (Opcional com DNS)**
 
-Cada container deve ter **TODOS** os serviços registrados localmente, a menos que você possua um servidor DNS interno.
+> **NOTA (11/12/2025):** Com DNS centralizado em `192.168.4.30` (searchdomain: `gti.local`), o preenchimento de `/etc/hosts` é **opcional**. 
+> Prefira usar DNS para manutenção centralizada. Abaixo segue a referência caso seja necessário configurar localmente.
+
+Cada container pode ter **TODOS** os serviços registrados localmente (legacy):
 
 Arquivo:
 
@@ -882,21 +927,20 @@ Arquivo:
 /etc/hosts
 ```
 
-Adicionar:
+Adicionar (opcional):
 
 ```
-192.168.4.11   db-hive.gti.local
-192.168.4.32   minio.gti.local
+192.168.4.32   db-hive.gti.local
+192.168.4.31   minio.gti.local
 192.168.4.33   spark.gti.local
-192.168.4.32   kafka.gti.local
-192.168.4.32   trino.gti.local
-192.168.4.16   superset.gti.local
-192.168.4.32   airflow.gti.local
+192.168.4.34   kafka.gti.local
+192.168.4.35   trino.gti.local
+192.168.4.37   superset.gti.local
+192.168.4.36   airflow.gti.local
 192.168.4.26   gitea.gti.local
 ```
 
-> Esses nomes serão usados pelo Spark, Trino, Airflow, Hive Metastore e MinIO nas configurações internas
-> (ex: `s3a://minio.gti.local:9000`, `thrift://db-hive.gti.local:9083` etc).
+> Esses nomes serão resolvidos via DNS `192.168.4.30` quando configurado. Para compatibilidade, manter em `/etc/hosts` como fallback.
 
 ---
 
@@ -3045,6 +3089,31 @@ usermod -aG sudo datalake
 
 # **10.2 Instalação do Superset 3.1.x (Versão Recomendada)**
 
+## Instalar PostgreSQL como banco de dados do Superset
+
+```bash
+apt update
+apt install -y postgresql postgresql-contrib
+```
+
+Iniciar o serviço PostgreSQL:
+
+```bash
+systemctl start postgresql
+systemctl enable postgresql
+```
+
+Verificar se PostgreSQL está rodando:
+
+```bash
+systemctl status postgresql
+ps aux | grep postgres
+```
+
+> **Status (12 de dezembro de 2025):** ✅ PostgreSQL 15 instalado e ativo no CT 115 (superset)
+
+## Criar ambiente virtual
+
 Criar ambiente virtual:
 
 ```bash
@@ -3052,7 +3121,7 @@ python3 -m venv /opt/superset_venv
 source /opt/superset_venv/bin/activate
 ```
 
-Instalar Superset:
+Instalar Superset com drivers PostgreSQL:
 
 ```bash
 pip install apache-superset==3.1.0
@@ -3065,28 +3134,38 @@ Criar diretórios:
 ```bash
 mkdir -p /opt/superset
 mkdir -p /opt/superset/logs
-mkdir -p /opt/superset/config
-chown -R datalake:datalake /opt/superset
+chown -R root:root /opt/superset
 ```
 
 ---
 
 # **10.3 Configuração do Superset**
 
-Criar arquivo:
+## Criar arquivo de configuração
 
-```
-nano /opt/superset/config/superset_config.py
+```bash
+cat > /opt/superset/superset_config.py << 'EOF'
+SECRET_KEY = "80/oGMZg02v74/xMojMzugowMKlkJyOnmXmULDeoHkbVRWgo9i1WEX/l"
+SQLALCHEMY_DATABASE_URI = "postgresql://postgres@localhost/postgres"
+EOF
 ```
 
-Conteúdo recomendado:
+**Configuração Implementada (12 de dezembro de 2025):**
+- `SQLALCHEMY_DATABASE_URI`: Conecta ao PostgreSQL local (CT 115) usando o usuário `postgres` com autenticação peer (sem senha)
+- `SECRET_KEY`: Chave de criptografia para sessões e tokens
+- Localização: `/opt/superset/superset_config.py`
+
+### Configuração Alternativa (com Usuário Dedicado)
+
+Se preferir usar um usuário dedicado com senha:
 
 ```python
 import os
 
-SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://superset_user:SENHA@db-hive.gti.local:5432/superset_db"
+# PostgreSQL instalado localmente (CT 115)
+SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://superset:superset123@localhost:5432/superset"
 
-SECRET_KEY = "CHAVE_SECRETA_SUPERSET"
+SECRET_KEY = "80/oGMZg02v74/xMojMzugowMKlkJyOnmXmULDeoHkbVRWgo9i1WEX/l"
 
 FEATURE_FLAGS = {
     "ALERT_REPORTS": True,
@@ -3095,11 +3174,8 @@ FEATURE_FLAGS = {
 }
 
 ENABLE_PROXY_FIX = True
-
-# timezone
 SUPERSET_WEBSERVER_TIMEOUT = 300
 
-# CORS restrito a domínios/aplicações confiáveis (exemplo)
 ENABLE_CORS = True
 CORS_OPTIONS = {
     "supports_credentials": True,
@@ -3107,16 +3183,15 @@ CORS_OPTIONS = {
     "origins": ["https://app.gti.local", "https://superset.gti.local"]
 }
 
-# Roles padrão (ajuste conforme sua política)
-AUTH_ROLE_PUBLIC = "Public"          # acesso anônimo (desabilite ou restrinja)
-PUBLIC_ROLE_LIKE_GAMMA = False       # não herdar permissões do Gamma
-AUTH_ROLES_MAPPING = {}              # mapear roles externas se usar SSO
+AUTH_ROLE_PUBLIC = "Public"
+PUBLIC_ROLE_LIKE_GAMMA = False
+AUTH_ROLES_MAPPING = {}
 ```
 
 Permissões:
 
 ```bash
-chmod 600 /opt/superset/config/superset_config.py
+chmod 600 /opt/superset/superset_config.py
 ```
 
 ---

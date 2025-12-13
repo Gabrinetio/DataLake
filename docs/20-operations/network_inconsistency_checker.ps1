@@ -103,7 +103,6 @@ $ManualCorrections = @(
     @{ File = "test_thrift_protocol.py"; Pattern = "192.168.4.36"; Replacement = "192.168.4.32"; Description = "Corrigir IP do Hive Metastore em testes Thrift" },
     @{ File = "test_hive_connectivity.py"; Pattern = "192.168.4.36"; Replacement = "192.168.4.32"; Description = "Corrigir IP do Hive Metastore em testes de conectividade" },
     @{ File = "update_iceberg_config.bat"; Pattern = "192.168.4.36"; Replacement = "192.168.4.32"; Description = "Corrigir IP do db-hive em script Iceberg" },
-    @{ File = "temp_ssh_test.bat"; Pattern = "192.168.4.36"; Replacement = "192.168.4.32"; Description = "Corrigir IP em script de teste SSH" }
 )
 
 $ManualFixCount = 0

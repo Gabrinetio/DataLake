@@ -47,6 +47,15 @@
 ## 2. Infraestrutura Verificada
 
 ### Servidor:
+### Infraestrutura de Rede
+
+```
+Rede Interna:     192.168.4.0/24
+Gateway:          192.168.4.1
+DNS Centralizado: 192.168.4.30 (searchdomain: gti.local) — **CONFIGURADO** ✅ (12/12/2025)
+```
+
+### Proxmox Host
 ```
 Host:        192.168.4.25
 OS:          Debian 12
@@ -248,29 +257,58 @@ Cada script deve incluir:
 
 ## 8. SSH & Autenticação - Padrão do Projeto
 
-**Padrão Adotado:** Acesso aos containers LXC via usuário `datalake` com autenticação por chave SSH ED25519. Acesso root apenas para configuração inicial, desabilitado em produção.
+### 🔐 Política de Autenticação Proxmox (DECISÃO ARQUITETURAL)
 
-### Chave SSH Padrão:
+**Status:** ✅ **EM VIGOR A PARTIR DE 12/12/2025**
+
+**Determinação:** Acesso ao Proxmox (192.168.4.25) usa **APENAS autenticação por SENHA**.
+
+Motivos:
+- ✅ Simplicidade operacional
+- ✅ Compatibilidade cross-platform (Windows/Linux/macOS)
+- ✅ Menor complexidade de gerenciamento de chaves
+- ✅ Adequado para ambiente de desenvolvimento
+
+Ver: [docs/50-reference/PROXMOX_AUTENTICACAO.md](../50-reference/PROXMOX_AUTENTICACAO.md) para detalhes.
+
+### Acesso aos Containers LXC (CT 115/116/118)
+
+**Padrão Adotado:** Acesso via Proxmox host usando `pct exec` com autenticação por senha do Proxmox.
+
+#### Scripts Wrapper:
+```powershell
+# CT 118 (Gitea) - usar script wrapper
+$env:PROXMOX_PASSWORD = 'sua_senha'
+.\scripts\ct118_access.ps1 -Command "whoami" -User "datalake"
+
+# Qualquer CT via pct exec
+sshpass -p 'proxmox_senha' ssh root@192.168.4.25 'pct exec 115 -- whoami'
+```
+
+#### Chaves SSH (Para Usuários Internos dos CTs)
+
 ```
 Caminho:     C:\Users\Gabriel Santana\.ssh\id_ed25519
 Tipo:        ED25519
-User:        datalake
-Auth:        ✅ Funcional em todos os CTs
-Comando:     ssh datalake@<IP_CT>
+User:        datalake (dentro dos containers)
+Auth:        ✅ Funcional para containers
+Comando:     ssh datalake@<IP_CT> (quando acessível diretamente)
 ```
+
+**Nota:** SSH direto aos containers pode ter restrições devido a isolamento LXC. Usar `pct exec` via Proxmox é a forma recomendada.
 
 ### Exemplo - CT Airflow:
 ```
-Host:        192.168.4.32 (airflow.gti.local)
+Host:        192.168.4.36 (airflow.gti.local)
 User:        datalake
-Auth:        ✅ Chave ED25519
-Comando:     ssh datalake@192.168.4.32
+Auth:        Via Proxmox pct exec
+Comando:     ssh root@192.168.4.25 'pct exec 116 -- su - datalake -c "comando"'
 ```
 
-### SCP - Funcional:
+### SCP / Transferência de Arquivos:
 ```
-Enviar:  scp <arquivo> datalake@<IP_CT>:/home/datalake/
-Receber: scp datalake@<IP_CT>:/tmp/<arquivo> .
+Enviar:  sshpass -p 'senha' ssh root@192.168.4.25 'pct exec 116 -- cat > /tmp/arquivo' < arquivo_local
+Receber: sshpass -p 'senha' ssh root@192.168.4.25 'pct exec 116 -- cat /tmp/arquivo' > arquivo_local
 ```
 
 ---

@@ -12,14 +12,14 @@
 
 | Arquivo | Propósito | Status |
 |---------|-----------|--------|
-| [`CONTEXT.md`](CONTEXT.md) | Contexto e configuração atual | ✅ Ativa |
-| [`Projeto.md`](Projeto.md) | Arquitetura completa (121 KB, 5.400+ linhas) | ✅ Ativa |
+| [`CONTEXT.md`](00-overview/CONTEXT.md) | Contexto e configuração atual | ✅ Ativa |
+| [`Projeto.md`](10-architecture/Projeto.md) | Arquitetura completa (121 KB, 5.400+ linhas) | ✅ Ativa |
 | [`40-troubleshooting/PROBLEMAS_ESOLUCOES.md`](40-troubleshooting/PROBLEMAS_ESOLUCOES.md) | Histórico de problemas e soluções | ✅ Ativa |
 | [`20-operations/checklists/PRODUCTION_DEPLOYMENT_CHECKLIST.md`](20-operations/checklists/PRODUCTION_DEPLOYMENT_CHECKLIST.md) | Checklists e procedimentos de produção | ✅ Ativa |
 | [`20-operations/checklists/PROXIMOS_PASSOS_CHECKLIST.md`](20-operations/checklists/PROXIMOS_PASSOS_CHECKLIST.md) | Lista de próximos passos para execução | ✅ Ativa |
-| [`TEAM_HANDOFF_DOCUMENTATION.md`](../TEAM_HANDOFF_DOCUMENTATION.md) | Documentação para handoff e treinamentos | ✅ Ativa |
-| [`MONITORING_SETUP_GUIDE.md`](../MONITORING_SETUP_GUIDE.md) | Guia de configuração Prometheus+Grafana | ✅ Ativa |
-| [`EXECUTIVE_SUMMARY.md`](../EXECUTIVE_SUMMARY.md) | Sumário executivo para aprovação | ✅ Ativa |
+| [`TEAM_HANDOFF_DOCUMENTATION.md`](99-archive/TEAM_HANDOFF_DOCUMENTATION.md) | Documentação para handoff e treinamentos | ✅ Ativa |
+| [`MONITORING_SETUP_GUIDE.md`](99-archive/MONITORING_SETUP_GUIDE.md) | Guia de configuração Prometheus+Grafana | ✅ Ativa |
+| [`EXECUTIVE_SUMMARY.md`](00-overview/EXECUTIVE_SUMMARY.md) | Sumário executivo para aprovação | ✅ Ativa |
 | [`20-operations/checklists/PHASE_1_CHECKLIST.md`](20-operations/checklists/PHASE_1_CHECKLIST.md) | Procedimento rápido e checklist automático para Phase 1 | ✅ Ativa |
 | `etc/scripts/phase1_checklist.ps1` | Script PowerShell para execução Phase 1 | ✅ Ativa |
 
@@ -59,8 +59,8 @@
 - **Status:** Completa (100%)
 - **Fases:** Backup/Restore, Disaster Recovery, Security Hardening
 - **Referência:** [Seção 18.5 em Projeto.md](Projeto.md#185-iteração-4-production-hardening)
-- **Status Consolidado:** [`PROJECT_STATUS_ITERATION4_COMPLETE.md`](../PROJECT_STATUS_ITERATION4_COMPLETE.md) (raiz)
-- **Plano de Ação:** [`ACTION_PLAN_ITERATION_4.md`](../ACTION_PLAN_ITERATION_4.md) (raiz)
+- **Status Consolidado:** [`PROJECT_STATUS_ITERATION4_COMPLETE.md`](ARQUIVO/PROJECT_STATUS_ITERATION4_COMPLETE.md)
+- **Plano de Ação:** [`ACTION_PLAN_ITERATION_4.md`](ARQUIVO/ACTION_PLAN_ITERATION_4.md)
 - **Resultados JSON:**
   - `artifacts/results/disaster_recovery_results.json`
   - `artifacts/results/security_hardening_results.json`
@@ -186,8 +186,8 @@ DataLake_FB-v2/
 
 ## 🔍 Como Usar Este Índice
 
-1. **Precisa entender o estado atual?** → Leia [`CONTEXT.md`](CONTEXT.md)
-2. **Precisa da arquitetura completa?** → Leia [`Projeto.md`](Projeto.md)
+1. **Precisa entender o estado atual?** → Leia [`CONTEXT.md`](00-overview/CONTEXT.md)
+2. **Precisa da arquitetura completa?** → Leia [`Projeto.md`](10-architecture/Projeto.md)
 3. **Precisa de um problema específico?** → Procure em [`40-troubleshooting/PROBLEMAS_ESOLUCOES.md`](40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
 4. **Precisa planejar Iteração 5?** → Leia [`ROADMAP_ITERACOES_DETAILED.md`](ROADMAP_ITERACOES_DETAILED.md)
 5. **Precisa de métricas?** → Abra os arquivos JSON correspondentes

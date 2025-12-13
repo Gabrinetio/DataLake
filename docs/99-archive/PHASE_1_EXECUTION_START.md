@@ -250,10 +250,10 @@ Semana seguinte:
 
 ## ⚡ Quick Links
 
-- [Full Deployment Checklist](PRODUCTION_DEPLOYMENT_CHECKLIST.md)
-- [Iter 5 Results](docs/ITERATION_5_RESULTS.md)
+- [Full Deployment Checklist](../20-operations/checklists/PRODUCTION_DEPLOYMENT_CHECKLIST.md)
+- [Iter 5 Results](../ARQUIVO/ITERATION_5_RESULTS.md)
 - [Team Handoff](TEAM_HANDOFF_DOCUMENTATION.md)
-- [Executive Summary](EXECUTIVE_SUMMARY.md)
+- [Executive Summary](../00-overview/EXECUTIVE_SUMMARY.md)
 
 ---
 

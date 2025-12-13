@@ -116,7 +116,7 @@
 | `deploy_via_jump.sh` | `infra/provisioning/deploy_via_jump.sh` | ✅ Movido |
 | `deploy_iceberg.sh` | `infra/provisioning/deploy_iceberg.sh` | ✅ Movido |
 | `install_spark.sh` | `infra/provisioning/install_spark.sh` | ✅ Movido |
-| `setup_ssh_hive_trino.sh` | `infra/provisioning/setup_ssh_hive_trino.sh` | ✅ Movido |
+| `setup_ssh_hive_trino.sh` | _removido_ | ❌ Obsoleto (substituído por scripts/enforce_canonical_ssh_key.sh + docs/10-architecture/Guia_Chave_Canonica_SSH.md) |
 | `update_trino_config.sh` | `infra/provisioning/update_trino_config.sh` | ✅ Movido |
 | `deploy_iceberg_via_hive.py` | `infra/provisioning/deploy_iceberg_via_hive.py` | ✅ Movido |
 
@@ -129,7 +129,7 @@
 | `test_spark_integration.py` | `infra/diagnostics/test_spark_integration.py` | ✅ Movido |
 | `test_iceberg_simple.py` | `infra/diagnostics/test_iceberg_simple.py` | ✅ Movido |
 | `test_hive_connectivity.py` | `infra/diagnostics/test_hive_connectivity.py` | ✅ Movido |
-| `setup_ssh_trino.py` | `infra/diagnostics/setup_ssh_trino.py` | ✅ Movido |
+| `setup_ssh_trino.py` | _removido_ | ❌ Obsoleto (acesso SSH padronizado pela chave canônica) |
 
 ### Infraestrutura - Serviços
 
@@ -148,6 +148,13 @@
 | **lint-markdown.yml** | `.github/workflows/lint-markdown.yml` | CI/CD Workflow |
 | **REORGANIZACAO_SUMMARY.md** | `docs/REORGANIZACAO_SUMMARY.md` | Resumo da Reorganização |
 | **CONCLUSAO_REORGANIZACAO.md** | `docs/CONCLUSAO_REORGANIZACAO.md` | Conclusão |
+
+### Scripts Removidos / Obsoletos
+
+| Script | Status | Observação |
+|--------|--------|------------|
+| `scripts/ssh_and_run_tests.sh` | ❌ Removido | Substituído por testes locais/CI; usar `scripts/test_canonical_ssh.sh` para validação de acesso. |
+| `infra/provisioning/setup_ssh_ct.ps1` | ❌ Removido | Fluxo de chave canônica consolidado em `scripts/enforce_canonical_ssh_key.sh` + guia em `docs/10-architecture/Guia_Chave_Canonica_SSH.md`. |
 | **MAPA_MIGRACAO.md** | `docs/MAPA_MIGRACAO.md` | Este arquivo |
 | **env.md** | `docs/50-reference/env.md` | Referência Técnica |
 | **endpoints.md** | `docs/50-reference/endpoints.md` | Referência Técnica |

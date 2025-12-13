@@ -1,0 +1,3 @@
+=== CT 108 (spark.gti.local) ===
+
+DRY RUN - would attempt direct SSH to System.Management.Automation.Internal.Host.InternalHost then fallback to Proxmox.

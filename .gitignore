@@ -55,6 +55,8 @@ results/
 *.key
 *.pem
 *.crt
+key/*
+!key/*.pub
 !/.ssh/*.pub
 
 # Cache de sistema

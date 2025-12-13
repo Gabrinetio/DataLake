@@ -53,7 +53,6 @@
 - [x] deploy*.sh → infra/provisioning/
 - [x] install_spark.sh → infra/provisioning/
 - [x] deploy_iceberg_via_hive.py → infra/provisioning/
-- [x] setup_ssh_hive_trino.sh → infra/provisioning/
 - [x] update_trino_config.sh → infra/provisioning/
 - [x] test_*.py, fix_*.py → infra/diagnostics/
 

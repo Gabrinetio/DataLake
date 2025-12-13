@@ -33,7 +33,7 @@ function Invoke-SSHCommand {
     Write-Host "  Comando: $Command" -ForegroundColor Gray
     
     $sw = [System.Diagnostics.Stopwatch]::StartNew()
-    $result = ssh -i $sshKey -o ConnectTimeout=$Timeout -o BatchMode=yes $sshTarget "$Command" 2>&1
+    $result = ssh -i $sshKey -o ConnectTimeout=$Timeout -o BatchMode=yes -o NumberOfPasswordPrompts=3 $sshTarget "$Command" 2>&1
     $sw.Stop()
     
     if ($LASTEXITCODE -eq 0) {

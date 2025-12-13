@@ -11,11 +11,11 @@ if (!(Test-Path "deploy_gitea.sh")) {
 
 # Copiar o script para o servidor Proxmox
 Write-Host "Copiando script para o servidor..." -ForegroundColor Yellow
-scp -i .\.ssh\pve3_root_id_ed25519 -o StrictHostKeyChecking=no deploy_gitea.sh root@192.168.4.25:/tmp/
+scp -i .\.ssh\pve3_root_id_ed25519 -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 deploy_gitea.sh root@192.168.4.25:/tmp/
 
 # Executar o script no servidor
 Write-Host "Executando instalação..." -ForegroundColor Yellow
-ssh -i .\.ssh\pve3_root_id_ed25519 -o StrictHostKeyChecking=no root@192.168.4.25 "bash /tmp/deploy_gitea.sh"
+ssh -i .\.ssh\pve3_root_id_ed25519 -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 root@192.168.4.25 "bash /tmp/deploy_gitea.sh"
 
 Write-Host "Implantação concluída!" -ForegroundColor Green
 Write-Host "Acesse o Gitea em: http://192.168.4.26:3000" -ForegroundColor Cyan

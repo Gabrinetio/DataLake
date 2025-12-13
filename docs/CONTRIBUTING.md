@@ -72,7 +72,6 @@ docs/
 ```
 infra/provisioning/
 ├── deploy.sh                       # Scripts executáveis: lowercase.sh
-├── setup_ssh_hive_trino.sh
 ├── deploy_iceberg_via_hive.py
 
 infra/diagnostics/
@@ -117,8 +116,8 @@ Conteúdo...
 
 ## Referências
 
-- [docs/10-architecture/Projeto.md](../10-architecture/Projeto.md)
-- [docs/20-operations/runbooks/](../20-operations/runbooks/)
+- [docs/10-architecture/Projeto.md](10-architecture/Projeto.md)
+- [docs/20-operations/runbooks/](20-operations/runbooks/)
 ```
 
 ### Runbooks - Estrutura Obrigatória
@@ -184,8 +183,8 @@ $ comando_rollback
 
 ## Referências
 
-- [docs/20-operations/checklists/](./checklists/)
-- [docs/40-troubleshooting/](../40-troubleshooting/)
+- [docs/20-operations/checklists/](20-operations/checklists/)
+- [docs/40-troubleshooting/](40-troubleshooting/)
 ```
 
 ### Checklists - Estrutura Obrigatória
@@ -248,7 +247,7 @@ $ comando_rollback
 
 ## Referências
 
-- [docs/20-operations/runbooks/](./runbooks/)
+- [docs/20-operations/runbooks/](20-operations/runbooks/)
 ```
 
 ### ADRs (Architecture Decision Records)
@@ -312,7 +311,7 @@ Razões:
 ## Referências
 
 - [Iceberg Catalog Docs](https://iceberg.apache.org/)
-- [docs/40-troubleshooting/](../40-troubleshooting/) - Problemas conhecidos
+- [docs/40-troubleshooting/](40-troubleshooting/) - Problemas conhecidos
 
 ---
 
@@ -329,15 +328,15 @@ Veja o arquivo CONTEXT.md para mais informações.
 Consulte docs/CONTEXT.md
 
 # ✅ CORRETO
-Veja [CONTEXT.md](../00-overview/CONTEXT.md) para mais informações.
-Consulte [docs/CONTEXT.md](../00-overview/CONTEXT.md).
+Veja [CONTEXT.md](00-overview/CONTEXT.md) para mais informações.
+Consulte [docs/CONTEXT.md](00-overview/CONTEXT.md).
 
 # ✅ COM LINHA
-Veja [linha 42 de CONTEXT.md](../00-overview/CONTEXT.md#L42).
+Veja [linha 42 de CONTEXT.md](00-overview/CONTEXT.md#L42).
 
 # ✅ EM LISTAS
-- [Arquitetura](../10-architecture/Projeto.md)
-- [Operações](../20-operations/runbooks/)
+- [Arquitetura](10-architecture/Projeto.md)
+- [Operações](20-operations/runbooks/)
 ```
 
 **Padrão de path relativo:**
@@ -474,10 +473,10 @@ done
 
 ## 9. Referências Rápidas
 
-- Template ADR: [docs/60-decisions/ADR-template.md](../60-decisions/ADR-template.md)
-- Problemas conhecidos: [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](../40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
-- Índice principal: [docs/00-overview/README.md](../00-overview/README.md)
-- Guia de git: [docs/CONTEXT.md](../00-overview/CONTEXT.md)
+- Template ADR: [docs/60-decisions/ADR-template.md](60-decisions/ADR-template.md)
+- Problemas conhecidos: [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
+- Índice principal: [docs/00-overview/README.md](00-overview/README.md)
+- Guia de git: [docs/CONTEXT.md](00-overview/CONTEXT.md)
 
 ---
 

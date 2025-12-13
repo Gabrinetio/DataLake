@@ -1,7 +1,138 @@
-# Problemas e Soluções — Documentação de Troubleshooting
+# Problemas e Soluções
 
-**Última Atualização:** 10/12/2025  
-**Total de Soluções:** 12+
+## Superset + PostgreSQL (CT 115)
+
+### ✅ PostgreSQL instalado e configurado
+**Data:** 12 de dezembro de 2025  
+**Status:** RESOLVIDO
+
+**Problema:**
+Superset necessitava de um banco de dados para armazenar metadados (usuários, dashboards, datasets, etc.). A solução anterior usava SQLite, que não é recomendado para produção.
+
+**Solução Implementada:**
+1. Instalação do PostgreSQL 15 no CT 115 (superset)
+2. Serviço PostgreSQL iniciado e habilitado
+3. Driver `psycopg2-binary` instalado no venv do Superset
+4. Configuração em `/opt/superset/superset_config.py`:
+   ```python
+   SECRET_KEY = "80/oGMZg02v74/xMojMzugowMKlkJyOnmXmULDeoHkbVRWgo9i1WEX/l"
+   SQLALCHEMY_DATABASE_URI = "postgresql://postgres@localhost/postgres"
+   ```
+
+**Verificação:**
+```bash
+# Status do serviço
+pct exec 115 -- systemctl status postgresql
+
+# Processos PostgreSQL rodando
+pct exec 115 -- ps aux | grep postgres
+
+# Verificar se a porta 5432 está aberta
+pct exec 115 -- netstat -tlnp | grep 5432
+```
+
+**Próximos Passos:**
+- Reiniciar Superset para aplicar a configuração
+- Executar `superset db upgrade` para criar tabelas
+- Testar acesso a dashboards e datasets via interface web — Documentação de Troubleshooting
+
+## Gitea SSH via Proxmox (CT 118) - RESOLVIDO
+
+**Data:** 12 de dezembro de 2025  
+**Status:** ✅ RESOLVIDO (Solução Definitiva)
+
+### Problema Original:
+SSH direto para CT 118 (192.168.4.26) resultava em "Connection timed out".
+
+### Causa Raiz (Identificada após diagnóstico):
+- ❌ NÃO era firewall/roteamento Proxmox
+- ❌ NÃO era ip_forward desabilitado
+- ✅ Era **limitação de rede/isolamento do container LXC**
+- Containers LXC em Proxmox têm restrições de roteamento para máquinas externas
+
+### Solução Final Adotada:
+**Usar `pct exec` via Proxmox com Autenticação por Senha - Simples, Seguro, Confiável**
+
+1. ✅ Script wrapper: `scripts/ct118_access.ps1`
+   ```powershell
+   # Definir variável de ambiente com senha
+   $env:PROXMOX_PASSWORD = 'sua_senha_proxmox'
+   
+   # Ou passar como parâmetro
+   .\scripts\ct118_access.ps1 -Command "whoami" -User "datalake" -ProxmoxPassword "sua_senha"
+   ```
+
+2. ✅ SSH via Proxmox direto (com senha):
+   ```bash
+   # Usando sshpass para automação
+   sshpass -p 'sua_senha' ssh -o StrictHostKeyChecking=no root@192.168.4.25 'pct exec 118 -- su - datalake -c "comando"'
+   ```
+
+3. ✅ Gitea web UI: `http://192.168.4.26:3000` (funciona normalmente)
+
+### Autenticação Proxmox:
+- ❌ **NÃO** usar chaves SSH (removido)
+- ✅ **SIM** usar autenticação por senha
+- Motivo: Simplicidade, compatibilidade com scripts, sem gerenciamento de chaves
+
+### Por que é a Melhor Solução:
+- ✅ Seguro (autenticação Proxmox obrigatória via senha)
+- ✅ Simples (sem port forwarding complexo)
+- ✅ Confiável (usa mecanismo nativo do Proxmox)
+- ✅ Sem overhead de DNAT/iptables
+- ✅ Padrão da indústria para LXC
+- ✅ Sem necessidade de gerenciar chaves SSH
+
+### Status Final:
+- Gitea service: ✅ Ativo
+- MariaDB: ✅ Ativo
+- HTTP 3000: ✅ Acessível
+- SSH direto: ❌ Não necessário (use pct exec)
+- SSH via wrapper com senha: ✅ Funciona perfeitamente
+- Proxmox acesso: ✅ Apenas porta 22, autenticação por senha
+
+### Lições Aprendidas:
+1. SSH direto a LXC containers em Proxmox pode ter limitações de roteamento
+2. `pct exec` é a forma correta de acessar containers
+3. Port forwarding/DNAT adiciona complexidade desnecessária
+4. Solução simples é sempre melhor
+
+**Última Atualização:** 12/12/2025  
+**Total de Soluções:** 14+
+
+## SSH Canônico - Ajustes CTs (MinIO, Spark, Kafka, Superset, Airflow, Gitea)
+
+**Data:** 12 de dezembro de 2025  
+**Status:** ✅ Resolvido
+
+**Problema:**
+- Falha de acesso SSH canônico em múltiplos CTs; Kafka (CT 109) sem IP v4 ativo; Gitea (CT 118) recusando conexão externa na porta 22.
+
+**Causas:**
+- CT 109 configurado com `ip=dhcp` e networking.service em falha (sem IPv4).  
+- Tentativas anteriores de acesso geraram “Connection timed out during banner exchange” (sshd ativo, mas sem reachability).  
+- CT 118 com sshd ativo, mas histórico de muitas tentativas por senha; inicialmente “connection refused” da estação local.
+
+**Solução Aplicada:**
+1) Kafka (CT 109):
+    - Definido IP estático: `192.168.4.34/24 gw 192.168.4.1` via `pct set 109 -net0 name=eth0,bridge=vmbr0,firewall=1,hwaddr=BC:24:11:98:7A:B0,ip=192.168.4.34/24,gw=192.168.4.1,ip6=dhcp`.
+    - `pct stop 109 && pct start 109` para aplicar.
+    - Restart sshd: `pct exec 109 -- systemctl restart ssh`.
+
+2) Gitea (CT 118):
+    - Restart sshd: `pct exec 118 -- systemctl restart ssh`.
+    - Verificados iptables/fail2ban: cadeia `f2b-SSH` sem bans ativos; sshd ouvindo em 0.0.0.0:22 e ::22.
+
+**Verificação:**
+- Script `scripts/test_canonical_ssh.sh` (com ping + nc + SSH) usando chave canônica corrigida (/tmp/ct_key permissões 600):
+  - OK: 192.168.4.31 (minio), 192.168.4.33 (spark), 192.168.4.34 (kafka), 192.168.4.37 (superset), 192.168.4.36 (airflow), 192.168.4.26 (gitea).
+  - Log: `artifacts/logs/test_canonical_ssh.log`.
+
+**Lições / Notas:**
+- Para CTs críticos, preferir IP estático em `pct set` em vez de DHCP.  
+- Se banner SSH demora/time out mas porta 22 abre, checar IP/rota antes de sshd.  
+- Para hosts Windows, se permissões da chave forem problema, usar cópia em `/tmp/ct_key` com chmod 600 para testes.  
+- Monitorar fail2ban ao testar múltiplas vezes (evitar bloqueios por tentativas).  
 
 ---
 
@@ -133,7 +264,7 @@ from src.config import get_spark_s3_config
 ### Referência:
 
 👉 **Documentação Completa:** [`docs/50-reference/env.md`](../50-reference/env.md)  
-👉 **Progresso:** [`PROGRESSO_MIGRACAO_CREDENCIAIS.md`](../PROGRESSO_MIGRACAO_CREDENCIAIS.md)
+👉 **Progresso:** [`PROGRESSO_MIGRACAO_CREDENCIAIS.md`](../99-archive/PROGRESSO_MIGRACAO_CREDENCIAIS.md)
 
 ---
 
@@ -602,20 +733,22 @@ Lição Aprendida:
 - Acesso SSH funcional como `datalake` com chave, sudo disponível sem senha.
 
 **Método Alternativo (Fallback se scripts falharem):**
-- Se o script `setup_ssh_ct.ps1` falhar, execute manualmente os comandos no CT via SSH root:
-  1. Gerar chave local: `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N '' -C 'user@local'`
-  2. Obter pub: `cat ~/.ssh/id_ed25519.pub`
-  3. SSH root@CT_IP
-  4. mkdir -p /home/user/.ssh
-  5. echo 'PUB_KEY' >> /home/user/.ssh/authorized_keys
-  6. chmod 600 /home/user/.ssh/authorized_keys
-  7. chown -R user:user /home/user/.ssh
-  8. Testar: ssh user@CT_IP
+- Se os scripts `scripts/enforce_canonical_ssh_key.sh` ou `scripts/test_canonical_ssh.sh` falharem, execute manualmente os comandos no CT via SSH root:
+    1. Gerar chave local: `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N '' -C 'user@local'`
+    2. Obter pub: `cat ~/.ssh/id_ed25519.pub`
+    3. SSH root@CT_IP
+    4. mkdir -p /home/user/.ssh
+    5. echo 'PUB_KEY' >> /home/user/.ssh/authorized_keys
+    6. chmod 600 /home/user/.ssh/authorized_keys
+    7. chown -R user:user /home/user/.ssh
+    8. Testar: ssh user@CT_IP
 
 **Recomendações:**
 - Manter chaves seguras e rotacionar periodicamente.
 - Usar este método para outros CTs se necessário.
 - Evitar acesso root direto em produção.
+
+**Referência relacionada:** [docs/99-archive/PROGRESSO_MIGRACAO_CREDENCIAIS.md](../99-archive/PROGRESSO_MIGRACAO_CREDENCIAIS.md)
 
 ## db-hive (Hive Metastore + MariaDB) — Problemas resolvidos
 

@@ -127,12 +127,12 @@ nano /etc/hosts
 Adicionar:
 ```
 192.168.4.32   db-hive.gti.local
-192.168.4.32   minio.gti.local
+192.168.4.31   minio.gti.local
 192.168.4.33   spark.gti.local
-192.168.4.32   kafka.gti.local
-192.168.4.32   trino.gti.local
-192.168.4.16   superset.gti.local
-192.168.4.32   airflow.gti.local
+192.168.4.34   kafka.gti.local
+192.168.4.35   trino.gti.local
+192.168.4.37   superset.gti.local
+192.168.4.36   airflow.gti.local
 192.168.4.26   gitea.gti.local
 ```
 

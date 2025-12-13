@@ -31,7 +31,7 @@ O MinIO será o armazenamento de objetos S3-compatível responsável por hospeda
 - checkpoints de streaming do Spark
 - dados temporários e staging
 
-Hostname: `minio.gti.local` (IP sugerido: `192.168.4.32`)
+Hostname: `minio.gti.local` (IP: `192.168.4.31`)
 
 ---
 
@@ -55,9 +55,13 @@ Recomendações:
 Adicionar hosts no `/etc/hosts` do CT (todos os hosts do cluster):
 ```
 192.168.4.32   db-hive.gti.local
-192.168.4.32   minio.gti.local
+192.168.4.31   minio.gti.local
 192.168.4.33   spark.gti.local
-...
+192.168.4.34   kafka.gti.local
+192.168.4.35   trino.gti.local
+192.168.4.37   superset.gti.local
+192.168.4.36   airflow.gti.local
+192.168.4.26   gitea.gti.local
 ```
 
 ---

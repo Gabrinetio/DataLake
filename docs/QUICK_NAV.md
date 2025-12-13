@@ -19,50 +19,50 @@ DataLake_FB-v2/
 ## 📚 Encontre o que você procura
 
 ### "Preciso entender o projeto como um todo"
-1. Comece por: [README.md](../../README.md) (raiz)
-2. Depois leia: [docs/00-overview/README.md](../00-overview/README.md) (novo índice)
-3. Referência: [docs/00-overview/CONTEXT.md](../00-overview/CONTEXT.md) (contexto técnico)
+1. Comece por: [README.md](../README.md) (raiz)
+2. Depois leia: [docs/00-overview/README.md](00-overview/README.md) (novo índice)
+3. Referência: [docs/00-overview/CONTEXT.md](00-overview/CONTEXT.md) (contexto técnico)
 
 ### "Preciso entender a arquitetura"
-→ [docs/10-architecture/Projeto.md](../10-architecture/Projeto.md)
+→ [docs/10-architecture/Projeto.md](10-architecture/Projeto.md)
 
 ### "Qual é o status de cada iteração?"
-→ [docs/30-iterations/STATUS.md](../30-iterations/STATUS.md) (tabelação centralizada)
+→ [docs/30-iterations/STATUS.md](30-iterations/STATUS.md) (tabelação centralizada)
 
 ### "Preciso de um runbook para operação X"
-→ [docs/20-operations/runbooks/](../20-operations/runbooks/)
+→ [docs/20-operations/runbooks/](20-operations/runbooks/)
 - RUNBOOK_STARTUP.md
 - RUNBOOK_SHUTDOWN.md
 - RUNBOOK_BACKUP_RESTORE.md
 - RUNBOOK_TROUBLESHOOTING.md
 
 ### "Preciso fazer um checklist"
-→ [docs/20-operations/checklists/](../20-operations/checklists/)
+→ [docs/20-operations/checklists/](20-operations/checklists/)
 - PHASE_1_CHECKLIST.md
 - PRODUCTION_DEPLOYMENT_CHECKLIST.md
 - ROTATE_CREDENTIALS.md
 
 ### "Encontrei um erro/problema"
-1. Procure em: [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](../40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
+1. Procure em: [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
 2. Se não encontrar, adicione como nova entrada
 
 ### "Preciso de variáveis de ambiente"
-→ [docs/50-reference/env.md](../50-reference/env.md)
+→ [docs/50-reference/env.md](50-reference/env.md)
 
 ### "Preciso saber quais são os endpoints"
-→ [docs/50-reference/endpoints.md](../50-reference/endpoints.md)
+→ [docs/50-reference/endpoints.md](50-reference/endpoints.md)
 
 ### "Preciso configurar firewall/ACLs"
-→ [docs/50-reference/portas_acls.md](../50-reference/portas_acls.md)
+→ [docs/50-reference/portas_acls.md](50-reference/portas_acls.md)
 
 ### "Preciso rotacionar credenciais"
-→ [docs/50-reference/credenciais_rotina.md](../50-reference/credenciais_rotina.md)
+→ [docs/50-reference/credenciais_rotina.md](50-reference/credenciais_rotina.md)
 
 ### "Preciso entender uma decisão arquitetural"
-→ [docs/60-decisions/](../60-decisions/) (ADRs)
+→ [docs/60-decisions/](60-decisions/) (ADRs)
 
 ### "Vou contribuir com documentação"
-→ [docs/CONTRIBUTING.md](../CONTRIBUTING.md) (guia de contribuição)
+→ [docs/CONTRIBUTING.md](CONTRIBUTING.md) (guia de contribuição)
 
 ---
 
@@ -168,38 +168,38 @@ Navegar para: /docs e explorar estrutura
 → Veja a seção apropriada neste guia
 
 ### 3️⃣ Não tem certeza?
-→ Comece por [docs/00-overview/README.md](../00-overview/README.md)
+→ Comece por [docs/00-overview/README.md](00-overview/README.md)
 
 ### 4️⃣ Não encontrou?
-→ Procure em [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](../40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
+→ Procure em [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
 
 ### 5️⃣ Ainda não encontrou?
-→ Consulte o [Índice legado](../INDICE_DOCUMENTACAO.md) (será deprecated em breve)
+→ Consulte o [Índice legado](INDICE_DOCUMENTACAO.md) (será deprecated em breve)
 
 ---
 
 ## 🎯 Cenários Rápidos
 
 ### "Estou iniciando um novo feature"
-1. Consulte [CONTEXT.md](../00-overview/CONTEXT.md) para entender stack
-2. Leia [Projeto.md](../10-architecture/Projeto.md) para arquitetura
-3. Crie ADR em [docs/60-decisions/](../60-decisions/) se necessário
-4. Documente em [CONTRIBUTING.md](../CONTRIBUTING.md)
+1. Consulte [CONTEXT.md](00-overview/CONTEXT.md) para entender stack
+2. Leia [Projeto.md](10-architecture/Projeto.md) para arquitetura
+3. Crie ADR em [docs/60-decisions/](60-decisions/) se necessário
+4. Documente em [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ### "Preciso fazer deployment em produção"
-1. Leia [PRODUCTION_DEPLOYMENT_CHECKLIST.md](../20-operations/checklists/PRODUCTION_DEPLOYMENT_CHECKLIST.md)
-2. Consulte [endpoints.md](../50-reference/endpoints.md) para IPs/portas
-3. Use [portas_acls.md](../50-reference/portas_acls.md) para firewall
-4. Siga runbook apropriado em [docs/20-operations/runbooks/](../20-operations/runbooks/)
+1. Leia [PRODUCTION_DEPLOYMENT_CHECKLIST.md](20-operations/checklists/PRODUCTION_DEPLOYMENT_CHECKLIST.md)
+2. Consulte [endpoints.md](50-reference/endpoints.md) para IPs/portas
+3. Use [portas_acls.md](50-reference/portas_acls.md) para firewall
+4. Siga runbook apropriado em [docs/20-operations/runbooks/](20-operations/runbooks/)
 
 ### "Estou resolvendo um problema"
-1. Procure em [PROBLEMAS_ESOLUCOES.md](../40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
+1. Procure em [PROBLEMAS_ESOLUCOES.md](40-troubleshooting/PROBLEMAS_ESOLUCOES.md)
 2. Se solução encontrada, siga os passos
-3. Se não encontrou, procure em [Projeto.md](../10-architecture/Projeto.md) (Seção 16)
+3. Se não encontrou, procure em [Projeto.md](10-architecture/Projeto.md) (Seção 16)
 4. Se ainda não resolver, documente como novo problema
 
 ### "Vou contribuir com documentação"
-1. Leia [CONTRIBUTING.md](../CONTRIBUTING.md) para convenções
+1. Leia [CONTRIBUTING.md](CONTRIBUTING.md) para convenções
 2. Coloque documento no diretório correto
 3. Atualize links e índices
 4. Execute `bash check-doc-links.sh docs/` para validar
@@ -225,20 +225,20 @@ Navegar para: /docs e explorar estrutura
 | Questão | Resposta |
 |---------|----------|
 | "Onde fica X?" | Veja [Estrutura Completa](#estrutura-completa) acima |
-| "Como escrever docs?" | Consulte [docs/CONTRIBUTING.md](../CONTRIBUTING.md) |
+| "Como escrever docs?" | Consulte [docs/CONTRIBUTING.md](CONTRIBUTING.md) |
 | "Links estão quebrados?" | Execute `bash docs/check-doc-links.sh docs/` |
-| "Dúvida sobre feature?" | Leia [docs/00-overview/CONTEXT.md](../00-overview/CONTEXT.md) |
-| "Erro durante operação?" | Procure em [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](../40-troubleshooting/PROBLEMAS_ESOLUCOES.md) |
+| "Dúvida sobre feature?" | Leia [docs/00-overview/CONTEXT.md](00-overview/CONTEXT.md) |
+| "Erro durante operação?" | Procure em [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](40-troubleshooting/PROBLEMAS_ESOLUCOES.md) |
 
 ---
 
 ## ✨ Próximos Passos
 
-- [ ] Ler [docs/00-overview/README.md](../00-overview/README.md) (novo índice)
-- [ ] Entender [docs/00-overview/CONTEXT.md](../00-overview/CONTEXT.md) (contexto)
-- [ ] Navegar [docs/10-architecture/Projeto.md](../10-architecture/Projeto.md) (arquitetura)
-- [ ] Consultar [docs/30-iterations/STATUS.md](../30-iterations/STATUS.md) (progresso)
-- [ ] Marcar [docs/CONTRIBUTING.md](../CONTRIBUTING.md) como favorito
+- [ ] Ler [docs/00-overview/README.md](00-overview/README.md) (novo índice)
+- [ ] Entender [docs/00-overview/CONTEXT.md](00-overview/CONTEXT.md) (contexto)
+- [ ] Navegar [docs/10-architecture/Projeto.md](10-architecture/Projeto.md) (arquitetura)
+- [ ] Consultar [docs/30-iterations/STATUS.md](30-iterations/STATUS.md) (progresso)
+- [ ] Marcar [docs/CONTRIBUTING.md](CONTRIBUTING.md) como favorito
 
 ---
 
@@ -246,4 +246,4 @@ Navegar para: /docs e explorar estrutura
 
 **📅 Atualizado:** 11 de dezembro de 2025
 
-**👉 [Voltar ao README](../../README.md)**
+**👉 [Voltar ao README](../README.md)**
