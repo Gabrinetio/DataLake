@@ -75,3 +75,4 @@ systemd.env
 # Certificados temporários
 certs/
 *.cert
+tmp_test_key*.txt
