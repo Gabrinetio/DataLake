@@ -31,7 +31,7 @@ The system follows a typical "Modern Data Stack" architecture deployed on-premis
 | **Kafka (CT 109)** | 4GB | 2 Cores | 20GB | `192.168.4.34` |
 
 | **Superset (CT 115)** | 4GB | 2 Cores | 20GB | `192.168.4.37` |
-| **Airflow (CT 116)** | 4GB | 2 Cores | 20GB | `192.168.4.36` |
+
 | **Gitea (CT 118)** | 1GB | 1 Core | 10GB | `192.168.4.26` |
 | **MinIO (CT 107)** | 2GB | 2 Cores | 20GB | `192.168.4.31` |
 | **Spark (CT 108)** | 4GB | 2 Cores | 20GB | `192.168.4.33:8080` |
