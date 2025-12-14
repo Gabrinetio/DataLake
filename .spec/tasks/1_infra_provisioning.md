@@ -20,7 +20,7 @@ Set up the physical and virtual infrastructure required to run the DataLake serv
 2.  **Create LXC Containers**:
 
     - Use `infra/provisioning/provision_container.sh` (or `pct create` manually).
-    - Create CT 115 (Superset/Trino), 118 (Gitea), 119 (MinIO), 120 (Spark), 121 (Hive).
+    - Create CT 109 (Kafka), 115 (Superset), 116 (Airflow), 118 (Gitea), 119 (MinIO), 120 (Spark), 121 (Hive).
     - Assign IPs as per `plan.md`.
 
 3.  **Configure SSH Access**:
