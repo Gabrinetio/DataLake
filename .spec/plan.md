@@ -33,7 +33,7 @@ The system follows a typical "Modern Data Stack" architecture deployed on-premis
 | **Gitea (CT 118)**    | 1GB   | 1 Core  | 10GB        | `192.168.4.26` |
 | **MinIO (CT 107)**    | 2GB   | 2 Cores | 20GB        | `192.168.4.31` |
 | **Spark (CT 108)**    | 4GB   | 4 Cores | 20GB        | `192.168.4.33` |
-| **Hive (CT 117)**     | 2GB   | 2 Cores | 10GB        | `192.168.4.35` |
+| **Hive (CT 117)**     | 2GB   | 2 Cores | 10GB        | `192.168.4.32` |
 
 ## 4. Implementation Details
 
@@ -72,12 +72,12 @@ The strict order for deploying containers to ensure dependency resolution:
 
 3.  **Level 2: Metadata & Ingestion**
 
-    - `Hive Metastore (CT 121)` - _Required by Spark_
+    - `Hive Metastore (CT 117)` - _Required by Spark_ (**EXISTING/IMPLEMENTED**)
     - `Kafka (CT 109)` - _Independent, but required for streaming ingestion_
 
 4.  **Level 3: Compute Layer**
 
-    - `Spark (CT 120)` - _Depends on MinIO and Hive_
+    - `Spark (CT 108)` - _Depends on MinIO and Hive_
 
 5.  **Level 4: Orchestration & Serving**
     - `Airflow (CT 116)` - _Controls Spark jobs_
