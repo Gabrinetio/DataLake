@@ -33,7 +33,7 @@ The system follows a typical "Modern Data Stack" architecture deployed on-premis
 | **Gitea (CT 118)**    | 1GB   | 1 Core  | 10GB        | `192.168.4.26` |
 | **MinIO (CT 119)**    | 2GB   | 2 Cores | 20GB        | `192.168.4.31` |
 | **Spark (CT 120)**    | 4GB   | 4 Cores | 20GB        | `192.168.4.33` |
-| **Hive (CT 121)**     | 2GB   | 2 Cores | 10GB        | `192.168.4.33` |
+| **Hive (CT 121)**     | 2GB   | 2 Cores | 10GB        | `192.168.4.35` |
 
 ## 4. Implementation Details
 
@@ -64,7 +64,7 @@ The strict order for deploying containers to ensure dependency resolution:
 1.  **Level 0: Infrastructure & Config**
 
     - `Proxmox Host` (Network, DNS, Storage)
-    - `Gitea (CT 118)` (Code Repository - Independent)
+    - `Gitea (CT 118)` (Code Repository - **EXISTING/IMPLEMENTED**)
 
 2.  **Level 1: Storage Layer** (Critical Dependency)
 
