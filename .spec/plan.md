@@ -56,3 +56,29 @@ The system follows a typical "Modern Data Stack" architecture deployed on-premis
 
 - **Method**: Semi-automated scripts (`scripts/provisioning/`).
 - **Verification**: Automated test suite (`src/tests/*.py`) validating data gen, backup, and restore.
+
+## 6. Implementation Order (Dependencies)
+
+The strict order for deploying containers to ensure dependency resolution:
+
+1.  **Level 0: Infrastructure & Config**
+
+    - `Proxmox Host` (Network, DNS, Storage)
+    - `Gitea (CT 118)` (Code Repository - Independent)
+
+2.  **Level 1: Storage Layer** (Critical Dependency)
+
+    - `MinIO (CT 119)` - _Required by Hive and Spark_
+
+3.  **Level 2: Metadata & Ingestion**
+
+    - `Hive Metastore (CT 121)` - _Required by Spark_
+    - `Kafka (CT 109)` - _Independent, but required for streaming ingestion_
+
+4.  **Level 3: Compute Layer**
+
+    - `Spark (CT 120)` - _Depends on MinIO and Hive_
+
+5.  **Level 4: Orchestration & Serving**
+    - `Airflow (CT 116)` - _Controls Spark jobs_
+    - `Superset (CT 115)` - _Visualizes data from Spark/Trino_
