@@ -30,8 +30,9 @@ The system follows a typical "Modern Data Stack" architecture deployed on-premis
 
 | **Kafka (CT 109)** | 4GB | 2 Cores | 20GB | `192.168.4.34` |
 
-| **Superset (CT 115)** | 4GB | 2 Cores | 20GB | `192.168.4.37` |
+| **Superset (CT 115)** | 1GB | 1 Core | 20GB | `192.168.4.37:8088` |
 
+| **Airflow (CT 116)** | 4GB | 2 Cores | 20GB | `192.168.4.36:8089` |
 | **Gitea (CT 118)** | 1GB | 1 Core | 10GB | `192.168.4.26` |
 | **MinIO (CT 107)** | 2GB | 2 Cores | 20GB | `192.168.4.31` |
 | **Spark (CT 108)** | 4GB | 2 Cores | 20GB | `192.168.4.33:8080` |
@@ -79,8 +80,8 @@ The strict order for deploying containers to ensure dependency resolution:
 
 4.  **Level 3: Compute Layer**
 
-    - `Spark (CT 108)` - _Depends on MinIO and Hive_
+    - `Spark (CT 108)` - _Depends on MinIO and Hive_ (**EXISTING/IMPLEMENTED**)
 
 5.  **Level 4: Orchestration & Serving**
-    - `Airflow (CT 116)` - _Controls Spark jobs_
-    - `Superset (CT 115)` - _Visualizes data from Spark/Trino_
+    - `Airflow (CT 116)` - _Orchestrator_ (**EXISTING/IMPLEMENTED**)
+    - `Superset (CT 115)` - _BI/Visualization_ (**EXISTING/IMPLEMENTED**)
