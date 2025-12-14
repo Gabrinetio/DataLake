@@ -63,7 +63,7 @@ The strict order for deploying containers to ensure dependency resolution:
 
 1.  **Level 0: Infrastructure & Config**
 
-    - `Proxmox Host` (Network, DNS, Storage)
+    - `Proxmox Host` (Network, DNS, Storage - **EXISTING/IMPLEMENTED**)
     - `Gitea (CT 118)` (Code Repository - **EXISTING/IMPLEMENTED**)
 
 2.  **Level 1: Storage Layer** (Critical Dependency)

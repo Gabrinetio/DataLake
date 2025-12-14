@@ -12,10 +12,10 @@ Set up the physical and virtual infrastructure required to run the DataLake serv
 
 ## Steps
 
-1.  **Configure Host Network**:
+1.  **Verify Host Network (Existing)**:
 
-    - Ensure static IP `192.168.4.25` is assigned.
-    - Configure internal DNS resolver.
+    - Verify static IP `192.168.4.25` is assigned.
+    - Verify internal DNS resolver.
 
 2.  **Create LXC Containers**:
 
