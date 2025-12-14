@@ -20,7 +20,7 @@ Set up the physical and virtual infrastructure required to run the DataLake serv
 2.  **Create LXC Containers**:
 
     - Use `infra/provisioning/provision_container.sh` (or `pct create` manually).
-    - **Phase 1**: Verify CT 118 (Gitea - Existing) and Create CT 119 (MinIO).
+    - **Phase 1**: Verify CT 118 (Gitea - Existing) and CT 107 (MinIO - Existing).
     - **Phase 2**: Create CT 121 (Hive) and CT 109 (Kafka).
     - **Phase 3**: Create CT 120 (Spark).
     - **Phase 4**: Create CT 116 (Airflow) and CT 115 (Superset).
