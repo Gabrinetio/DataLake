@@ -5,6 +5,11 @@ Assegurar que apenas a chave canonica do projeto seja usada para acesso SSH ao u
 
 ## Requisitos
 - Par canonico unico (ED25519):
+
+  **Local da chave privada canônica (não comitar):** `%USERPROFILE%/.ssh/ct_datalake_id_ed25519`  
+  - A chave pública canônica está em `scripts/key/ct_datalake_id_ed25519.pub`.  
+  - Para automações, defina `SSH_KEY_PATH` para apontar para a chave privada quando necessário (ex.: `C:\Users\Gabriel Santana\.ssh\ct_datalake_id_ed25519`).  
+  - **Nunca comitar a chave privada** no repositório; o arquivo privado deve existir apenas no host de operações e ter permissão 600.
   - Privada: scripts/key/ct_datalake_id_ed25519 (uso local, fora de versionamento em producao)
   - Publica: scripts/key/ct_datalake_id_ed25519.pub (arquivo autorizado nos CTs)
 - Usuario alvo: `datalake` (nao usar root para operacoes regulares).
@@ -37,6 +42,28 @@ ssh -i .\scripts\key\ct_datalake_id_ed25519 -o StrictHostKeyChecking=no -o Numbe
  
  - **AVISO:** a chave privada canônica **não deve** ser comprometida em repositórios públicos ou produção. Se `scripts/key/ct_datalake_id_ed25519` existir no repositório, remova-a antes de pushar para um ambiente público e gere um par exclusivo para produção. Use `.gitignore` para evitar commits acidentais.
 
+## Instalação local segura da chave privada
+
+Se você **já** possui a chave privada canônica localmente, não a compartilhe por canais públicos.
+Em vez disso, instale-a no host do operador com o script `scripts/install_canonical_private_key.sh`.
+
+Exemplos:
+
+```bash
+# a partir de um arquivo
+./scripts/install_canonical_private_key.sh /path/to/ct_datalake_id_ed25519
+
+# via stdin
+cat /path/to/ct_datalake_id_ed25519 | ./scripts/install_canonical_private_key.sh
+```
+
+O script grava a chave em `~/.ssh/ct_datalake_id_ed25519`, ajusta permissões e tenta gerar `~/.ssh/ct_datalake_id_ed25519.pub`.
+
+Se você não tiver a chave privada canônica disponível, eu posso:
+- Ajudar a gerar um novo par (localmente) e registrar a pública em Gitea;
+- Orientar como recuperar a chave de um cofre/secrets manager seguro (não do repositório).
+
+
 ## Aplicacao automatizada via Proxmox (bash)
 Use o script bash (Linux/WSL/Git Bash) para aplicar a chave publica canonicamente em varios CTs:
 
@@ -58,3 +85,28 @@ O script:
 - Nao alterar sshd_config em producao; padrao e acesso por chave + permissoes corretas.
 - Manter a chave privada fora de controle de versao e com permissoes 600.
 - Se criar nova chave, registrar a decisao em docs/00-overview/CONTEXT.md e atualizar este guia.
+
+## Gerar um novo par canônico (local)
+Se a chave privada canônica não estiver disponível, gere um novo par localmente e registre a pública no Gitea.
+
+```bash
+# gera em ~/.ssh/ct_datalake_id_ed25519
+./scripts/generate_canonical_key.sh
+
+# opcional: definir outro caminho ou forçar overwrite
+OUT=/tmp/ct_datalake_id_ed25519 FORCE=1 ./scripts/generate_canonical_key.sh
+```
+
+Depois de gerar:
+- Registre a pública no Gitea (user key ou deploy key):
+  ./scripts/gitea_add_user_key.sh --token "$GITEA_TOKEN" --title "ct-datalake" --key-file ~/.ssh/ct_datalake_id_ed25519.pub
+- Reaplique a pública nos CTs (authorized_keys) usando scripts/enforce_canonical_ssh_key.sh ou loop via Proxmox.
+- Documente a troca em docs/00-overview/CONTEXT.md.
+
+## Registro da chave no Gitea (API)
+- Requer `GITEA_TOKEN` (PAT com permissão de write). Host padrão: `gitea.gti.local:3000`.
+- Adicionar como chave de usuário (permite push):
+  ./scripts/gitea_add_user_key.sh --host gitea.gti.local:3000 --key ~/.ssh/ct_datalake_id_ed25519.pub --title "ct-datalake"
+- Adicionar como deploy key do repositório (somente repo específico):
+  ./scripts/gitea_add_deploy_key.sh --host gitea.gti.local:3000 --repo gitea/Datalake_FB --key ~/.ssh/ct_datalake_id_ed25519.pub --title "ct-datalake-deploy"
+
