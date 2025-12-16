@@ -13,6 +13,7 @@ Uso: enforce_canonical_ssh_key.sh --proxmox root@HOST --cts "107 108" [--pub-key
 EOF
 }
 
+DRYRUN=false
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --proxmox) PROXMOX="$2"; shift 2 ;;
@@ -20,6 +21,7 @@ while [[ $# -gt 0 ]]; do
     --pub-key) PUB_KEY="$2"; shift 2 ;;
     --user) SSH_USER="$2"; shift 2 ;;
     --ssh-opts) SSH_OPTS="$2"; shift 2 ;;
+    --dry-run) DRYRUN=true; shift 1 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Parametro desconhecido: $1" >&2; usage; exit 1 ;;
   esac
@@ -38,10 +40,16 @@ fi
 
 PUB_CONTENT="$(<"$PUB_KEY")"
 
+DRYRUN=false
+
 for ct in $CTS; do
   echo "==== CT $ct ===="
-  printf '%s\n' "$PUB_CONTENT" |
-    ssh $SSH_OPTS "$PROXMOX" "pct exec $ct -- bash -lc 'set -euo pipefail; umask 077; mkdir -p /home/$SSH_USER/.ssh; cat > /home/$SSH_USER/.ssh/authorized_keys; chmod 700 /home/$SSH_USER/.ssh; chmod 600 /home/$SSH_USER/.ssh/authorized_keys; chown -R $SSH_USER:$SSH_USER /home/$SSH_USER/.ssh'"
-  echo "Aplicado em CT $ct"
+  cmd="printf '%s\n' \"$PUB_CONTENT\" | ssh $SSH_OPTS \"$PROXMOX\" \"pct exec $ct -- bash -lc 'set -euo pipefail; umask 077; mkdir -p /home/$SSH_USER/.ssh; cat > /home/$SSH_USER/.ssh/authorized_keys; chmod 700 /home/$SSH_USER/.ssh; chmod 600 /home/$SSH_USER/.ssh/authorized_keys; chown -R $SSH_USER:$SSH_USER /home/$SSH_USER/.ssh'\""
+  if [[ "$DRYRUN" == "true" ]]; then
+    echo "DRYRUN: $cmd"
+  else
+    eval "$cmd"
+    echo "Aplicado em CT $ct"
+  fi
   echo
 done
