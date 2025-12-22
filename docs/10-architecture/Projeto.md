@@ -144,6 +144,22 @@ Para instruções detalhadas e scripts de instalação, consulte: `docs/MinIO_Im
 9.6 Permissões e Segurança Básica
 9.7 API REST do Superset (tokens e chamadas)
 
+9.8 Deploy & Operação (Resumo)
+
+- Local de instalação: `/opt/superset_venv` (venv) e configuração em `/opt/superset/config/superset_config.py`.
+- Banco: PostgreSQL local no CT `115` — role `superset` e DB `superset` criados e migrados.
+- Serviços systemd:
+  - `superset.service` (gunicorn → porta 8088)
+  - `superset-celery-worker.service` (Celery worker)
+  - `superset-celery-beat.service` (Celery beat/scheduler)
+- Broker/Cache: Redis local configurado e endurecido (senha, AOF habilitado, backups em `/var/backups/redis`).
+- Acesso: Superset disponível via HTTP em `http://<host>:8088` (por decisão do time, sem reverse-proxy nesta implantação).
+- Segredos e credenciais: arquivo seguro `/opt/superset/config/redis_secret` (root only); DB password armazenada em `.env`/cofre conforme política.
+- Logs e verificação: `systemctl status superset`, `journalctl -u superset`, `ss -tlnp | grep 8088` e `superset fab list-users`.
+
+Para instruções detalhadas, scripts e recomendações de produção veja: [SUPERSET_DEPLOYMENT.md](docs/20-operations/SUPERSET_DEPLOYMENT.md).
+
+
 ---
 
 ## **10. Componente 7 – Airflow (Orquestração)**
@@ -155,6 +171,10 @@ Para instruções detalhadas e scripts de instalação, consulte: `docs/MinIO_Im
 10.5 Diretório de DAGs integrado ao Gitea
 10.6 Teste: DAG simples Spark → Iceberg
 10.7 Teste: DAG de manutenção e data quality
+10.8 Airflow Scheduler
+
+- **Systemd scheduler**: É recomendado criar um unit systemd para o `airflow-scheduler` para garantir reinício em reboot e supervisão. Use o script `scripts/setup_airflow_systemd.sh` para implantar e ativar o serviço no CT `airflow.gti.local`.
+- **Health checks**: Instale `curl` (se necessario) para usar endpoints de health do webserver via `scripts/ct_install_curl.sh`.
 
 ---
 
@@ -499,12 +519,12 @@ Exemplo de `/etc/hosts` padrão:
 
 ```
 192.168.4.32   db-hive.gti.local
-192.168.4.32   minio.gti.local
+192.168.4.31   minio.gti.local
 192.168.4.33   spark.gti.local
-192.168.4.32   kafka.gti.local
-192.168.4.32   trino.gti.local
-192.168.4.16   superset.gti.local
-192.168.4.32   airflow.gti.local
+192.168.4.34   kafka.gti.local
+192.168.4.35   trino.gti.local
+192.168.4.37   superset.gti.local
+192.168.4.36   airflow.gti.local
 192.168.4.26   gitea.gti.local
 ```
 
@@ -565,11 +585,11 @@ from src.config import get_spark_s3_config, HIVE_DB_PASSWORD
 
 | Variável | Contexto | Exemplo |
 |----------|----------|---------|
-| `HIVE_DB_PASSWORD` | MariaDB/PostgreSQL | `S3cureHivePass2025` |
+| `HIVE_DB_PASSWORD` | MariaDB/PostgreSQL | `<<SENHA_FORTE>>` (obter do Vault) |
 | `S3A_SECRET_KEY` | MinIO/S3A | `iRB;g2&ChZ&XQEW!` |
 | `SPARK_S3A_SECRET_KEY` | Spark S3A config | `iRB;g2&ChZ&XQEW!` |
-| `AIRFLOW_DB_PASSWORD` | PostgreSQL Airflow | `AirflowDB@2025` |
-| `GITEA_DB_PASSWORD` | PostgreSQL Gitea | `GiteaDB@2025` |
+| `AIRFLOW_DB_PASSWORD` | PostgreSQL Airflow | `<<SENHA_FORTE>>` (obter do Vault) |
+| `GITEA_DB_PASSWORD` | PostgreSQL Gitea | `<<SENHA_FORTE>>` (obter do Vault) |
 
 #### **Variáveis Não-Sensíveis (Públicas):**
 
@@ -1012,12 +1032,12 @@ Adicionar:
 
 ```
 192.168.4.32   db-hive.gti.local
-192.168.4.32   minio.gti.local
+192.168.4.31   minio.gti.local
 192.168.4.33   spark.gti.local
-192.168.4.32   kafka.gti.local
-192.168.4.32   trino.gti.local
-192.168.4.16   superset.gti.local
-192.168.4.32   airflow.gti.local
+192.168.4.34   kafka.gti.local
+192.168.4.35   trino.gti.local
+192.168.4.37   superset.gti.local
+192.168.4.36   airflow.gti.local
 192.168.4.26   gitea.gti.local
 ```
 
@@ -2695,7 +2715,7 @@ Este capítulo documenta a instalação, configuração e integração do Airflo
 | Disco        | 20 GB **SSD**       |
 | Unprivileged | YES                 |
 | Nesting      | YES                 |
-| IP           | **192.168.4.17**    |
+| IP           | **192.168.4.36**    |
 | Gateway      | 192.168.4.1         |
 
 ### Instalar pré-requisitos
@@ -2940,7 +2960,7 @@ systemctl start airflow-webserver airflow-scheduler
 Acessar no navegador:
 
 ```
-http://192.168.4.17:8089
+http://192.168.4.36:8089
 ```
 
 Login:
@@ -3068,7 +3088,7 @@ Superset funciona como a interface analítica do ecossistema Spark + Iceberg + T
 | Disco        | 20 GB **SSD**        |
 | Unprivileged | YES                  |
 | Nesting      | YES                  |
-| IP           | **192.168.4.16**     |
+| IP           | **192.168.4.37**     |
 | Gateway      | 192.168.4.1          |
 
 ### Instalar dependências
@@ -3258,7 +3278,7 @@ systemctl start superset
 URL:
 
 ```
-http://192.168.4.16:8088
+http://192.168.4.37:8088
 ```
 
 Login:
@@ -3443,7 +3463,7 @@ CACHE_TYPE = "RedisCache"
 
 # **10.11 Hardening**
 
-✔ Limitar acesso externo ao IP 192.168.4.16
+✔ Limitar acesso externo ao IP 192.168.4.37
 ✔ Usar HTTPS via Traefik/Nginx
 ✔ Backup do Postgres (superset_db)
 ✔ Versionar dashboards via export/import (GitOps futuro)

@@ -238,6 +238,53 @@ SSH direto para CT 118 (192.168.4.26) resultava em "Connection timed out".
 **Última Atualização:** 12/12/2025  
 **Total de Soluções:** 14+
 
+---
+
+## Gitea: NGINX 502 causado por upstream UNIX socket ausente — IDENTIFICADO
+**Data:** 22 de dezembro de 2025  
+**Status:** 🟠 Identificado — correção sugerida (aguardando aplicação)
+
+**Sintoma:** Requisições HTTP/HTTPS à UI/API do Gitea e push via HTTPS retornavam **502 Bad Gateway**; chamadas API intermitentes falharam; pushes SSH externos também não funcionavam de forma confiável.
+
+**Investigação / Evidências:**
+- Logs do nginx (`/var/log/nginx/gitea.error.log`) mostraram entradas como:
+  > connect() to unix:/home/git/run/gitea.sock failed (2: No such file or directory) while connecting to upstream
+- `ss -ltnp` mostrou **Gitea escutando em TCP *:3000** (processo ativo `gitea`), mas o socket Unix esperado pelo nginx **não existia**.
+- Não houve sinais de esgotamento de recursos (memória, disco, inodes, FDs) no CT 118 durante o incidente.
+
+**Causa provável:** Configuração do nginx apontando para um socket UNIX que não foi criado pelo processo do Gitea (mismatch entre configuração de proxy e o modo de escuta do Gitea).
+
+**Soluções sugeridas (prioridade):**
+1. **Mudar o upstream do nginx para TCP:** substituir `server unix:/home/git/run/gitea.sock` por `server 127.0.0.1:3000;` em `/etc/nginx/sites-available/gitea`, testar (`nginx -t`) e `systemctl reload nginx`.
+   - Vantagem: rápido, rollback simples, sem reiniciar Gitea.
+2. **Configurar Gitea para usar UNIX socket** (se preferir socket): ajustar `/etc/gitea/app.ini` (PROTOCOL=unix e configurar path do socket) e garantir que o processo crie o socket em `/home/git/run/gitea.sock` com permissões adequadas; reiniciar `gitea.service`.
+   - Vantagem: mantém design original; requer cuidar de permissões e criação do diretório `/home/git/run`.
+
+**Comandos úteis (exemplo seguro para realizar a correção 1):**
+```bash
+# backup
+cp /etc/nginx/sites-available/gitea /etc/nginx/sites-available/gitea.bak
+# editar upstream (replace socket with 127.0.0.1:3000)
+# testar e recarregar nginx
+nginx -t && systemctl reload nginx
+# validar
+curl -v https://gitea.gti.local/ || curl -v http://127.0.0.1:3000/
+```
+
+**Verificação pós-correção:**
+- `curl -I https://gitea.gti.local/` retorna 200
+- `git push` via HTTPS/SSH funciona de fora (ou via proxy interno)
+- Logs do nginx não registram mais `connect() to unix:*` ou 502 para o Gitea
+
+**Ações recomendadas:**
+- Aplicar a correção 1 (mudar upstream para TCP) e monitorar por 24h; se preferir socket, validar a criação do socket pelo serviço do Gitea e ajustar permissões.
+- Registrar esta ocorrência e a correção aqui (feito) e adicionar um teste automatizado simples de healthcheck para detectar 502 no endpoint `/_health` do Gitea.
+
+**Observação:** Como não havíamos registrado esse padrão específico anteriormente no runbook, este documento atualiza o histórico com a investigação e a correção proposta para futuras referências.
+
+**Última Atualização:** 22/12/2025
+
+
 ## Spark Workers — SPARK_WORKER_OPTS com -Xmx (22 de dezembro de 2025)
 
 **Data:** 22 de dezembro de 2025  

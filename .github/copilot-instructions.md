@@ -15,16 +15,16 @@ Estas instruções definem como o GitHub Copilot deve gerar código, sugestões 
 
 ## 2. Arquivos de Contexto Obrigatórios
 
-O Copilot deve SEMPRE considerar e respeitar estes arquivos, agora localizados na pasta `docs/`:
+O Copilot deve SEMPRE considerar e respeitar estes arquivos (paths atuais):
 
-### `docs/CONTEXT.md` (fonte da verdade)
+### `docs/00-overview/CONTEXT.md` (fonte da verdade)
 
 Regras:
 1. Ao iniciar **qualquer tarefa**, consultar este arquivo.
 2. Ao sugerir soluções, alinhar com padrões e arquiteturas já definidas.
-3. Se uma solução introduzir novo padrão ou decisão técnica, sugerir atualizar o `docs/CONTEXT.md`.
+3. Se uma solução introduzir novo padrão ou decisão técnica, sugerir atualizar o `docs/00-overview/CONTEXT.md`.
 
-### `docs/PROBLEMAS_ESOLUCOES.md`
+### `docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md`
 - Registro oficial de erros e correções.
 - Antes de sugerir soluções, verificar se o problema já está documentado.
 - Evitar repetir erros conhecidos.
@@ -72,6 +72,16 @@ Regras:
 - Usar multi-stage builds.
 - Manter configs sensíveis como variáveis de ambiente.
 - Para arquivos de config remotos, seguir o workflow da seção **11**.
+
+---
+
+## 6.1 Vault (easy.gti.local) e Segredos
+
+- Nunca hardcodear `VAULT_ADDR` ou `VAULT_TOKEN`; sempre usar variáveis de ambiente.
+- Para comandos, gerar scripts/requests (PowerShell/curl/Python) assumindo `VAULT_ADDR` e `VAULT_TOKEN` já exportados.
+- Referência rápida de caminhos: segredos em `kv` via `/v1/kv/data/<path>`; headers com `X-Vault-Token`.
+- Tratativas: se retorno `sealed: true`, orientar unseal via API; se `permission denied`, sugerir inspecionar policies do token.
+- Seguir o "Manual de Operações: Copilot & Vault" descrito pelo usuário; o Copilot atua apenas como gerador de comandos, execução é feita no terminal pelo usuário.
 
 ---
 

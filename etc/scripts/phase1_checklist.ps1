@@ -17,9 +17,9 @@
 #>
 
 param(
-    [string]$Host = "192.168.4.33",
+    [string]$RemoteHost = "192.168.4.33",
     [string]$User = "datalake",
-    [string]$KeyPath = (Join-Path $PSScriptRoot 'key\ct_datalake_id_ed25519'),
+    [string]$KeyPath = (Join-Path $PSScriptRoot '..\..\scripts\key\ct_datalake_id_ed25519'),
     [string]$RemoteScript = "/home/datalake/phase1_execute.ps1",
     [string]$LocalResultsPath = "artifacts/results",
     [switch]$VerboseRun
@@ -33,9 +33,9 @@ if (-not (Test-Path $KeyPath)) {
     Write-Err "SSH key file not found: $KeyPath"; exit 2
 }
 
-Write-Info "Testing connectivity to ${Host}:22..."
-if (-not (Test-NetConnection -ComputerName $Host -Port 22).TcpTestSucceeded) {
-    Write-Err "SSH port 22 not reachable on $Host"; exit 3
+Write-Info "Testing connectivity to ${RemoteHost}:22..."
+if (-not (Test-NetConnection -ComputerName $RemoteHost -Port 22).TcpTestSucceeded) {
+    Write-Err "SSH port 22 not reachable on $RemoteHost"; exit 3
 }
 Write-Ok "SSH reachable"
 
@@ -43,16 +43,16 @@ Write-Info "Copying local phase1_execute.ps1 to remote host ($RemoteScript)..."
 $localScript = "phase1_execute.ps1"
 if (-not (Test-Path $localScript)) { Write-Err "Local script not found: $localScript"; exit 4 }
 
-$scpCmd = "scp -i `"$KeyPath`" `"$localScript`" $User@${Host}:$RemoteScript"
+$scpCmd = "scp -i `"$KeyPath`" `"$localScript`" $User@${RemoteHost}:$RemoteScript"
 if ($VerboseRun) { Write-Host "Running: $scpCmd" }
-$scpRes = & scp -i $KeyPath $localScript $User@${Host}:$RemoteScript 2>&1
+$scpRes = & scp -i $KeyPath $localScript $User@${RemoteHost}:$RemoteScript 2>&1
 if ($LASTEXITCODE -ne 0) { Write-Err "SCP failed: $scpRes"; exit 5 }
 Write-Ok "Script copied"
 
 Write-Info "Executing remote script via SSH (may take several minutes)..."
-$sshCmd = "ssh -i `"$KeyPath`" -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 $User@$Host pwsh $RemoteScript"
+$sshCmd = "ssh -i `"$KeyPath`" -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 $User@$RemoteHost pwsh $RemoteScript"
 if ($VerboseRun) { Write-Host "Running: $sshCmd" }
-$out = & ssh -i $KeyPath -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 $User@$Host pwsh $RemoteScript 2>&1
+$out = & ssh -i $KeyPath -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=3 $User@$RemoteHost pwsh $RemoteScript 2>&1
 $exitCode = $LASTEXITCODE
 Write-Host $out
 if ($exitCode -ne 0) { Write-Err "Remote execution failed with exit code $exitCode"; exit 6 }
@@ -61,9 +61,9 @@ Write-Ok "Remote execution completed"
 Write-Info "Fetching result JSONs from remote to $LocalResultsPath..."
 if (-not (Test-Path $LocalResultsPath)) { New-Item -ItemType Directory -Path $LocalResultsPath | Out-Null }
 
-$scpResultsCmd = "scp -i `"$KeyPath`" $User@${Host}:/tmp/*.json $LocalResultsPath/"
+$scpResultsCmd = "scp -i `"$KeyPath`" $User@${RemoteHost}:/tmp/*.json $LocalResultsPath/"
 if ($VerboseRun) { Write-Host "Running: $scpResultsCmd" }
-$scpRes = & scp -i $KeyPath "$User@${Host}:/tmp/*.json" $LocalResultsPath 2>&1
+$scpRes = & scp -i $KeyPath "$User@${RemoteHost}:/tmp/*.json" $LocalResultsPath 2>&1
 if ($LASTEXITCODE -ne 0) { Write-Err "Fetching results failed: $scpRes"; exit 7 }
 Write-Ok "Results fetched to $LocalResultsPath"
 
@@ -75,7 +75,7 @@ Write-Ok "Found $($jsonFiles.Count) result JSON file(s)"
 $filesList = $jsonFiles | ForEach-Object { $_.Name } | Join-String ", "
 $summary = @"
 Summary:
- - Host: $($Host)
+ - Host: $($RemoteHost)
  - Remote Script: $($RemoteScript)
  - Local Results Path: $($LocalResultsPath)
  - Files copied: $($filesList)

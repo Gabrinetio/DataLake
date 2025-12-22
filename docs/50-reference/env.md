@@ -77,7 +77,7 @@ from src.config import HIVE_DB_PASSWORD, S3A_SECRET_KEY, get_spark_s3_config
 spark_config = get_spark_s3_config()
 
 # ❌ ERRADO - Hardcoded
-HIVE_DB_PASSWORD = "S3cureHivePass2025"  # NÃO FAÇA ISTO!
+HIVE_DB_PASSWORD = "<<SENHA_FORTE>>"  # Use um cofre/Vault ou variável de ambiente; não coloque senhas em texto plano
 ```
 
 ### 4. Usar em Scripts Shell

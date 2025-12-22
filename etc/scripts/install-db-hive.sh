@@ -23,7 +23,7 @@ fi
 # Defaults
 HIVE_DB_NAME=${HIVE_DB_NAME:-metastore}
 HIVE_DB_USER=${HIVE_DB_USER:-hive}
-HIVE_DB_PASSWORD=${HIVE_DB_PASSWORD:-S3cureHivePass2025}
+HIVE_DB_PASSWORD=${HIVE_DB_PASSWORD:-"<<SENHA_FORTE>>"}  # Use Vault/variável de ambiente
 
 # Atualizar sistema
 apt update && apt upgrade -y

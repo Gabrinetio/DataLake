@@ -5,7 +5,7 @@ HIVE_HOST="192.168.4.32"
 HIVE_USER="datalake"
 HIVE_KEY="$HOME/.ssh/db_hive_admin_id_ed25519"
 
-TRINO_HOST="192.168.4.32"
+TRINO_HOST="192.168.4.35"
 TRINO_USER="datalake"
 
 echo "=== SSH Setup Script: Hive -> Trino ==="
@@ -26,25 +26,25 @@ echo "Public key: $PUB_KEY"
 echo ""
 echo "4. Adding Trino to known_hosts on Hive..."
 ssh -i "$HIVE_KEY" -o StrictHostKeyChecking=no "$HIVE_USER@$HIVE_HOST" \
-  'ssh-keyscan -H 192.168.4.32 >> ~/.ssh/known_hosts 2>/dev/null && echo "✅ Added"'
+  'ssh-keyscan -H ${TRINO_HOST} >> ~/.ssh/known_hosts 2>/dev/null && echo "✅ Added"'
 
 echo ""
 echo "5. Creating SSH config on Hive..."
 ssh -i "$HIVE_KEY" -o StrictHostKeyChecking=no "$HIVE_USER@$HIVE_HOST" \
   'cat >> ~/.ssh/config << SSHCONFIG
 Host trino-container
-    HostName 192.168.4.32
+    HostName ${TRINO_HOST}
     User datalake
     IdentityFile ~/.ssh/id_trino
     StrictHostKeyChecking no
     UserKnownHostsFile=/dev/null
-SSHCONFIG'
+SSHCONFIG' 
 
 echo ""
 echo "=== NEXT STEPS ==="
 echo ""
 echo "From Hive container, you can now test:"
-echo "  ssh -i ~/.ssh/id_trino datalake@192.168.4.32 'echo test'"
+echo "  ssh -i ~/.ssh/id_trino datalake@192.168.4.35 'echo test'"
 echo ""
 echo "To add this key to Trino authorized_keys:"
 echo "  1. Setup password-less sudo on Trino, OR"

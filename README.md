@@ -104,6 +104,7 @@ bash docs/check-doc-links.sh docs/
 | **Preciso entender a arquitetura?** | [docs/10-architecture/Projeto.md](./docs/10-architecture/Projeto.md) |
 | **Variáveis de ambiente?** | [docs/50-reference/env.md](./docs/50-reference/env.md) |
 | **Como contribuir?** | [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) |
+| **Airflow - systemd & healthchecks** | Use `scripts/setup_airflow_systemd.sh`, `scripts/ct_install_curl.sh` and `scripts/airflow_check_scheduler.sh` to enable scheduler service and validate health on the CT. |
 
 ---
 

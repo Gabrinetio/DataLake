@@ -8,6 +8,27 @@ Security guidance:
 - Do not commit private keys — add them to `.gitignore` and remove them from history when necessary.
 - Use `SSH_KEY_PATH` or the `scripts/get_canonical_key.ps1` util to configure automated scripts that need to find the key in a safe location.
 
+Using the canonical key for Git push (Gitea):
+- To grant repository push access to the canonical key, add the public key (`ct_datalake_id_ed25519.pub`) as either:
+   - a **Deploy Key** for the target repository (with write access enabled), or
+   - a **User SSH Key** associated with a dedicated automation user that has push permissions.
+- You can add the key manually via Gitea web UI (Repo → Settings → Deploy Keys OR User → Settings → SSH Keys) or via the API using the scripts in `scripts/gitea_add_deploy_key.sh` (deploy key) or `scripts/gitea_add_user_key.sh` (user key).
+
+Examples:
+```
+# Add as repo deploy key (requires repo admin rights):
+GITEA_TOKEN=<PAT> ./scripts/gitea_add_deploy_key.sh --host 192.168.4.26 --owner gitea --repo datalake_fb --key scripts/key/ct_datalake_id_ed25519.pub --title "canonical-deploy" --write
+
+# Add as user key (requires PAT for user):
+GITEA_TOKEN=<PAT> ./scripts/gitea_add_user_key.sh --host 192.168.4.26 --key scripts/key/ct_datalake_id_ed25519.pub --title "canonical-automation"
+```
+
+After adding the key, you can push using the SSH remote (example below):
+```
+git remote set-url origin git@192.168.4.26:/home/git/data/gitea-repositories/gitea/datalake_fb.git
+GIT_SSH_COMMAND='ssh -i /path/to/ct_datalake_id_ed25519 -o IdentitiesOnly=yes' git push origin main
+```
+
 How to remove a private key from git history (manual step):
 1. Ensure all working changes are committed.
 2. Run one of the following tools (requires coordination with team):

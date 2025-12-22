@@ -13,7 +13,7 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionPassword</name>
-    <value>S3cureHivePass2025</value>
+    <value>&lt;&lt;SENHA_FORTE&gt;&gt;</value>
   </property>
   <property>
     <name>hive.lock.manager</name>

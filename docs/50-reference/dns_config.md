@@ -31,6 +31,46 @@ Search Domain: gti.local
 
 ---
 
+## Exemplo de zona BIND (db.gti.local)
+
+Se o seu servidor DNS é BIND, abaixo um exemplo de arquivo de zona para `gti.local`. Use `infra/dns/hosts.map` como fonte da verdade e `infra/scripts/generate_dns_zone.sh` para gerar e aplicar o arquivo.
+
+```zone
+$TTL 3600
+@ IN SOA ns.gti.local. admin.gti.local. (
+	2025121301 ; serial
+	3600       ; refresh
+	900        ; retry
+	604800     ; expire
+	86400      ; minimum
+)
+
+@ IN NS ns.gti.local.
+ns IN A 192.168.4.30
+
+# Hosts
+minio    IN A 192.168.4.31
+db-hive  IN A 192.168.4.32
+spark    IN A 192.168.4.33
+kafka    IN A 192.168.4.34
+trino    IN A 192.168.4.35
+airflow  IN A 192.168.4.36
+superset IN A 192.168.4.37
+gitea    IN A 192.168.4.26
+```
+
+Para aplicar a zona automaticamente (requer SSH e permissões no servidor DNS):
+
+```bash
+# Gerar zone file e mostrar
+./infra/scripts/generate_dns_zone.sh --zone-file /tmp/db.gti.local.zone
+
+# Gerar e aplicar no servidor DNS (Recomendado executar manualmente após revisão)
+./infra/scripts/generate_dns_zone.sh --apply --dns-server root@192.168.4.30
+```
+
+---
+
 ## Verificação
 
 ### Verificar DNS em um container:
@@ -126,6 +166,21 @@ pct reboot <VMID>
 ping -c 3 192.168.4.30
 nslookup spark.gti.local 192.168.4.30
 ```
+
+## Remover mapeamento estático e configurar DNS central
+
+Se você já propagou entradas em `/etc/hosts` dentro dos containers e deseja voltar a usar DNS centralizado, execute o script de remoção e configuração do nameserver:
+
+```bash
+# Dry run (apenas pré-visualizar)
+./infra/scripts/remove_hosts_and_set_dns.sh --proxmox root@192.168.4.25 --cts "107 108 109 111 115 116 117 118" --dns 192.168.4.30 --dry-run
+
+# Aplicar alterações (remove hosts e set nameserver via pct set)
+./infra/scripts/remove_hosts_and_set_dns.sh --proxmox root@192.168.4.25 --cts "107 108 109 111 115 116 117 118" --dns 192.168.4.30
+```
+
+Provisioning scripts that previously appended hosts to `/etc/hosts` now respect `USE_STATIC_HOSTS` environment variable (default 0): e.g., `etc/scripts/configure-kafka.sh` and `etc/scripts/configure_trino_ssh.sh`.
+
 
 ---
 

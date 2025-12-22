@@ -1,0 +1,8 @@
+192.168.4.31 minio.gti.local minio
+192.168.4.32 db-hive.gti.local db-hive
+192.168.4.33 spark.gti.local spark
+192.168.4.34 kafka.gti.local kafka
+192.168.4.35 trino.gti.local trino
+192.168.4.36 airflow.gti.local airflow
+192.168.4.37 superset.gti.local superset
+192.168.4.26 gitea.gti.local gitea

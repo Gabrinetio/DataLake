@@ -279,7 +279,7 @@ HIVE_DB_HOST=localhost
 HIVE_DB_PORT=3306
 HIVE_DB_NAME=metastore
 HIVE_DB_USER=hive
-HIVE_DB_PASSWORD=S3cureHivePass2025
+HIVE_DB_PASSWORD=<<SENHA_FORTE>>  # obter do Vault/variável de ambiente
 HIVE_INIT_SCHEMA=true
 HADOOP_HOME=/opt/hadoop
 JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
@@ -354,7 +354,7 @@ spark.hadoop.javax.jdo.option.ConnectionPassword=${HIVE_DB_PASSWORD}
 ### 7.1 Concessão de Permissões para Spark
 Como o Spark roda em um container separado (`spark.gti.local`), é necessário conceder permissões no MariaDB para conexões do host do Spark:
 ```sql
-GRANT ALL PRIVILEGES ON metastore.* TO 'hive'@'spark.gti.local' IDENTIFIED BY 'S3cureHivePass2025';
+GRANT ALL PRIVILEGES ON metastore.* TO 'hive'@'spark.gti.local' IDENTIFIED BY '<<SENHA_FORTE>>';  -- substituir por senha gerada e armazenada em cofre (Vault)
 FLUSH PRIVILEGES;
 ```
 
@@ -434,7 +434,7 @@ sudo tee /opt/apache-hive-3.1.3-bin/conf/hive-site.xml > /dev/null << 'EOF'
   </property>
   <property>
     <name>javax.jdo.option.ConnectionPassword</name>
-    <value>S3cureHivePass2025</value>
+    <value>&lt;&lt;SENHA_FORTE&gt;&gt;</value>  <!-- substituir por senha do Vault -->
   </property>
   <property>
     <name>datanucleus.identifierFactory</name>

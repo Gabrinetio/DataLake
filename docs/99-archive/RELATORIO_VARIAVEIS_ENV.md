@@ -35,7 +35,7 @@
 
 ### 1. Documentação
 ```
-ANTES: mysql -u hive -pS3cureHivePass2025 -e "..."
+ANTES: mysql -u hive -p<<SENHA_FORTE>> -e "..."  # não deixe senhas em texto plano
 DEPOIS: mysql -u hive -p${HIVE_DB_PASSWORD} -e "..."
 ```
 

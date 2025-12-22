@@ -8,7 +8,7 @@ catalog.type=hadoop
 warehouse=s3a://datalake/warehouse/iceberg
 
 fs.native-s3.enabled=true
-s3.endpoint=http://192.168.4.32:9000
+s3.endpoint=http://192.168.4.31:9000
 s3.path-style-access=true
 s3.aws-access-key=datalake
 s3.aws-secret-key=iRB;g2&ChZ&XQEW!

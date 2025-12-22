@@ -96,7 +96,7 @@ def main():
         f'ssh -i {hive_key} -o StrictHostKeyChecking=no '
         f'datalake@192.168.4.32 '
         f'"ssh -i ~/.ssh/id_trino -o StrictHostKeyChecking=no '
-        f'-o UserKnownHostsFile=/dev/null datalake@192.168.4.32 '
+        f'-o UserKnownHostsFile=/dev/null datalake@192.168.4.35 '
         f'hostname"'
     )
     result = run_cmd(verify_cmd, "Testing SSH connection")
@@ -111,8 +111,8 @@ def main():
     print("=" * 60)
     print()
     print("You can now access Trino container via:")
-    print("  ssh -i ~/.ssh/db_hive_admin_id_ed25519 datalake@192.168.4.32")
-    print("  ssh -i ~/.ssh/id_trino datalake@192.168.4.32")
+    print("  ssh -i ~/.ssh/db_hive_admin_id_ed25519 datalake@192.168.4.32 (Hive)")
+    print("  ssh -i ~/.ssh/id_trino datalake@192.168.4.35 (Trino)")
     print()
 
 if __name__ == "__main__":

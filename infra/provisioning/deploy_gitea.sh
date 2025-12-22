@@ -16,7 +16,7 @@ ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- apt install -y curl wget git
 echo "Creating datalake user..."
 ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- adduser datalake --gecos \"Datalake User,,,\" --disabled-password"
 ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- usermod -aG sudo datalake"
-ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- bash -c 'echo \"datalake:SecurePass2025\" | chpasswd'"
+ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- bash -c 'echo "datalake:<<SENHA_FORTE>>" | chpasswd'"  # Recomendado: obter senha do Vault/gerenciador de segredos
 
 # Setup PostgreSQL
 echo "Setting up PostgreSQL..."
@@ -25,7 +25,7 @@ ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- systemctl start postgresql"
 
 # Create Gitea database and user
 echo "Creating Gitea database..."
-ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- sudo -u postgres psql -c \"CREATE USER gitea WITH PASSWORD 'GiteaDB@2025';\""
+ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- sudo -u postgres psql -c \"CREATE USER gitea WITH PASSWORD '<<SENHA_FORTE>>';  -- substitua por senha gerada e armazenada em cofre\""
 ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- sudo -u postgres psql -c \"CREATE DATABASE gitea OWNER gitea;\""
 ssh $SSH_OPTS root@192.168.4.25 "pct exec $CT_ID -- sudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE gitea TO gitea;\""
 

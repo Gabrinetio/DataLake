@@ -79,7 +79,19 @@ tail -f /opt/hive/logs/hive-metastore.log
 beeline -u "jdbc:hive2://localhost:10000" -n hive -e "SHOW DATABASES;"
 ```
 
-### 3. MinIO (Storage S3)
+### 3. HiveServer2
+```bash
+# Iniciar serviço (unit usa /tmp/start_hs2.sh e JAVA_HOME=/opt/java/temurin-8)
+systemctl start hiveserver2
+
+# Verificar logs
+tail -n 50 /opt/hive/logs/hiveserver2.out
+
+# Verificar porta thrift
+ss -tlnp | grep 10000
+```
+
+### 4. MinIO (Storage S3)
 ```bash
 # Iniciar serviço
 systemctl start minio
@@ -91,7 +103,7 @@ systemctl status minio --no-pager
 curl -I http://localhost:9000/minio/health/live
 ```
 
-### 4. Kafka (Streaming)
+### 5. Kafka (Streaming)
 ```bash
 # Iniciar Zookeeper primeiro
 systemctl start zookeeper
@@ -103,7 +115,7 @@ systemctl start kafka
 /opt/kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 ```
 
-### 5. Spark Master
+### 6. Spark Master
 ```bash
 # Iniciar Spark Master
 /opt/spark/sbin/start-master.sh

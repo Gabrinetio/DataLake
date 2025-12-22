@@ -1,6 +1,6 @@
 # CONTEXT.md - Fonte da Verdade do Projeto DataLake FB
 
-**Última Atualização:** 11 de dezembro de 2025, 12:00 UTC  
+**Última Atualização:** 20 de dezembro de 2025, 17:00 UTC  
 **Status Global:** **100% COMPLETO** ✅🚀🎉  
 **Decisão GO/NO-GO:** GO 🚀 (ver `artifacts/reports/relatorio_decisao_GO_NO_GO.md`)  
 **Iteração Atual:** 7/7 (Trino Integration) - **EM ANDAMENTO** 🔄
@@ -435,7 +435,7 @@ SPARK_WAREHOUSE_PATH=s3a://datalake/warehouse
 from src.config import HIVE_DB_PASSWORD, get_spark_s3_config
 
 # ❌ ERRADO - hardcoded
-password = "S3cureHivePass2025"
+password = "<<SENHA_FORTE>>"  # substitua por senha do cofre (Vault)
 ```
 
 ### Documentação Completa:
@@ -447,6 +447,28 @@ password = "S3cureHivePass2025"
 - Use **Vault**, **AWS Secrets Manager**, ou **Azure Key Vault**
 - Nunca use `.env` em produção
 - Implemente rotação periódica de senhas
+
+#### ✅ HashiCorp Vault Integration (Implementado)
+
+**Servidor Vault:** `http://easy.gti.local:8200` (v1.21.1, KV v2)  
+**Token de Acesso:** Gerenciado via variável `VAULT_TOKEN`  
+**Estrutura de Secrets:** `secret/<serviço>/<tipo>`
+
+**Serviços Integrados:**
+- **Airflow (CT 116):** `secret/airflow/admin` → senha admin
+- **Spark (CT 108):** `secret/spark/token` → token autenticação
+- **Kafka (CT 109):** `secret/kafka/sasl` → senha SASL
+- **MinIO (CT 107):** `secret/minio/admin` → access_key/secret_key
+- **Hive (CT 117):** `secret/hive/postgres` → senha PostgreSQL
+- **SSH Canônico:** `secret/ssh/canonical` → chave privada + pública
+
+**Ferramentas de Atualização:**
+- `scripts/upload_secrets_to_vault.ps1` - Upload em lote de credenciais
+- `scripts/update_ct_credentials_wsl.ps1` - Atualização remota via WSL
+- `scripts/upload_ssh_key_to_vault.ps1` - Upload de chave SSH
+- Suporte a DryRun e validação pré-execução
+
+**Segurança:** Credenciais nunca expostas em logs ou arquivos persistentes
 
 ---
 
@@ -496,9 +518,22 @@ scp -i "C:\...\id_ed25519" datalake@192.168.4.33:/tmp/<arquivo>.json .
 
 ---
 
-**Documento mantido atualizado. Próxima revisão após Iteração 5.**
+**Documento mantido atualizado. Próxima revisão após Iteração 5.**### Gestão de Credenciais & Segredos no Vault
+**Servidor Vault:** `http://easy.gti.local:8200` (KV v2)  
+**Última Atualização:** 20 de dezembro de 2025  
+**Status:** ✅ Segredos Produção Carregados
 
+**Segredos Ativos no Vault:**
+- `secret/airflow/admin` → Senha admin do Airflow (NIST SP 800-63B compliant)
+- `secret/spark/default` → Token de autenticação Spark
+- `secret/kafka/sasl` → Senha SASL para Kafka
+- `secret/minio/spark` → Access Key + Secret Key para MinIO
+- `secret/postgres/hive` → Senha PostgreSQL do Hive Metastore
 
+**Scripts de Gestão:**
+- Geração: `scripts/generate_airflow_passwords.py --vault`
+- Upload: `scripts/upload_secrets_to_vault.ps1 -File scripts/secrets.production.json -Force`
+- Leitura em Python: Usar `os.getenv('VAULT_ADDR')` e `os.getenv('VAULT_TOKEN')` com requests.get()
 
-
+**Segurança:** Nunca committar tokens ou senhas. Usar variáveis de ambiente e o Manual de Operações: Copilot & Vault.
 

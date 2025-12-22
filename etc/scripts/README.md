@@ -57,6 +57,10 @@ Enabling pre-commit hook locally:
 
 CI: The repository also contains `.github/workflows/scan-keys.yml` which runs the same scan on push/PR and will fail the check if sensitive patterns are found.
 
+## Reliance on DNS vs /etc/hosts
+
+Provisioning scripts no longer hardcode /etc/hosts entries by default. If required for early-boot scenarios, set the environment variable `USE_STATIC_HOSTS=1` before running provision scripts to allow appending static hosts in the CT. Default: `0` (use DNS resolver).
+
 ***
 
 Sempre revise as credenciais (MinIO, Hive) antes de lançar em produção. Documente alterações em `docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md` caso surjam problemas.

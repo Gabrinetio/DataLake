@@ -46,8 +46,14 @@ systemctl start ssh
 echo "trino.gti.local" > /etc/hostname
 hostnamectl set-hostname trino.gti.local
 
-# Add hostname to /etc/hosts
-echo "192.168.4.32 trino.gti.local trino" >> /etc/hosts
+# Add hostname to /etc/hosts (ensure correct mapping)
+if [ "${USE_STATIC_HOSTS:-0}" -eq 1 ]; then
+    if ! grep -q "trino.gti.local" /etc/hosts 2>/dev/null; then
+        echo "192.168.4.35 trino.gti.local trino" >> /etc/hosts
+    fi
+else
+    echo "Skipping adding trino.gti.local to /etc/hosts (USE_STATIC_HOSTS=${USE_STATIC_HOSTS:-0})"
+fi
 
 echo "✅ SSH configuration completed!"
 echo "🌐 Hostname: trino.gti.local"

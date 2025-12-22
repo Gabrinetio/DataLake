@@ -12,7 +12,7 @@
 - **Hostname:** `airflow.gti.local`
 - **CT ID:** 116
 - **IP Anterior:** ~~192.168.4.17~~
-- **IP Novo:** **192.168.4.32** ✅
+- **IP Novo:** **192.168.4.36** ✅
 
 ---
 
@@ -39,7 +39,7 @@ Foram atualizadas:
 | docs/DB_Hive_Implementacao.md | 1 bloco | ✅ Atualizado |
 
 **Total de mudanças:** 5 blocos de configuração  
-**IP atualizado de:** 192.168.4.17 → 192.168.4.32
+**IP atualizado de:** 192.168.4.17 → 192.168.4.36
 
 ---
 
@@ -49,11 +49,11 @@ Para validar as mudanças, execute:
 
 ```bash
 # Verificar no arquivo Projeto.md
-grep -n "192.168.4.32.*airflow" docs/Projeto.md
+grep -n "192.168.4.36.*airflow" docs/Projeto.md
 
 # Resultado esperado:
-# Linha 775: | **116** | `airflow.gti.local` | **192.168.4.32** | ...
-# Linhas 507, 834, 914: 192.168.4.32   airflow.gti.local
+# Linha 775: | **116** | `airflow.gti.local` | **192.168.4.36** | ...
+# Linhas 507, 834, 914: 192.168.4.36   airflow.gti.local
 ```
 
 ---
@@ -63,7 +63,7 @@ grep -n "192.168.4.32.*airflow" docs/Projeto.md
 1. ✅ **Documentação atualizada**
 2. ⏳ **Próximo:** Adicionar CT 116 ao hosts file local
 3. ⏳ **Próximo:** Atualizar configurações no Spark (se houver referências)
-4. ⏳ **Próximo:** Validar conectividade SSH: `ssh datalake@192.168.4.32`
+4. ⏳ **Próximo:** Validar conectividade SSH: `ssh datalake@192.168.4.36`
 
 ---
 

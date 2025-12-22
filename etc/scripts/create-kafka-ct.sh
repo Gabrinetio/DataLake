@@ -3,13 +3,13 @@ set -euo pipefail
 
 # create-kafka-ct.sh
 # Automatiza a criação do container LXC para Kafka no Proxmox e faz o provisionamento básico
-# Uso: create-kafka-ct.sh [--vmid 104] [--hostname kafka.gti.local] [--ip 192.168.4.32/24] [--bridge vmbr0] [--storage local-lvm] [--template local:vztmpl/debian-12-standard_12.0-1_amd64.tar.gz] [--cores 2] [--memory 4096] [--disk 20] [--unprivileged 1] [--nesting 1] [--ssh-key /path/to/key.pub] [--dry-run]
+# Uso: create-kafka-ct.sh [--vmid 104] [--hostname kafka.gti.local] [--ip 192.168.4.34/24] [--bridge vmbr0] [--storage local-lvm] [--template local:vztmpl/debian-12-standard_12.0-1_amd64.tar.gz] [--cores 2] [--memory 4096] [--disk 20] [--unprivileged 1] [--nesting 1] [--ssh-key /path/to/key.pub] [--dry-run]
 
 SCRIPT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 DRY_RUN=0
-VMID=104
+VMID=109
 HOSTNAME="kafka.gti.local"
-IP="192.168.4.32/24"
+IP="192.168.4.34/24"
 GATEWAY="192.168.4.1"
 BRIDGE="vmbr0"
 STORAGE=${STORAGE:-local}

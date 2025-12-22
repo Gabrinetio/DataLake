@@ -80,7 +80,9 @@ $componentChecks = @{
   "116" = @(
     'systemctl status airflow-webserver',
     'systemctl status airflow-scheduler',
-    'airflow dags list | head'
+    'airflow dags list | head',
+    'pgrep -a -f airflow || true',
+    "test -f /home/datalake/airflow/scheduler.log && tail -n 100 /home/datalake/airflow/scheduler.log || echo 'no_scheduler_log'"
   );
   "118" = @(
     'systemctl status gitea',

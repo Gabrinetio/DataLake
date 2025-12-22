@@ -25,7 +25,7 @@ Na primeira vez, complete a configuração via interface web:
 - Database: PostgreSQL
 - Host: localhost:5432
 - User: gitea
-- Password: GiteaDB@2025
+- Password: <<SENHA_FORTE>>  # Use Vault/variável de ambiente
 - Database: gitea
 - Application URL: http://gitea.gti.local:3000
 - Repository Root: /var/lib/gitea/data

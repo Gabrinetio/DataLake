@@ -126,6 +126,18 @@ ssh root@192.168.4.25 'pct exec 116 -- tail -50 ~/airflow/scheduler.log'
 ### Verificar DAGs
 ```bash
 ssh root@192.168.4.25 'pct exec 116 -- airflow dags list'
+
+### Instalar curl + habilitar systemd scheduler (se aplicável)
+```bash
+# instala curl
+./scripts/ct_install_curl.sh --proxmox root@192.168.4.25 --ct 116
+
+# cria/habilita o unit systemd para o scheduler
+./scripts/setup_airflow_systemd.sh --proxmox root@192.168.4.25 --ct 116 --venv /opt/airflow_venv --workdir /home/datalake/airflow
+
+# verificar status e logs
+./scripts/airflow_check_scheduler.sh --proxmox root@192.168.4.25 --ct 116
+```
 ```
 
 ### Database migrate

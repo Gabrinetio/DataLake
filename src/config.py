@@ -60,7 +60,7 @@ SPARK_CONFIG = {
 # KAFKA CONFIGURATION (se necessário)
 # ========================================
 
-KAFKA_BROKER = os.getenv("KAFKA_BROKER", "192.168.4.32:9092")
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "192.168.4.34:9092")
 KAFKA_SECURITY_PROTOCOL = os.getenv("KAFKA_SECURITY_PROTOCOL", "PLAINTEXT")
 KAFKA_TOPICS = {
     "cdc_vendas": "cdc.vendas",

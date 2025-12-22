@@ -10,8 +10,12 @@ HOSTNAME=${HOSTNAME:-kafka.gti.local}
 echo "Configuração básica do Kafka"
 
 # garantir entrada /etc/hosts (somente se não existir)
-if ! grep -q "${HOSTNAME}" /etc/hosts 2>/dev/null; then
-  echo "192.168.4.32 ${HOSTNAME}" >> /etc/hosts
+if [ "${USE_STATIC_HOSTS:-0}" -eq 1 ]; then
+  if ! grep -q "${HOSTNAME}" /etc/hosts 2>/dev/null; then
+    echo "192.168.4.34 ${HOSTNAME}" >> /etc/hosts
+  fi
+else
+  echo "Skipping adding ${HOSTNAME} to /etc/hosts (USE_STATIC_HOSTS=${USE_STATIC_HOSTS:-0})"
 fi
 
 # Criar usuário kafka se não existir
