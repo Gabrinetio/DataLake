@@ -1,2 +1,6 @@
-SECRET_KEY = "80/oGMZg02v74/xMojMzugowMKlkJyOnmXmULDeoHkbVRWgo9i1WEX/l"
+import os
+
+SECRET_KEY = os.getenv("SUPERSET_SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("SUPERSET_SECRET_KEY não definido no ambiente")
 SQLALCHEMY_DATABASE_URI = "sqlite:////opt/superset/superset.db"

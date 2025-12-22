@@ -1,10 +1,13 @@
+import os
 import boto3
 from botocore.exceptions import ClientError
 
 # Configuration
-endpoint = "http://192.168.4.31:9000"
-access_key = "datalake"
-secret_key = "iRB;g2&ChZ&XQEW!"
+endpoint = os.getenv("MINIO_ENDPOINT", "http://192.168.4.31:9000")
+access_key = os.getenv("MINIO_ROOT_USER")
+secret_key = os.getenv("MINIO_ROOT_PASSWORD")
+if not access_key or not secret_key:
+    raise SystemExit("MINIO_ROOT_USER and MINIO_ROOT_PASSWORD must be set in the environment")
 buckets_to_create = ["warehouse", "backup"]
 
 print(f"Connecting to MinIO at {endpoint}...")

@@ -16,13 +16,21 @@ def test_s3_connectivity():
     print("=" * 50)
 
     try:
+        # Ler credenciais do ambiente
+        import os
+        access_key = os.getenv("S3A_ACCESS_KEY")
+        secret_key = os.getenv("S3A_SECRET_KEY")
+        if not access_key or not secret_key:
+            print("🔶 S3A_ACCESS_KEY ou S3A_SECRET_KEY não definido(s); pulando teste")
+            return False
+
         # Criar sessão Spark com configurações S3
         spark = SparkSession.builder \
             .appName("MinIO_S3_Test") \
             .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
-            .config("spark.hadoop.fs.s3a.endpoint", "http://minio.gti.local:9000") \
-            .config("spark.hadoop.fs.s3a.access.key", "datalake") \
-            .config("spark.hadoop.fs.s3a.secret.key", "iRB;g2&ChZ&XQEW!") \
+            .config("spark.hadoop.fs.s3a.endpoint", os.getenv("S3A_ENDPOINT", "http://minio.gti.local:9000")) \
+            .config("spark.hadoop.fs.s3a.access.key", access_key) \
+            .config("spark.hadoop.fs.s3a.secret.key", secret_key) \
             .config("spark.hadoop.fs.s3a.path.style.access", "true") \
             .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
             .getOrCreate()

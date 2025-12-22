@@ -35,8 +35,7 @@ S3A_ENDPOINT = os.getenv("S3A_ENDPOINT", "http://minio.gti.local:9000")
 S3A_PATH_STYLE_ACCESS = os.getenv("S3A_PATH_STYLE_ACCESS", "true").lower() == "true"
 
 if not S3A_SECRET_KEY:
-    print("⚠️  S3A_SECRET_KEY não configurada - usando valor padrão para desenvolvimento")
-    S3A_SECRET_KEY = "default_secret_key"
+    raise RuntimeError("S3A_SECRET_KEY não está definida no ambiente. Defina S3A_SECRET_KEY ou configure o Vault para fornecer a credencial.")
 
 # ========================================
 # SPARK CONFIGURATION
