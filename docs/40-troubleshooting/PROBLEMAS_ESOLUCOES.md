@@ -1,5 +1,143 @@
 # Problemas e Soluções
 
+## ✅ Atualização de Credenciais nos CTs via Vault
+**Data:** 20 de dezembro de 2025
+**Status:** ✅ Resolvido
+
+**Sintoma:** Necessidade de atualizar credenciais de produção (senhas, tokens, chaves) nos containers LXC após migração para HashiCorp Vault, com complicações de acesso SSH via Windows.
+
+**Causa Raiz:**
+- Credenciais hardcoded nos serviços substituídas por referências ao Vault KV v2
+- Limitações do OpenSSH Windows com senhas e necessidade de sshpass
+- Complexidade de escaping de caracteres especiais em comandos SSH aninhados
+
+**Solução Aplicada:**
+1. **Instalação de ferramentas no WSL Ubuntu-24.04:**
+   - `sshpass` para autenticação SSH com senha
+   - `jq` para processamento JSON das respostas do Vault
+
+2. **Criação de script bash (`update_ct_credentials_wsl.sh`) que:**
+   - Lê credenciais do Vault via API REST
+   - Gera scripts temporários nos CTs via SSH + Proxmox pct
+   - Executa atualizações remotas e limpa arquivos temporários
+
+3. **Wrapper PowerShell (`update_ct_credentials_wsl.ps1`) que:**
+   - Valida variáveis de ambiente (VAULT_ADDR, VAULT_TOKEN, PROXMOX_PASSWORD)
+   - Executa script bash no WSL com variáveis inline
+   - Fornece feedback visual e tratamento de erros
+
+4. **Atualização bem-sucedida nos 5 CTs:**
+   - CT 116 (Airflow): senha admin atualizada
+   - CT 108 (Spark): token de autenticação atualizado
+   - CT 109 (Kafka): senha SASL atualizada
+   - CT 107 (MinIO): access_key/secret_key atualizados
+   - CT 117 (Hive): senha PostgreSQL atualizada
+
+**Comandos Executados:**
+```bash
+# Exemplo do comando SSH gerado:
+sshpass -p 'SENHA_PROXMOX' ssh -o StrictHostKeyChecking=no root@192.168.4.25 \
+  "pct exec 116 -- su - datalake -c \"
+    cat > /tmp/update_cred_PID.sh << 'EOF'
+# Script de atualização aqui
+EOF
+    chmod +x /tmp/update_cred_PID.sh && /tmp/update_cred_PID.sh && rm /tmp/update_cred_PID.sh
+  \\""
+```
+
+**Verificação:**
+- Todos os CTs reportaram "atualizado com sucesso"
+- Credenciais validadas no Vault antes da atualização
+- Scripts temporários criados e removidos automaticamente
+- Sem exposição de credenciais em logs ou arquivos persistentes
+
+**Verificação:**
+- Todos os CTs reportaram "atualizado com sucesso"
+- Credenciais validadas no Vault antes da atualização
+- Scripts temporários criados e removidos automaticamente
+- Sem exposição de credenciais em logs ou arquivos persistentes
+
+**Ações Futuras Recomendadas:**
+- Implementar rotação automática de credenciais via Vault Agent
+- Criar health checks para validar conectividade dos serviços com novas credenciais
+- Documentar procedimento de rollback em caso de falha
+
+## ✅ Upload de Chave SSH Canônica para Vault
+**Data:** 20 de dezembro de 2025
+**Status:** ✅ Resolvido
+
+**Sintoma:** Chave SSH canônica (ct_datalake_id_ed25519) armazenada localmente, necessitando armazenamento seguro no Vault para acesso centralizado e seguro.
+
+**Causa Raiz:**
+- Chave privada SSH crítica para acesso aos CTs
+- Necessidade de armazenamento seguro fora do controle de versão
+- Requisito de acesso centralizado para automação
+
+**Solução Aplicada:**
+1. **Criação de script PowerShell (`upload_ssh_key_to_vault.ps1`):**
+   - Lê chave privada e pública dos arquivos locais
+   - Valida conectividade com Vault
+   - Faz upload via API REST KV v2
+   - Suporte a DryRun para validação
+
+2. **Estrutura de Armazenamento:**
+   - Path: `secret/ssh/canonical`
+   - Dados: `private_key` e `public_key`
+   - Formato: JSON compatível com Vault KV v2
+
+3. **Execução bem-sucedida:**
+   - Chave privada ED25519 armazenada
+   - Chave pública incluída para referência
+   - Validação via API REST confirmada
+
+**Comandos Executados:**
+```powershell
+# Upload da chave
+.\scripts\upload_ssh_key_to_vault.ps1 -KeyPath .\scripts\key\ct_datalake_id_ed25519
+
+# Verificação
+curl -H "X-Vault-Token: $TOKEN" "$VAULT_ADDR/v1/secret/data/ssh/canonical"
+```
+
+**Verificação:**
+- Upload retornou sucesso (HTTP 200)
+- Chave recuperável via API: `secret/ssh/canonical`
+- Formato JSON válido com campos `private_key` e `public_key`
+- Sem exposição da chave privada em logs
+
+**Ações Futuras Recomendadas:**
+- Implementar recuperação automática da chave via scripts
+- Configurar rotação periódica da chave SSH
+- Documentar uso da chave do Vault em procedimentos de automação
+
+## HiveServer2 - ClassCastException e permissão /tmp/hive (db-hive)
+**Data:** 16 de dezembro de 2025  
+**Status:** ✅ Resolvido
+
+**Sintoma:** HiveServer2 encerrava na inicialização com `ClassCastException: AppClassLoader cannot be cast to URLClassLoader` ao aplicar a política de autorização e, após corrigir Java, falhava por permissão insuficiente em `/tmp/hive` no HDFS.
+
+**Causa Raiz:**
+- Java 17 (classe AppClassLoader modular) incompatível com o classloader esperado pelo Hive 3.1.3 durante a aplicação da política de autorização.
+- Diretório `/tmp/hive` no HDFS sem permissão de escrita para o usuário `hive`.
+
+**Solução Aplicada:**
+1. Instalação manual do Temurin JDK 8 em `/opt/java/temurin-8` (tar.gz Adoptium).
+2. Criação de script de start `/tmp/start_hs2.sh` exportando `JAVA_HOME=/opt/java/temurin-8`, `HADOOP_HOME=/opt/hadoop`, `HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop`, `HIVE_HOME=/opt/hive`, `HIVE_CONF_DIR=$HIVE_HOME/conf` e executando:
+    - `nohup /opt/hive/bin/hiveserver2 --hiveconf hive.server2.authentication=NOSASL --hiveconf hive.server2.thrift.port=10000 --hiveconf hive.root.logger=INFO,DRFA > /opt/hive/logs/hiveserver2.out 2>&1 &`
+3. Ajuste de permissões no HDFS para o diretório temporário:
+    - `sudo -u hive JAVA_HOME=/opt/java/temurin-8 /opt/hadoop/bin/hdfs dfs -chmod 777 /tmp/hive`
+4. Reinício do HiveServer2 usando o script acima (executado como usuário `hive`).
+
+**Verificação:**
+- Processo ativo: `ps -ef | grep hiveserver2 | grep -v grep` mostra Java em `/opt/java/temurin-8`.
+- Porta aberta: `ss -tlnp | grep 10000` retorna `LISTEN` em `0.0.0.0:10000`.
+- Logs em `/opt/hive/logs/hiveserver2.out` sem novas exceções após o `chmod` do `/tmp/hive`.
+- Diretório `/tmp/hive` no HDFS com permissão `drwxrwxrwx`.
+
+**Ações Futuras Recomendadas:**
+- Criar unit systemd para `/tmp/start_hs2.sh` garantindo `JAVA_HOME=/opt/java/temurin-8` e dependência do metastore.
+- Documentar a URL de conexão para Superset: `thrift://db-hive.gti.local:10000/default` com `NOSASL`.
+
 ## Superset + PostgreSQL (CT 115)
 
 ### ✅ PostgreSQL instalado e configurado
@@ -100,6 +238,37 @@ SSH direto para CT 118 (192.168.4.26) resultava em "Connection timed out".
 **Última Atualização:** 12/12/2025  
 **Total de Soluções:** 14+
 
+## Spark Workers — SPARK_WORKER_OPTS com -Xmx (22 de dezembro de 2025)
+
+**Data:** 22 de dezembro de 2025  
+**Status:** ✅ Resolvido
+
+**Problema:**
+- Workers do Spark não conseguiam iniciar; logs mostravam "SPARK_WORKER_OPTS is not allowed to specify max heap(Xmx)".
+
+**Causa:**
+- `SPARK_WORKER_OPTS` continha `-Xmx...` (definição de heap) que não é permitido para os workers, impedindo a inicialização do processo worker.
+
+**Solução Aplicada:**
+1. Criei backup de `/opt/spark/spark-3.5.7-bin-hadoop3/conf/spark-env.sh`.
+2. Removi ocorrências `-Xmx...` de `SPARK_WORKER_OPTS` e garanti flags permitidas (`-XX:+UseG1GC`, `-XX:MaxGCPauseMillis=200`).
+3. Iniciei worker(s) (`/opt/spark/.../sbin/start-worker.sh`) e verifiquei o processo ativo.
+4. Re-submeti job de sanity (`SparkPi`) ao cluster; job concluiu com sucesso (Pi ~3.14).
+
+**Comandos/Operações Executadas:**
+- `cp /opt/spark/.../conf/spark-env.sh /opt/spark/.../conf/spark-env.sh.bak.<ts>`
+- script de limpeza que remove `-Xmx` e adiciona flags permitidas
+- `/opt/spark/.../sbin/start-worker.sh spark://spark.gti.local:7077`
+- `/opt/spark/.../bin/spark-submit --master spark://spark.gti.local:7077 --class ... SparkPi`
+
+**Verificação:**
+- Worker ativo (`ps aux | grep Worker`) e SparkPi finalizado com saída "Pi is roughly ...".
+
+**Ações recomendadas:**
+- Evitar colocar `-Xmx` em `SPARK_WORKER_OPTS`; usar `SPARK_WORKER_MEMORY` quando necessário.
+- Registrar fix no runbook de manutenção do Spark.
+
+
 ## SSH Canônico - Ajustes CTs (MinIO, Spark, Kafka, Superset, Airflow, Gitea)
 
 **Data:** 12 de dezembro de 2025  
@@ -140,6 +309,15 @@ SSH direto para CT 118 (192.168.4.26) resultava em "Connection timed out".
     - Nota: scripts PowerShell de automação passaram a usar um util compartilhado `scripts/get_canonical_key.ps1` que prioriza `SSH_KEY_PATH`, e, se ausente, tenta `scripts/key/ct_datalake_id_ed25519` antes do fallback.
 - Atualizamos a documentação para recomendar o uso da chave canônica para operações automatizadas, mantendo a opção de sobrescrever com `-KeyPath` quando necessário.
   
+
+### Rotação da chave canônica — 16 de dezembro de 2025
+**Data:** 16 de dezembro de 2025  
+**Executado por:** Gabriel Santana  
+**Descrição:** Um novo par ED25519 sem passphrase foi gerado e a chave pública do projeto (`scripts/key/ct_datalake_id_ed25519.pub`) foi atualizada. A chave pública foi então aplicada via `scripts/enforce_canonical_ssh_key.sh` nos CTs **107, 108, 109, 115, 116, 117, 118** (foi realizado `--dry-run` antes da aplicação final).  
+**Verificação:** Presença confirmada em `/home/datalake/.ssh/authorized_keys` em todos os CTs; teste de autenticação SSH para `datalake@superset.gti.local` retornou `ok`.  
+**Local da chave privada (não comitar):** `%USERPROFILE%/.ssh/ct_datalake_id_ed25519`  
+**Observações:** Mantenha a chave privada offline/segura; registre distribuição apenas a operadores autorizados.  
+**Próximos passos:** Atualizar inventário de chaves e planejar rotação periódica (recomendado 6-12 meses). 
 
 ---
 
@@ -783,7 +961,7 @@ Comandos de verificação (exemplos):
 ```
 sudo systemctl daemon-reload && sudo systemctl restart hive-metastore
 sudo systemctl status hive-metastore
-mysql -u hive -pS3cureHivePass2025 -e "USE metastore; SHOW TABLES;"
+mysql -u hive -p<<SENHA_FORTE>> -e "USE metastore; SHOW TABLES;"  # substitua por senha segura do Vault
 timeout 5 bash -c "</dev/tcp/localhost/9083" && echo "Porta 9083 acessível" || echo "Porta 9083 não responde"
 ```
 
@@ -925,7 +1103,7 @@ mysqldump -u root -p hive_metastore > /tmp/hive_backup.sql
 apt update && apt install -y postgresql postgresql-contrib
 systemctl start postgresql
 sudo -u postgres psql -c "CREATE DATABASE hive_metastore;"
-sudo -u postgres psql -c "CREATE USER hive WITH PASSWORD 'S3cureHivePass2025';"
+sudo -u postgres psql -c "CREATE USER hive WITH PASSWORD '<<SENHA_FORTE>>';"  # substitua por senha segura do Vault
 ```
 
 3. Atualizar Hive config:
@@ -950,6 +1128,56 @@ sudo -u postgres psql -c "CREATE USER hive WITH PASSWORD 'S3cureHivePass2025';"
 - ✅ Melhor performance
 
 ---
+
+## ✅ Atualização Final de Credenciais nos CTs (20/12/2025)
+**Data:** 20 de dezembro de 2025
+**Status:** ✅ Resolvido
+
+**Sintoma:** Sistema de produção com credenciais desatualizadas após migração para Vault, necessitando atualização final em todos os containers.
+
+**Causa Raiz:**
+- Credenciais inicialmente carregadas com paths incorretos no Vault
+- Problemas de escaping de caracteres especiais em tokens/senhas
+- Arquivos de configuração inexistentes nos containers
+
+**Solução Aplicada:**
+1. **Correção dos Paths no Vault:**
+   - Ajuste de `secret/spark/default` → `secret/spark/token`
+   - Ajuste de `secret/minio/spark` → `secret/minio/admin`
+   - Ajuste de `secret/postgres/hive` → `secret/hive/postgres`
+
+2. **Implementação de Escaping Adequado:**
+   - Uso de `sed 's/"/\\"/g'` para escapar aspas duplas
+   - Tratamento especial para tokens com caracteres `$()`
+   - Substituição segura de placeholders nos scripts
+
+3. **Execução bem-sucedida nos 5 CTs:**
+   - CT 116 (Airflow): senha admin aplicada
+   - CT 108 (Spark): token de autenticação aplicado
+   - CT 109 (Kafka): senha SASL aplicada
+   - CT 107 (MinIO): access_key/secret_key aplicados
+   - CT 117 (Hive): senha PostgreSQL aplicada
+
+**Comandos Executados:**
+```bash
+# Upload corrigido das credenciais
+.\scripts\upload_secrets_to_vault.ps1 -File .\scripts\secrets.production.json
+
+# Atualização final nos CTs
+.\scripts\update_ct_credentials_wsl.ps1
+```
+
+**Verificação:**
+- ✅ Todos os 5 CTs atualizados com sucesso
+- ✅ Credenciais recuperáveis do Vault
+- ✅ Scripts temporários executados e removidos
+- ✅ Tratamento adequado de caracteres especiais
+- ✅ Sem falhas de conectividade SSH
+
+**Ações Futuras Recomendadas:**
+- Configurar monitoramento de conectividade dos serviços
+- Implementar validação automática de credenciais
+- Documentar processo de rotação de credenciais
 
 ### Script de Diagnóstico
 
@@ -984,3 +1212,30 @@ tail -50 /var/log/hive/hive-metastore.log | grep -i error
 
 
 
+
+## Upload de Segredos para HashiCorp Vault (KV v2)
+**Data:** 20 de dezembro de 2025  
+**Status:** ✅ Resolvido
+
+**Sintoma:** Script `upload_secrets_to_vault.ps1` falhava ao enviar segredos para o Vault com erros como "data": null, URIs vazias ou detecção incorreta de versão KV.
+
+**Causa Raiz:**
+- Detecção de versão KV incorreta (assumia v2 mas options.version não era acessado corretamente).
+- Paths com prefixo "secret/" no JSON causavam acesso incorreto aos dados ($secrets.$path retornava null).
+- Definição de $url dentro do bloco DryRun causava URIs vazias no upload real.
+
+**Solução Aplicada:**
+1. Correção na detecção de versão KV: verificar se $mounts.secret/.options existe antes de acessar .version.
+2. Separação de paths originais e ajustados: manter $originalPaths para acesso aos dados e $paths para endpoints.
+3. Movimentação da definição de $url para antes do bloco DryRun.
+4. Remoção de linhas de debug após testes.
+
+**Verificação:**
+- Dry Run mostra bodies corretos com dados dos placeholders.
+- Upload real envia 5 segredos com sucesso (airflow/admin, spark/default, kafka/sasl, minio/spark, postgres/hive).
+- Leitura valida: (Invoke-RestMethod ... /v1/secret/data/airflow/admin).data.data retorna "CHANGEME_AIRFLOW_ADMIN".
+
+**Ações Futuras Recomendadas:**
+- Substituir placeholders "CHANGEME_*" por senhas reais geradas pelo generate_airflow_passwords.py.
+- Usar o script para uploads em lote em produção, sempre com DryRun primeiro.
+- Registrar no docs/00-overview/CONTEXT.md os paths dos segredos criados.
