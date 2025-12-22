@@ -1,6 +1,6 @@
 # scripts/key directory
 
-- `ct_datalake_id_ed25519.pub`: **public key** for canonical project access (safe to keep in repo).
+- `ct_datalake_id_ed25519.pub`: **public key** for canonical project access — **REMOVED** from the repository and backed up to `artifacts/ssh_keys/backups/` (see backup file) to avoid accidental exposure. If you need the public key for deployment, retrieve it from the backup or regenerate a new key pair.
 - `ct_datalake_id_ed25519`: **private key** must be kept out of version control. This repository used to contain the private key; it was removed for security reasons.
 
 Security guidance:
