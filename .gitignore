@@ -64,6 +64,14 @@ scripts/key/*
 !scripts/key/*.pub
 !scripts/key/README.md
 
+# Backups of SSH keys (may contain sensitive key material)
+artifacts/ssh_keys/backups/
+
+# Secret files templates / local overrides
+# Keep real secrets out of the repository; create local copies from templates
+scripts/secrets.production.json
+.env
+
 # Cache de sistema
 .cache/
 .pytest_cache/
