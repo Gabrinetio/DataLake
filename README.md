@@ -39,7 +39,7 @@ Este repositório contém a implementação completa do Data Lake e serviços au
     Para iniciar o gerador:
     ```bash
     # Em outro terminal, navegue até o diretório do Datagen
-    cd ../Datagen/Datagen  # Ajuste o caminho conforme necessário
+    cd ../Datagen  # Caminho relativo a partir de DataLake_FB-v2
     
     # Inicie o stack do Kafka/Datagen
     docker compose -f docker-compose.kafka.yml up -d
