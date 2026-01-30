@@ -485,6 +485,8 @@ spark.stop()
 SPARK_SCRIPT
 
     # Copiar script para o container Spark
+    echo "   📂 Criando diretório de trabalho..."
+    docker exec datalake-spark-master mkdir -p /opt/spark/work-dir
     docker cp /tmp/ingest_data.py datalake-spark-master:/opt/spark/work-dir/
     
     # Executar o job Spark
