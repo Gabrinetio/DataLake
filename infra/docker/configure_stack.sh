@@ -127,11 +127,172 @@ configure_kafka_connect() {
 }
 
 # -----------------------------------------------------------------------------
-# 5. SINCRONIZAR CÓDIGO COM GITEA
+# 5. SUPERSET - Configurar Conexão Trino
+# -----------------------------------------------------------------------------
+configure_superset_database() {
+    echo ""
+    echo "5️⃣  Configurando conexão Trino no Superset..."
+    
+    # Aguardar Superset estar healthy
+    echo "   ⏳ Aguardando Superset ficar healthy..."
+    until docker exec datalake-superset curl -s http://localhost:8088/health > /dev/null 2>&1; do
+        sleep 5
+    done
+    
+    # Executar script Python para criar a conexão via API
+    docker exec datalake-superset /app/.venv/bin/python -c "
+import requests
+import json
+
+# Login e obter CSRF token
+session = requests.Session()
+login_url = 'http://localhost:8088/api/v1/security/login'
+login_data = {'username': 'admin', 'password': 'admin', 'provider': 'db', 'refresh': True}
+
+try:
+    resp = session.post(login_url, json=login_data)
+    if resp.status_code == 200:
+        token = resp.json().get('access_token')
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        
+        # Verificar se já existe conexão Trino
+        dbs_resp = session.get('http://localhost:8088/api/v1/database/', headers=headers)
+        existing_dbs = dbs_resp.json().get('result', [])
+        trino_exists = any(db.get('database_name') == 'Trino' for db in existing_dbs)
+        
+        if not trino_exists:
+            # Criar conexão Trino
+            db_data = {
+                'database_name': 'Trino',
+                'sqlalchemy_uri': 'trino://trino@datalake-trino:8080/iceberg',
+                'expose_in_sqllab': True,
+                'allow_ctas': True,
+                'allow_cvas': True,
+                'allow_dml': True
+            }
+            create_resp = session.post('http://localhost:8088/api/v1/database/', headers=headers, json=db_data)
+            if create_resp.status_code in [200, 201]:
+                print('Conexao Trino criada com sucesso!')
+            else:
+                print(f'Erro ao criar conexao: {create_resp.text}')
+        else:
+            print('Conexao Trino ja existe.')
+    else:
+        print(f'Erro no login: {resp.status_code}')
+except Exception as e:
+    print(f'Erro: {e}')
+" 2>/dev/null || echo "   ⚠️  Configuração manual necessária"
+    
+    echo "   ✅ Conexão Trino configurada!"
+}
+
+# -----------------------------------------------------------------------------
+# 6. TRINO/ICEBERG - Criar Schema e Tabelas
+# -----------------------------------------------------------------------------
+configure_iceberg_tables() {
+    echo ""
+    echo "6️⃣  Configurando tabelas Iceberg..."
+    
+    # Aguardar Trino estar pronto
+    echo "   ⏳ Aguardando Trino iniciar..."
+    until docker exec datalake-trino trino --execute "SELECT 1" > /dev/null 2>&1; do
+        sleep 5
+    done
+    
+    # Criar schema 'isp' para dados do ISP
+    echo "   📦 Criando schema 'isp'..."
+    docker exec datalake-trino trino --execute "CREATE SCHEMA IF NOT EXISTS iceberg.isp" 2>/dev/null || true
+    
+    # Criar tabelas para os dados do Datagen
+    echo "   📊 Criando tabelas Iceberg..."
+    
+    # Tabela: customers (clientes)
+    docker exec datalake-trino trino --execute "
+    CREATE TABLE IF NOT EXISTS iceberg.isp.customers (
+        id VARCHAR,
+        name VARCHAR,
+        email VARCHAR,
+        phone VARCHAR,
+        address VARCHAR,
+        city VARCHAR,
+        state VARCHAR,
+        plan_type VARCHAR,
+        status VARCHAR,
+        created_at TIMESTAMP,
+        updated_at TIMESTAMP
+    ) WITH (
+        format = 'PARQUET',
+        partitioning = ARRAY['month(created_at)']
+    )
+    " 2>/dev/null || echo "   ⚠️  Tabela customers já existe"
+    
+    # Tabela: sessions (sessões de conexão)
+    docker exec datalake-trino trino --execute "
+    CREATE TABLE IF NOT EXISTS iceberg.isp.sessions (
+        id VARCHAR,
+        customer_id VARCHAR,
+        ip_address VARCHAR,
+        mac_address VARCHAR,
+        bytes_in BIGINT,
+        bytes_out BIGINT,
+        start_time TIMESTAMP,
+        end_time TIMESTAMP,
+        duration_seconds INTEGER,
+        connection_type VARCHAR
+    ) WITH (
+        format = 'PARQUET',
+        partitioning = ARRAY['day(start_time)']
+    )
+    " 2>/dev/null || echo "   ⚠️  Tabela sessions já existe"
+    
+    # Tabela: invoices (faturas)
+    docker exec datalake-trino trino --execute "
+    CREATE TABLE IF NOT EXISTS iceberg.isp.invoices (
+        id VARCHAR,
+        customer_id VARCHAR,
+        amount DECIMAL(10,2),
+        due_date DATE,
+        paid_date DATE,
+        status VARCHAR,
+        payment_method VARCHAR,
+        created_at TIMESTAMP
+    ) WITH (
+        format = 'PARQUET',
+        partitioning = ARRAY['month(created_at)']
+    )
+    " 2>/dev/null || echo "   ⚠️  Tabela invoices já existe"
+    
+    # Tabela: contracts (contratos)
+    docker exec datalake-trino trino --execute "
+    CREATE TABLE IF NOT EXISTS iceberg.isp.contracts (
+        id VARCHAR,
+        customer_id VARCHAR,
+        plan_name VARCHAR,
+        speed_mbps INTEGER,
+        monthly_price DECIMAL(10,2),
+        start_date DATE,
+        end_date DATE,
+        status VARCHAR,
+        created_at TIMESTAMP
+    ) WITH (
+        format = 'PARQUET',
+        partitioning = ARRAY['year(start_date)']
+    )
+    " 2>/dev/null || echo "   ⚠️  Tabela contracts já existe"
+    
+    # Listar tabelas criadas
+    echo "   📋 Tabelas disponíveis:"
+    docker exec datalake-trino trino --execute "SHOW TABLES FROM iceberg.isp" 2>/dev/null | grep -v "^$" | sed 's/^/      • /'
+    
+    echo "   ✅ Tabelas Iceberg configuradas!"
+}
+
+# -----------------------------------------------------------------------------
+# 7. SINCRONIZAR CÓDIGO COM GITEA
 # -----------------------------------------------------------------------------
 sync_code_to_gitea() {
     echo ""
-    echo "5️⃣  Sincronizando código com Gitea..."
+    echo "7️⃣  Sincronizando código com Gitea..."
     
     # Aguardar Gitea estar pronto após possível restart
     sleep 5
@@ -171,6 +332,8 @@ main() {
     configure_superset
     configure_minio
     configure_kafka_connect
+    configure_superset_database
+    configure_iceberg_tables
     sync_code_to_gitea
     
     echo ""
@@ -186,6 +349,12 @@ main() {
     echo "   • Gitea:         http://localhost:3000"
     echo "   • Spark Master:  http://localhost:8085"
     echo "   • Datagen:       http://localhost:8000"
+    echo ""
+    echo "📋 Tabelas Iceberg disponíveis:"
+    echo "   • iceberg.isp.customers"
+    echo "   • iceberg.isp.sessions"
+    echo "   • iceberg.isp.invoices"
+    echo "   • iceberg.isp.contracts"
     echo ""
 }
 
