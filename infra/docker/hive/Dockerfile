@@ -7,9 +7,10 @@ RUN apt-get update && \
 
 ENV HADOOP_VERSION=3.3.4
 ENV HIVE_VERSION=3.1.3
+ENV JAVA_HOME=/opt/java/openjdk
 ENV HADOOP_HOME=/opt/hadoop
 ENV HIVE_HOME=/opt/hive
-ENV PATH=$PATH:$HIVE_HOME/bin:$HADOOP_HOME/bin
+ENV PATH=$PATH:$HIVE_HOME/bin:$HADOOP_HOME/bin:$JAVA_HOME/bin
 
 WORKDIR /opt
 

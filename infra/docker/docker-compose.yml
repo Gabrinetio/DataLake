@@ -56,6 +56,7 @@ services:
       - .env
     environment:
       - HIVE_OPTS=--service metastore
+      - JAVA_HOME=/opt/java/openjdk
     volumes:
       - ./conf/hive/hive-site.xml:/opt/hive/conf/hive-site.xml
     networks:
