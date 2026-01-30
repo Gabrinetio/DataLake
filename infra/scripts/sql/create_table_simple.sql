@@ -1,1 +1,0 @@
-CREATE TABLE iceberg.default.test_table (id INTEGER, name VARCHAR)

@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-Iteration 4: Security Hardening & Best Practices
-================================================
+Iteração 4: Endurecimento de Segurança e Melhores Práticas
+==========================================================
 
-Purpose:
-  - Validate credential security
-  - Test access control
-  - Verify encryption capabilities
-  - Document security policies
+Propósito:
+  - Validar segurança de credenciais
+  - Testar controle de acesso
+  - Verificar capacidades de criptografia
+  - Documentar políticas de segurança
   
-Success Criteria:
-  - Credentials not exposed in logs
-  - Access control working
-  - Encryption configured
-  - Security policies documented
+Critérios de Sucesso:
+  - Credenciais não expostas em logs
+  - Controle de acesso funcionando
+  - Criptografia configurada
+  - Políticas de segurança documentadas
 """
 
 import os
@@ -26,10 +26,10 @@ from src.config import get_spark_s3_config
 
 
 class SecurityHardeningManager:
-    """Handle Iceberg table security validation"""
+    """Gerencia validação de segurança de tabelas Iceberg"""
     
     def __init__(self):
-        """Initialize Spark session with Iceberg"""
+        """Inicializa sessão Spark com Iceberg"""
         spark_config = get_spark_s3_config()
         self.spark = SparkSession.builder \
             .appName("Iceberg_Security_Hardening") \
@@ -47,11 +47,11 @@ class SecurityHardeningManager:
             .getOrCreate()
         
         self.spark.sparkContext.setLogLevel("WARN")
-        print("\n✅ SparkSession initialized\n")
+        print("\n✅ SparkSession inicializada\n")
     
     def check_credential_exposure(self):
-        """Check if credentials are exposed in configurations"""
-        print(f"\n🔐 CHECKING CREDENTIAL EXPOSURE")
+        """Verifica se credenciais estão expostas nas configurações"""
+        print(f"\n🔐 VERIFICANDO EXPOSIÇÃO DE CREDENCIAIS")
         print("=" * 70)
         
         try:
@@ -63,96 +63,96 @@ class SecurityHardeningManager:
             secure_configs = 0
             
             for key, value in conf:
-                # Check if this looks like a credential
+                # Verificar se parece uma credencial
                 if any(sensitive in key.lower() for sensitive in sensitive_keys):
                     if value and not value.startswith("***"):
                         exposed_creds.append({
                             "key": key,
                             "exposed": True,
-                            "risk": "HIGH"
+                            "risk": "ALTO"
                         })
                     else:
                         secure_configs += 1
             
             if exposed_creds:
-                print(f"  ⚠️  Found {len(exposed_creds)} potentially exposed credentials")
+                print(f"  ⚠️  Encontradas {len(exposed_creds)} credenciais potencialmente expostas")
                 for cred in exposed_creds:
-                    print(f"     Key: {cred['key']}")
+                    print(f"     Chave: {cred['key']}")
             else:
-                print(f"  ✅ No obviously exposed credentials found")
+                print(f"  ✅ Nenhuma credencial obviamente exposta encontrada")
             
             result = {
                 "exposed_credentials": len(exposed_creds),
                 "secure_configs": secure_configs,
                 "exposed_items": exposed_creds,
-                "status": "WARN" if exposed_creds else "SECURE"
+                "status": "AVISO" if exposed_creds else "SEGURO"
             }
             
             return result
             
         except Exception as e:
-            print(f"  ❌ Check failed: {str(e)[:100]}")
+            print(f"  ❌ Verificação falhou: {str(e)[:100]}")
             return {
-                "status": "FAILED",
+                "status": "FALHA",
                 "error": str(e)[:100]
             }
     
     def validate_s3_encryption(self):
-        """Validate S3 storage encryption configuration"""
-        print(f"\n🔒 VALIDATING S3 ENCRYPTION")
+        """Valida configuração de criptografia do armazenamento S3"""
+        print(f"\n🔒 VALIDANDO CRIPTOGRAFIA S3")
         print("=" * 70)
         
         try:
-            # Check if S3A configs support encryption
-            encryption_enabled = True  # MinIO can support encryption
+            # Verificar se configs S3A suportam criptografia
+            encryption_enabled = True  # MinIO pode suportar criptografia
             
             encryption_config = {
                 "s3a_endpoint": "http://localhost:9000",
                 "path_style_access": True,
-                "ssl_enabled": False,  # Demo environment
-                "server_side_encryption": "Can be enabled via MinIO policies",
-                "encryption_status": "NOT_ENABLED_IN_DEMO",
-                "recommendation": "Enable in production: aws:kms or aws:s3"
+                "ssl_enabled": False,  # Ambiente de demonstração
+                "server_side_encryption": "Pode ser habilitado via políticas MinIO",
+                "encryption_status": "NAO_HABILITADO_EM_DEMO",
+                "recommendation": "Habilitar em produção: aws:kms ou aws:s3"
             }
             
-            print(f"  ℹ️  S3A Endpoint: {encryption_config['s3a_endpoint']}")
-            print(f"  ℹ️  SSL Enabled: {encryption_config['ssl_enabled']}")
-            print(f"  ⚠️  Encryption Status: {encryption_config['encryption_status']}")
-            print(f"  💡 Recommendation: {encryption_config['recommendation']}")
+            print(f"  ℹ️  Endpoint S3A: {encryption_config['s3a_endpoint']}")
+            print(f"  ℹ️  SSL Habilitado: {encryption_config['ssl_enabled']}")
+            print(f"  ⚠️  Status Criptografia: {encryption_config['encryption_status']}")
+            print(f"  💡 Recomendação: {encryption_config['recommendation']}")
             
             result = {
                 "encryption_config": encryption_config,
                 "production_ready": False,
-                "status": "PARTIAL"
+                "status": "PARCIAL"
             }
             
             return result
             
         except Exception as e:
-            print(f"  ❌ Validation failed: {str(e)[:100]}")
+            print(f"  ❌ Validação falhou: {str(e)[:100]}")
             return {
-                "status": "FAILED",
+                "status": "FALHA",
                 "error": str(e)[:100]
             }
     
     def test_table_access_control(self, table_name):
-        """Test table access and permissions"""
-        print(f"\n👥 TESTING TABLE ACCESS CONTROL")
+        """Testa acesso e permissões da tabela"""
+        print(f"\n👥 TESTANDO CONTROLE DE ACESSO À TABELA")
         print("=" * 70)
         
         try:
-            # Test read access
+            # Testar acesso de leitura
             read_test = self.spark.sql(f"SELECT COUNT(*) FROM {table_name}").collect()[0][0]
             
             read_access = {
-                "access_type": "READ",
+                "access_type": "LEITURA",
                 "allowed": True,
                 "rows_accessible": read_test
             }
             
-            print(f"  ✅ READ access: ALLOWED ({read_test:,} rows)")
+            print(f"  ✅ Acesso de LEITURA: PERMITIDO ({read_test:,} linhas)")
             
-            # Test write access
+            # Testar acesso de escrita
             try:
                 test_write_sql = f"""
                     INSERT INTO {table_name}
@@ -160,78 +160,78 @@ class SecurityHardeningManager:
                 """
                 self.spark.sql(test_write_sql)
                 
-                # Clean up test
+                # Limpar teste
                 self.spark.sql(f"DELETE FROM {table_name} WHERE product_id = 'ACCESS_TEST'")
                 
                 write_access = {
-                    "access_type": "WRITE",
+                    "access_type": "ESCRITA",
                     "allowed": True,
-                    "status": "ENABLED"
+                    "status": "HABILITADO"
                 }
                 
-                print(f"  ✅ WRITE access: ALLOWED")
+                print(f"  ✅ Acesso de ESCRITA: PERMITIDO")
                 
             except Exception as e:
                 write_access = {
-                    "access_type": "WRITE",
+                    "access_type": "ESCRITA",
                     "allowed": False,
-                    "status": "DENIED",
+                    "status": "NEGADO",
                     "reason": str(e)[:100]
                 }
                 
-                print(f"  ❌ WRITE access: DENIED")
+                print(f"  ❌ Acesso de ESCRITA: NEGADO")
             
             access_result = {
                 "table": table_name,
                 "read_access": read_access,
                 "write_access": write_access,
-                "status": "PERMISSIVE"  # Development environment
+                "status": "PERMISSIVO"  # Ambiente de desenvolvimento
             }
             
             return access_result
             
         except Exception as e:
-            print(f"  ❌ Access test failed: {str(e)[:100]}")
+            print(f"  ❌ Teste de acesso falhou: {str(e)[:100]}")
             return {
-                "status": "FAILED",
+                "status": "FALHA",
                 "error": str(e)[:100]
             }
     
     def generate_security_policy(self):
-        """Generate security policy recommendations"""
-        print(f"\n📋 SECURITY POLICY RECOMMENDATIONS")
+        """Gera recomendações de política de segurança"""
+        print(f"\n📋 RECOMENDAÇÕES DE POLÍTICA DE SEGURANÇA")
         print("=" * 70)
         
         policy = {
             "authentication": {
                 "method": "MinIO IAM",
-                "recommendation": "Use AWS IAM compatible credentials",
-                "mfa": "Enable MFA for sensitive operations",
-                "status": "CONFIGURED"
+                "recommendation": "Usar credenciais compatíveis com AWS IAM",
+                "mfa": "Habilitar MFA para operações sensíveis",
+                "status": "CONFIGURADO"
             },
             "authorization": {
-                "access_control": "Bucket policies + IAM roles",
-                "principle": "Least privilege access",
-                "service_accounts": "Create separate service accounts per application",
-                "status": "TO_IMPLEMENT"
+                "access_control": "Políticas de Bucket + roles IAM",
+                "principle": "Acesso de menor privilégio",
+                "service_accounts": "Criar contas de serviço separadas por aplicação",
+                "status": "A_IMPLEMENTAR"
             },
             "encryption": {
-                "data_at_rest": "Enable S3 server-side encryption (aws:kms)",
-                "data_in_transit": "Use HTTPS/TLS for all connections",
-                "key_management": "Rotate keys every 90 days",
-                "status": "TO_IMPLEMENT"
+                "data_at_rest": "Habilitar criptografia server-side S3 (aws:kms)",
+                "data_in_transit": "Usar HTTPS/TLS para todas as conexões",
+                "key_management": "Rotacionar chaves a cada 90 dias",
+                "status": "A_IMPLEMENTAR"
             },
             "monitoring": {
-                "access_logs": "Enable S3 access logging",
-                "audit_trail": "Log all data access and modifications",
-                "alerts": "Set up alerts for suspicious activity",
-                "status": "TO_IMPLEMENT"
+                "access_logs": "Habilitar logs de acesso S3",
+                "audit_trail": "Registrar todo acesso e modificação de dados",
+                "alerts": "Configurar alertas para atividades suspeitas",
+                "status": "A_IMPLEMENTAR"
             },
             "compliance": {
-                "data_residency": "Keep data in approved regions",
-                "retention": "Implement data retention policies",
-                "gdpr": "Support GDPR data deletion requests",
-                "status": "TO_IMPLEMENT"
+                "data_residency": "Manter dados em regiões aprovadas",
+                "retention": "Implementar políticas de retenção de dados",
+                "gdpr": "Suportar requisições de exclusão de dados GDPR",
+                "status": "A_IMPLEMENTAR"
             }
         }
         
@@ -246,37 +246,37 @@ class SecurityHardeningManager:
         return policy
     
     def run(self):
-        """Execute full security hardening workflow"""
+        """Executa fluxo completo de endurecimento de segurança"""
         print("\n" + "="*70)
-        print("🔐 SECURITY HARDENING & BEST PRACTICES - ITERATION 4")
+        print("🔐 ENDURECIMENTO DE SEGURANÇA & MELHORES PRÁTICAS - ITERAÇÃO 4")
         print("="*70)
         
         table_name = "hadoop_prod.default.vendas_small"
         
-        # 1. Check credential exposure
+        # 1. Verificar exposição de credenciais
         cred_check = self.check_credential_exposure()
         
-        # 2. Validate encryption
+        # 2. Validar criptografia
         encryption_check = self.validate_s3_encryption()
         
-        # 3. Test access control
+        # 3. Testar controle de acesso
         access_check = self.test_table_access_control(table_name)
         
-        # 4. Generate security policy
+        # 4. Gerar política de segurança
         policy = self.generate_security_policy()
         
-        # 5. Summary
-        print(f"\n📊 SECURITY ASSESSMENT SUMMARY")
+        # 5. Resumo
+        print(f"\n📊 RESUMO DA AVALIAÇÃO DE SEGURANÇA")
         print("=" * 70)
         
-        print(f"  🔐 Credential Exposure: {cred_check.get('status')}")
-        print(f"  🔒 Encryption: {encryption_check.get('status')}")
-        print(f"  👥 Access Control: {access_check.get('status')}")
+        print(f"  🔐 Exposição de Credenciais: {cred_check.get('status')}")
+        print(f"  🔒 Criptografia: {encryption_check.get('status')}")
+        print(f"  👥 Controle de Acesso: {access_check.get('status')}")
         
-        print(f"\n  ⚠️  Demo Environment: Full production security not enabled")
-        print(f"  💡 See security policy recommendations above for production setup")
+        print(f"\n  ⚠️  Ambiente de Demo: Segurança total de produção não habilitada")
+        print(f"  💡 Veja recomendações de política de segurança acima para setup de produção")
         
-        # 6. Save results
+        # 6. Salvar resultados
         results = {
             "timestamp": datetime.now().isoformat(),
             "table": table_name,
@@ -285,20 +285,20 @@ class SecurityHardeningManager:
             "access_control_check": access_check,
             "security_policy": policy,
             "summary": {
-                "environment": "DEVELOPMENT/DEMO",
+                "environment": "DESENVOLVIMENTO/DEMO",
                 "credential_exposure": cred_check.get("status"),
                 "encryption_status": encryption_check.get("status"),
                 "access_control_status": access_check.get("status"),
                 "production_ready": False,
                 "recommended_actions": [
-                    "Enable SSL/TLS for all connections",
-                    "Configure server-side encryption (aws:kms)",
-                    "Implement IAM policies and roles",
-                    "Enable access logging and audit trails",
-                    "Set up monitoring and alerting",
-                    "Implement least privilege access",
-                    "Rotate credentials every 90 days",
-                    "Enable MFA for sensitive operations"
+                    "Habilitar SSL/TLS para todas as conexões",
+                    "Configurar criptografia server-side (aws:kms)",
+                    "Implementar políticas e roles IAM",
+                    "Habilitar logs de acesso e trilhas de auditoria",
+                    "Configurar monitoramento e alertas",
+                    "Implementar acesso de menor privilégio",
+                    "Rotacionar credenciais a cada 90 dias",
+                    "Habilitar MFA para operações sensíveis"
                 ]
             }
         }
@@ -307,8 +307,8 @@ class SecurityHardeningManager:
         with open(output_file, "w") as f:
             json.dump(results, f, indent=2)
         
-        print(f"\n✅ SECURITY HARDENING TEST COMPLETO")
-        print(f"📁 Results saved to: {output_file}")
+        print(f"\n✅ TESTE DE ENDURECIMENTO DE SEGURANÇA COMPLETO")
+        print(f"📁 Resultados salvos em: {output_file}")
         
         return results
 

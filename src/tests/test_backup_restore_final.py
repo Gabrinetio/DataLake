@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Iteration 4: Backup & Restore - Versão Final
+Iteração 4: Backup e Restauração - Versão Final
 ============================================
 
-Purpose:
-  - Create table backups using exportação Parquet
-  - Implement restore procedures
-  - Validate backup integrity
+Propósito:
+  - Criar backups de tabelas usando exportação Parquet
+  - Implementar procedimentos de restauração
+  - Validar integridade do backup
 """
 
 import os
@@ -19,10 +19,10 @@ from src.config import get_spark_s3_config
 
 
 class BackupRestoreManager:
-    """Handle table backup and restore using Iceberg"""
+    """Gerencia backup e restauração de tabelas usando Iceberg"""
     
     def __init__(self):
-        """Initialize Spark session with Iceberg"""
+        """Inicializa sessão Spark com Iceberg"""
         spark_config = get_spark_s3_config()
         self.spark = SparkSession.builder \
             .appName("Iceberg_Backup_Restore") \
@@ -40,15 +40,15 @@ class BackupRestoreManager:
             .getOrCreate()
         
         self.spark.sparkContext.setLogLevel("WARN")
-        print("\n✅ SparkSession initialized\n")
+        print("\n✅ SparkSession inicializada\n")
         
         self.backup_dir = "/home/datalake/backups"
         os.makedirs(self.backup_dir, exist_ok=True)
         os.chmod(self.backup_dir, 0o777)
     
     def create_backup(self, table_name, backup_name=None):
-        """Create a backup of table data"""
-        print(f"\n💾 CREATING BACKUP for {table_name}")
+        """Cria um backup dos dados da tabela"""
+        print(f"\n💾 CRIANDO BACKUP para {table_name}")
         print("=" * 70)
         
         if backup_name is None:
@@ -59,16 +59,16 @@ class BackupRestoreManager:
         start_time = time.time()
         
         try:
-            # Read from Iceberg table
+            # Ler da tabela Iceberg
             df = self.spark.sql(f"SELECT * FROM {table_name}")
             num_rows = df.count()
             
-            # Export to Parquet
+            # Exportar para Parquet
             df.coalesce(1).write.mode("overwrite").parquet(backup_path)
             
             elapsed = time.time() - start_time
             
-            # Get backup metadata
+            # Obter metadados do backup
             backup_size = sum(f.stat().st_size for f in Path(backup_path).rglob("*") if f.is_file())
             
             backup_info = {
@@ -80,29 +80,29 @@ class BackupRestoreManager:
                 "backup_time_seconds": elapsed,
                 "timestamp": datetime.now().isoformat(),
                 "path": backup_path,
-                "status": "SUCCESS"
+                "status": "SUCESSO"
             }
             
-            print(f"  ✅ Backup created: {backup_name}")
-            print(f"  📝 Rows: {num_rows:,}")
-            print(f"  💾 Size: {backup_info['size_mb']:.2f} MB")
-            print(f"  ⏱️  Time: {elapsed:.2f}s")
+            print(f"  ✅ Backup criado: {backup_name}")
+            print(f"  📝 Linhas: {num_rows:,}")
+            print(f"  💾 Tamanho: {backup_info['size_mb']:.2f} MB")
+            print(f"  ⏱️  Tempo: {elapsed:.2f}s")
             
             return backup_info
             
         except Exception as e:
             elapsed = time.time() - start_time
-            print(f"  ❌ Backup failed: {str(e)[:150]}")
+            print(f"  ❌ Falha no backup: {str(e)[:150]}")
             return {
                 "backup_name": backup_name,
-                "status": "FAILED",
+                "status": "FALHA",
                 "error": str(e)[:150],
                 "time_seconds": elapsed
             }
     
     def restore_backup(self, backup_name, restore_table_name):
-        """Restore a backup to a new table"""
-        print(f"\n📥 RESTORING BACKUP: {backup_name}")
+        """Restaura um backup para uma nova tabela"""
+        print(f"\n📥 RESTAURANDO BACKUP: {backup_name}")
         print("=" * 70)
         
         backup_path = os.path.join(self.backup_dir, backup_name)
@@ -110,15 +110,15 @@ class BackupRestoreManager:
         start_time = time.time()
         
         try:
-            # Check if backup exists
+            # Verificar se o backup existe
             if not os.path.exists(backup_path):
-                raise Exception(f"Backup path does not exist: {backup_path}")
+                raise Exception(f"Caminho de backup não existe: {backup_path}")
             
-            # Read from backup
+            # Ler do backup
             restore_df = self.spark.read.parquet(backup_path)
             num_rows = restore_df.count()
             
-            # Write to S3 location
+            # Escrever para localização S3
             restore_path = f"s3a://datalake/warehouse/restored/{restore_table_name}"
             restore_df.write.mode("overwrite").parquet(restore_path)
             
@@ -131,38 +131,38 @@ class BackupRestoreManager:
                 "restore_time_seconds": elapsed,
                 "timestamp": datetime.now().isoformat(),
                 "path": restore_path,
-                "status": "SUCCESS"
+                "status": "SUCESSO"
             }
             
-            print(f"  ✅ Data restored: {restore_table_name}")
-            print(f"  📝 Rows: {num_rows:,}")
-            print(f"  ⏱️  Time: {elapsed:.2f}s")
+            print(f"  ✅ Dados restaurados: {restore_table_name}")
+            print(f"  📝 Linhas: {num_rows:,}")
+            print(f"  ⏱️  Tempo: {elapsed:.2f}s")
             
             return restore_info
             
         except Exception as e:
             elapsed = time.time() - start_time
-            print(f"  ❌ Restore failed: {str(e)[:150]}")
+            print(f"  ❌ Falha na restauração: {str(e)[:150]}")
             return {
                 "restore_name": restore_table_name,
-                "status": "FAILED",
+                "status": "FALHA",
                 "error": str(e)[:150],
                 "time_seconds": elapsed
             }
     
     def validate_backup_integrity(self, original_table, backup_name):
-        """Validate backup integrity"""
-        print(f"\n✔️  VALIDATING BACKUP INTEGRITY")
+        """Valida integridade do backup"""
+        print(f"\n✔️  VALIDANDO INTEGRIDADE DO BACKUP")
         print("=" * 70)
         
         backup_path = os.path.join(self.backup_dir, backup_name)
         
         try:
-            # Get original data
+            # Obter dados originais
             original_df = self.spark.sql(f"SELECT * FROM {original_table}")
             original_count = original_df.count()
             
-            # Get backup data
+            # Obter dados do backup
             backup_df = self.spark.read.parquet(backup_path)
             backup_count = backup_df.count()
             
@@ -172,25 +172,25 @@ class BackupRestoreManager:
                 "original_rows": original_count,
                 "backup_rows": backup_count,
                 "match": match,
-                "integrity_status": "VALID" if match else "MISMATCH"
+                "integrity_status": "VÁLIDO" if match else "DIVERGENTE"
             }
             
-            print(f"  Original rows: {original_count:,}")
-            print(f"  Backup rows: {backup_count:,}")
+            print(f"  Linhas originais: {original_count:,}")
+            print(f"  Linhas do backup: {backup_count:,}")
             print(f"  Status: {result['integrity_status']}")
             
             return result
             
         except Exception as e:
-            print(f"  ❌ Validation failed: {str(e)[:150]}")
+            print(f"  ❌ Validação falhou: {str(e)[:150]}")
             return {
-                "status": "FAILED",
+                "status": "FALHA",
                 "error": str(e)[:150]
             }
     
     def list_backups(self):
-        """List all available backups"""
-        print(f"\n📋 AVAILABLE BACKUPS")
+        """Lista todos os backups disponíveis"""
+        print(f"\n📋 BACKUPS DISPONÍVEIS")
         print("=" * 70)
         
         try:
@@ -210,53 +210,53 @@ class BackupRestoreManager:
                 for backup in backups:
                     print(f"  📦 {backup['name']} ({backup['size_mb']:.2f} MB)")
             else:
-                print(f"  ℹ️  No backups found")
+                print(f"  ℹ️  Nenhum backup encontrado")
             
             return backups
             
         except Exception as e:
-            print(f"  ❌ Error listing backups: {str(e)[:150]}")
+            print(f"  ❌ Erro ao listar backups: {str(e)[:150]}")
             return []
     
     def run(self):
-        """Execute full backup/restore workflow"""
+        """Executa fluxo completo de backup/restauração"""
         print("\n" + "="*70)
-        print("💾 BACKUP & RESTORE PROCEDURES - ITERATION 4")
+        print("💾 PROCEDIMENTOS DE BACKUP E RESTAURAÇÃO - ITERAÇÃO 4")
         print("="*70)
         
         table_name = "hadoop_prod.default.vendas_small"
         backup_name = f"vendas_backup_{int(time.time())}"
         
-        # 1. Create backup
+        # 1. Criar backup
         backup_result = self.create_backup(table_name, backup_name)
         
-        # 2. List backups
+        # 2. Listar backups
         backups = self.list_backups()
         
-        # 3. Validate integrity
-        if backup_result.get("status") == "SUCCESS":
+        # 3. Validar integridade
+        if backup_result.get("status") == "SUCESSO":
             integrity_result = self.validate_backup_integrity(table_name, backup_name)
         else:
-            integrity_result = {"status": "SKIPPED", "reason": "Backup failed"}
+            integrity_result = {"status": "PULADO", "reason": "Backup falhou"}
         
-        # 4. Restore backup
+        # 4. Restaurar backup
         restore_result = self.restore_backup(backup_name, "vendas_restored")
         
-        # 5. Summary
-        print(f"\n📊 BACKUP & RESTORE SUMMARY")
+        # 5. Resumo
+        print(f"\n📊 RESUMO DE BACKUP E RESTAURAÇÃO")
         print("=" * 70)
         
-        print(f"  ✅ Backup created: {backup_result.get('status')}")
-        if backup_result.get("status") == "SUCCESS":
-            print(f"     Rows: {backup_result.get('row_count'):,}, Size: {backup_result.get('size_mb'):.2f}MB")
+        print(f"  ✅ Backup criado: {backup_result.get('status')}")
+        if backup_result.get("status") == "SUCESSO":
+            print(f"     Linhas: {backup_result.get('row_count'):,}, Tamanho: {backup_result.get('size_mb'):.2f}MB")
         
-        print(f"  ✔️  Backup integrity: {integrity_result.get('integrity_status', 'UNKNOWN')}")
+        print(f"  ✔️  Integridade do backup: {integrity_result.get('integrity_status', 'DESCONHECIDO')}")
         
-        print(f"  ✅ Data restored: {restore_result.get('status')}")
-        if restore_result.get("status") == "SUCCESS":
-            print(f"     Rows: {restore_result.get('rows_restored'):,}")
+        print(f"  ✅ Dados restaurados: {restore_result.get('status')}")
+        if restore_result.get("status") == "SUCESSO":
+            print(f"     Linhas: {restore_result.get('rows_restored'):,}")
         
-        # 6. Save results
+        # 6. Salvar resultados
         results = {
             "timestamp": datetime.now().isoformat(),
             "table": table_name,
@@ -266,10 +266,10 @@ class BackupRestoreManager:
             "backups_available": backups,
             "summary": {
                 "backup_status": backup_result.get("status"),
-                "integrity_status": integrity_result.get("integrity_status", "UNKNOWN"),
+                "integrity_status": integrity_result.get("integrity_status", "DESCONHECIDO"),
                 "restore_status": restore_result.get("status"),
-                "overall_success": (backup_result.get("status") == "SUCCESS" and 
-                                   restore_result.get("status") == "SUCCESS")
+                "overall_success": (backup_result.get("status") == "SUCESSO" and 
+                                   restore_result.get("status") == "SUCESSO")
             }
         }
         
@@ -277,8 +277,8 @@ class BackupRestoreManager:
         with open(output_file, "w") as f:
             json.dump(results, f, indent=2)
         
-        print(f"\n✅ BACKUP & RESTORE TEST COMPLETO")
-        print(f"📁 Results saved to: {output_file}")
+        print(f"\n✅ TESTE DE BACKUP E RESTAURAÇÃO COMPLETO")
+        print(f"📁 Resultados salvos em: {output_file}")
         
         return results
 

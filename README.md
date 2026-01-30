@@ -1,58 +1,62 @@
-# 🏗️ DataLake FB - Apache Spark + Iceberg
+# 🏗️ DataLake FB - Unified Docker Stack
 
-> **Plataforma de Data Lake moderna com Apache Spark 4.0.1, Apache Iceberg 1.10.0 e time-travel capabilities.**
+> **Plataforma de Data Lake moderna com Apache Spark, Apache Iceberg, Trino, Superset, Kafka e Gitea.**
 
-**Status:** ✅ 100% Funcional | **Docs:** 📚 Reorganizadas | **Atualizado:** 11 dez 2025
+**Status:** ✅ Unified Docker Deploy | **Atualizado:** 26 jan 2026
 
 ---
 
 ## 🚀 Começando
+Para um guia passo-a-passo detalhado de instalação, configuração e uso, consulte o **[Guia do Usuário Completo](./docs/user_guide/README.md)**.
 
-| Situação | Ação |
-|----------|------|
-| **Novo no projeto?** | Leia [COMECE_AQUI.md](./COMECE_AQUI.md) (5 min) |
-| **Precisa entender tudo?** | Consulte [DOCUMENTACAO.md](./DOCUMENTACAO.md) |
-| **Procurando algo específico?** | Veja [docs/QUICK_NAV.md](./docs/QUICK_NAV.md) |
-| **Encontrou erro?** | Consulte [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](./docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md) |
+Este repositório contém a implementação completa do Data Lake e serviços auxiliares utilizando **Docker**.
+
+### Pré-requisitos
+*   Docker Engine
+*   Docker Compose
+
+### 📦 Instalação Rápida (TL;DR)
+> Para detalhes completos, veja o [Capítulo 2: Instalação](./docs/user_guide/02_instalacao_configuracao.md).
+
+1.  **Configuração Inicial**
+    Vá para o diretório da infraestrutura Docker:
+    ```bash
+    cd infra/docker
+    ```
+
+2.  **Variáveis de Ambiente**
+    Verifique e ajuste o arquivo `.env`.
+
+3.  **Iniciar o Stack**
+    ```bash
+    docker compose up -d
+    ```
+    *O Docker baixará as imagens oficiais (`gabrinetio/datalake-*`) do Docker Hub. Se preferir compilar localmente, use `docker compose up -d --build`.*
+
+4.  **Gerador de Dados (Datagen)**
+    Este projeto integra-se com o módulo `Datagen` para ingestão de dados em tempo real.
+    
+    Para iniciar o gerador:
+    ```bash
+    # Em outro terminal, navegue até o diretório do Datagen
+    cd ../Datagen/Datagen  # Ajuste o caminho conforme necessário
+    
+    # Inicie o stack do Kafka/Datagen
+    docker compose -f docker-compose.kafka.yml up -d
+    ```
+    > O Datagen compartilha a rede `docker_datalake-net` e o volume `datagen-data` com este Data Lake.
 
 ---
 
-## 📚 Documentação
+## 🌐 Acesso aos Serviços
 
-A documentação está organizada em **16 diretórios temáticos** dentro de [`docs/`](./docs/):
-
-```
-docs/
-├── 00-overview/           ← Visão geral & contexto
-├── 10-architecture/       ← Arquitetura técnica
-├── 20-operations/         ← Runbooks & checklists
-├── 30-iterations/         ← Planos & resultados
-├── 40-troubleshooting/    ← Problemas & soluções
-├── 50-reference/          ← Endpoints, portas, credenciais
-├── 60-decisions/          ← ADRs (decisões técnicas)
-├── 99-archive/            ← Histórico
-├── CONTRIBUTING.md        ← Como contribuir
-└── QUICK_NAV.md           ← Navegação por cenário
-```
-
-Acesso rápido:
-- **Contexto & Decisões:** [docs/00-overview/CONTEXT.md](./docs/00-overview/CONTEXT.md)
-- **Arquitetura:** [docs/10-architecture/Projeto.md](./docs/10-architecture/Projeto.md)
-- **Operações:** [docs/20-operations/runbooks/](./docs/20-operations/runbooks/)
-- **Referências:** [docs/50-reference/](./docs/50-reference/)
-
----
-
-## 🏗️ Stack Técnico
-
-| Componente | Versão |
-|-----------|--------|
-| Apache Spark | 4.0.1 |
-| Apache Iceberg | 1.10.0 |
-| Hive Metastore | 3.x |
-| MinIO | Latest |
-| Python | 3.11.2 |
-| Java | 17+ |
+| Serviço | URL | Credenciais Padrão (Verificar .env) |
+| :--- | :--- | :--- |
+| **Gitea** (Git Server) | [http://localhost:3000](http://localhost:3000) | Admin configurável no 1º acesso |
+| **Superset** (BI) | [http://localhost:8088](http://localhost:8088) | `admin` / `admin` |
+| **Trino** (Query Engine) | [http://localhost:8081](http://localhost:8081) | Usuário: `admin` |
+| **Kafka UI** | [http://localhost:8090](http://localhost:8090) | Acesso livre |
+| **MinIO Console** | [http://localhost:9001](http://localhost:9001) | `datalake` / `iRB;g2&ChZ&XQEW!` |
 
 ---
 
@@ -60,61 +64,27 @@ Acesso rápido:
 
 ```
 DataLake_FB-v2/
-├── docs/              ← 📚 Documentação (16 diretórios)
-├── infra/             ← ⚙️  Scripts de deploy, provisioning, libs
-├── src/               ← 💻 Código e testes
-├── artifacts/         ← 📊 Resultados e logs
-├── .env               ← Configuração (não versionar dados sensíveis)
-├── README.md          ← Este arquivo
-└── COMECE_AQUI.md     ← Guia rápido
+├── infra/
+│   └── docker/        ← Stack Docker (Compose, Configs, .env)
+├── src/               ← Scripts de Ingestão, Testes e Setup Superset
+├── docs/
+│   ├── user_guide/    ← 📘 GUIA DO USUÁRIO (Comece por aqui!)
+│   └── business/      ← Documentação de Negócio (Cargos ISP)
+└── README.md          ← Este arquivo
 ```
 
----
+## 🛠️ Manutenção
 
-## ✨ Destaques
-
-✅ **Time Travel & Snapshots** — Recupere dados de qualquer ponto no tempo  
-✅ **Data Governance** — Rastreamento completo de alterações com Iceberg  
-✅ **Backup & Restore** — RTO < 2 minutos, RPO próximo a zero  
-✅ **Security Hardening** — 23 políticas de segurança implementadas  
-✅ **100% Automatizado** — Scripts prontos para deploy em produção  
-
----
-
-## 🔍 Validação & Testes
-
-Para validar a integridade da documentação:
-
-```bash
-# PowerShell
-pwsh -NoProfile -File docs/check-doc-links.ps1 -DocsDir "docs"
-
-# Ou Bash
-bash docs/check-doc-links.sh docs/
-```
+*   **Parar todos os serviços:**
+    ```bash
+    cd infra/docker && docker compose down
+    ```
+*   **Verificar logs:**
+    ```bash
+    docker compose logs -f [service_name]
+    ```
+    Ex: `docker compose logs -f superset`
 
 ---
 
-## 📞 Suporte Rápido
-
-| Problema | Solução |
-|----------|---------|
-| **Erros comuns?** | [docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md](./docs/40-troubleshooting/PROBLEMAS_ESOLUCOES.md) |
-| **Como deployar?** | [docs/20-operations/checklists/](./docs/20-operations/checklists/) |
-| **Preciso entender a arquitetura?** | [docs/10-architecture/Projeto.md](./docs/10-architecture/Projeto.md) |
-| **Variáveis de ambiente?** | [docs/50-reference/env.md](./docs/50-reference/env.md) |
-| **Como contribuir?** | [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) |
-| **Airflow - systemd & healthchecks** | Use `scripts/setup_airflow_systemd.sh`, `scripts/ct_install_curl.sh` and `scripts/airflow_check_scheduler.sh` to enable scheduler service and validate health on the CT. |
-
----
-
-## 🎯 Roadmap
-
-- ✅ **Iteração 5** — 100% Completo (Time Travel, Iceberg, Security)
-- 🔄 **Iteração 6** — CDC Integration + RLAC + BI  
-- 📅 **Iteração 7** — Advanced Analytics + Performance Tuning
-
----
-
-**Versão:** 2.0 | **Atualizado:** 11 dez 2025 | **Manutenedor:** DataLake Team
-
+**Licença:** Proprietária

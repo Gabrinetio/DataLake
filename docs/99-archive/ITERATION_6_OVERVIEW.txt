@@ -1,4 +1,0 @@
-# Arquivo movido
-
-Conteúdo agora em `docs/30-iterations/results/ITERATION_6_OVERVIEW.txt`.
-Atualize links e referências para o novo caminho.

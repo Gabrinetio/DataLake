@@ -27,7 +27,7 @@ class MergeIntoUpsert:
         """Cria tabelas de teste"""
         
         print("\n" + "="*60)
-        print("SETUP: MERGE INTO Test")
+        print("CONFIGURAÇÃO: Teste de MERGE INTO")
         print("="*60)
         
         try:
@@ -71,7 +71,7 @@ class MergeIntoUpsert:
         """Carrega dados iniciais"""
         
         print("\n" + "="*60)
-        print("INITIAL LOAD: 5 produtos")
+        print("CARGA INICIAL: 5 produtos")
         print("="*60)
         
         from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
@@ -105,7 +105,7 @@ class MergeIntoUpsert:
         """Prepara dados de update"""
         
         print("\n" + "="*60)
-        print("PREPARE UPDATES: 3 atualizações + 2 novos")
+        print("PREPARAR ATUALIZAÇÕES: 3 atualizações + 2 novos")
         print("="*60)
         
         from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
@@ -136,7 +136,7 @@ class MergeIntoUpsert:
         """Executa MERGE INTO"""
         
         print("\n" + "="*60)
-        print("MERGE INTO OPERATION")
+        print("OPERAÇÃO MERGE INTO")
         print("="*60)
         
         merge_sql = """
@@ -160,7 +160,7 @@ class MergeIntoUpsert:
         """Valida resultado do merge"""
         
         print("\n" + "="*60)
-        print("VALIDATION: Antes vs Depois")
+        print("VALIDAÇÃO: Antes vs Depois")
         print("="*60)
         
         print("\n📊 ESTADO FINAL (após MERGE):")
@@ -183,7 +183,7 @@ class MergeIntoUpsert:
         """Executa teste completo"""
         
         print("\n" + "="*80)
-        print("ITERATION 2 - MERGE INTO (UPSERT) VALIDATION")
+        print("ITERAÇÃO 2 - VALIDAÇÃO DE MERGE INTO (UPSERT)")
         print("="*80)
         
         self.setup_tables()
@@ -193,7 +193,7 @@ class MergeIntoUpsert:
         self.validate_merge()
         
         print("\n" + "="*80)
-        print("✅ MERGE INTO TEST COMPLETO")
+        print("✅ TESTE DE MERGE INTO COMPLETO")
         print("="*80)
         
         self.spark.stop()

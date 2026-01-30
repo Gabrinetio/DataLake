@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, expr, concat, lit, when
 from src.config import get_spark_s3_config
 import sys
 
 class TimeTravel:
-    """Valida Time Travel capabilities do Iceberg"""
+    """Valida capacidades de Time Travel do Iceberg"""
     
     def __init__(self):
         # Configurações S3 carregadas de .env
@@ -27,7 +29,7 @@ class TimeTravel:
         """Cria tabela de teste"""
         
         print("\n" + "="*60)
-        print("SETUP: Time Travel Table")
+        print("CONFIGURAÇÃO: Tabela de Time Travel")
         print("="*60)
         
         try:
@@ -53,7 +55,7 @@ class TimeTravel:
         """Primeira batch de inserts - V1"""
         
         print("\n" + "="*60)
-        print("BATCH 1: Inserir 10 registros (Version 1)")
+        print("LOTE 1: Inserir 10 registros (Versão 1)")
         print("="*60)
         
         df = self.spark.range(10) \
@@ -80,7 +82,7 @@ class TimeTravel:
         print(f"✓ Snapshot ID V1: {snapshot_id}")
         
         count = self.spark.sql("SELECT COUNT(*) as cnt FROM hadoop_prod.default.time_travel_test").collect()[0]["cnt"]
-        print(f"✓ Total registros após Batch 1: {count}")
+        print(f"✓ Total registros após Lote 1: {count}")
         
         return snapshot_id
     
@@ -88,7 +90,7 @@ class TimeTravel:
         """Segunda batch - V2"""
         
         print("\n" + "="*60)
-        print("BATCH 2: Inserir mais 10 registros (Version 2)")
+        print("LOTE 2: Inserir mais 10 registros (Versão 2)")
         print("="*60)
         
         df = self.spark.range(10, 20) \
@@ -114,7 +116,7 @@ class TimeTravel:
         print(f"✓ Snapshot ID V2: {snapshot_id}")
         
         count = self.spark.sql("SELECT COUNT(*) as cnt FROM hadoop_prod.default.time_travel_test").collect()[0]["cnt"]
-        print(f"✓ Total registros após Batch 2: {count}")
+        print(f"✓ Total registros após Lote 2: {count}")
         
         return snapshot_id
     
@@ -126,7 +128,7 @@ class TimeTravel:
         print("="*60)
         
         # Current
-        print("\n📊 CURRENT STATE:")
+        print("\n📊 ESTADO ATUAL:")
         current = self.spark.sql("""
         SELECT version, COUNT(*) as count 
         FROM hadoop_prod.default.time_travel_test
@@ -136,7 +138,7 @@ class TimeTravel:
         current.show()
         
         # Version 1
-        print("\n📊 VERSION 1 (Snapshot ID: " + str(snapshot_v1) + "):")
+        print("\n📊 VERSÃO 1 (Snapshot ID: " + str(snapshot_v1) + "):")
         v1 = self.spark.sql(f"""
         SELECT version, COUNT(*) as count 
         FROM hadoop_prod.default.time_travel_test VERSION AS OF {snapshot_v1}
@@ -146,7 +148,7 @@ class TimeTravel:
         v1.show()
         
         # Version 2
-        print("\n📊 VERSION 2 (Snapshot ID: " + str(snapshot_v2) + "):")
+        print("\n📊 VERSÃO 2 (Snapshot ID: " + str(snapshot_v2) + "):")
         v2 = self.spark.sql(f"""
         SELECT version, COUNT(*) as count 
         FROM hadoop_prod.default.time_travel_test VERSION AS OF {snapshot_v2}
@@ -156,10 +158,10 @@ class TimeTravel:
         v2.show()
         
         # Detailed comparison
-        print("\n📊 SAMPLE DATA - CURRENT:")
+        print("\n📊 DADOS DE AMOSTRA - ATUAL:")
         self.spark.sql("SELECT * FROM hadoop_prod.default.time_travel_test LIMIT 5").show()
         
-        print("\n📊 SAMPLE DATA - V1:")
+        print("\n📊 DADOS DE AMOSTRA - V1:")
         self.spark.sql(f"""
         SELECT * FROM hadoop_prod.default.time_travel_test VERSION AS OF {snapshot_v1} LIMIT 5
         """).show()
@@ -168,7 +170,7 @@ class TimeTravel:
         """Executa teste completo"""
         
         print("\n" + "="*80)
-        print("ITERATION 2 - TIME TRAVEL VALIDATION")
+        print("ITERAÇÃO 2 - VALIDAÇÃO DE TIME TRAVEL")
         print("="*80)
         
         self.setup_table()
@@ -177,7 +179,7 @@ class TimeTravel:
         self.time_travel_test(snapshot_v1, snapshot_v2)
         
         print("\n" + "="*80)
-        print("✅ TIME TRAVEL TEST COMPLETO")
+        print("✅ TESTE DE TIME TRAVEL COMPLETO")
         print("="*80)
         
         self.spark.stop()

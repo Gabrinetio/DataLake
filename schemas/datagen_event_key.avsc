@@ -1,0 +1,9 @@
+{
+  "namespace": "datagen.events",
+  "type": "record",
+  "name": "EventKey",
+  "fields": [
+    { "name": "event_id", "type": "string" },
+    { "name": "tenant", "type": ["null", "string"], "default": null }
+  ]
+}

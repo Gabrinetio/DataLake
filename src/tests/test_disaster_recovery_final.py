@@ -15,7 +15,7 @@ def run():
     """Executa procedimento simplificado de DR"""
     
     print("\n" + "="*70)
-    print("🚨 DISASTER RECOVERY PROCEDIMENTO - ITERATION 4")
+    print("🚨 PROCEDIMENTO DE RECUPERAÇÃO DE DESASTRES - ITERAÇÃO 4")
     print("="*70)
     
     results = {
@@ -60,8 +60,8 @@ def run():
         print(f"✓ Registros: {orig_count}")
         
         results["steps"].append({
-            "step": "Checkpoint creation",
-            "status": "SUCCESS",
+            "step": "Criação de Checkpoint",
+            "status": "SUCESSO",
             "checkpoint_location": checkpoint_dir,
             "records": orig_count
         })
@@ -78,9 +78,9 @@ def run():
         print(f"✅ Dados removidos")
         
         results["steps"].append({
-            "step": "Disaster simulation",
-            "status": "SUCCESS",
-            "action": "Deleted original data"
+            "step": "Simulação de Desastre",
+            "status": "SUCESSO",
+            "action": "Dados originais deletados"
         })
         
         # 4. Recuperar do checkpoint
@@ -101,8 +101,8 @@ def run():
         print(f"✓ Registros restaurados: {recovered_count}")
         
         results["steps"].append({
-            "step": "Recovery from checkpoint",
-            "status": "SUCCESS",
+            "step": "Recuperação do Checkpoint",
+            "status": "SUCESSO",
             "recovered_records": recovered_count
         })
         
@@ -131,8 +131,8 @@ def run():
         df_verify.show(5)
         
         results["steps"].append({
-            "step": "Validation",
-            "status": "SUCCESS" if recovery_valid else "WARNING",
+            "step": "Validação",
+            "status": "SUCESSO" if recovery_valid else "AVISO",
             "original_count": orig_count,
             "recovered_count": verify_count,
             "validation_passed": recovery_valid
@@ -153,7 +153,7 @@ def run():
             "original_records": orig_count,
             "recovered_records": recovered_count,
             "recovery_valid": recovery_valid,
-            "status": "SUCCESS"
+            "status": "SUCESSO"
         }
         
         spark.stop()
@@ -162,7 +162,7 @@ def run():
         print(f"\n❌ ERRO: {e}")
         traceback.print_exc()
         results["errors"].append(str(e))
-        results["summary"]["status"] = "FAILED"
+        results["summary"]["status"] = "FALHA"
     
     # Salvar resultados
     output_file = "/tmp/disaster_recovery_results.json"

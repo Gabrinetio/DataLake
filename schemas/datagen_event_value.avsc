@@ -1,0 +1,15 @@
+{
+  "namespace": "datagen.events",
+  "type": "record",
+  "name": "EventEnvelope",
+  "fields": [
+    { "name": "event_id", "type": "string" },
+    { "name": "event_type", "type": "string" },
+    { "name": "event_ts", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "schema_version", "type": "int" },
+    { "name": "tenant", "type": ["null", "string"], "default": null },
+    { "name": "keys", "type": ["null", { "type": "map", "values": "string" }], "default": null },
+    { "name": "payload", "type": ["null", "string"], "default": null },
+    { "name": "meta", "type": ["null", { "type": "map", "values": "string" }], "default": null }
+  ]
+}

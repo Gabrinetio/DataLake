@@ -1,0 +1,334 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio
+    container_name: datalake-minio
+    environment:
+      MINIO_ROOT_USER: datalake
+      MINIO_ROOT_PASSWORD: "iRB;g2&ChZ&XQEW!"
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - datalake-net
+
+  mc:
+    image: minio/mc
+    container_name: datalake-mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c " until mc alias set local http://minio:9000 datalake 'iRB;g2&ChZ&XQEW!'; do echo '...waiting...' && sleep 1; done; mc mb local/datalake --ignore-existing; exit 0; "
+    networks:
+      - datalake-net
+
+  mariadb:
+    image: mariadb:10.6
+    container_name: datalake-mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: metastore
+      MYSQL_USER: hive
+      MYSQL_PASSWORD: hive
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - datalake-net
+
+  hive-metastore:
+    image: gabrinetio/datalake-hive:1.0.0
+    build:
+      context: .
+      dockerfile: hive/Dockerfile
+    container_name: datalake-hive
+    depends_on:
+      - mariadb
+      - minio
+    ports:
+      - "9083:9083"
+    env_file:
+      - .env
+    environment:
+      - HIVE_OPTS=--service metastore
+    volumes:
+      - ./conf/hive/hive-site.xml:/opt/hive/conf/hive-site.xml
+    networks:
+      - datalake-net
+    command: >
+      /bin/sh -c " /opt/hive/bin/schematool -dbType mysql -initSchema || echo 'Schema already exists'; /opt/hive/bin/hive --service metastore "
+
+  spark-master:
+    image: gabrinetio/datalake-spark:3.5.0
+    build:
+      context: .
+      dockerfile: spark/Dockerfile
+    container_name: datalake-spark-master
+    hostname: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - "8085:8080"
+      - "7077:7077"
+    volumes:
+      - ./conf/spark/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+      # Mount source code if needed
+      - ../../src:/opt/src
+    networks:
+      - datalake-net
+    command: "/opt/spark/bin/spark-class org.apache.spark.deploy.master.Master"
+
+  spark-worker:
+    image: gabrinetio/datalake-spark:3.5.0
+    build:
+      context: .
+      dockerfile: spark/Dockerfile
+    container_name: datalake-spark-worker
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=2G
+      - SPARK_WORKER_CORES=2
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    volumes:
+      - ./conf/spark/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+    networks:
+      - datalake-net
+    command: "/opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077"
+
+  trino:
+    image: trinodb/trino:latest
+    container_name: datalake-trino
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./conf/trino/catalog:/etc/trino/catalog
+    networks:
+      - datalake-net
+  superset:
+    image: gabrinetio/datalake-superset:3.0.0
+    build:
+      context: .
+      dockerfile: superset/Dockerfile
+    container_name: datalake-superset
+    depends_on:
+      - postgres
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=your_secret_key_here_please_change_it
+      - SUPERSET_CONFIG_PATH=/app/superset_config.py
+    volumes:
+      - superset_home:/app/superset_home
+      - ./conf/superset/superset_config.py:/app/superset_config.py
+    networks:
+      - datalake-net
+    command: >
+      /bin/sh -c "
+        superset fab create-admin --username admin --firstname Superset --lastname Admin --email admin@superset.com --password admin || true;
+        superset db upgrade;
+        superset init;
+        /usr/bin/run-server.sh
+      "
+
+  postgres:
+    image: postgres:15
+    container_name: datalake-postgres
+    environment:
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+      POSTGRES_DB: superset
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - datalake-net
+
+  gitea:
+    image: gitea/gitea:1.24.2
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=postgres
+      - GITEA__database__HOST=gitea-db:5432
+      - GITEA__database__NAME=gitea
+      - GITEA__database__USER=gitea
+      - GITEA__database__PASSWD=${GITEA_DB_PASSWORD}
+      - GITEA__security__SECRET_KEY=${GITEA_SECRET_KEY}
+    restart: always
+    networks:
+      - datalake-net
+    volumes:
+      - gitea_data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "222:22"
+    depends_on:
+      - gitea-db
+
+  gitea-db:
+    image: postgres:16
+    container_name: gitea-db
+    restart: always
+    environment:
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=${GITEA_DB_PASSWORD}
+      - POSTGRES_DB=gitea
+    networks:
+      - datalake-net
+    volumes:
+      - gitea_db:/var/lib/postgresql/data
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: datalake-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+      - zookeeper_log:/var/lib/zookeeper/log
+    networks:
+      - datalake-net
+    restart: unless-stopped
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: datalake-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_LOG_RETENTION_BYTES: 1073741824
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - datalake-net
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect:7.5.0
+    container_name: datalake-kafka-connect
+    depends_on:
+      kafka:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    volumes:
+      - datagen_data:/data
+      - connect_plugins:/usr/share/confluent-hub-components
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_REST_PORT: 8083
+      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+      CONNECT_GROUP_ID: datalake-connect-cluster
+      CONNECT_CONFIG_STORAGE_TOPIC: _datalake-connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: _datalake-connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: _datalake-connect-status
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/connect-plugins
+      CONNECT_LOG4J_ROOT_LOGLEVEL: INFO
+      CONNECT_LOG4J_LOGGERS: "org.apache.kafka.connect=INFO,com.github.jcustenborder=INFO"
+    command:
+      - bash
+      - -c
+      - |
+        echo "Installing Plugins..."
+        confluent-hub install --no-prompt jcustenborder/kafka-connect-spooldir:2.0.65
+        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.4
+        confluent-hub install --no-prompt confluentinc/kafka-connect-s3:10.5.0
+
+        # Download SQLite Driver
+        curl -L -o /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib/sqlite-jdbc-3.44.1.0.jar \
+             https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/3.44.1.0/sqlite-jdbc-3.44.1.0.jar
+
+        echo "Starting Connect..."
+        /etc/confluent/docker/run
+    networks:
+      - datalake-net
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8083/connectors" ]
+      interval: 10s
+      timeout: 10s
+      retries: 15
+      start_period: 120s
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: datalake-kafka-ui
+    depends_on:
+      - kafka
+      - kafka-connect
+    ports:
+      - "8090:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: datalake-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: datalake-connect
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://kafka-connect:8083
+      DYNAMIC_CONFIG_ENABLED: "true"
+    networks:
+      - datalake-net
+    restart: unless-stopped
+
+networks:
+  datalake-net:
+    driver: bridge
+    name: docker_datalake-net
+
+volumes:
+  minio_data:
+  mariadb_data:
+  postgres_data:
+  superset_home:
+  gitea_data:
+  gitea_db:
+  zookeeper_data:
+  zookeeper_log:
+  kafka_data:
+  datagen_data:
+    external: true
+    name: datagen-data
+  connect_plugins:

@@ -1,1 +1,0 @@
-CREATE TABLE iceberg.default.test_table (id INTEGER, name VARCHAR) WITH (location = 's3a://datalake/warehouse/iceberg/test_table')

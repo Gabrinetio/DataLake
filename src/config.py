@@ -13,7 +13,7 @@ if env_path.exists():
     load_dotenv(env_path)
 
 # ========================================
-# HIVE METASTORE CONFIGURATION
+# CONFIGURAÇÃO DO HIVE METASTORE
 # ========================================
 
 HIVE_DB_HOST = os.getenv("HIVE_DB_HOST", "localhost")
@@ -26,7 +26,7 @@ HIVE_DB_PASSWORD = os.getenv("HIVE_DB_PASSWORD")
 # Removida validação automática - será feita apenas quando necessária
 
 # ========================================
-# MINIO / S3A CONFIGURATION
+# CONFIGURAÇÃO MINIO / S3A
 # ========================================
 
 S3A_ACCESS_KEY = os.getenv("S3A_ACCESS_KEY", "datalake")
@@ -38,7 +38,7 @@ if not S3A_SECRET_KEY:
     raise RuntimeError("S3A_SECRET_KEY não está definida no ambiente. Defina S3A_SECRET_KEY ou configure o Vault para fornecer a credencial.")
 
 # ========================================
-# SPARK CONFIGURATION
+# CONFIGURAÇÃO DO SPARK
 # ========================================
 
 SPARK_WAREHOUSE_PATH = os.getenv("SPARK_WAREHOUSE_PATH", "s3a://datalake/warehouse")
@@ -56,7 +56,7 @@ SPARK_CONFIG = {
 }
 
 # ========================================
-# KAFKA CONFIGURATION (se necessário)
+# CONFIGURAÇÃO KAFKA (se necessário)
 # ========================================
 
 KAFKA_BROKER = os.getenv("KAFKA_BROKER", "192.168.4.34:9092")
@@ -68,7 +68,7 @@ KAFKA_TOPICS = {
 }
 
 # ========================================
-# HELPER FUNCTIONS
+# FUNÇÕES AUXILIARES
 # ========================================
 
 def get_hive_jdbc_url():
