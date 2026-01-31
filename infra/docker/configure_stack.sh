@@ -316,6 +316,7 @@ from pyspark.sql.types import *
 import random
 import uuid
 from datetime import datetime, timedelta
+from decimal import Decimal
 
 # Criar SparkSession com suporte a Iceberg
 spark = SparkSession.builder \
@@ -387,10 +388,11 @@ def generate_invoices(n=200):
         created = datetime.now() - timedelta(days=random.randint(1, 180))
         due = created + timedelta(days=30)
         paid = due - timedelta(days=random.randint(-5, 10)) if random.random() > 0.2 else None
+        amount = Decimal(str(round(random.uniform(79.90, 499.90), 2)))
         data.append((
             str(uuid.uuid4()),
             str(uuid.uuid4()),
-            round(random.uniform(79.90, 499.90), 2),
+            amount,
             due.date(),
             paid.date() if paid else None,
             "Pago" if paid else random.choice(["Pendente", "Atrasado"]),
@@ -401,11 +403,11 @@ def generate_invoices(n=200):
 
 def generate_contracts(n=100):
     plans = [
-        ("Internet 100Mbps", 100, 89.90),
-        ("Internet 200Mbps", 200, 119.90),
-        ("Internet 500Mbps", 500, 179.90),
-        ("Internet 1Gbps", 1000, 299.90),
-        ("Empresarial 500Mbps", 500, 399.90)
+        ("Internet 100Mbps", 100, "89.90"),
+        ("Internet 200Mbps", 200, "119.90"),
+        ("Internet 500Mbps", 500, "179.90"),
+        ("Internet 1Gbps", 1000, "299.90"),
+        ("Empresarial 500Mbps", 500, "399.90")
     ]
     data = []
     for i in range(n):
@@ -416,7 +418,7 @@ def generate_contracts(n=100):
             str(uuid.uuid4()),
             plan[0],
             plan[1],
-            plan[2],
+            Decimal(plan[2]),
             start,
             start + timedelta(days=365),
             random.choice(["Ativo", "Encerrado", "Cancelado"]),
