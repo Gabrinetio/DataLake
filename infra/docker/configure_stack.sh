@@ -155,6 +155,13 @@ try:
         token = resp.json().get('access_token')
         headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
         
+        # Obter CSRF Token explicitamente
+        csrf_url = 'http://localhost:8088/api/v1/security/csrf_token/'
+        csrf_resp = session.get(csrf_url, headers=headers)
+        if csrf_resp.status_code == 200:
+            csrf_token = csrf_resp.json().get('result')
+            headers['X-CSRFToken'] = csrf_token
+        
         # Verificar se já existe conexão Trino
         dbs_resp = session.get('http://localhost:8088/api/v1/database/', headers=headers)
         existing_dbs = dbs_resp.json().get('result', [])
