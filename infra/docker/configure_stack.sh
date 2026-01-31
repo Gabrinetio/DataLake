@@ -459,26 +459,42 @@ contracts_schema = StructType([
     StructField("created_at", TimestampType())
 ])
 
-# Inserir dados
+# Inserir dados usando schema da tabela existente
 print("\n📊 Inserindo clientes...")
-customers_df = spark.createDataFrame(generate_customers(100), customers_schema)
-customers_df.writeTo("iceberg.isp.customers").append()
-print(f"   ✅ {customers_df.count()} clientes inseridos")
+try:
+    customers_data = generate_customers(100)
+    customers_df = spark.createDataFrame(customers_data, spark.table("iceberg.isp.customers").schema)
+    customers_df.writeTo("iceberg.isp.customers").append()
+    print(f"   ✅ {len(customers_data)} clientes inseridos")
+except Exception as e:
+    print(f"   ❌ Erro em clientes: {e}")
 
 print("\n📊 Inserindo sessões...")
-sessions_df = spark.createDataFrame(generate_sessions(500), sessions_schema)
-sessions_df.writeTo("iceberg.isp.sessions").append()
-print(f"   ✅ {sessions_df.count()} sessões inseridas")
+try:
+    sessions_data = generate_sessions(500)
+    sessions_df = spark.createDataFrame(sessions_data, spark.table("iceberg.isp.sessions").schema)
+    sessions_df.writeTo("iceberg.isp.sessions").append()
+    print(f"   ✅ {len(sessions_data)} sessões inseridas")
+except Exception as e:
+    print(f"   ❌ Erro em sessões: {e}")
 
 print("\n📊 Inserindo faturas...")
-invoices_df = spark.createDataFrame(generate_invoices(200), invoices_schema)
-invoices_df.writeTo("iceberg.isp.invoices").append()
-print(f"   ✅ {invoices_df.count()} faturas inseridas")
+try:
+    invoices_data = generate_invoices(200)
+    invoices_df = spark.createDataFrame(invoices_data, spark.table("iceberg.isp.invoices").schema)
+    invoices_df.writeTo("iceberg.isp.invoices").append()
+    print(f"   ✅ {len(invoices_data)} faturas inseridas")
+except Exception as e:
+    print(f"   ❌ Erro em faturas: {e}")
 
 print("\n📊 Inserindo contratos...")
-contracts_df = spark.createDataFrame(generate_contracts(100), contracts_schema)
-contracts_df.writeTo("iceberg.isp.contracts").append()
-print(f"   ✅ {contracts_df.count()} contratos inseridos")
+try:
+    contracts_data = generate_contracts(100)
+    contracts_df = spark.createDataFrame(contracts_data, spark.table("iceberg.isp.contracts").schema)
+    contracts_df.writeTo("iceberg.isp.contracts").append()
+    print(f"   ✅ {len(contracts_data)} contratos inseridos")
+except Exception as e:
+    print(f"   ❌ Erro em contratos: {e}")
 
 print("\n" + "=" * 50)
 print("✅ Ingestão concluída com sucesso!")
