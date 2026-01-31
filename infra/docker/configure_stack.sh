@@ -311,7 +311,6 @@ Spark Job: Ingestão de dados do Datagen para Iceberg
 Este script gera dados de exemplo e insere nas tabelas Iceberg.
 """
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import *
 from pyspark.sql.types import *
 import random
 import uuid
