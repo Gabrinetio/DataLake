@@ -77,6 +77,9 @@ configure_superset() {
     # Verificar
     if docker exec datalake-superset ls /app/setup_superset_roles.py /app/setup_superset_assets.py > /dev/null 2>&1; then
         echo "   ✅ Scripts copiados!"
+        echo "   ⚙️  Aplicando configurações de Roles e Assets..."
+        docker exec datalake-superset /app/.venv/bin/python /app/setup_superset_roles.py || echo "   ⚠️  Erro ao aplicar Roles"
+        docker exec datalake-superset /app/.venv/bin/python /app/setup_superset_assets.py || echo "   ⚠️  Erro ao aplicar Assets"
     else
         echo "   ⚠️  Scripts não encontrados"
     fi
