@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   minio:
     image: minio/minio
     container_name: datalake-minio
     environment:
-      MINIO_ROOT_USER: datalake
-      MINIO_ROOT_PASSWORD: "iRB;g2&ChZ&XQEW!"
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
@@ -21,8 +19,11 @@ services:
     container_name: datalake-mc
     depends_on:
       - minio
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     entrypoint: >
-      /bin/sh -c " until mc alias set local http://minio:9000 datalake 'iRB;g2&ChZ&XQEW!'; do echo '...waiting...' && sleep 1; done; mc mb local/datalake --ignore-existing; exit 0; "
+      /bin/sh -c " until mc alias set local http://minio:9000 $${MINIO_ROOT_USER} $${MINIO_ROOT_PASSWORD}; do echo '...waiting...' && sleep 1; done; mc mb local/datalake --ignore-existing; exit 0; "
     networks:
       - datalake-net
 
@@ -30,10 +31,10 @@ services:
     image: mariadb:10.6
     container_name: datalake-mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: metastore
-      MYSQL_USER: hive
-      MYSQL_PASSWORD: hive
+      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MARIADB_DATABASE}
+      MYSQL_USER: ${MARIADB_USER}
+      MYSQL_PASSWORD: ${MARIADB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -131,8 +132,13 @@ services:
     ports:
       - "8088:8088"
     environment:
-      - SUPERSET_SECRET_KEY=your_secret_key_here_please_change_it
+      - SUPERSET_SECRET_KEY=${SUPERSET_SECRET_KEY}
       - SUPERSET_CONFIG_PATH=/app/superset_config.py
+      - SUPERSET_ADMIN_USER=${SUPERSET_ADMIN_USER}
+      - SUPERSET_ADMIN_PASSWORD=${SUPERSET_ADMIN_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - superset_home:/app/superset_home
       - ./conf/superset/superset_config.py:/app/superset_config.py
@@ -140,7 +146,7 @@ services:
       - datalake-net
     command: >
       /bin/sh -c "
-        superset fab create-admin --username admin --firstname Superset --lastname Admin --email admin@superset.com --password admin || true;
+        superset fab create-admin --username $${SUPERSET_ADMIN_USER:-admin} --firstname Superset --lastname Admin --email admin@superset.com --password $${SUPERSET_ADMIN_PASSWORD:-admin} || true;
         superset db upgrade;
         superset init;
         /usr/bin/run-server.sh
@@ -150,9 +156,9 @@ services:
     image: postgres:15
     container_name: datalake-postgres
     environment:
-      POSTGRES_USER: superset
-      POSTGRES_PASSWORD: superset
-      POSTGRES_DB: superset
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

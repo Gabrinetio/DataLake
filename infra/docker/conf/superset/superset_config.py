@@ -4,7 +4,10 @@ import os
 SECRET_KEY = os.getenv('SUPERSET_SECRET_KEY', 'your_secret_key_here_please_change_it')
 
 # A string de conexão SQLAlchemy para seu banco de dados backend
-SQLALCHEMY_DATABASE_URI = 'postgresql://superset:superset@postgres:5432/superset'
+POSTGRES_USER = os.getenv('POSTGRES_USER', 'superset')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'superset')
+POSTGRES_DB = os.getenv('POSTGRES_DB', 'superset')
+SQLALCHEMY_DATABASE_URI = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@postgres:5432/{POSTGRES_DB}'
 
 # Flag Flask-WTF para CSRF
 WTF_CSRF_ENABLED = True
