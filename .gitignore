@@ -84,3 +84,11 @@ systemd.env
 certs/
 *.cert
 tmp_test_key*.txt
+
+# Logs temporários de verificação
+connection_report.txt
+minio_check.txt
+network_name.txt
+running_containers.txt
+trino_schemas.txt
+ingestion_fix_summary.md
