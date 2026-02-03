@@ -21,6 +21,37 @@ echo "=========================================="
 echo ""
 
 # -----------------------------------------------------------------------------
+# 0. CARREGAR VARIÁVEIS DE AMBIENTE
+# -----------------------------------------------------------------------------
+if [ -f "$PROJECT_ROOT/.env" ]; then
+    echo "📄 Carregando variáveis de ambiente do .env..."
+    export $(grep -v '^#' "$PROJECT_ROOT/.env" | xargs)
+else
+    echo "⚠️  Arquivo .env não encontrado em $PROJECT_ROOT. Usando valores padrão do script."
+fi
+
+# Valores padrão (Caso não definidos no .env)
+# GITEA
+: "${GITEA_HOST:=http://localhost:3000}"
+: "${GITEA_ADMIN_USER:=datalake_admin}"
+: "${GITEA_ADMIN_PASS:=DatalakeAdmin@2026}"
+: "${GITEA_ADMIN_EMAIL:=admin@datalake.local}"
+
+# SUPERSET
+: "${SUPERSET_URL:=http://localhost:8088}"
+: "${SUPERSET_ADMIN_USER:=admin}"
+: "${SUPERSET_ADMIN_PASS:=admin}"
+
+# MINIO / S3
+: "${S3A_ENDPOINT:=http://datalake-minio:9000}"
+: "${S3A_ACCESS_KEY:=datalake}"
+: "${S3A_SECRET_KEY:=iRB;g2&ChZ&XQEW!}"
+
+# TRINO
+: "${TRINO_HOST:=localhost:8081}"
+
+
+# -----------------------------------------------------------------------------
 # 1. GITEA - Ativar Install Lock e Criar Usuário Admin
 # -----------------------------------------------------------------------------
 configure_gitea() {
@@ -45,15 +76,15 @@ configure_gitea() {
     echo "   👤 Criando usuário admin..."
     docker exec -u git gitea gitea admin user create \
         --config /data/gitea/conf/app.ini \
-        --username datalake_admin \
-        --password DatalakeAdmin@2026 \
-        --email admin@datalake.local \
+        --username "$GITEA_ADMIN_USER" \
+        --password "$GITEA_ADMIN_PASS" \
+        --email "$GITEA_ADMIN_EMAIL" \
         --admin 2>/dev/null || echo "   ⚠️  Usuário já existe"
     
     echo "   ✅ Gitea configurado!"
-    echo "      URL: http://localhost:3000"
-    echo "      User: datalake_admin"
-    echo "      Pass: DatalakeAdmin@2026"
+    echo "      URL: $GITEA_HOST"
+    echo "      User: $GITEA_ADMIN_USER"
+    echo "      Pass: (oculto)"
 }
 
 # -----------------------------------------------------------------------------
@@ -85,9 +116,9 @@ configure_superset() {
     fi
     
     echo "   ✅ Superset configurado!"
-    echo "      URL: http://localhost:8088"
-    echo "      User: admin"
-    echo "      Pass: admin"
+    echo "      URL: $SUPERSET_URL"
+    echo "      User: $SUPERSET_ADMIN_USER"
+    echo "      Pass: $SUPERSET_ADMIN_PASS"
 }
 
 # -----------------------------------------------------------------------------
@@ -149,8 +180,8 @@ import json
 
 # Login e obter CSRF token
 session = requests.Session()
-login_url = 'http://localhost:8088/api/v1/security/login'
-login_data = {'username': 'admin', 'password': 'admin', 'provider': 'db', 'refresh': True}
+login_url = '${SUPERSET_URL}/api/v1/security/login'
+login_data = {'username': '${SUPERSET_ADMIN_USER}', 'password': '${SUPERSET_ADMIN_PASS}', 'provider': 'db', 'refresh': True}
 
 try:
     resp = session.post(login_url, json=login_data)
@@ -159,14 +190,14 @@ try:
         headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
         
         # Obter CSRF Token explicitamente
-        csrf_url = 'http://localhost:8088/api/v1/security/csrf_token/'
+        csrf_url = '${SUPERSET_URL}/api/v1/security/csrf_token/'
         csrf_resp = session.get(csrf_url, headers=headers)
         if csrf_resp.status_code == 200:
             csrf_token = csrf_resp.json().get('result')
             headers['X-CSRFToken'] = csrf_token
         
         # Verificar se já existe conexão Trino
-        dbs_resp = session.get('http://localhost:8088/api/v1/database/', headers=headers)
+        dbs_resp = session.get('${SUPERSET_URL}/api/v1/database/', headers=headers)
         existing_dbs = dbs_resp.json().get('result', [])
         trino_exists = any(db.get('database_name') == 'Trino' for db in existing_dbs)
         
@@ -180,7 +211,7 @@ try:
                 'allow_cvas': True,
                 'allow_dml': True
             }
-            create_resp = session.post('http://localhost:8088/api/v1/database/', headers=headers, json=db_data)
+            create_resp = session.post('${SUPERSET_URL}/api/v1/database/', headers=headers, json=db_data)
             if create_resp.status_code in [200, 201]:
                 print('Conexao Trino criada com sucesso!')
             else:
@@ -328,9 +359,9 @@ spark = SparkSession.builder \
     .config("spark.sql.catalog.iceberg.type", "hive") \
     .config("spark.sql.catalog.iceberg.uri", "thrift://datalake-hive:9083") \
     .config("spark.sql.catalog.iceberg.warehouse", "s3a://warehouse/") \
-    .config("spark.hadoop.fs.s3a.endpoint", "http://datalake-minio:9000") \
-    .config("spark.hadoop.fs.s3a.access.key", "datalake") \
-    .config("spark.hadoop.fs.s3a.secret.key", "iRB;g2&ChZ&XQEW!") \
+    .config("spark.hadoop.fs.s3a.endpoint", "$S3A_ENDPOINT") \
+    .config("spark.hadoop.fs.s3a.access.key", "$S3A_ACCESS_KEY") \
+    .config("spark.hadoop.fs.s3a.secret.key", "$S3A_SECRET_KEY") \
     .config("spark.hadoop.fs.s3a.path.style.access", "true") \
     .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
     .getOrCreate()
@@ -542,9 +573,9 @@ sync_code_to_gitea() {
     
     # Criar repositório via API
     echo "   📦 Criando repositório..."
-    curl -s -X POST "http://localhost:3000/api/v1/user/repos" \
+    curl -s -X POST "$GITEA_HOST/api/v1/user/repos" \
         -H "content-type: application/json" \
-        -u "datalake_admin:DatalakeAdmin@2026" \
+        -u "$GITEA_ADMIN_USER:$GITEA_ADMIN_PASS" \
         -d '{"name":"datalake-fb", "private": false}' > /dev/null 2>&1 || true
     
     # Configurar git local
@@ -554,7 +585,10 @@ sync_code_to_gitea() {
     
     # Adicionar remote se não existir
     git remote remove gitea_origin 2>/dev/null || true
-    git remote add gitea_origin "http://datalake_admin:DatalakeAdmin%402026@localhost:3000/datalake_admin/datalake-fb.git"
+    # Encode password for URL if needed (simple approach for now)
+    # GIT_REMOTE_URL="${GITEA_HOST/\/\///$GITEA_ADMIN_USER:${GITEA_ADMIN_PASS}@}"
+    # Hardcoded fallback for complex password logic replacement
+    git remote add gitea_origin "$GITEA_HOST/$GITEA_ADMIN_USER/datalake-fb.git"
     
     # Push
     git add . 2>/dev/null || true
@@ -583,11 +617,11 @@ main() {
     echo "=========================================="
     echo ""
     echo "📊 URLs de Acesso:"
-    echo "   • Superset:      http://localhost:8088"
+    echo "   • Superset:      $SUPERSET_URL"
     echo "   • Trino:         http://localhost:8081"
     echo "   • Kafka UI:      http://localhost:8090"
     echo "   • MinIO:         http://localhost:9001"
-    echo "   • Gitea:         http://localhost:3000"
+    echo "   • Gitea:         $GITEA_HOST"
     echo "   • Spark Master:  http://localhost:8085"
     echo "   • Datagen:       http://localhost:8000"
     echo ""

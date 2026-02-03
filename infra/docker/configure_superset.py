@@ -1,11 +1,12 @@
 import requests
 import json
 import sys
+import os
 
 # Superset API config
-SUPERSET_URL = "http://localhost:8088"
-USERNAME = "admin"
-PASSWORD = "admin"
+SUPERSET_URL = os.getenv("SUPERSET_URL", "http://localhost:8088")
+USERNAME = os.getenv("SUPERSET_ADMIN_USER", "admin")
+PASSWORD = os.getenv("SUPERSET_ADMIN_PASSWORD", "admin")
 
 def main():
     print(f"Connecting to Superset at {SUPERSET_URL}...")
@@ -55,9 +56,13 @@ def main():
             create_url = f"{SUPERSET_URL}/api/v1/database/"
             # SQLAlchemy URI for Trino
             # trino://<user>:<password>@<host>:<port>/<catalog>/<schema>
+            trino_user = os.getenv("TRINO_USER", "admin")
+            trino_host = os.getenv("TRINO_HOST", "datalake-trino")
+            trino_port = os.getenv("TRINO_PORT", "8080")
+            
             db_payload = {
                 "database_name": db_name,
-                "sqlalchemy_uri": "trino://admin@datalake-trino:8080/iceberg/default",
+                "sqlalchemy_uri": f"trino://{trino_user}@{trino_host}:{trino_port}/iceberg/default",
                 "extra": json.dumps({
                     "engine_params": {
                         "connect_args": {
