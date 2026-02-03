@@ -15,23 +15,28 @@ Este repositório contém a implementação completa do Data Lake e serviços au
 *   Docker Engine
 *   Docker Compose
 
-### 📦 Instalação Rápida (TL;DR)
-> Para detalhes completos, veja o [Capítulo 2: Instalação](./docs/user_guide/02_instalacao_configuracao.md).
+### 📦 Instalação e Configuração Automática
 
-1.  **Configuração Inicial**
-    Vá para o diretório da infraestrutura Docker:
+Todo o processo foi unificado em um único script.
+
+1.  **Acesse o diretório de scripts:**
     ```bash
     cd infra/docker
     ```
 
-2.  **Variáveis de Ambiente**
-    Verifique e ajuste o arquivo `.env`.
-
-3.  **Iniciar o Stack**
+2.  **Execute o configurador:**
     ```bash
-    docker compose up -d
+    ./configure_stack.sh
     ```
-    *O Docker baixará as imagens oficiais (`gabrinetio/datalake-*`) do Docker Hub. Se preferir compilar localmente, use `docker compose up -d --build`.*
+    
+    > **O que este script faz?**
+    > *   Cria o arquivo `.env` (se não existir).
+    > *   Cria volumes Docker externos necessários.
+    > *   Inicia o stack Docker com todos os serviços.
+    > *   Configura usuários, conexões e tabelas no Superset, Trino e Gitea.
+    > *   Ingere dados de teste.
+    
+    *Nota: Na primeira execução, o script verificará se os containers estão rodando e os iniciará automaticamente.*
 
 4.  **Gerador de Dados (Datagen)**
     Este projeto integra-se com o módulo `Datagen` para ingestão de dados em tempo real.

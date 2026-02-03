@@ -1,6 +1,6 @@
 services:
   minio:
-    image: minio/minio
+    image: minio/minio:RELEASE.2024-01-31T20-20-33Z
     container_name: datalake-minio
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
@@ -15,7 +15,7 @@ services:
       - datalake-net
 
   mc:
-    image: minio/mc
+    image: alpine:3.19
     container_name: datalake-mc
     depends_on:
       - minio
@@ -23,7 +23,7 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     entrypoint: >
-      /bin/sh -c " until mc alias set local http://minio:9000 $${MINIO_ROOT_USER} $${MINIO_ROOT_PASSWORD}; do echo '...waiting...' && sleep 1; done; mc mb local/datalake --ignore-existing; exit 0; "
+      /bin/sh -c " apk add --no-cache curl; curl https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/bin/mc; chmod +x /usr/bin/mc; until mc alias set local http://minio:9000 \"$${MINIO_ROOT_USER}\" \"$${MINIO_ROOT_PASSWORD}\"; do echo '...waiting...' && sleep 1; done; mc mb local/datalake --ignore-existing; exit 0; "
     networks:
       - datalake-net
 
@@ -54,7 +54,7 @@ services:
     ports:
       - "9083:9083"
     env_file:
-      - .env
+      - ../../.env
     environment:
       - HIVE_OPTS=--service metastore
       - JAVA_HOME=/opt/java/openjdk
@@ -203,7 +203,7 @@ services:
       - gitea_db:/var/lib/postgresql/data
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.5.0
+    image: confluentinc/cp-zookeeper:7.4.4
     container_name: datalake-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -216,7 +216,7 @@ services:
     restart: unless-stopped
 
   kafka:
-    image: confluentinc/cp-kafka:7.5.0
+    image: confluentinc/cp-kafka:7.4.4
     container_name: datalake-kafka
     depends_on:
       - zookeeper
@@ -247,7 +247,7 @@ services:
       retries: 5
 
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:7.5.0
+    image: confluentinc/cp-kafka-connect:7.4.4
     container_name: datalake-kafka-connect
     depends_on:
       kafka:

@@ -13,7 +13,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 echo "=========================================="
 echo "🔧 DATALAKE FB - Configuração Automática"
@@ -21,12 +21,56 @@ echo "=========================================="
 echo ""
 
 # -----------------------------------------------------------------------------
-# 0. CARREGAR VARIÁVEIS DE AMBIENTE
+# 0. PREPARAÇÃO DO AMBIENTE (SETUP)
 # -----------------------------------------------------------------------------
+prepare_environment() {
+    echo "0️⃣  Verificando ambiente..."
+
+    # 1. Verificar .env
+    if [ ! -f "$PROJECT_ROOT/.env" ]; then
+        if [ -f "$PROJECT_ROOT/.env.example" ]; then
+            echo "   ⚠️  Arquivo .env não encontrado. Criando Cópia autormatica..."
+            cp "$PROJECT_ROOT/.env.example" "$PROJECT_ROOT/.env"
+            echo "   ✅ Arquivo .env criado com sucesso."
+        else
+            echo "   ❌ Erro: .env não encontrado e .env.example ausente."
+            exit 1
+        fi
+    fi
+
+    # 2. Verificar Volume Externo
+    if ! docker volume inspect datagen-data > /dev/null 2>&1; then
+        echo "   ⚠️  Volume 'datagen-data' ausente. Criando..."
+        docker volume create datagen-data
+    fi
+
+    # 3. Garantir que o Docker Stack esteja rodando
+    if ! docker ps --format '{{.Names}}' | grep -q "^datalake-superset$"; then
+        echo "   🚀 Iniciando containers Docker..."
+        cd "$SCRIPT_DIR"
+        docker compose --env-file "$PROJECT_ROOT/.env" up -d
+        
+        if [ $? -ne 0 ]; then
+            echo "   ❌ Erro ao subir o Docker Compose."
+            exit 1
+        fi
+        echo "   ⏳ Aguardando inicialização dos serviços (15s)..."
+        sleep 15
+    else
+        echo "   ✅ Containers já estão rodando."
+    fi
+}
+
+# -----------------------------------------------------------------------------
+# 1. CARREGAR VARIÁVEIS DE AMBIENTE
+# -----------------------------------------------------------------------------
+prepare_environment
+
 if [ -f "$PROJECT_ROOT/.env" ]; then
     echo "📄 Carregando variáveis de ambiente do .env..."
     export $(grep -v '^#' "$PROJECT_ROOT/.env" | xargs)
 else
+    # Fallback, embora prepare_environment deva ter resolvido
     echo "⚠️  Arquivo .env não encontrado em $PROJECT_ROOT. Usando valores padrão do script."
 fi
 
