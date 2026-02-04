@@ -23,6 +23,20 @@ echo ""
 # -----------------------------------------------------------------------------
 # 0. PREPARAÇÃO DO AMBIENTE (SETUP)
 # -----------------------------------------------------------------------------
+load_env() {
+    if [ -f "$PROJECT_ROOT/.env" ]; then
+        echo "📄 Carregando variáveis de ambiente do .env..."
+        # Garantir formato Unix (LF)
+        sed -i 's/\r$//' "$PROJECT_ROOT/.env"
+        
+        set -a
+        source "$PROJECT_ROOT/.env"
+        set +a
+    else
+        echo "⚠️  Arquivo .env não encontrado em $PROJECT_ROOT."
+    fi
+}
+
 prepare_environment() {
     echo "0️⃣  Verificando ambiente..."
 
@@ -38,6 +52,9 @@ prepare_environment() {
         fi
     fi
 
+    # Carregar variáveis agora que o arquivo existe
+    load_env
+
     # 2. Verificar Volume Externo
     if ! docker volume inspect datagen-data > /dev/null 2>&1; then
         echo "   ⚠️  Volume 'datagen-data' ausente. Criando..."
@@ -45,9 +62,19 @@ prepare_environment() {
     fi
 
     # 3. Garantir que o Docker Stack esteja rodando
+    # 3. Garantir que o Docker Stack esteja rodando
     if ! docker ps --format '{{.Names}}' | grep -q "^datalake-superset$"; then
         echo "   🚀 Iniciando containers Docker..."
+        
+        # DEBUG: Verificar se as variáveis estão carregadas
+        if [ -z "$MARIADB_DATABASE" ]; then
+            echo "   ⚠️  Aviso: Variáveis de ambiente parecem vazias no shell. Usando --env-file para garantir."
+        fi
+
         cd "$SCRIPT_DIR"
+        
+        # Usamos --env-file novamente agora que o arquivo está corrigido (LF)
+        docker compose --env-file "$PROJECT_ROOT/.env" config mariadb
         docker compose --env-file "$PROJECT_ROOT/.env" up -d
         
         if [ $? -ne 0 ]; then
@@ -61,17 +88,13 @@ prepare_environment() {
     fi
 }
 
-# -----------------------------------------------------------------------------
-# 1. CARREGAR VARIÁVEIS DE AMBIENTE
-# -----------------------------------------------------------------------------
+# Chamar setup
 prepare_environment
 
-if [ -f "$PROJECT_ROOT/.env" ]; then
-    echo "📄 Carregando variáveis de ambiente do .env..."
-    export $(grep -v '^#' "$PROJECT_ROOT/.env" | xargs)
-else
-    # Fallback, embora prepare_environment deva ter resolvido
-    echo "⚠️  Arquivo .env não encontrado em $PROJECT_ROOT. Usando valores padrão do script."
+# Fallback para compatibilidade se algo falhar no load_env
+if [ -z "$MARIADB_PASSWORD" ]; then
+    echo "⚠️  Variáveis não carregadas corretamente. Tentando recarregar..."
+    load_env
 fi
 
 # Valores padrão (Caso não definidos no .env)
@@ -281,6 +304,13 @@ configure_iceberg_tables() {
     # Aguardar Trino estar pronto
     echo "   ⏳ Aguardando Trino iniciar..."
     until docker exec datalake-trino trino --execute "SELECT 1" > /dev/null 2>&1; do
+        sleep 5
+    done
+    
+    # Aguardar Conectividade Trino -> Hive (Iceberg)
+    echo "   ⏳ Verificando conectividade Trino -> Iceberg..."
+    until docker exec datalake-trino trino --execute "SHOW SCHEMAS FROM iceberg" > /dev/null 2>&1; do
+        echo "      ... aguardando metastore ..."
         sleep 5
     done
     

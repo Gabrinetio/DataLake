@@ -28,13 +28,13 @@ services:
       - datalake-net
 
   mariadb:
-    image: mariadb:10.6
+    image: mariadb:10.11
     container_name: datalake-mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MARIADB_DATABASE}
-      MYSQL_USER: ${MARIADB_USER}
-      MYSQL_PASSWORD: ${MARIADB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: mariadb_strong_password
+      MYSQL_DATABASE: metastore
+      MYSQL_USER: hive
+      MYSQL_PASSWORD: hive_password
     ports:
       - "3306:3306"
     volumes:

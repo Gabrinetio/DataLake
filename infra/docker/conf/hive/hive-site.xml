@@ -13,7 +13,7 @@
     </property>
     <property>
         <name>javax.jdo.option.ConnectionPassword</name>
-        <value>2zV9fj1GjnREGnYU</value>
+        <value>hive_password</value>
     </property>
     <property>
         <name>hive.metastore.warehouse.dir</name>
@@ -25,7 +25,7 @@
     </property>
     <property>
         <name>fs.s3a.secret.key</name>
-        <value>HXKK86Y52YPu4405l2Bw7V7h</value>
+        <value>datalake_minio_admin_2026</value>
     </property>
     <property>
         <name>fs.s3a.endpoint</name>
