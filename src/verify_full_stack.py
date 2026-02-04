@@ -366,7 +366,11 @@ class DataLakeVerifier:
         
         # 5.3 MinIO Buckets
         print(f"\n  {Colors.BOLD}5.3 MinIO Buckets{Colors.ENDC}")
-        out, code = run_cmd("docker exec datalake-mc mc ls local 2>/dev/null")
+        # Tentar usar mc do container datalake-minio se datalake-mc falhar ou não existir
+        out, code = run_cmd("docker exec datalake-minio mc ls local 2>/dev/null")
+        if code != 0:
+             out, code = run_cmd("docker exec datalake-mc mc ls local 2>/dev/null")
+
         if code == 0:
             buckets = [line.split()[-1] for line in out.splitlines() if line.strip()]
             for bucket in buckets[:5]:
