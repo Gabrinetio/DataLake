@@ -161,6 +161,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     networks:
       - datalake-net
 
@@ -213,7 +215,8 @@ services:
       - zookeeper_log:/var/lib/zookeeper/log
     networks:
       - datalake-net
-    restart: unless-stopped
+    ports:
+      - "2181:2181"
 
   kafka:
     image: confluentinc/cp-kafka:7.4.4

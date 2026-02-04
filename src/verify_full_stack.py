@@ -365,19 +365,22 @@ class DataLakeVerifier:
             results["superset_trino"] = {"error": str(e)}
         
         # 5.3 MinIO Buckets
-        print(f"\n  {Colors.BOLD}5.3 MinIO Buckets{Colors.ENDC}")
-        # Tentar usar mc do container datalake-minio se datalake-mc falhar ou não existir
-        out, code = run_cmd("docker exec datalake-minio mc ls local 2>/dev/null")
-        if code != 0:
-             out, code = run_cmd("docker exec datalake-mc mc ls local 2>/dev/null")
+        print_section("5.3 MinIO Buckets")
+        # Estrategia robusta: Configurar alias temporario e listar
+        cmd = (
+            "docker exec datalake-minio /bin/sh -c "
+            "'mc alias set local_check http://localhost:9000 datalake datalake_minio_admin_2026 > /dev/null 2>&1 && "
+            "mc ls local_check'"
+        )
+        out, code = run_cmd(cmd)
 
         if code == 0:
-            buckets = [line.split()[-1] for line in out.splitlines() if line.strip()]
-            for bucket in buckets[:5]:
+            buckets = [line.split()[-1].replace('/', '') for line in out.splitlines() if line.strip()]
+            for bucket in buckets:
                 print_status(f"  {bucket}", "OK", "", indent=1)
             results["minio_buckets"] = buckets
         else:
-            print_status("  MinIO", "FAIL", "Não foi possível listar buckets", indent=1)
+            print_status("MinIO", "FAIL", "Não foi possível listar buckets", indent=1)
             results["minio_buckets"] = []
         
         # 5.4 Kafka Topics
